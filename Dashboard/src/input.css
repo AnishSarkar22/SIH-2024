@@ -9,6 +9,13 @@ body {
     transition: margin-left 0.3s;
 }
 
+/* styles.css */
+nav a.active {
+    background-color: #bb2e0a; /* or any color you prefer */
+    color: black; /* change text color for active link */
+}
+
+
 .sidebar {
     width: 240px;
     height: 100vh;
@@ -123,3 +130,4 @@ input:checked+.slider:before {
         margin-left: 0;
     }
 }
+
