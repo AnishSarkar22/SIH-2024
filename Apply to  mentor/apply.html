@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Apply as a Mentor</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            /* Base Flex Utilities */
+            .flex {
+                display: flex;
+            }
+
+            .items-center {
+                align-items: center;
+            }
+
+            .justify-between {
+                justify-content: space-between;
+            }
+
+            /* Stepper Container */
+            .stepper {
+                position: relative;
+                margin-bottom: 3rem;
+                /* Adjust spacing if needed */
+            }
+
+            /* Steps */
+            .step {
+                position: relative;
+                flex: 1;
+                display: flex;
+                justify-content: center;
+            }
+
+            /* Connecting Lines */
+            .step:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: calc(100% - 8rem);
+                width: calc(100%);
+                height: 2px;
+                background-color: black;
+                /* Default color for lines */
+                transform: translateY(-50%);
+            }
+
+            /* Completed Connecting Lines */
+            .step.line-completed::after {
+                background-color: #4F46E5;
+                /* Blue color for completed lines */
+            }
+
+            /* Step Icons */
+            .step-icon {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #4F46E5;
+                /* Blue background for step circles */
+                color: #ffffff;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                font-size: 1rem;
+                font-weight: bold;
+                z-index: 1;
+                /* Ensure step icon is above the line */
+            }
+
+            .step-icon::before {
+                content: attr(data-number);
+                /* Display the number */
+            }
+
+            .step-icon.completed::before {
+                content: '\f00c';
+                /* FontAwesome checkmark */
+                font-family: 'FontAwesome';
+                font-size: 1.25rem;
+                /* Adjust font size if needed */
+            }
+
+            /* Step Text */
+            .step-text {
+                background-color: #E3F2FD;
+                /* Light blue background for step text */
+                color: #4F46E5;
+            }
+
+            .avatar-icon {
+                font-size: 2rem !important;
+                /* Adjusted size to fit better inside the circle */
+                color: #131316;
+                margin-right: 1rem;
+                /* Margin to the right of the icon */
+                display: flex;
+                /* Use flexbox to center the icon */
+                align-items: center;
+                /* Center the icon vertically */
+                justify-content: center;
+                /* Center the icon horizontally */
+                width: 4rem;
+                /* Adjusted width */
+                height: 4rem;
+                /* Adjusted height */
+                border-radius: 50%;
+                /* Makes the icon circular */
+                border: 2px solid #000;
+                /* Adds a solid black border; adjust color and width as needed */
+                text-align: center;
+                /* Centers icon text horizontally */
+                box-sizing: border-box;
+                /* Ensures border is included in the element's total width and height */
+            }
+
+            /* Image Preview */
+            .image-preview {
+                max-width: 4rem;
+                /* Same size as avatar icon */
+                max-height: 4rem;
+                /* Same size as avatar icon */
+                object-fit: cover;
+                border-radius: 50%;
+                /* To make the image circular */
+                margin-right: 1rem;
+            }
+
+            /* Hidden Elements */
+            .hidden {
+                display: none;
+            }
+
+            /* Custom File Input Styling */
+            .file-input-wrapper {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+
+            .file-input {
+                display: none;
+                /* Hide the native file input */
+            }
+
+            .file-label {
+                display: flex;
+                align-items: center;
+                border: 2px solid black;
+                border-radius: 0.375rem;
+                background-color: #E3F2FD;
+                color: #4F46E5;
+                padding: 0.25rem;
+                /* Decreased padding */
+                font-weight: bold;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+                font-size: 0.7rem;
+                /* Decreased font size */
+            }
+
+            .file-label .upload-icon {
+                margin-right: 0.5rem;
+                font-size: 1rem;
+                color: #17171d;
+            }
+
+            .file-label .upload-text {
+                margin-left: 0.5rem;
+                color: black;
+            }
+
+            .file-label .avatar-icon {
+                font-size: 4rem !important;
+                /* Enforce the size */
+                color: #121216;
+                margin-right: 0.5rem;
+                display: inline-block;
+                /* Ensure it respects font-size */
+                line-height: 1;
+                /* Prevent line height from affecting the icon */
+            }
+
+            /* Upload Status */
+            .upload-status {
+                color: #4CAF50;
+                /* Green color */
+                font-weight: bold;
+                margin-top: 0.5rem;
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body class="bg-gray-50">
+        <!-- Navbar -->
+        <nav class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+                <div class="relative flex items-center justify-between h-16">
+                    <!-- Left-aligned Logo and Text -->
+                    <div class="flex items-center space-x-4">
+                        <i class="fa-solid fa-r text-indigo-600 text-3xl"></i>
+                        <span class="ml-3 text-xl font-bold text-gray-900">GUIDE Me</span>
+                    </div>
+
+                    <!-- Centered Navigation Links -->
+                    <div class="absolute inset-y-0 left-1/2 transform -translate-x-1/2 flex space-x-4">
+                        <a href="#"
+                            class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium">Home</a>
+                        <a href="#"
+                            class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium">Careers</a>
+                        <a href="#"
+                            class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium">Blog</a>
+                        <a href="#"
+                            class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium">About
+                            Us</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <h1 class="text-3xl font-bold text-gray-900 ml-40 mr-10 mt-7">Apply as a Mentor</h1>
+        <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+
+            <!-- Stepper -->
+            <div class="stepper flex items-center mb-12">
+                <div class="step flex items-center">
+                    <div id="step1" class="step-icon" data-number="1"></div>
+                </div>
+                <div class="step flex items-center">
+                    <div id="step2" class="step-icon" data-number="2"></div>
+                </div>
+                <div class="step flex items-center">
+                    <div id="step3" class="step-icon" data-number="3"></div>
+                </div>
+            </div>
+            <!-- Page 1: Profile -->
+            <div id="page1" class="form-page">
+                <div class="bg-blue-300 text-white p-4 rounded-lg mb-6">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-6 h-6 flex items-center justify-center bg-blue-800 text-white rounded-full">
+                            <i class="fa-solid fa-exclamation"></i>
+                        </span>
+                        <p class="text-lg font-semibold text-blue-800">Lovely to see you!</p>
+                    </div>
+                    <p class="text-gray-700 mt-2 text-sm">
+                        Filling out the form only takes a couple minutes. We’d love to learn more about your background
+                        and the ins-and-outs of why you’d like to become a mentor. Keep things personal and talk
+                        directly to us and your mentees. We don’t need jargon and polished cover letters here!
+                        You agree to our code of conduct and the mentor agreement by sending the form, so be sure to
+                        have a look at those.
+                    </p>
+                </div>
+                <form>
+                    <div class="mb-4 flex items-center ml-6">
+                        <i id="avatarIcon" class="fa-solid fa-user avatar-icon"></i>
+                        <img id="photoPreview" class="image-preview hidden" alt="Photo Preview">
+                        <div class="file-input-wrapper flex-1">
+                            <input type="file" id="photoInput" class="file-input" accept="image/*">
+                            <label for="photoInput" class="file-label">
+                                <i class="fa-solid fa-upload upload-icon"></i>
+                                <span class="upload-text">Upload your photo</span>
+                            </label>
+                        </div>
+                    </div>
+                    <p id="uploadStatus" class="hidden upload-status">Image uploaded</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">First name</label>
+                            <input type="text" class="w-full border border-black rounded-md p-2"
+                                placeholder="First name">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Last name</label>
+                            <input type="text" class="w-full border border-black rounded-md p-2"
+                                placeholder="Last name">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Email</label>
+                            <input type="email" class="w-full border border-black rounded-md p-2" placeholder="Email">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Password</label>
+                            <input type="password" class="w-full border border-black rounded-md p-2"
+                                placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Job Title</label>
+                            <input type="text" class="w-full border border-black rounded-md p-2"
+                                placeholder="Job Title">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Company</label>
+                            <input type="text" class="w-full border border-black rounded-md p-2" placeholder="Company">
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" id="next1" class="bg-indigo-600 text-white py-2 px-4 rounded-md">Next
+                            Step</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Page 2: Info -->
+            <div id="page2" class="form-page hidden">
+                <form>
+                    <!-- Category Section -->
+                    <p class="text-gray-700 font-bold mb-2">Category</p>
+                    <div class="mb-6 p-4 border border-black rounded-md bg-white shadow-sm">
+                        <div class="flex items-center">
+                            <input type="text" id="category" class="w-full border-black rounded-md p-2"
+                                placeholder="Category">
+                            <button type="button" class="ml-2 p-2 bg-gray-200 rounded-full">
+                                <i class="fa-solid fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <p class="text-gray-700 font-bold mb-2">Skills</p>
+                    <div class="mb-6 p-4 border border-black rounded-md bg-white shadow-sm">
+                        <textarea id="skills" class="w-full border-black rounded-md p-2" rows="2"
+                            placeholder="Add a new skill..."></textarea>
+                    </div>
+                    <p class="text-gray-500 mb-2 text-sm">
+                        Describe your expertise to connect with mentees who have similar interests.<br>
+                        Comma-separated lis of your skills (keep it below 10). Mentees will use this to find you.
+                    </p>
+
+                    <!-- Bio Section -->
+                    <p class="text-gray-700 font-bold mb-2">Bio</p>
+                    <div class="mb-6 p-4 border border-black rounded-md bg-white shadow-sm">
+                        <textarea id="bio" class="w-full border-black rounded-md p-2" rows="4"
+                            placeholder=""></textarea>
+                    </div>
+                    <p class="text-gray-500 mb-2 text-sm">
+                        This will be public. Talk about yourself in the first person, as if you’d directly talk to a
+                        mentee.
+                    </p>
+
+                    <!-- LinkedIn, Twitter, and Personal Website Section -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <!-- LinkedIn Profile -->
+                        <div>
+                            <label for="linkedin" class="block text-gray-700 font-bold mb-2">LinkedIn URL</label>
+                            <input type="url" id="linkedin" class="w-full border border-black rounded-md p-2"
+                                placeholder="https://www.linkedin.com/in/your-profile/">
+                        </div>
+
+                        <!-- Twitter Profile -->
+                        <div>
+                            <label for="twitter" class="block text-gray-700 font-bold mb-2">Twitter Handle</label>
+                            <input type="url" id="twitter" class="w-full border border-black rounded-md p-2"
+                                placeholder="https://twitter.com/your-profile">
+                        </div>
+
+                        <!-- Personal Website -->
+                        <div class="sm:col-span-2">
+                            <label for="website" class="block text-gray-700 font-bold mb-2">Personal Website</label>
+                            <input type="url" id="website" class="w-full border border-black rounded-md p-2"
+                                placeholder="https://yourwebsite.com">
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between">
+                        <button type="button" id="prev1" class="bg-indigo-600 text-white py-2 px-4 rounded-md">Previous
+                            Step</button>
+                        <button type="button" id="next2" class="bg-indigo-600 text-white py-2 px-4 rounded-md">Next
+                            Step</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="page3" class="form-page hidden">
+                <div class="bg-white rounded-lg shadow-md p-8 max-w-4xl mx-auto mt-3">
+                    <div class="bg-blue-300 text-white p-4 rounded-lg mb-6">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 flex items-center justify-center bg-blue-800 text-white rounded-full">
+                                <i class="fa-solid fa-exclamation"></i>
+                            </span>
+                            <p class="text-lg font-semibold text-blue-800">Almost there!</p>
+                        </div>
+                        <p class="text-gray-700 mt-2 text-sm">
+                            You’re just one step away from being a mentor and connecting with mentees all over the
+                            country!
+                            In this step, show off your accomplishments and how you can help others.
+                            Many of these fields are optional but will help us get better insights into your work - and
+                            therefore exponentially increase your chances. They also give you a jumpstart once you’re a
+                            mentor.
+                        </p>
+                    </div>
+
+                    <form id="mentor-form">
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div class="border  rounded-md p-4">
+                                <label for="introVideo" class="block text-sm font-medium text-gray-700 mb-1">Intro Video</label>
+                                <input type="text" id="introVideo" name="introVideo" placeholder="Paste your intro video URL"
+                                    class="w-full px-3 py-2 border border-black rounded-md">
+                            </div>
+                            <div class="border  rounded-md p-4">
+                                <label for="featuredArticle" class="block text-sm font-medium text-gray-700 mb-1">Featured Article</label>
+                                <input type="text" id="featuredArticle" name="featuredArticle" placeholder="Link an article you've written"
+                                    class="w-full px-3 py-2 border border-black rounded-md">
+                            </div>
+                        </div>
+            
+                        <div class="mb-6 border  rounded-md p-4">
+                            <label for="whyMentor" class="block text-sm font-medium text-gray-700 mb-1">Why do you want to become a mentor? (Not publicly visible)</label>
+                            <textarea id="whyMentor" name="whyMentor" rows="4"
+                                class="w-full px-3 py-2 border border-black rounded-md"></textarea>
+                        </div>
+            
+                        <div class="mb-6 border  rounded-md p-4">
+                            <label for="greatestAchievement" class="block text-sm font-medium text-gray-700 mb-1">What, in your opinion, has been your greatest achievement so far? (Not publicly visible)</label>
+                            <textarea id="greatestAchievement" name="greatestAchievement" rows="4"
+                                class="w-full px-3 py-2 border border-black rounded-md"></textarea>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between mt-8">
+                            <button type="button" id="prev2"
+                                class="bg-indigo-600 text-white py-2 px-4 rounded-md">Previous Step</button>
+                            <button type="button" id="next3" class="bg-indigo-600 text-white py-2 px-4 rounded-md">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const steps = document.querySelectorAll('.step');
+                    const stepIcons = document.querySelectorAll('.step-icon');
+                    const formPages = document.querySelectorAll('.form-page');
+                    let currentPage = 0;
+
+                    function updateStepper() {
+                        stepIcons.forEach((icon, index) => {
+                            if (index < currentPage) {
+                                icon.classList.add('completed');
+                            } else {
+                                icon.classList.remove('completed');
+                            }
+                        });
+
+                        steps.forEach((step, index) => {
+                            if (index < currentPage) {
+                                step.classList.add('line-completed');
+                            } else {
+                                step.classList.remove('line-completed');
+                            }
+                        });
+
+                        if (currentPage > 0) {
+                            steps[currentPage - 1].classList.add('line-completed');
+                        }
+                    }
+
+                    function showPage(index) {
+                        formPages.forEach((page, i) => {
+                            page.classList.toggle('hidden', i !== index);
+                        });
+                        updateStepper();
+                    }
+
+                    document.getElementById('next1').addEventListener('click', function () {
+                        currentPage = 1;
+                        showPage(currentPage);
+                    });
+
+                    document.getElementById('prev1').addEventListener('click', function () {
+                        currentPage = 0;
+                        showPage(currentPage);
+                    });
+
+                    document.getElementById('next2').addEventListener('click', function () {
+                        currentPage = 2;
+                        showPage(currentPage);
+                    });
+
+                    document.getElementById('prev2').addEventListener('click', function () {
+                        currentPage = 1;
+                        showPage(currentPage);
+                    });
+
+                    document.getElementById('submit')?.addEventListener('click', function () {
+                        alert('Form submitted!');
+                    });
+
+                    // File input change handler for preview
+                    document.getElementById('photoInput')?.addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                document.getElementById('photoPreview')?.setAttribute('src', e.target.result);
+                                document.getElementById('photoPreview')?.classList.remove('hidden');
+                                document.getElementById('avatarIcon')?.classList.add('hidden');
+                                document.getElementById('uploadStatus')?.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+
+                    updateStepper();
+                    showPage(currentPage);
+                });
+
+            </script>
+    </body>
+
+</html>
