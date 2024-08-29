@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+
+body {
+    background-color: #9fe6ca;
+    transition: margin-left 0.3s;
+}
+
+/* styles.css */
+nav a.active {
+    background-color: #bb2e0a; /* or any color you prefer */
+    color: white; /* change text color for active link */
+}
+
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #69c39ff3;
+    transition: width 0.3s;
+}
+
+.sidebar.shrink {
+    width: 80px;
+    /* Adjust width when sidebar is collapsed */
+}
+
+.sidebar .sidebar-text {
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.sidebar.shrink .sidebar-text {
+    opacity: 0;
+    /* Hide text in the collapsed sidebar */
+    visibility: hidden;
+    /* Ensure text does not take up space */
+}
+
+.sidebar .sidebar-icon {
+    font-size: 1.5rem;
+    /* Adjust icon size as needed */
+}
+
+.sidebar.shrink .sidebar-icon {
+    display: block;
+}
+
+.main-content {
+    margin-left: 240px;
+    transition: margin-left 0.3s;
+}
+
+.main-content.sidebar-shrink {
+    margin-left: 80px;
+    /* Adjust margin when sidebar is collapsed */
+}
+
+.mentor-card {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: darkgreen;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: lightgreen;
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+    background-color: black;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar.shrink {
+        width: 100%;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .main-content.sidebar-shrink {
+        margin-left: 0;
+    }
+}
+

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mentee Dashboard</title>
+        <link href="output.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="dashboardm.js" defer></script>
+    </head>
+
+    <body class="font-sans  dark:bg-gray-900 dark:text-white">
+        <div class="flex">
+            <aside id="sidebar"
+                class="sidebar bg-white dark:bg-gray-800 dark:text-white p-6 flex flex-col h-screen w-64">
+                <div class="flex items-center justify-center mb-6">
+                    <i class="fas fa-r text-4xl text-center"></i>
+                    <!-- <h1 class="text-2xl font-light text-gray-500 font-['Julius_Sans_One'] sidebar-text">REBOOTERS</h1> -->
+                </div>
+
+
+                <button id="menuToggle" class="fas fa-bars text-2xl cursor-pointer mb-6 self-end"></button>
+
+                <nav class="flex flex-col flex-grow space-y-4">
+                    <a href="dashboardm.html"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] active:bg-[#f6a870] active:text-white">
+                        <i class="fas fa-home text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Home</span>
+                    </a>
+                    <a href="classesm.html"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fa-solid fa-user-group text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Classes</span>
+                    </a>
+                    <a href="mentorsm.html"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fas fa-user-tie text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Mentors</span>
+                    </a>
+                    <a href="bookmarksm.html"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fas fa-bookmark text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Bookmarks</span>
+                    </a>
+                    <a href="messagesm.html"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fa-solid fa-inbox text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Messages</span>
+                    </a>
+                    <a href="settingm.html"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fas fa-cog text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Settings</span>
+                    </a>
+                </nav>
+
+
+                <a href="signoutm.html"
+                    class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] mt-auto">
+                    <i class="fas fa-sign-out-alt text-xl w-8 text-center"></i>
+                    <span class="ml-3 text-lg sidebar-text">Sign Out</span>
+                </a>
+            </aside>
+
+            <main class="main-content p-8 w-full">
+                <header class="flex justify-between items-center mb-8">
+                    <div class="relative flex-grow mr-4">
+                        <input type="text" placeholder="Search Mentors..."
+                            class="w-7/12 p-2 pl-10 rounded-full border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm shadow-gray-600">
+                        <i
+                            class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <button id="darkModeToggle"
+                            class="text-green-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 ">
+                            <i id="darkModeIcon" class="fas"></i>
+                        </button>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeCheckbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <!-- Notification Icon with Dropdown -->
+                        <div class="relative">
+                            <button id="dropdownNotificationButton"
+                                class="text-green-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 14 20">
+                                    <path
+                                        d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z" />
+                                </svg>
+                                <div
+                                    class="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5 dark:border-gray-900">
+                                </div>
+                            </button>
+                            <!-- Dropdown Menu -->
+                            <div id="dropdownNotification"
+                                class="z-20 hidden absolute right-0 w-64 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:divide-gray-700"
+                                aria-labelledby="dropdownNotificationButton">
+                                <div
+                                    class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+                                    Notifications
+                                </div>
+                                <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                                    <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <div class="flex-shrink-0 relative">
+                                            <img class="rounded-full w-11 h-11"
+                                                src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
+                                            <div
+                                                class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
+                                                <svg class="w-2 h-2 text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                    viewBox="0 0 18 18">
+                                                    <path
+                                                        d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z" />
+                                                    <path
+                                                        d="M4.439 9a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239Z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="w-full ps-3">
+                                            <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">New message
+                                                from <span class="font-semibold text-gray-900 dark:text-white">Jese
+                                                    Leos</span>: "Hey, what's up? All set for the presentation?"</div>
+                                            <div class="text-xs text-blue-600 dark:text-blue-500">a few moments ago
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notification items here -->
+                                </div>
+                                <a href="#"
+                                    class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                                    <div class="inline-flex items-center ">
+                                        <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                                            <path
+                                                d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                                        </svg>
+                                        View all
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Profile Icon and Text -->
+                        <div class="flex items-center justify-center bg-green-200 dark:bg-gray-600 rounded-xl p-2">
+                            <i class="fas fa-user-circle text-4xl text-green-600 mr-2"></i>
+                            <span class="font-semibold text-center">John Doe</span>
+                        </div>
+                        <!-- Create Session Button -->
+                        <button
+                            class="flex items-center px-4 py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 hover:bg-blue-400 dark:bg-gray-700 dark:text-white dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <i class="fa-solid fa-plus mr-2"></i> <!-- Plus Icon -->
+                            <span>Create Session</span> <!-- Button Text -->
+                        </button>
+                    </div>
+                </header>
+
+                <div class="flex-1 p-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h1 class="text-2xl font-bold">Hello, Radhika Sharma</h1>
+                            <p class="text-sm text-gray-600">radhikashma@gmail.com</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-blue-600 font-semibold">Verified mentor</span>
+                            <i class="fas fa-check-circle text-blue-600"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="text-lg font-semibold mb-3 dark:text-white">Quick actions</h2>
+
+                    <div class="grid grid-cols-3 gap-6">
+                        <!-- Quick Actions and Meetings Availability -->
+                        <div class="grid grid-cols-2 gap-4 col-span-3">
+                            <!-- Quick Actions -->
+                            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow h-full">
+                                <h2 class="text-lg font-semibold text-black dark:text-white mb-3">Schedule Meetings</h2>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="far fa-calendar-alt text-4xl mr-4 text-black dark:text-white"></i>
+                                        <div class="flex flex-col justify-center">
+                                            <h3
+                                                class="font-bold text-2xl leading-tight text-black dark:text-white">
+                                                Upcoming 3 meeting
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col space-y-2">
+                                        <button
+                                            class="px-10 py-1 border border-gray-700 dark:border-gray-600 text-black dark:text-gray-300 rounded">
+                                            View
+                                        </button>
+                                        <button class="px-10 py-1 text-black relative border border-gray-700 dark:border-gray-600  dark:text-gray-300 rounded">
+                                            New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Meetings Availability -->
+                            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow h-full">
+                                <h2 class="text-lg font-semibold mb-3 dark:text-white">Meetings Availability</h2>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="far fa-clock text-4xl mr-4 text-black dark:text-white"></i>
+                                        <div class="flex flex-col justify-center">
+                                            <p class="font-semibold text-xl text-black dark:text-white">11:00 AM -
+                                                10:00 PM</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Indian Standard Time
+                                                (IST)</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col space-y-2">
+                                        <button
+                                            class="px-3 py-1 border border-gray-700 dark:border-gray-600 text-black dark:text-white rounded">Sync
+                                            Calendar</button>
+                                        <button class="px-3 py-1 text-black dark:text-white rounded relative border border-gray-700">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Your impact at a glance and Upcoming Meetings -->
+                        <div class="mt-6 grid grid-cols-2 gap-6 col-span-3">
+                            <!-- Your impact at a glance -->
+                            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow h-full">
+                                <h2 class="text-lg font-semibold mb-3 dark:text-gray-300">Your impact at a glance</h2>
+                                <div class="grid grid-cols-2 gap-6 flex-1">
+                                    <div class="text-center">
+                                        <p class="text-3xl font-bold text-blue-600">80</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">1:1 Bookings</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500">This month: 32</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-3xl font-bold text-orange-500">23,461</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Minutes mentored</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500">This month: 1,531</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-3xl font-bold text-red-500">890</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Session RSVPs</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500">This month: 120</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-3xl font-bold text-blue-400">34</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Reviews</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500">This month: 03</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upcoming Meetings -->
+                            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm shadow-gray-700">
+                                <h2 class="text-xl font-semibold text-center mb-4 dark:text-gray-300">Upcoming Meetings
+                                </h2>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                                            <span>Sapna Mukherjee</span>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">Group</span>
+                                            <span class="text-gray-600">11:40</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-user text-green-500 mr-2"></i>
+                                            <span>Neha Dhupia</span>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">One-to-One</span>
+                                            <span class="text-gray-600">12:30</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-user text-green-500 mr-2"></i>
+                                            <span>Mayowa Ade</span>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">One-to-One</span>
+                                            <span class="text-gray-600">13:40</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                                            <span>Joshua Ashiru</span>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">Group</span>
+                                            <span class="text-gray-600">15:30</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                                            <span>Olawuyi Tobi</span>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">Group</span>
+                                            <span class="text-gray-600">19:30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+
+</html>
