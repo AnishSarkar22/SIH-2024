@@ -28,22 +28,22 @@
                     <i class="fa-solid fa-user-group text-xl w-8 text-center"></i>
                     <span class="ml-3 text-lg sidebar-text">Classes</span>
                 </a>
-                <a href="#"
+                <a href="mentors.html"
                     class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                     <i class="fas fa-user-tie text-xl w-8 text-center"></i>
                     <span class="ml-3 text-lg sidebar-text">Mentors</span>
                 </a>
-                <a href="#"
+                <a href="bookmarks.html"
                     class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                     <i class="fas fa-bookmark text-xl w-8 text-center"></i>
                     <span class="ml-3 text-lg sidebar-text">Bookmarks</span>
                 </a>
-                <a href="#"
+                <a href="messages.html"
                     class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                     <i class="fa-solid fa-inbox text-xl w-8 text-center"></i>
                     <span class="ml-3 text-lg sidebar-text">Messages</span>
                 </a>
-                <a href="#"
+                <a href="settings.html"
                     class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                     <i class="fas fa-cog text-xl w-8 text-center"></i>
                     <span class="ml-3 text-lg sidebar-text">Settings</span>
@@ -121,122 +121,125 @@
             </header>
 
             <!-- Calendar and Upcoming Activities -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Calendar Section -->
-                <div class="col-span-2 shadow-md shadow-slate-700 dark:shadow-slate-100">
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 min-h-[500px]">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-3xl mb-3 ml-2">My Progress</h2>
-                            <button id="prev-month" class="text-gray-600 dark:text-gray-300">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <h2 id="month-year" class="text-lg font-semibold">Month Year</h2>
-                            <button id="next-month" class="text-gray-600 dark:text-gray-300">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
+            <div class="flex-1 p-6">
+                <div class="grid lg:grid-cols-3 gap-3">
+                    <!-- Upcoming Activities Section -->
+                    <div class="lg:col-span-2 max-w-[3000px]">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                            <h2 class="text-lg font-semibold mb-4">Upcoming Activities</h2>
+                            <div id="scrollable-container" class="h-[30rem] overflow-y-auto scrollbar-thin">
+                                <ul class="space-y-4">
+                                    <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 text-white font-semibold text-lg">
+                                            8
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <h3 class="text-sm font-semibold">Life Contingency Tutorials</h3>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">8th - 10th July 2021 • 8 AM - 9 AM</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">Edulog Tutorial College, Blk 56, Lagos State.</p>
+                                        </div>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">Join</button>
+                                    </li>
+                                    <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-pink-500 text-white font-semibold text-lg">
+                                            13
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <h3 class="text-sm font-semibold">Social Insurance Test</h3>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">13th July 2021 • 8 AM - 9 AM</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">School Hall, University Road, Lagos State</p>
+                                        </div>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">Join</button>
+                                    </li>
+                                    <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white font-semibold text-lg">
+                                            18
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <h3 class="text-sm font-semibold">Adv. Maths Assignment Due</h3>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">18th July 2021 • 8 AM - 9 AM</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">*To be submitted via Email</p>
+                                        </div>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">Join</button>
+                                    </li>
+                                    <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-orange-500 text-white font-semibold text-lg">
+                                            23
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <h3 class="text-sm font-semibold">Dr. Dipo's Tutorial Class</h3>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">23rd July 2021 • 10 AM - 1 PM</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">Edulog Tutorial College, Blk 56, Lagos State.</p>
+                                        </div>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">Join</button>
+                                    </li>
+                                    <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-orange-500 text-white font-semibold text-lg">
+                                            23
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <h3 class="text-sm font-semibold">Dr. Dipo's Tutorial Class</h3>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">23rd July 2021 • 10 AM - 1 PM</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">Edulog Tutorial College, Blk 56, Lagos State.</p>
+                                        </div>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">Join</button>
+                                    </li>
+                                    <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-orange-500 text-white font-semibold text-lg">
+                                            23
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <h3 class="text-sm font-semibold">Dr. Dipo's Tutorial Class</h3>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">23rd July 2021 • 10 AM - 1 PM</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">Edulog Tutorial College, Blk 56, Lagos State.</p>
+                                        </div>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">Join</button>
+                                    </li>
+                                    <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-orange-500 text-white font-semibold text-lg">
+                                            23
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <h3 class="text-sm font-semibold">Dr. Dipo's Tutorial Class</h3>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">23rd July 2021 • 10 AM - 1 PM</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-300">Edulog Tutorial College, Blk 56, Lagos State.</p>
+                                        </div>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">Join</button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-7 gap-4 mb-4 mt-10">
-                            <!-- Days of the Week -->
-                            <div class="text-center font-medium py-2">Mo</div>
-                            <div class="text-center font-medium py-2">Tu</div>
-                            <div class="text-center font-medium py-2">We</div>
-                            <div class="text-center font-medium py-2">Th</div>
-                            <div class="text-center font-medium py-2">Fr</div>
-                            <div class="text-center font-medium py-2">Sa</div>
-                            <div class="text-center font-medium py-2">Su</div>
-                        </div>
-                        <div id="calendar-days" class="grid grid-cols-7 gap-4">
-                            <!-- Example dates with updated sizes and padding -->
-                            <div class="flex items-center justify-center h-16 w-16 bg-gray-200 dark:bg-gray-700 rounded-full text-xl font-semibold py-4">
-                                1
+                    </div>
+            
+                    <!-- Calendar Section -->
+                    <div class="shadow-md max-w-[2000px] h-[20rem] mt-0"> <!-- Reduced gap by setting mt-0 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 h-full">
+                            <h2 class="text-lg font-semibold mb-4">My Progress</h2>
+                            <div class="flex items-center justify-between mb-4">
+                                <button class="text-gray-600 dark:text-gray-300" id="prev-month">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h2 class="text-md font-semibold" id="month-year">July 2021</h2>
+                                <button class="text-gray-600 dark:text-gray-300" id="next-month">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
                             </div>
-                            <div class="flex items-center justify-center h-16 w-16 bg-gray-200 dark:bg-gray-700 rounded-full text-xl font-semibold py-4">
-                                2
+                            <div class="grid grid-cols-7 gap-2" id="calendar-days">
+                                <!-- Days of the Week -->
+                                <div class="text-center font-medium py-2">Mo</div>
+                                <div class="text-center font-medium py-2">Tu</div>
+                                <div class="text-center font-medium py-2">We</div>
+                                <div class="text-center font-medium py-2">Th</div>
+                                <div class="text-center font-medium py-2">Fr</div>
+                                <div class="text-center font-medium py-2">Sa</div>
+                                <div class="text-center font-medium py-2">Su</div>
                             </div>
-                            <div class="flex items-center justify-center h-16 w-16 bg-gray-200 dark:bg-gray-700 rounded-full text-xl font-semibold py-4">
-                                3
-                            </div>
-                            <!-- Repeat similar blocks for other days -->
                         </div>
                     </div>
                 </div>
-
-                <!-- Upcoming Activities Section -->
-                <div>
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 min-h-[500px] shadow-slate-700 dark:shadow-slate-100">
-                        <h2 class="text-lg font-semibold mb-4">Upcoming Activities</h2>
-                        <ul class="space-y-4 max-h-[400px] overflow-y-auto">
-                            <li class="bg-green-300 dark:bg-gray-700 p-4 rounded-lg shadow">
-                                <div class="flex items-start">
-                                    <div class="w-1/4 text-gray-500 flex items-center justify-center">
-                                        <div class="w-12 h-12 rounded-full bg-blue-400 text-white flex items-center justify-center font-semibold">
-                                            <span>01</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-3/4 ml-4">
-                                        <div class="font-semibold mb-1">Activity 1</div>
-                                        <p class="text-gray-600 dark:text-gray-300">Details about the activity.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="bg-green-300 dark:bg-gray-700 p-4 rounded-lg shadow">
-                                <div class="flex items-start">
-                                    <div class="w-1/4 text-gray-500 flex items-center justify-center">
-                                        <div class="w-12 h-12 rounded-full bg-red-400 text-white flex items-center justify-center font-semibold">
-                                            <span>02</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-3/4 ml-4">
-                                        <div class="font-semibold mb-1">Activity 2</div>
-                                        <p class="text-gray-600 dark:text-gray-300">Details about the activity.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="bg-green-300 dark:bg-gray-700 p-4 rounded-lg shadow">
-                                <div class="flex items-start">
-                                    <div class="w-1/4 text-gray-500 flex items-center justify-center">
-                                        <div class="w-12 h-12 rounded-full bg-green-400 text-white flex items-center justify-center font-semibold">
-                                            <span>03</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-3/4 ml-4">
-                                        <div class="font-semibold mb-1">Activity 3</div>
-                                        <p class="text-gray-600 dark:text-gray-300">Details about the activity.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="bg-green-300 dark:bg-gray-700 p-4 rounded-lg shadow">
-                                <div class="flex items-start">
-                                    <div class="w-1/4 text-gray-500 flex items-center justify-center">
-                                        <div class="w-12 h-12 rounded-full bg-yellow-500 text-white flex items-center justify-center font-semibold">
-                                            <span>04</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-3/4 ml-4">
-                                        <div class="font-semibold mb-1">Activity 4</div>
-                                        <p class="text-gray-600 dark:text-gray-300">Details about the activity.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="bg-green-300 dark:bg-gray-700 p-4 rounded-lg shadow">
-                                <div class="flex items-start">
-                                    <div class="w-1/4 text-gray-500 flex items-center justify-center">
-                                        <div class="w-12 h-12 rounded-full bg-orange-400 text-white flex items-center justify-center font-semibold">
-                                            <span>05</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-3/4 ml-4">
-                                        <div class="font-semibold mb-1">Activity 5</div>
-                                        <p class="text-gray-600 dark:text-gray-300">Details about the activity.</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
             </div>
-        </main>
+            
+            
     </div>
 </body>
 </html>
