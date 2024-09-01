@@ -1,0 +1,19 @@
+.DS_Store 
+Thumbs.db
+Desktop.ini 
+# Editor directories and files
+.venv/
+.vscode/   
+.idea/
+*.swp
+*.swo
+*.swn
+# Temporary or cache files
+*.tmp
+*.temp
+*.cache
+*.bak
+# Others
+*.log
+__pycache__/
+node_modules/

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mentee Dashboard</title>
+        <link href="/static/css/dashboard/output.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="/static/js/dashboard/dashboard.js" defer></script>
+    </head>
+
+    <body class="font-sans  dark:bg-gray-900 dark:text-white">
+        <div class="flex">
+            <aside id="sidebar"
+                class="sidebar bg-white dark:bg-gray-800 dark:text-white p-6 flex flex-col h-screen w-64">
+                <div class="flex items-center justify-center mb-6">
+                    <i class="fas fa-r text-4xl text-center"></i>
+                    <!-- <h1 class="text-2xl font-light text-gray-500 font-['Julius_Sans_One'] sidebar-text">REBOOTERS</h1> -->
+                </div>
+                
+
+                <button id="menuToggle" class="fas fa-bars text-2xl cursor-pointer mb-6 self-end"></button>
+
+                <nav class="flex flex-col flex-grow space-y-4">
+                    <a href="/templates/dashboard.html"
+                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] active:bg-[#f6a870] active:text-white">
+                        <i class="fas fa-home text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Home</span>
+                    </a>
+                    <a href="/templates/classes.html"
+                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fa-solid fa-user-group text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Classes</span>
+                    </a>
+                    <a href="#"
+                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fas fa-user-tie text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Mentors</span>
+                    </a>
+                    <a href="#"
+                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fas fa-bookmark text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Bookmarks</span>
+                    </a>
+                    <a href="#"
+                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fa-solid fa-inbox text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Messages</span>
+                    </a>
+                    <a href="#"
+                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        <i class="fas fa-cog text-xl w-8 text-center"></i>
+                        <span class="ml-3 text-lg sidebar-text">Settings</span>
+                    </a>
+                </nav>
+                
+                
+                <a href="#"
+                    class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] mt-auto">
+                    <i class="fas fa-sign-out-alt text-xl w-8 text-center"></i>
+                    <span class="ml-3 text-lg sidebar-text">Sign Out</span>
+                </a>
+            </aside>
+
+            <main class="main-content p-8 w-full">
+                <header class="flex justify-between items-center mb-8">
+                    <div class="relative flex-grow mr-4">
+                        <input type="text" placeholder="Search Mentors..."
+                            class="w-7/12 p-2 pl-10 rounded-full border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm shadow-gray-600">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <button id="darkModeToggle"
+                            class="text-green-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 ">
+                            <i id="darkModeIcon" class="fas"></i>
+                        </button>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeCheckbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <!-- Notification Icon with Dropdown -->
+                        <div class="relative">
+                            <button id="dropdownNotificationButton" class="text-green-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20">
+                                    <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z"/>
+                                </svg>
+                                <div class="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5 dark:border-gray-900"></div>
+                            </button>
+                            <!-- Dropdown Menu -->
+                            <div id="dropdownNotification" class="z-20 hidden absolute right-0 w-64 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownNotificationButton">
+                                <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+                                    Notifications
+                                </div>
+                                <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                                    <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <div class="flex-shrink-0 relative">
+                                            <img class="rounded-full w-11 h-11" src="../static/images/dashboard/img1.jpeg" alt="Jese image">
+                                            <div class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
+                                                <svg class="w-2 h-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                                    <path d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z"/>
+                                                    <path d="M4.439 9a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239Z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="w-full ps-3">
+                                            <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">New message from <span class="font-semibold text-gray-900 dark:text-white">Jese Leos</span>: "Hey, what's up? All set for the presentation?"</div>
+                                            <div class="text-xs text-blue-600 dark:text-blue-500">a few moments ago</div>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notification items here -->
+                                </div>
+                                <a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                                    <div class="inline-flex items-center ">
+                                        <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                                            <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+                                        </svg>
+                                        View all
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center bg-green-200 dark:bg-gray-600 rounded-xl p-2">
+                            <i class="fas fa-user-circle text-4xl text-green-600 mr-2"></i>
+                            <span class="font-semibold text-center">John Doe</span>
+                        </div>
+                    </div>
+                </header>
+                
+
+                <h1 class="text-3xl font-bold mb-8 text-center">Welcome back, John 👋</h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- Chat with AI -->
+                    <div class="bg-white rounded-lg shadow-sm shadow-gray-900 p-6 dark:bg-gray-800">
+                        <h2 class="text-xl font-semibold mb-4 text-center">Chat with AI</h2>
+                        <div class="bg-gray-100 p-4 rounded-lg  mb-4 dark:bg-gray-800">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-user-circle text-6xl rounded-full text-green-600 mr-2 p-2"></i>
+                                <div>
+                                    <p class="font-semibold text-2xl">John</p>
+                                    <p class=" text-gray-500 text-md">12:49 pm Aug 19 2024</p>
+                                </div>
+                            </div>
+                            <!-- <p class="text-gray-700 dark:text-gray-300">What do you need help with?</p> -->
+                        </div>
+                        <input type="text" placeholder="What do you need help with?"
+                            class="w-full p-3 rounded-lg border shadow-sm shadow-gray-700 border-gray-300 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-gray-300 dark:border-gray-800">
+                            <a href="#" class="text-blue-500 hover:underline flex justify-center text-center">Continue your Conversation →</a>
+
+                    </div>
+
+                    <!-- Your Plan -->
+                    <div class="bg-white rounded-lg shadow-sm shadow-gray-700 p-6 dark:bg-gray-800">
+                        <h2 class="text-xl font-semibold text-center mb-4 dark:text-gray-300">Your Plan</h2>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                                    <span>Mayowa Ade</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">Group</span>
+                                    <span class="text-gray-600">09:34</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-user text-green-500 mr-2"></i>
+                                    <span>Gautam Nigam</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">One-to-One</span>
+                                    <span class="text-gray-600">11:30</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-user text-green-500 mr-2"></i>
+                                    <span>Mayowa Ade</span>
+                                </div>
+                                <div>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold
+                                    dark:text-green-500">One-to-One</span>
+                                    <span class="text-gray-600">13:40</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                                    <span>Joshua Ashiru</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">Group</span>
+                                    <span class="text-gray-600">15:30</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                                    <span>Olawuyi Tobi</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">Group</span>
+                                    <span class="text-gray-600">19:30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Recommended for You Section -->
+                <div class="flex-grow mt-5 bg-white rounded-lg shadow-sm shadow-gray-700 p-6 mb- dark:bg-gray-800">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Recommended for You</h2>
+                    <div class="relative w-full max-w-5xl mx-auto">
+                        <div class="flex items-center justify-between">
+                            <!-- Left Arrow -->
+                            <button type="button"
+                                class="absolute left-0 -ml-8 transform -translate-y-1/2 top-1/2 p-2 bg-white rounded-full shadow-md focus:outline-none"
+                                data-carousel-prev>
+                                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7" />
+                                </svg>
+                                <span class="sr-only">Previous</span>
+                            </button>
+
+                            <!-- Mentor Cards Container -->
+                            <div class="relative flex space-x-12 overflow-x-auto scrollbar-hide px-8 ml-2">
+                                <!-- Mentor Card 1 -->
+                                <div
+                                    class="flex-shrink-0 w-[28rem] bg-gray-300 rounded-lg p-6 dark:bg-gray-700 shadow-sm shadow-gray-700">
+                                    <div class="flex items-start mb-4">
+                                        <img src="../static/images/dashboard/img1.jpeg" alt="Thomas John"
+                                            class="w-24 h-24 rounded-lg border-2" />
+                                        <div class="ml-4">
+                                            <h3 class="font-semibold text-lg text-gray-900 dark:text-white">Thomas John
+                                            </h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">Lead SRE @ MICROSOFT</p>
+                                            <div class="flex items-center mt-1">
+                                                <svg class="w-5 h-5 text-yellow-400 fill-current" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                                </svg>
+                                                <span class="text-sm text-gray-600 dark:text-gray-300 ml-1">5.0 (44
+                                                    reviews)</span>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="ml-auto font-semibold text-gray-900 dark:text-gray-100">₹5000/mo</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Azure</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Cloud</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Google
+                                            Cloud</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Python</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Ansible</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Kubernetes</span>
+                                    </div>
+                                </div>
+
+                                <!-- Mentor Card 2 -->
+                                <div
+                                    class="flex-shrink-0 w-[28rem] bg-gray-300 rounded-lg shadow-sm shadow-gray-700 p-6 dark:bg-gray-700">
+                                    <div class="flex items-start mb-4">
+                                        <img src="../static/images/dashboard/img2.jpeg" alt="Radhika Sharma"
+                                            class="w-24 h-24 rounded-lg" />
+                                        <div class="ml-4">
+                                            <h3 class="font-semibold text-lg text-gray-900 dark:text-white">Radhika
+                                                Sharma</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">Research and Development
+                                                @ njm</p>
+                                            <div class="flex items-center mt-1">
+                                                <svg class="w-5 h-5 text-yellow-400 fill-current" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                                </svg>
+                                                <span class="text-sm text-gray-600 dark:text-gray-300 ml-1">5.0 (18
+                                                    reviews)</span>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="ml-auto font-semibold text-gray-900 dark:text-gray-100">₹6000/mo</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Brand
+                                            Strategy</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Personal
+                                            Branding</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Marketing</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Leadership</span>
+                                        <span
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm dark:bg-gray-600 dark:text-gray-200">Social
+                                            Media</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Arrow -->
+                            <button type="button"
+                                class="absolute right-0 -mr-8 transform -translate-y-1/2 top-1/2 p-2 bg-white rounded-full shadow-md focus:outline-none"
+                                data-carousel-next>
+                                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                <span class="sr-only">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Frequently Asked Questions -->
+                <div class="bg-white mt-6 dark:bg-gray-800 p-8 rounded-lg shadow-sm shadow-gray-700">
+                    <h2 class="text-2xl font-semibold mb-8 text-gray-900 dark:text-gray-100 text-center">Frequently
+                        Asked Questions</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- FAQ 1 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">How can I get in touch with
+                                a mentor?</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">We offer two main ways to get in touch with
+                                a mentor, the regular <span class="font-semibold dark:font-medium">long-term
+                                    mentorship</span> through application, and by booking a session.</p>
+                        </div>
+                        <!-- FAQ 2 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">How much do mentors cost?
+                                How does pricing work?</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">Each mentor offers multiple pricing tiers
+                                and has different offers. With the mentorship subscription, you'll get charged the
+                                monthly fee of the mentor you're subscribed to. If you book a session, you'll be charged
+                                the price of the session once.</p>
+                        </div>
+                        <!-- FAQ 3 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">What can I expect from
+                                mentors?</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">Mentors are vetted and continuously
+                                evaluated based on their performances, with the goal to only have the best mentors
+                                available to you. Their goal is to get you closer to your goal with the services booked
+                                in your plan.</p>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">However, mentors are professionals in the
+                                industry, offering their free time to help you reach your goals. You'll typically
+                                receive replies within a few hours and will have pre-scheduled meetings with your
+                                mentor, but they cannot be available to you 24/7.</p>
+                        </div>
+                        <!-- FAQ 4 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">My mentor hasn't responded
+                                to my application in some days, what should I do?</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">We're continuously looking after the
+                                mentors and their activity. However, at times it can be the case that a mentor is
+                                unavailable, even though they were recently active. In that case, if you have not
+                                received a reply in more than 5 days, it's a safe bet to reach out to someone else.</p>
+                        </div>
+                        <!-- FAQ 5 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Can I withdraw my
+                                applications?</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">If you've changed your mind about a mentor,
+                                you can withdraw your application. The withdrawal option is available three days after
+                                your application, to allow the mentor to react.</p>
+                        </div>
+                        <!-- FAQ 6 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">How many mentors can I
+                                reach out to?</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mt-2">We impose a light limit on the number of
+                                mentors you can reach out to in a given day and week for spam and security reasons.
+                                However, there's no limit on the number of mentors you can subscribe to.</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-center">
+                        <button class="bg-[#69c39ff3] dark:bg-blue-500 text-white py-2 px-4 rounded-lg">
+                            Read more
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    </body>
+
+</html>

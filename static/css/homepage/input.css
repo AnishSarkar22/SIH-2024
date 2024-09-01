@@ -1,0 +1,219 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base;
+
+@layer base {
+    /****** BE VIETNAM PRO - 500 - REGULAR ******/
+    @font-face {
+        font-family: 'Be Vietnam Pro';
+        font-style: normal;
+        font-weight: 400;
+        src:    url('/static/css/homepage/fonts/BeVietnamPro-Regular.woff'), format('woff'),
+                url('/static/css/homepage/fonts/BeVietnamPro-Regular.woff2'), format('woff2');
+        font-display: swap;
+    }
+    
+    /****** BE VIETNAM PRO - 500 - MEDIUM ******/
+    
+    @font-face {
+        font-family: 'Be Vietnam Pro';
+        font-weight: 500;
+        src:    url('/static/css/homepage/fonts/BeVietnamPro-Medium.woff'), format('woff'),
+                url('/static/css/homepage/fonts/BeVietnamPro-Medium.woff2'), format('woff2');
+        font-display: swap;
+    }
+    
+    /****** BE VIETNAM PRO - 700 - BOLD ******/
+    
+    @font-face {
+        font-family: 'Be Vietnam Pro';
+        font-weight: 700;
+        font-style: normal;
+        src:    url('/static/css/homepage/fonts/BeVietnamPro-Bold.woff'), format('woff'),
+                url('/static/css/homepage/fonts/BeVietnamPro-Bold.woff2'), format('woff2');
+        font-display: swap;
+    }
+
+    body {
+        font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    h1 {
+        @apply font-bold;
+        @apply text-darkBlue;
+    }
+
+    h2 {
+        @apply font-medium;
+        @apply font-bold;
+    }
+
+    p {
+        @apply font-normal;
+        @apply text-base;
+    }
+
+    .button a {
+        @apply font-bold;
+        @apply text-sm;
+    }
+
+    h1, h2, h3, h5 {
+        @apply text-darkBlue;
+    }
+
+    .social-icons-footer {
+        scale: 1.3;
+        @media only screen and (max-width: 376px) {
+            scale: 5;
+        }
+    }
+
+    .input-failed {
+        border: .0625rem solid #f25f3a;
+    }
+
+    .input-success {
+        border: .0625rem solid #9095a7;
+    }
+}
+
+/******** MOBILE HAMBURGER MENU ********/
+
+#mobile-nav-btn {
+    position: relative;
+    z-index: 2;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  #mobile-nav-btn span {
+    width: 1.25rem;
+    height: .1875rem;
+    background-color: #242d52;
+    display: flex;
+    position: absolute;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+  }
+
+  #mobile-nav-btn span:nth-child(1) {
+    top: 30%;
+  }
+
+  #mobile-nav-btn span:nth-child(2) {
+    top: 60%;
+  }
+
+  #mobile-nav-btn span:nth-child(3) {
+    top: 90%;
+  }
+
+  #mobile-nav-btn.open span:nth-child(1) {
+    top: 50%;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+  }
+
+  #mobile-nav-btn.open span:nth-child(2) {
+    top: 50%;
+    opacity: 0;
+  }
+
+  #mobile-nav-btn.open span:nth-child(3) {
+    top: 50%;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+  }
+
+/******** SWIPER PAGINATION BUBBLE ********/
+
+.swiper-pagination {
+    height: fit-content;
+    margin-top: 9.375rem;
+}
+
+.swiper-pagination-bullet {
+    border: .0625rem solid #f25f3a;
+    background-color: transparent;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #f25f3a;
+}
+
+@media only screen and (min-width: 700px) {
+    .swiper-pagination {
+        display: none;
+    }
+}
+
+
+/************************ IMAGES ************************/
+
+body {
+    background-image: url('/static/images/homepage/bg-tablet-pattern.svg');
+    background-size: 50rem;
+    background-repeat: no-repeat;
+    background-position: 120% -8%;
+}
+
+#features {
+    background-image: url('/static/images/homepage/bg-tablet-pattern.svg');
+    background-size: 50rem;
+    background-repeat: no-repeat;
+    background-position: -80% -155%;
+}
+
+#cta-section {
+    background-image: url('/static/images/homepage/bg-simplify-section-desktop.svg');
+    background-size: 88.25rem;
+    background-position: 11.4375rem -9.625rem;
+    background-repeat: no-repeat;
+}
+
+/*#cta-section::before {
+    content: "";
+    background-image: url('../src/img/bg-simplify-section-desktop.svg');
+    transform: rotate(45deg);
+}*/
+
+/************************ ADD. RESPONSIVE ************************/
+
+@media only screen and (max-width: 376px) {
+    body {
+        background-position: 5.125rem -4.5rem;
+        background-size: 24.375rem;
+    }
+
+    #hero {
+        background-image: url('/static/images/homepage/bg-simplify-section-desktop.svg');
+        background-position: 5.125rem -4.5rem;
+        background-size: 24.375rem;
+    }
+
+    #cta-section {
+        background-image: url('/static/images/homepage/bg-simplify-section-desktop.svg');
+        background-position: -30.375rem .3125rem;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+@media only screen and (min-width: 976px) {
+    #footer {
+        height: 17.1875rem;
+    }
+}
+
+.cta-button {
+    box-shadow: 0 8px 10px rgb(242 95 58 / 0.35);
+}
