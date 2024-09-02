@@ -27,7 +27,7 @@ nav a.active {
 }
 
 .sidebar.shrink {
-    width: 80px;
+    width: 90px;
     /* Adjust width when sidebar is collapsed */
 }
 
@@ -44,6 +44,7 @@ nav a.active {
 
 .sidebar .sidebar-icon {
     font-size: 1.5rem;
+    justify-content: start;
     /* Adjust icon size as needed */
 }
 
