@@ -27,7 +27,7 @@ nav a.active {
 }
 
 .sidebar.shrink {
-    width: 80px;
+    width: 90px;
     /* Adjust width when sidebar is collapsed */
 }
 
@@ -44,6 +44,7 @@ nav a.active {
 
 .sidebar .sidebar-icon {
     font-size: 1.5rem;
+    justify-content: start;
     /* Adjust icon size as needed */
 }
 
@@ -130,4 +131,40 @@ input:checked+.slider:before {
         margin-left: 0;
     }
 }
+.scrollbar-thin {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #101111 #ffeded; /* Light mode scrollbar colors */
+}
 
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: #080808;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #121213;
+    border-radius: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #232222;
+}
+
+.dark .scrollbar-thin {
+    scrollbar-color: #4a4a4a #1a1a1a; /* Dark mode scrollbar colors */
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
