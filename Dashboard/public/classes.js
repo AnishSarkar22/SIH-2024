@@ -125,13 +125,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Menu icon toggle
 document.getElementById("menuToggle").addEventListener("click", function () {
+    // Toggle the sidebar shrink class
     const sidebar = document.getElementById("sidebar");
     sidebar.classList.toggle("shrink");
-
+  
+    // Toggle the main content margin adjustment
     const mainContent = document.querySelector(".main-content");
     mainContent.classList.toggle("sidebar-shrink");
-});
-
+  
+    // Save the sidebar state to localStorage
+    if (sidebar.classList.contains("shrink")) {
+      localStorage.setItem("sidebarState", "shrink");
+    } else {
+      localStorage.setItem("sidebarState", "expanded");
+    }
+  });
+  
+  // On page load, check the sidebar state from localStorage
+  window.addEventListener("load", function () {
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.querySelector(".main-content");
+    const sidebarState = localStorage.getItem("sidebarState");
+  
+    if (sidebarState === "shrink") {
+      sidebar.classList.add("shrink");
+      mainContent.classList.add("sidebar-shrink");
+    } else {
+      sidebar.classList.remove("shrink");
+      mainContent.classList.remove("sidebar-shrink");
+    }
+  });
 // Carousel functionality
 const carousel = document.getElementById("carousel-items");
 const prevButton = document.querySelector("[data-carousel-prev]");
