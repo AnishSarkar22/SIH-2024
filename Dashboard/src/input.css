@@ -27,7 +27,7 @@ nav a.active {
 }
 
 .sidebar.shrink {
-    width: 90px;
+    width: 85px;
     /* Adjust width when sidebar is collapsed */
 }
 
@@ -168,3 +168,36 @@ input:checked+.slider:before {
 .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background: #666;
 }
+
+.tab-link {
+    position: relative;
+    display: inline-block;
+}
+
+.tab-link span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: blue;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.tab-link.text-blue-800 span,
+.tab-link.text-blue-800 .scale-x-100 {
+    transform: scaleX(1);
+}
+
+/* Add this CSS to your stylesheet */
+/* Add this CSS to your stylesheet */
+.svg-icon .svg-path {
+    fill: #2C2C2E; /* Default fill color for light mode */
+}
+
+.dark .svg-icon .svg-path {
+    fill: #FFFFFF; /* Fill color for dark mode */
+}
+
+
