@@ -1295,16 +1295,20 @@ body {
   align-items: center;
 }
 
-.ornament-61-icon {
-  width: 100%;
+.responsive-container {
   position: relative;
+}
+
+.ornament-61-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
   max-width: 100%;
-  overflow: hidden;
-  height: 145.9px;
+  max-height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
-  top: 50px;
-  left: -698px;
 }
 
 .vector-icon {

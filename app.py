@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask_login import login_required
 import psycopg2
 import psycopg2.extras
 import bcrypt
@@ -139,7 +140,32 @@ def firstpage_mentee():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    return render_template("/dashboard/dashboard.html")
+
+@app.route("/classes")
+@login_required
+def classes():
+    return render_template("/dashboard/classes.html")
+
+@app.route("/mentors")
+@login_required
+def mentors():
+    return render_template("/dashboard/mentors.html")
+
+@app.route("/messages")
+@login_required
+def messages():
+    return render_template("/dashboard/classes.html")
+
+@app.route("/bookmarks")
+@login_required
+def bookmarks():
+    return render_template("/dashboard/bookmarks.html")
+
+@app.route("/profile")
+@login_required
+def profile():
+    return render_template("/dashboard/profile.html")
 
 @app.route("/mdashboard")
 @login_required
