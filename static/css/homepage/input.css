@@ -217,3 +217,296 @@ body {
 .cta-button {
     box-shadow: 0 8px 10px rgb(242 95 58 / 0.35);
 }
+
+.center-content {
+    height: 300px; /* Adjust the height as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .responsive-container {
+    position: relative;
+}
+
+.ornament-61-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+  
+  .vector-icon {
+    width: 10%;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    height: 6.3px;
+    display: block;
+    margin: 35px; /* Center the image */
+    top: -34px;
+    left: 940px;
+  }
+  
+  
+  
+  .ornament-31-icon {
+    width: 100%;
+    position: relative;
+    /*max-width: 100%;*/
+    overflow: hidden;
+    top: -100px;
+    left: 1353px;
+    width: 165px;
+    height: 225px;
+  }
+  
+  .ornament-59-icon {
+    position: relative;
+    top: -110px; /* Adjust as needed */
+    left: 320px; /* Adjust as needed */
+    width: 109px; /* Adjust as needed */
+    height: 111px; /* Adjust as needed */
+    /*z-index: -1; /* Ensure it is behind the content */
+  }
+  
+  .ornament-58-icon {
+    position: relative;
+      top: -50px;
+      left: 1355px;
+      width: 158.4px;
+      height: 158.4px;
+      /*z-index: -1;*/
+      
+  }
+ 
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin: 5rem;
+  }
+
+  .custom-width {
+    width: 950px; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the carousel */
+  }
+
+  .-mr-12{
+    margin-right: -6rem;
+  }
+
+  .relative.mx-auto.px-2 {
+    margin-top: -500px;
+    padding-top: 0; /* Adjust the value as needed */
+  }
+
+  .ornament-11-icon {
+  	width: 100%;
+  	position: relative;
+  	max-width: 100%;
+  	overflow: hidden;
+
+top: -10px;
+left: 1251px;
+width: 251px;
+height: 239px;
+}
+
+.ornament-18 {
+  	width: 250px;
+  	position: relative;
+  	/*background-color: #172d59;*/
+  	height: 249px;
+    top: 250px;
+    left: -50px;
+}
+
+
+
+.text-4xl.font-bold.text-teal-600.mb-6.text-center {
+  margin-bottom: -40px; /* Adjust the value as needed */
+}
+
+.text-gray-1200.mb-6.mt-5.text-center {
+  margin-bottom: -30px; /* Adjust the value as needed */
+}
+
+
+#counselors {
+  margin-top: -50px;
+}
+
+#features {
+  padding-bottom: -100px;
+}
+
+#counselors {
+  position: relative;
+  top: -140px; /* Adjust the value as needed */
+}
+
+/* Adjust the padding of the previous section */
+
+
+#counselors {
+  background-image: url('/static/images/homepage/bg-tablet-pattern.svg');
+  background-size: 50rem;
+  background-repeat: no-repeat;
+  background-position: -80% -155%;
+}
+
+#features {
+  position: relative;
+  top: -40px; /* Adjust the value as needed */
+}
+
+.top-1 {
+  margin-top: -300px;
+}
+
+/*#counselors {
+  position: relative;
+  top: -400px; /* Adjust the value as needed 
+}*/
+
+.bg-2F4454 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(47 68 84 / var(--tw-bg-opacity));
+}
+
+.bg-light-2F4454 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(61 84 102 / var(--tw-bg-opacity));
+}
+
+#cta-section {
+  display: flex;
+  justify-content: center;
+}
+
+.bg-2F4454 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(47 68 84 / var(--tw-bg-opacity));
+}
+
+.apple-icon {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  height: 40px;
+  align-items: center;
+  left: 600px;
+}
+
+.play-icon {
+  	width: 100%;
+  	position: relative;
+  	max-width: 100%;
+  	overflow: hidden;
+  	height: 40px;
+    left: 675px;
+}
+
+.px-26 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+/*250k+ mentees assisted*/
+.group-child {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  backdrop-filter: blur(20px);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 250px;
+  height: 110px;
+  
+}
+.k {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  position: absolute;
+  top: 12px;
+  left: 110px;
+  line-height: 180%;
+  display: inline-block;
+  width: 58px;
+  height: 39px;
+}
+.assisted-mentees {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  position: absolute;
+  top: 44px;
+  left: 110px;
+  font-size: 18px;
+  line-height: 180%;
+  font-weight: 600;
+  color: #545567;
+  display: inline-block;
+  width: 85px;
+  height: 32px;
+  line-height-step: 1px;
+}
+.group-item {
+  position: absolute;
+  top: 45px;
+  left: 28px;
+  width: 50px;
+  height: 45px;
+}
+.rectangle-parent {
+  width: 30%;
+  position: relative;
+  height: 150px;
+  text-align: left;
+  font-size: 24px;
+  color: #595959;
+  font-family: 'Open Sans';
+  top: -265px;
+  left: 150px;
+}
+/*end*/
+
+
+.pd-0 {
+  padding-bottom: 10rem;
+}
+
+.outline-button {
+  outline: 1px solid #000; /* Adjust the color and width as needed */
+  outline-offset: 0px; /* Adjust the offset as needed */
+}
+
+.button {
+  display: flex;
+  gap: 16px; /* Adjust the value as needed */
+}
+
+
+.bg-lightGray {
+  --tw-bg-opacity: 1;
+  background-color: rgb(190 190 190 / var(--tw-bg-opacity));
+}
+
+.hover-bg-darkgrey {
+  background-color: rgb(225, 225, 225); /* Initial background color */
+}
+
+.hover-bg-darkgrey:hover {
+  background-color: rgb(225, 225, 225); /* Background color on hover */
+}
+
+.move-right {
+  margin-left: 20px; /* Adjust the value as needed */
+}
+
+.text-2F4454 {
+  --tw-text-opacity: 1;
+  color: rgb(61 84 102 / var(--tw-bg-opacity));
+}

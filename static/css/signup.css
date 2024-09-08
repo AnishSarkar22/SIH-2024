@@ -229,7 +229,7 @@ input {
 .role-selection {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 8px 0;
 }
 
 .role-button {
@@ -267,4 +267,46 @@ input {
 
 .role-button.inactive {
   background-color: #2F4454; /* Inactive button color */
+}
+.forgot-pass,
+.apply-mentor {
+  display: block;
+  margin: 10px 0;
+  color: #161e27;
+  text-decoration: underline;
+}
+
+.forgot-pass:hover,
+.apply-mentor:hover {
+  text-decoration: underline;
+}
+
+.flash-message-box {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+  text-align: center;
+  animation: fadeOut 5s forwards;
+}
+
+.flash-message {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 16px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
 }

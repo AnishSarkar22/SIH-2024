@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  </head>
+
+  <body class="bg-gray-50">
+
+    <div class="flex justify-center items-center">
+      <h1 class="text-3xl font-bold text-gray-900">
+        Basic Details
+      </h1>
+    </div>
+    <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      <!-- Page 1: Profile -->
+      <div id="page1" class="form-page">
+        <form>
+          <!-- Full Name -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label class="block text-gray-700 font-bold mb-2"
+                >First Name</label
+              >
+              <input
+                type="text"
+                class="w-full border border-black rounded-md p-2"
+                placeholder="First name"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-bold mb-2"
+                >Middle Name</label
+              >
+              <input
+                type="text"
+                class="w-full border border-black rounded-md p-2"
+                placeholder="Middle name"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-bold mb-2"
+                >Last Name</label
+              >
+              <input
+                type="text"
+                class="w-full border border-black rounded-md p-2"
+                placeholder="Last name"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col justify-between">
+              <label class="block text-gray-700 font-bold mb-2"
+                >Phone Number</label
+              >
+              <input
+                id="phone"
+                type="tel"
+                class="w-full border border-black rounded-md p-2 h-full"
+                placeholder="Phone number"
+              />
+            </div>
+          </div>
+
+          <!-- Language -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col justify-between">
+              <label class="block text-gray-700 font-bold mb-2">Language</label>
+              <input
+                type="text"
+                class="w-full border border-black rounded-md p-2 h-full"
+                placeholder="Language"
+              />
+            </div>
+          </div>
+
+          <!-- Country and Time Zone -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-gray-700 font-bold mb-2">Country</label>
+              <input
+                type="text"
+                class="w-full border border-black rounded-md p-2"
+                placeholder="Country"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-bold mb-2"
+                >Time Zone</label
+              >
+              <select
+                id="timezone"
+                class="w-full border border-black rounded-md p-2"
+              >
+                <option value="" disabled selected>
+                  Select your time zone
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Age and Gender -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-gray-700 font-bold mb-2">Age</label>
+              <input
+                type="number"
+                class="w-full border border-black rounded-md p-2"
+                placeholder="Age"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-bold mb-2">Gender</label>
+              <select class="w-full border border-black rounded-md p-2">
+                <option value="" disabled selected>Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+                <option value="prefer_not_to_say">Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <script>
+        const input = document.querySelector("#phone");
+        window.intlTelInput(input, {
+          initialCountry: "auto", // Automatically set the initial country
+          geoIpLookup: function (callback) {
+            fetch("https://ipinfo.io?token=YOUR_TOKEN") // Optionally get the user's country by IP
+              .then((response) => response.json())
+              .then((data) => callback(data.country))
+              .catch(() => callback("us")); // Default to 'us' if lookup fails
+          },
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js", // Utility for formatting
+        });
+
+        // Populate the time zone dropdown
+        const timeZones = moment.tz.names();
+        const timezoneSelect = document.getElementById("timezone");
+
+        timeZones.forEach((tz) => {
+          const option = document.createElement("option");
+          option.value = tz;
+          option.textContent = tz;
+          timezoneSelect.appendChild(option);
+        });
+      </script>
+    </div>
+  </body>
+</html>

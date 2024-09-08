@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
         <!-- MAIN STYLESHEET -->
         <link rel="stylesheet" href="/static/css/homepage/output.css">
+
+        <link rel="stylesheet" href="static\css\homepage\input.css">
         <!-- SWIPER JS SCRIPT -->
         <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js" defer></script>
         <!-- EMAIL VALIDATION SCRIPT -->
@@ -34,24 +36,25 @@
     <body class="font-BeVietnamPro">
 
         <!-- NAV BAR -->
-        <nav class="relative container mx-auto px-4 py-8 md:px-2 md:py-16 xl:px-12">
+        <nav class="relative container mx-auto px-4 py-8 md:px-2 md:py-2 xl:px-12">
             <!-- FLEX CONTAINER -->
             <div class="flex items-center justify-between">
                 <!-- LOGO -->
-                <div class="pt-2">
-                    <a href="/templates/index.html"><img src="/static/images/homepage/logo.svg" height="24" width="146" alt="A horizontal wordmark logo with four dots of varying red and the words 'manage' next to it in lowercase sans-serif font"></a>
+                <div class="pt-0">
+                    <a href="/templates/index.html"><img src="static\images\homepage\logo light side (1)-Kittl.svg" height="20" width="100" alt="A horizontal wordmark logo with four dots of varying red and the words 'manage' next to it in lowercase sans-serif font"></a>
                 </div>
-                <div class="hidden md:flex space-x-6">
-                    <a href="#" aria-label="Visit our Pricing page" class="text-veryDarkBlue hover:text-darkGrayishBlue transition ease-in">Pricing</a>
-                    <a href="#" aria-label="Visit our Product page" class="hover:text-darkGrayishBlue transition ease-in">Product</a>
-                    <a href="#" aria-label="Visit our About Us page" class="hover:text-darkGrayishBlue transition ease-in">About Us</a>
-                    <a href="#" aria-label="Visit our Careers page" class="hover:text-darkGrayishBlue transition ease-in">Careers</a>
-                    <a href="#" aria-label="Visit our Community page" class="hover:text-darkGrayishBlue transition ease-in">Community</a>
+                <div class="hidden md:flex space-x-12">
+                    <a href="#" aria-label="Visit our Pricing page" class="text-veryDarkBlue hover:text-darkGrayishBlue transition ease-in">Home</a>
+                    <a href="#" aria-label="Visit our Product page" class="hover:text-darkGrayishBlue transition ease-in">Careers</a>
+                    <a href="#" aria-label="Visit our About Us page" class="hover:text-darkGrayishBlue transition ease-in">Blogs</a>
+                    <a href="#" aria-label="Visit our Careers page" class="hover:text-darkGrayishBlue transition ease-in">About Us</a>
                 </div>
                 <!-- CTA BUTTON -->
                 <div class="button">
-                    <a href="#" class="hidden cta-button text-sm p-3 px-6 pt-2 text-veryLightGray bg-brightRed rounded-full baseline transition ease-in hover:bg-brightRedLight md:block">Get Started</a>
+                    <a href="{{ url_for('login') }}" class="bg-2F4454 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">Log in</a>
+                    <a href="{{ url_for('signup') }}" class="bg-white text-darkBlue hover-bg-darkgrey outline-button font-bold py-3 px-6 rounded-lg transition duration-300">Sign up</a>
                 </div>
+                
 
                 <!-- MOBILE NAV MENU ICON -->
                 <button id="mobile-nav-btn" class="block hamburger focus:outline-none md:hidden">
@@ -64,11 +67,10 @@
             <!-- MOBILE MENU -->
             <div class="md:hidden">
                 <div id="mobile-nav-menu" class="hidden absolute flex-col items-center self-end rounded py-8 mt-10 space-y-6 font-bold bg-veryLightGray left-6 right-6 drop-shadow-lg sm:w-auto sm:self-center">
-                    <a href="#" class="text-darkBlue">Pricing</a>
-                    <a href="#" class="text-darkBlue">Product</a>
-                    <a href="#" class="text-darkBlue">About Us</a>
+                    <a href="#" class="text-darkBlue">Home</a>
                     <a href="#" class="text-darkBlue">Careers</a>
-                    <a href="#" class="text-darkBlue">Community</a>
+                    <a href="#" class="text-darkBlue">Blogs</a>
+                    <a href="#" class="text-darkBlue">About Us</a>
                 </div>
             </div>
         </nav>
@@ -79,111 +81,136 @@
             <div class="container flex flex-col-reverse items-center px-12 mx-auto mt-10 space-y-0 md:flex-row md:space-y-0">
                 <!-- LEFT COLUMN -->
                 <div class="flex flex-col mb-2 space-y-12 md:mb-32 md:w-1/2">
-                    <h1 class="max-w-md text-4xl font-bold text-center md:text-5xl md:text-left">Bring everyone together to build better products.</h1>
-                    <p class="max-w-sm text-center text-darkGrayishBlue sm:mx-auto lg:mx-0 md:text-left">Manage makes it simple for software teams to plan day-to-day tasks while keeping the larger team goals in view.</p>
+                    <h1 class="max-w-md text-6xl font-bold text-center md:text-3xl md:text-left">1 - on - 1 Mentorship</h1>
+                    <h3 class="max-w-md text-xl text-center md:text-xl md:text-left">Connecting Ambition with Expertise, Seamlessly Scheduled.</h3>
                     <div class="button flex justify-center md:justify-start">
-                        <a href="#" class="cta-button p-3 px-6 pt-2 text-veryLightGray bg-brightRed rounded-full baseline transition ease-in drop-shadow-2xl shadow-brightRed hover:bg-brightRedLight">Get Started</a>
+                        <a href="#" class="bg-2F4454 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">Get Started</a>
                     </div>
                 </div>
                 <!-- RIGHT COLUMN -->
                 <div class="md:w-1/2">
                     <img src="/static/images/homepage/illustration-intro.svg" alt="A series of three picto-charts, incl. bar graphs, pie charts and percentage-proportion blocks">
+                    <div class="rectangle-parent">
+                        <div class="group-child">
+                        </div>
+                        <b class="k">250k</b>
+                        <div class="assisted-mentees">Assisted Mentees</div>
+                        <img class="group-item" alt="" src="static\images\homepage\Group 6.svg">
+                        </div>
                 </div>
             </div>
         </section>
         
-        <!-- FEATURES SECTION -->
-        <section id="features" class="md:py-40 xl:py-10">
-            <!-- FLEX CONTAINER -->
-            <div class="container flex flex-col mx-auto mt-10 space-y-12 sm:px-2 md:space-y-0 md:px-12 md:flex-row">
-                <!-- LEFT INFO COLUMN -->
-                <div class="flex-col space-y-12 h-full md:w-1/2">
-                    <h2 class="max-w-md text-4xl font-bold text-center lg:mx-0 sm:mx-auto md:text-left">
-                        What’s different about Manage?
-                    </h2>
-                    <p class="max-w-sm text-center text-darkGrayishBlue lg:mx-0 sm:mx-auto md:text-left">
-                        Manage provides all the functionality your team needs, without the complexity. Our software is tailor-made for modern digital product teams.
-                    </p>
+        <section id="features" class="md:py-40 xl:py-10 bg-white responsive-container">
+            <img class="ornament-61-icon" alt="" src="static\images\homepage\Ornament 61.png">
+            <img class="ornament-31-icon" alt="" src="static\images\homepage\Ornament 31.png">
+            <img class="ornament-59-icon" alt="" src="static\images\homepage\Ornament 59.png">
+            <img class="ornament-58-icon" alt="" src="static\images\homepage\Ornament 58.png">
+            <div class="relative mx-auto px-2 ">
+               
+              <h2 class="text-4xl font-bold text-2F4454 mb-6 text-center">At your fingertips: a dedicated coach</h2>
+              <img class="vector-icon" alt="" src="static\images\homepage\Vector 9.png">
+              <p class="text-gray-1200 mb-6 mt-5 text-center">Want to build your career, successfully repair your relationships, and enhance your<br>education for a brighter future?</p>
+
+              
+
+              <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-12">
+                <div class="bg-white p-6 rounded-lg shadow-md center-content">
+                  <img src="static\images\homepage\028-1.png" alt="Group Sessions" class="w-17 h-19 mb-6">
+                  <h3 class="text-xl font-semibold mb-4">free group sessions</h3>
+                  <p class="text-gray-600 text-center mt-4">One powerful online software suite that combines</p>
                 </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md center-content">
+                  <img src="static\images\homepage\Group.png" alt="Video Calls" class="w-17 h-19 mb-4">
+                  <h3 class="text-xl font-semibold mb-4">1-on-1 video calls</h3>
+                  <p class="text-gray-600 text-center mt-4">One powerful online software suite that combines</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md center-content">
+                  <img src="static\images\homepage\030-3.png" alt="Flexible Program" class="w-17 h-19 mb-6">
+                  <h3 class="text-xl font-semibold text-center mb-4">flexible program structures</h3>
+                  <p class="text-gray-600 text-center mt-4">One powerful online software suite that combines</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md center-content">
+                  <img src="static\images\homepage\031-4.png" alt="Personal Chats" class="w-17 h-19 mb-6">
+                  <h3 class="text-xl font-semibold mb-4">Personal Chats</h3>
+                  <p class="text-gray-600 text-center mt-4">One powerful online software suite that combines</p>
+                  
+                </div>
+                
 
-                <!-- FEATURES LIST COLUMN -->
-                <div class="flex flex-col space-y-12 md:px-12 md:w-1/2">
+              </div>
+              <div class="flex flex-col py-6 mx-auto items-center xl:pt-1 xl:pb-32">
+                <div class="button">
+                    <a href="#" class="bg-2F4454 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">
+                    Find a mentor
+                    </a>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                    <!-- LIST ITEM 1 -->
-                    <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
-                        <!-- HEADING -->
-                        <div class="rounded-l-full bg-brightRedSuperLight md:bg-transparent">
-                            <div class="flex items-center space-x-2">
-                                <!-- NUMBER LOZENGE -->
-                                <div class="px-5 py-2 font-bold text-veryLightGray rounded-full bg-brightRed md:py-1">
-                                    01
-                                </div>
-                                <h3 class="text-base font-bold md:mb-4 md:hidden">
-                                    Track company-wide progress
-                                </h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="hidden mb-4 text-lg font-bold md:block">
-                                Track company-wide progress
-                            </h3>
-                            <p class="text-darkGrayishBlue text-center lg:mx-0 sm:mx-auto md:text-left">
-                                See how your day-to-day tasks fit into the wider vision. Go from tracking progress at the milestone level all the way done to the smallest of details. Never lose sight of the bigger picture again.</p>
-                        </div>
+        <!-- FEATURES SECTION -->
+        <section id="counselors" class="md:py-40 xl:py-10">
+            <img class="ornament-11-icon" alt="" src="static\images\homepage\Ornament 11.png">
+            <img class="ornament-18" alt="" src="static\images\homepage\Ornament 18 (1).png">
+            <div class="relative mx-auto px-4">
+                
+                <div class="flex flex-col md:flex-row items-center justify-between top-1">
+                    <!-- Left Info Column -->
+                    <div class="md:w-1/2 mb-12 md:mb-0 -mr-12">
+                        <h2 class="text-4xl font-bold text-center md:text-left mb-4">
+                            Our counselors sculpting<br>student success
+                        </h2>
+                        <p class="text-gray-600 text-center md:text-left max-w-md">
+                            500+ Counselors with 20+ years of experience in our team who have helped 1 Million+ students to kick start their Career Journey.
+                        </p>
                     </div>
-
-                    <!-- LIST ITEM 2 -->
-                    <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
-                        <!-- HEADING -->
-                        <div class="rounded-l-full bg-brightRedSuperLight md:bg-transparent">
-                            <div class="flex items-center space-x-2">
-                                <!-- NUMBER LOZENGE -->
-                                <div class="px-5 py-2 font-bold text-veryLightGray rounded-full bg-brightRed md:py-1">
-                                    02
-                                </div>
-                                <h3 class="text-base font-bold md:mb-4 md:hidden">
-                                    Advanced built-in reports
-                                </h3>
+    
+                    <!-- Carousel Column -->
+                    <div class="flex container mx-auto">
+                        <!-- SWIPER -->
+                        <div class="flex flex-col swiper testimonial-slider py-16 w-17 h-full md:flex-row custom-width">
+                            <div class="flex swiper-wrapper">
+                              <!-- TESTIMONIAL 1 -->
+                              <div class="flex flex-col items-center shrink-0 swiper-slide text-center p-6 space-y-6 rounded-lg bg-veryLightGray w-full">
+                                  <img src="static\images\homepage\image 1.png" width="4rem" height="4rem" class="w-20 -mt-14 items-center" alt="Image of young Asian girl with glasses resting on her hair while looking at the camera">
+                                  <h2 class="font-bold text-darkBlue">Thomas John</h2>
+                                  <p class="text-darkGrayishBlue">Bachelors in Hospitality</p>
+                                  <p class="text-brightRed">9+ years of counselling</p>
+                              </div>
+                              <!-- TESTIMONIAL 2 -->
+                              <div class="flex flex-col items-center shrink-0 swiper-slide text-center p-6 space-y-6 rounded-lg bg-veryLightGray">
+                                  <img src="static\images\homepage\image 2.png" width="4rem" height="4rem" class="w-20 -mt-14 items-center" alt="Image of a young Asian girl facing the camera with her eyes looking to the left against a foliage backdrop">
+                                  <p class="font-bold text-darkBlue">Radhika Sharma</p>
+                                  <p class="text-darkGrayishBlue">Masters in Psychology</p>
+                                  <p class="text-brightRed">10+ years of counselling</p>
+                              </div>
+                              <!-- TESTIMONIAL 3 -->
+                              <div class="flex flex-col items-center shrink-0 swiper-slide text-center p-6 space-y-6 rounded-lg bg-veryLightGray">
+                                  <img src="static\images\homepage\image 3.png" width="4rem" height="4rem" class="w-20 -mt-14 items-center" alt="Image of an old gentleman looking at the camera with black thick-rimmed glasses, grey beard and blue-striped shirt with the top two buttons undone and a black overcoat">
+                                  <p class="font-bold text-darkBlue">Gautam Nigam</p>
+                                  <p class="text-darkGrayishBlue">Program Manager@Meta</p>
+                                  <p class="text-brightRed">15+ years of counselling</p>
+                              </div>
+                              <!-- TESTIMONIAL 4 -->
+                              <div class="flex flex-col items-center shrink-0 swiper-slide text-center p-6 space-y-6 rounded-lg bg-veryLightGray">
+                                  <img src="static\images\homepage\image 302.png" width="6rem" height="6rem" class="w-20 -mt-14 items-center" alt="Image of young black woman with a large afro looking at the camera with a white shirt and black coat">
+                                  <p class="font-bold text-darkBlue">Sushmita Sinha</p>
+                                  <p class="text-darkGrayishBlue">Data Analyst</p>
+                                  <p class="text-brightRed">12+ years of counselling</p>
+                              </div>
                             </div>
-                        </div>
-                        <div>
-                            <h3 class="hidden mb-4 text-lg font-bold md:block">
-                                Advanced built-in reports
-                            </h3>
-                            <p class="text-darkGrayishBlue text-center lg:mx-0 sm:mx-auto md:text-left">
-                                Set internal delivery estimates and track progress toward company goals. Our customisable dashboard helps you build out the reports you need to keep key stakeholders informed.</p>                      
-                            </div>
-                    </div>
-
-                    <!-- LIST ITEM 3 -->
-                    <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
-                        <!-- HEADING -->
-                        <div class="rounded-l-full bg-brightRedSuperLight md:bg-transparent">
-                            <div class="flex items-center space-x-2">
-                                <!-- NUMBER LOZENGE -->
-                                <div class="px-5 py-2 font-bold text-veryLightGray rounded-full bg-brightRed md:py-1">
-                                    03
-                                </div>
-                                <h3 class="text-base font-bold md:mb-4 md:hidden">
-                                    Everything you need in one place
-                                </h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="hidden mb-4 text-lg font-bold md:block">
-                                Everything you need in one place
-                            </h3>
-                            <p class="text-darkGrayishBlue text-center lg:mx-0 sm:mx-auto md:text-left">
-                                Stop jumping from one service to another to communicate, store files, track tasks and share documents. Manage offers an all-in-one team productivity solution.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
         <!-- TESTIMONIALS SECTION -->
         <section id="testimonials" class="overflow-hidden py-10">
-            <h2 class="text-4xl font-bold text-center py-6">What they've said</h2>
+            <h2 class="text-4xl font-bold text-center py-6">Success Stories</h2>
+            <p class="text-gray-600 text-center max-w-md mx-auto">Still not convinced?<br>Don’t just take our word for it</p>
             <div class="flex container mx-auto">
               <!-- SWIPER -->
               <div class="flex flex-col swiper testimonial-slider py-16 w-full h-full md:flex-row">
@@ -191,8 +218,8 @@
                     <!-- TESTIMONIAL 1 -->
                     <div class="flex flex-col items-center shrink-0 swiper-slide text-center p-6 space-y-6 rounded-lg bg-veryLightGray w-full">
                         <img src="/static/images/homepage/avatar-anisha.png" width="4rem" height="4rem" class="w-16 -mt-14 items-center" alt="Image of young Asian girl with glasses resting on her hair while looking at the camera">
-                        <p class="font-bold text-darkBlue">Anisha Li</p>
-                        <p class="text-darkGrayishBlue">“Manage has supercharged our team’s workflow. The ability to maintain visibility on larger milestones at all times keeps everyone motivated.”</p>
+                        <p class="font-bold text-darkBlue">Anjana Guha</p>
+                        <p class="text-darkGrayishBlue">"Radhika helped me improve as an student. Looking back, I took a huge step, beyond my expectations."</p>
                     </div>
                     <!-- TESTIMONIAL 2 -->
                     <div class="flex flex-col items-center shrink-0 swiper-slide text-center p-6 space-y-6 rounded-lg bg-veryLightGray">
@@ -219,29 +246,29 @@
             </div>
             <div class="flex flex-col py-6 mx-auto items-center xl:pt-1 xl:pb-32">
                 <div class="button">
-                    <a href="#" class="cta-button p-3 px-6 pt-2 text-veryLightGray bg-brightRed rounded-full baseline transition ease-in baseline hover:text-brightRedLight">
+                    <a href="#" class="bg-2F4454 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">
                         Get Started
                     </a>
                 </div>
             </div>
+            <button>
+                <img href="#" class="apple-icon" alt="" src="static\images\homepage\Apple-store.svg">
+            </button>
+            <button>
+                <img href="#" class="play-icon" alt="" src="static\images\homepage\Play-store.svg">
+            </button>
         </section>
 
         <!-- CTA SECTION -->
-        <section id="cta-section" class="bg-brightRed">
-            <!-- FLEX CONTAINER -->
-            <div class="container flex flex-col items-center justify-between px-6 py-24 mx-auto space-y-12 md:py-12 md:flex-row md:space-y-0">
-                <!-- HEADING -->
-                <h2 class="text-5xl font-bold leading-tight text-center text-veryLightGray md:text-4xl md:max-width-xl md:w-1/3 md:text-left">
-                    Simplify how your team works today.
-                </h2>
-                <!-- CTA BUTTON -->
-                <div class="button">
-                    <a href="#" class="p-3 px-6 pt-2 text-brightRed bg-veryLightGray rounded-full baseline hover:text-brightRedLight">
-                        Get Started
-                    </a>
-                </div>
+        <!-- <section id="cta-section" class="bg-2F4454">
+            <!-- FLEX CONTAINER 
+            <div class="container flex flex-col items-center justify-between px-26 py-24 mx-auto space-y-12 md:py-12 md:flex-row md:space-y-0">
+                <!-- HEADING 
+                <button>
+                    <img href="#" class="badges-icon" alt="" src="static\images\homepage\Badges.svg">
+                </button>
             </div>
-        </section>
+        </section> -->
 
         <!-- FOOTER -->
         <footer id="footer" class="bg-veryDarkBlue h-auto xl:h-275">
@@ -251,13 +278,13 @@
                 <div class="flex flex-col-reverse items-center justify-between space-y-12 lg:flex-col lg:space-y-0 lg:items-start">
                     
                     <!-- LOGO -->
-                    <div class="py-10 mt-5">
-                        <img src="../static/images/homepage/logo-white.svg" class="h-8" height="32px" width="194.67px" alt="A series of four dots with varying shades of red and the word manage placed next to it in white">
+                    <div class="pt-6 move-right">
+                        <a href="/templates/index.html"><img src="static\images\homepage\dark side (1)-Kittl.svg" height="50" width="150" alt="A horizontal wordmark logo with four dots of varying red and the words 'manage' next to it in lowercase sans-serif font"></a>
                     </div>
                     
                     <!-- SOCIAL MEDIA LINKS -->
-                    <div class="flex flex-row items-center justify-between w-full pt-5 space-x-4 lg:pb-8 sm:py-0">
-                        <ul class="flex flex-row justify-between list-none w-full py-1">
+                    <div class="flex flex-row items-center justify-between w-full space-x-3 lg:pb-8 sm:py-8">
+                        <ul class="flex flex-row justify-between list-none pt-12 gap-3">
                             <li><a href="#" aria-label="Visit our Facebook page"><svg class="http://www.w3.org/2000/svg social-icons-footer text-veryLightGray fill-current transition ease-in h-8 w-8 hover:fill-brightRed scale-150 md:h-6 md:scale-110"><path d="M18.896 0H1.104C.494 0 0 .494 0 1.104v17.793C0 19.506.494 20 1.104 20h9.58v-7.745H8.076V9.237h2.606V7.01c0-2.583 1.578-3.99 3.883-3.99 1.104 0 2.052.082 2.329.119v2.7h-1.598c-1.254 0-1.496.597-1.496 1.47v1.928h2.989l-.39 3.018h-2.6V20h5.098c.608 0 1.102-.494 1.102-1.104V1.104C20 .494 19.506 0 18.896 0z"/></svg></a></li>
                             <li><a href="#" aria-label="Visit our YouTube page"><svg class="http://www.w3.org/2000/svg social-icons-footer text-veryLightGray fill-current transition ease-in h-8 w-8 hover:fill-brightRed scale-150 md:h-6 md:scale-110"><path d="M10.333 0c-5.522 0-10 4.478-10 10 0 5.523 4.478 10 10 10 5.523 0 10-4.477 10-10 0-5.522-4.477-10-10-10zm3.701 14.077c-1.752.12-5.653.12-7.402 0C4.735 13.947 4.514 13.018 4.5 10c.014-3.024.237-3.947 2.132-4.077 1.749-.12 5.651-.12 7.402 0 1.898.13 2.118 1.059 2.133 4.077-.015 3.024-.238 3.947-2.133 4.077zM8.667 8.048l4.097 1.949-4.097 1.955V8.048z"/></svg></a></li>
                             <li><a href="#" aria-label="Visit our Twitter page"><svg class="http://www.w3.org/2000/svg social-icons-footer text-veryLightGray fill-current transition ease-in h-8 w-8 hover:fill-brightRed scale-150 md:h-6 md:scale-110"><path d="M20.667 2.797a8.192 8.192 0 01-2.357.646 4.11 4.11 0 001.804-2.27 8.22 8.22 0 01-2.606.996A4.096 4.096 0 0014.513.873c-2.649 0-4.595 2.472-3.997 5.038a11.648 11.648 0 01-8.457-4.287 4.109 4.109 0 001.27 5.478A4.086 4.086 0 011.47 6.59c-.045 1.901 1.317 3.68 3.29 4.075a4.113 4.113 0 01-1.853.07 4.106 4.106 0 003.834 2.85 8.25 8.25 0 01-6.075 1.7 11.616 11.616 0 006.29 1.843c7.618 0 11.922-6.434 11.662-12.205a8.354 8.354 0 002.048-2.124z"/></svg></a></li>
@@ -289,18 +316,17 @@
                     <div class="flex">
                         <div class="flex space-x-3 px-1.5">
                             <div class="flex flex-col space-y-2">
-                                <input id="email-address-input" class="p-3 px-6 pt-2 text-brightRed bg-veryLightGray rounded-full outline-none" placeholder="Updates in your inbox..." type="text">
+                                <input id="email-address-input" class="p-4 px-6 pt-2 text-brightRed bg-veryLightGray rounded-lg outline-none" placeholder="Updates in your inbox..." type="text">
                                 <p id="response-message" class="italic text-brightRed pl-6"><p>
+
                             </div>
                         </div>
                         <div>
-                            <button id="submit-email-address" class="p-3 px-6 pt-2 font-bold text-veryLightGray bg-brightRed rounded-full baseline transition ease-in hover:bg-brightRedLight">Go</button>
+                            <button id="submit-email-address" class="bg-2F4454 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">Go</button>
                         </div>
                     </div>
                     <!-- DESKTOP COPYRIGHT BANNER -->
-                    <div class="hidden flex-col text-center lg:flex-row lg:justify-end lg:pb-4 lg:flex">
-                        <p class="text-darkGrayishBlue">Copyright 2020. All Rights Reserved</p>
-                    </div>
+                    
                 </div>
             </div>
             <!-- MOBILE COPYRIGHT BANNER -->
@@ -309,7 +335,7 @@
             </div>
             <!-- ATTRIBUTIONS BANNER -->
             <div class="flex flex-col attribution bg-veryDarkBlue py-4 items-center sm:py-2">
-                <p class="text-darkGrayishBlue text-center sm:px-5">Challenge by <a class="hover:text-brightRedLight transition ease-in" href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a class="hover:text-brightRedLight transition ease-in" href="https://github.com/asbhogal/Tailwind-CSS-Website">Aman Singh Bhogal</a>.</p>
+                <p class="text-darkGrayishBlue text-center sm:px-5">Copyright 2020. All Rights Reserved</p>
             </div>
         </footer>
     </body>

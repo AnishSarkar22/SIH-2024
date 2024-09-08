@@ -1,38 +1,94 @@
-const signUpButton = document.getElementById("signUp");
-const signInButton = document.getElementById("signIn");
+// Cache DOM elements to avoid repeated queries
 const container = document.getElementById("container");
-
-signUpButton.addEventListener("click", () => {
-  container.classList.add("right-panel-active");
-});
-
-signInButton.addEventListener("click", () => {
-  container.classList.remove("right-panel-active");
-});
-
+const roleInput = document.getElementById('role');
+const loginMentorToggle = document.getElementById('loginMentorToggle');
+const loginMenteeToggle = document.getElementById('loginMenteeToggle');
+const socialContainer = document.getElementById('socialContainer');
 const signUpMentorToggle = document.getElementById("signUpMentorToggle");
 const signUpMenteeToggle = document.getElementById("signUpMenteeToggle");
-let selectedRole = ""; // Initially, no role is selected
 
-signUpMentorToggle.addEventListener("click", () => {
-  selectedRole = "mentor";
-  updateButtonClasses();
-});
+let selectedRole = "mentee"; // Initially, mentee is selected
 
-signUpMenteeToggle.addEventListener("click", () => {
-  selectedRole = "mentee";
-  updateButtonClasses();
-});
+// Set default role to 'mentee' and add event listeners on window load
+window.onload = function() {
+  setRole('mentee');
+  addEventListeners();
+};
 
-function updateButtonClasses() {
-  signUpMentorToggle.classList.remove("active", "inactive");
-  signUpMenteeToggle.classList.remove("active", "inactive");
+function addEventListeners() {
+  document.getElementById('loginButton').addEventListener('click', () => {
+    container.classList.remove('right-panel-active');
+  });
 
-  if (selectedRole === "mentor") {
-    signUpMentorToggle.classList.add("active");
-    signUpMenteeToggle.classList.add("inactive");
-  } else if (selectedRole === "mentee") {
-    signUpMentorToggle.classList.add("inactive");
-    signUpMenteeToggle.classList.add("active");
-  }
+  document.getElementById('signUpButton').addEventListener('click', () => {
+    container.classList.add('right-panel-active');
+  });
+
+  loginMentorToggle.addEventListener('click', () => {
+    socialContainer.style.display = 'none';
+    setRole('mentor');
+  });
+
+  loginMenteeToggle.addEventListener('click', () => {
+    socialContainer.style.display = 'block';
+    setRole('mentee');
+  });
+
+  signUpMentorToggle.addEventListener("click", () => {
+    setRole("mentor");
+  });
+
+  signUpMenteeToggle.addEventListener("click", () => {
+    setRole("mentee");
+  });
 }
+
+function setRole(role) {
+  selectedRole = role;
+  roleInput.value = role;
+  updateButtonClasses(role);
+}
+
+function updateButtonClasses(role) {
+  const isActiveMentor = role === "mentor";
+  const isActiveMentee = role === "mentee";
+
+  loginMentorToggle.classList.toggle('active', isActiveMentor);
+  loginMenteeToggle.classList.toggle('active', isActiveMentee);
+  signUpMentorToggle.classList.toggle('active', isActiveMentor);
+  signUpMenteeToggle.classList.toggle('inactive', !isActiveMentor);
+  signUpMenteeToggle.classList.toggle('active', isActiveMentee);
+  signUpMentorToggle.classList.toggle('inactive', !isActiveMentee);
+}
+document.getElementById('signUpButton').addEventListener('click', () => {
+  const container = document.getElementById('container');
+  container.classList.add('right-panel-active');
+});
+document.getElementById('loginButton').addEventListener('click', () => {
+  const container = document.getElementById('container');
+  container.classList.remove('right-panel-active');
+});
+
+window.onload = function() {
+  const flashPopup = document.getElementById('flash-message-popup');
+  if (flashPopup) {
+    flashPopup.style.display = 'block'; // Show the popup if there are messages
+  }
+};
+
+window.onload = function() {
+  const flashPopup = document.getElementById('flash-message-popup');
+  if (flashPopup) {
+    flashPopup.style.display = 'block'; // Show the popup if there are messages
+  }
+};
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const flashMessageBox = document.getElementById('flash-message-box');
+  if (flashMessageBox) {
+    setTimeout(function() {
+      flashMessageBox.style.display = 'none';
+    }, 5000); // 5000 milliseconds = 5 seconds
+  }
+});
