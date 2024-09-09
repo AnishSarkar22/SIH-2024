@@ -1,0 +1,23 @@
+/* Ensure that the container allows horizontal scrolling */
+#carousel-container {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth; /* Enables smooth scrolling */
+  -webkit-overflow-scrolling: touch; /* Enhances scrolling on touch devices */
+}
+
+/* Hide scrollbar for webkit browsers */
+#carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+#carousel-container {
+  scrollbar-width: none;
+}
+
+/* Adjust card width */
+.carousel-card {
+  flex: 0 0 auto;
+  width: 28rem; /* Match card width to what's defined in your HTML */
+}

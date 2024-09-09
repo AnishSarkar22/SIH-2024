@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow sticky top-0 z-50" id="AboutUs">
+      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+          <!-- Left-aligned Logo and Text -->
+          <div class="flex items-center space-x-4">
+            <i class="fa-solid fa-r text-indigo-600 text-3xl"></i>
+            <span class="ml-3 text-xl font-bold text-gray-900">GUIDE Me</span>
+          </div>
+
+          <!-- Centered Navigation Links -->
+          <div
+            class="absolute inset-y-0 left-1/2 transform -translate-x-1/2 flex space-x-4"
+          >
+            <a
+              href="#"
+              class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium"
+              >Home</a
+            >
+            <a
+              href="#"
+              class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium"
+              >Careers</a
+            >
+            <a
+              href="#"
+              class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium"
+              >Blog</a
+            >
+            <a
+              href="#AboutUs"
+              class="text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-md text-xl font-medium"
+              >About Us</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- hero section -->
+    <div class="text-black min-h-screen flex items-center py-5">
+      <div class="container mx-auto px-7 py-3">
+        <div class="flex flex-col lg:flex-row items-center gap-10 py-2">
+          <!-- Text Section -->
+          <div class="lg:w-1/2 text-left p-20">
+            <div class="ml-20">
+              <h1 class="text-4xl font-bold mb-3">Guide Me</h1>
+              <p class="text-lg mb-5">
+                A generic mentorship platform that bridges the gap between
+                mentors & mentees catering to the needs of users for their
+                progress, skill-building & personal concerns.​
+              </p>
+            </div>
+          </div>
+
+          <!-- Image Section -->
+          <div class="lg:w-1/2 mr-20">
+            <img
+              src="./img/mentee and mentor.webp"
+              class="mx-auto h-full w-full object-cover"
+              alt="Hero Image"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="py-10">
+      <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-green-100 p-6 rounded-lg">
+          <h2 class="text-lg font-semibold mb-2">
+            Automated Calendar Booking System – Allows easy scheduling of
+            mentor-mentee sessions.
+          </h2>
+          <div class="w-12 h-12 bg-green-200 rounded-full float-right"></div>
+        </div>
+        <div class="bg-blue-100 p-6 rounded-lg">
+          <h2 class="text-lg font-semibold mb-2">
+            Embedded Video Call & Chat Features – Enables virtual meetings with
+            real-time communication.
+          </h2>
+          <div class="w-12 h-12 bg-blue-200 rounded-full float-right"></div>
+        </div>
+        <div class="bg-red-100 p-6 rounded-lg col-span-1 sm:col-span-2">
+          <h2 class="text-lg font-semibold mb-2">
+            Personal Guidance & Skill Development – Ensures accessibility,
+            availability, and personalized support for mentees.
+          </h2>
+          <div class="w-12 h-12 bg-red-200 rounded-full float-right"></div>
+        </div>
+        <div class="bg-yellow-100 p-6 rounded-lg">
+          <h2 class="text-lg font-semibold mb-2">
+            Gamification & Reverse Mentoring – Innovative features to engage
+            users and facilitate learning from both mentees and mentors.
+          </h2>
+          <div class="w-12 h-12 bg-yellow-200 rounded-full float-right"></div>
+        </div>
+        <div class="bg-orange-100 p-6 rounded-lg">
+          <h2 class="text-lg font-semibold mb-2">
+            Data-Driven Algorithm for Matching – Uses algorithms to
+            intelligently match mentors and mentees based on their needs and
+            profiles.
+          </h2>
+          <div class="w-12 h-12 bg-orange-200 rounded-full float-right"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flex-grow mt-5 bg-gray-50 rounded-lg p-6 mb-6">
+      <h2 class="text-3xl font-bold mb-4 text-gray-900 text-center">
+        Team Member
+      </h2>
+      <div class="relative w-full max-w-5xl mx-auto">
+        <div class="flex items-center justify-between">
+          <!-- Left Arrow -->
+          <button
+            type="button"
+            id="carousel-prev"
+            class="absolute left-0 transform -translate-y-1/2 top-1/2 p-2 bg-gray-200 rounded-full focus:outline-none z-10"
+          >
+            <svg
+              class="w-6 h-6 text-gray-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            <span class="sr-only">Previous</span>
+          </button>
+
+          <!-- Mentor Cards Container -->
+          <div
+            id="carousel-container"
+            class="flex space-x-6 overflow-x-auto no-scrollbar px-8 transition-transform duration-500"
+          >
+            <!-- Card 1 -->
+            <div class="carousel-card bg-gray-100 rounded-lg p-6">
+              <div class="flex flex-col items-center justify-center mb-4">
+                <img
+                  src="./img/anish.png"
+                  alt="Anish Sarker"
+                  class="w-32 h-32 rounded-xl border-2 object-cover"
+                />
+                <div class="mt-4 text-center">
+                  <h3 class="font-semibold text-lg text-gray-900">
+                    Anish Sarker
+                  </h3>
+                  <p class="text-sm text-gray-700">Leader & Backend Developer</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="carousel-card bg-gray-100 rounded-lg p-6">
+              <div class="flex flex-col items-center justify-center mb-4">
+                <img
+                  src="./img/sohom.jpg"
+                  alt="Soham Bhattacharya"
+                  class="w-32 h-32 rounded-xl border-2 object-cover"
+                />
+                <div class="mt-4 text-center">
+                  <h3 class="font-semibold text-lg text-gray-900">
+                    Soham Bhattacharya
+                  </h3>
+                  <p class="text-sm text-gray-700">Frontend Developer</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="carousel-card bg-gray-100 rounded-lg p-6">
+              <div class="flex flex-col items-center justify-center mb-4">
+                <img
+                  src="./img/arnab.png"
+                  alt="Arnab Dua"
+                  class="w-32 h-32 rounded-xl border-2 object-cover"
+                />
+                <div class="mt-4 text-center">
+                  <h3 class="font-semibold text-lg text-gray-900">Arnab Dua</h3>
+                  <p class="text-sm text-gray-700">Content Writer</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="carousel-card bg-gray-100 rounded-lg p-6">
+              <div class="flex flex-col items-center justify-center mb-4">
+                <img
+                  src="./img/profile_picture-removebg-preview.png"
+                  alt="Aniket Ghosh"
+                  class="w-32 h-32 rounded-xl border-2 object-cover"
+                />
+                <div class="mt-4 text-center">
+                  <h3 class="font-semibold text-lg text-gray-900">
+                    Aniket Ghosh
+                  </h3>
+                  <p class="text-sm text-gray-700">Frontend Developer</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="carousel-card bg-gray-100 rounded-lg p-6">
+              <div class="flex flex-col items-center justify-center mb-4">
+                <img
+                  src="./img/kankana.png"
+                  alt="Kankana Biswas"
+                  class="w-32 h-32 rounded-xl border-2 object-cover"
+                />
+                <div class="mt-4 text-center">
+                  <h3 class="font-semibold text-lg text-gray-900">
+                    Kankana Biswas
+                  </h3>
+                  <p class="text-sm text-gray-700">Content Writer & Frontend Developer</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="carousel-card bg-gray-100 rounded-lg p-6">
+              <div class="flex flex-col items-center justify-center mb-4">
+                <img
+                  src="./img/doyel.jpg"
+                  alt="Doyelshree Bhui"
+                  class="w-32 h-32 rounded-xl border-2 object-cover"
+                />
+                <div class="mt-4 text-center">
+                  <h3 class="font-semibold text-lg text-gray-900">
+                    Doyelshree Bhui
+                  </h3>
+                  <p class="text-sm text-gray-700">Designer & Frontend Developer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Arrow -->
+          <button
+            type="button"
+            id="carousel-next"
+            class="absolute right-0 transform -translate-y-1/2 top-1/2 p-2 bg-gray-200 rounded-full focus:outline-none z-10"
+          >
+            <svg
+              class="w-6 h-6 text-gray-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+            <span class="sr-only">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const container = document.getElementById("carousel-container");
+      const nextButton = document.getElementById("carousel-next");
+      const prevButton = document.getElementById("carousel-prev");
+
+      // Get the width of one card (including the margin/padding)
+      const cardWidth =
+        container.querySelector(".carousel-card").offsetWidth + 48; // 48px gap from space-x-12
+
+      let autoScrollInterval;
+
+      // Scroll to the next set of cards when the next button is clicked
+      nextButton.addEventListener("click", () => {
+        container.scrollBy({ left: cardWidth, behavior: "smooth" });
+        resetAutoScroll(); // Reset the auto-scroll timer
+      });
+
+      // Scroll to the previous set of cards when the previous button is clicked
+      prevButton.addEventListener("click", () => {
+        container.scrollBy({ left: -cardWidth, behavior: "smooth" });
+        resetAutoScroll(); // Reset the auto-scroll timer
+      });
+
+      // Function to auto-scroll the carousel every 3 seconds
+      const startAutoScroll = () => {
+        autoScrollInterval = setInterval(() => {
+          container.scrollBy({ left: cardWidth, behavior: "smooth" });
+
+          // Check if the end of the carousel is reached, and go back to the start
+          if (
+            container.scrollLeft + container.offsetWidth >=
+            container.scrollWidth
+          ) {
+            container.scrollTo({ left: 0, behavior: "smooth" });
+          }
+        }, 3000); // 2 seconds interval
+      };
+
+      // Function to reset auto-scroll when manually clicked
+      const resetAutoScroll = () => {
+        clearInterval(autoScrollInterval);
+        startAutoScroll();
+      };
+
+      // Start auto-scrolling when the page loads
+      startAutoScroll();
+    </script>
+
+    <!-- footer -->
+    <footer id="footer" class="bg-[#1D1E24] h-auto xl:h-275 text-white">
+      <!-- FLEX CONTAINER -->
+      <div
+        class="container flex flex-col-reverse justify-between px-6 py-1 h-full mx-auto space-y-8 lg:flex-row lg:space-y-0"
+      >
+        <!-- LOGO AND SOCIAL MEDIA LINKS CONTAINER -->
+        <div
+          class="flex flex-col-reverse items-center justify-between space-y-12 lg:flex-col lg:space-y-0 lg:items-start"
+        >
+          <!-- LOGO -->
+          <div class="pt-6 move-right">
+            <a href="/templates/index.html"
+              ><img
+                src="./img/dark side (1)-Kittl.svg"
+                height="30"
+                width="100"
+                alt="A horizontal wordmark logo with four dots of varying red and the words 'manage' next to it in lowercase sans-serif font"
+            /></a>
+          </div>
+
+          <!-- SOCIAL MEDIA LINKS -->
+          <div
+            class="flex flex-row items-center justify-between w-full space-x-3 lg:pb-8 sm:py-8"
+          >
+            <ul class="flex flex-row justify-between list-none pt-12 gap-3">
+              <li>
+                <a href="#" aria-label="Visit our Facebook page"
+                  ><svg
+                    class="http://www.w3.org/2000/svg social-icons-footer text- fill-current transition ease-in h-8 w-8 hover:text-red-500 scale-150 md:h-6 md:scale-110"
+                  >
+                    <path
+                      d="M18.896 0H1.104C.494 0 0 .494 0 1.104v17.793C0 19.506.494 20 1.104 20h9.58v-7.745H8.076V9.237h2.606V7.01c0-2.583 1.578-3.99 3.883-3.99 1.104 0 2.052.082 2.329.119v2.7h-1.598c-1.254 0-1.496.597-1.496 1.47v1.928h2.989l-.39 3.018h-2.6V20h5.098c.608 0 1.102-.494 1.102-1.104V1.104C20 .494 19.506 0 18.896 0z"
+                    /></svg
+                ></a>
+              </li>
+              <li>
+                <a href="#" aria-label="Visit our YouTube page"
+                  ><svg
+                    class="http://www.w3.org/2000/svg social-icons-footer text-veryLightGray fill-current transition ease-in h-8 w-8 hover:text-red-500 scale-150 md:h-6 md:scale-110"
+                  >
+                    <path
+                      d="M10.333 0c-5.522 0-10 4.478-10 10 0 5.523 4.478 10 10 10 5.523 0 10-4.477 10-10 0-5.522-4.477-10-10-10zm3.701 14.077c-1.752.12-5.653.12-7.402 0C4.735 13.947 4.514 13.018 4.5 10c.014-3.024.237-3.947 2.132-4.077 1.749-.12 5.651-.12 7.402 0 1.898.13 2.118 1.059 2.133 4.077-.015 3.024-.238 3.947-2.133 4.077zM8.667 8.048l4.097 1.949-4.097 1.955V8.048z"
+                    /></svg
+                ></a>
+              </li>
+              <li>
+                <a href="#" aria-label="Visit our Twitter page"
+                  ><svg
+                    class="http://www.w3.org/2000/svg social-icons-footer text-veryLightGray fill-current transition ease-in h-8 w-8 hover:text-red-500 scale-150 md:h-6 md:scale-110"
+                  >
+                    <path
+                      d="M20.667 2.797a8.192 8.192 0 01-2.357.646 4.11 4.11 0 001.804-2.27 8.22 8.22 0 01-2.606.996A4.096 4.096 0 0014.513.873c-2.649 0-4.595 2.472-3.997 5.038a11.648 11.648 0 01-8.457-4.287 4.109 4.109 0 001.27 5.478A4.086 4.086 0 011.47 6.59c-.045 1.901 1.317 3.68 3.29 4.075a4.113 4.113 0 01-1.853.07 4.106 4.106 0 003.834 2.85 8.25 8.25 0 01-6.075 1.7 11.616 11.616 0 006.29 1.843c7.618 0 11.922-6.434 11.662-12.205a8.354 8.354 0 002.048-2.124z"
+                    /></svg
+                ></a>
+              </li>
+              <li>
+                <a href="#" aria-label="Visit our Pinterest page"
+                  ><svg
+                    class="http://www.w3.org/2000/svg social-icons-footer text-veryLightGray fill-current transition ease-in h-8 w-8 hover:text-red-500 scale-150 md:h-6 md:scale-110"
+                  >
+                    <path
+                      d="M10 0C4.478 0 0 4.477 0 10c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.545 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.177-4.068-2.845 0-4.515 2.135-4.515 4.34 0 .859.331 1.781.745 2.281a.3.3 0 01.069.288l-.278 1.133c-.044.183-.145.223-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.965-.525-2.291-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.522 0 10-4.477 10-10S15.522 0 10 0z"
+                    /></svg
+                ></a>
+              </li>
+              <li>
+                <a href="#" aria-label="Visit our Instagram page"
+                  ><svg
+                    class="http://www.w3.org/2000/svg social-icons-footer text-veryLightGray fill-current transition ease-in h-8 w-8 hover:text-red-500 scale-150 md:h-6 md:scale-110"
+                  >
+                    <path
+                      d="M10.333 1.802c2.67 0 2.987.01 4.042.059 2.71.123 3.976 1.409 4.1 4.099.048 1.054.057 1.37.057 4.04 0 2.672-.01 2.988-.058 4.042-.124 2.687-1.386 3.975-4.099 4.099-1.055.048-1.37.058-4.042.058-2.67 0-2.986-.01-4.04-.058-2.717-.124-3.976-1.416-4.1-4.1-.048-1.054-.058-1.37-.058-4.041 0-2.67.01-2.986.058-4.04.124-2.69 1.387-3.977 4.1-4.1 1.054-.048 1.37-.058 4.04-.058zm0-1.802C7.618 0 7.278.012 6.211.06 2.579.227.56 2.242.394 5.877.345 6.944.334 7.284.334 10s.011 3.057.06 4.123c.166 3.632 2.181 5.65 5.816 5.817 1.068.048 1.408.06 4.123.06 2.716 0 3.057-.012 4.124-.06 3.628-.167 5.651-2.182 5.816-5.817.049-1.066.06-1.407.06-4.123s-.011-3.056-.06-4.122C20.11 2.249 18.093.228 14.458.06 13.39.01 13.049 0 10.333 0zm0 4.865a5.135 5.135 0 100 10.27 5.135 5.135 0 000-10.27zm0 8.468a3.333 3.333 0 110-6.666 3.333 3.333 0 010 6.666zm5.339-9.87a1.2 1.2 0 10-.001 2.4 1.2 1.2 0 000-2.4z"
+                    /></svg
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!--FOOTER NAVIGATION LINK MENUS -->
+        <div class="flex justify-around space-x-32 mx-auto lg:pt-14">
+          <!-- MENU 1 -->
+          <div class="flex flex-col space-y-4 text-veryLightGray">
+            <a
+              href="#"
+              aria-label="Visit our Home page"
+              class="transition ease-in hover:text-red-500"
+              >Home</a
+            >
+            <a
+              href="#"
+              aria-label="Visit our Pricing page"
+              class="transition ease-in hover:text-red-500"
+              >Pricing</a
+            >
+            <a
+              href="#"
+              aria-label="Visit our Products page"
+              class="transition ease-in hover:text-red-500"
+              >Products</a
+            >
+            <a
+              href="#"
+              aria-label="Visit our About Us page"
+              class="transition ease-in hover:text-red-500"
+              >About Us</a
+            >
+          </div>
+          <!-- MENU 2 -->
+          <div class="flex flex-col space-y-3 text-veryLightGray sm:flex-start">
+            <a
+              href="#"
+              aria-label="Visit our Careers page"
+              class="transition ease-in hover:text-red-500"
+              >Careers</a
+            >
+            <a
+              href="#"
+              aria-label="Visit our Community page"
+              class="transition ease-in hover:text-red-500"
+              >Community</a
+            >
+            <a
+              href="#"
+              aria-label="Visit our Privacy page"
+              class="transition ease-in hover:text-red-500"
+              >Privacy Policy</a
+            >
+          </div>
+        </div>
+
+        <!-- NEWSLETTER SIGN UP -->
+        <div
+          class="flex flex-col justify-between sm:py-5 items-center lg:items-end lg:pt-10"
+        >
+          <div class="flex">
+            <div class="flex space-x-3 px-1.5">
+              <div class="flex flex-col space-y-2">
+                <input
+                  id="email-address-input"
+                  class="p-4 px-6 pt-2 text-red-500 bg-white rounded-lg outline-none"
+                  placeholder="Updates in your inbox..."
+                  type="text"
+                />
+                <p id="response-message" class="italic text-brightRed pl-6"></p>
+                <p></p>
+              </div>
+            </div>
+            <div>
+              <button
+                id="submit-email-address"
+                class="bg-[#2F4454] text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300"
+              >
+                Go
+              </button>
+            </div>
+          </div>
+          <!-- DESKTOP COPYRIGHT BANNER -->
+        </div>
+      </div>
+      <!-- MOBILE COPYRIGHT BANNER -->
+      <div class="flex flex-col text-center py-4 lg:hidden">
+        <p class="text-darkGrayishBlue">Copyright 2020. All Rights Reserved</p>
+      </div>
+      <!-- ATTRIBUTIONS BANNER -->
+      <div
+        class="flex flex-col attribution bg-veryDarkBlue py-4 items-center sm:py-2"
+      >
+        <p class="text-darkGrayishBlue text-center sm:px-5">
+          Copyright 2020. All Rights Reserved
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
