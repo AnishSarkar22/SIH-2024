@@ -24,49 +24,46 @@
                 style="border-top-right-radius: 30px; border-bottom-right-radius: 30px;">
                 <div class="flex items-center justify-center mb-6">
                     <i class="fas fa-r text-4xl text-center"></i>
-                    <!-- <h1 class="text-2xl font-light text-gray-500 font-['Julius_Sans_One'] sidebar-text">REBOOTERS</h1> -->
                 </div>
-
+                
                 <nav class="flex flex-col flex-grow space-y-4">
-                    <a href="dashboard.html"
-                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] active:bg-[#f6a870] active:text-white">
+                    <a href="{{ url_for('dashboard') }}"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-home text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Home</span>
                     </a>
-                    <a href="classes.html"
+                    <a href="{{ url_for('classes') }}"
                         class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fa-solid fa-user-group text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Classes</span>
                     </a>
-                    <a href="mentors.html"
+                    <a href="{{ url_for('mentors') }}"
                         class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-user-tie text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Mentors</span>
                     </a>
-                    <a href="messages.html"
+                    <a href="{{ url_for('messages') }}"
                         class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fa-solid fa-inbox text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Messages</span>
                     </a>
-                    <a href="bookmark.html"
+                    <a href="{{ url_for('bookmarks') }}"
                         class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-bookmark text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Bookmarks</span>
                     </a>
-                    <a href="profile.html"
-                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                    <a href="{{ url_for('profile') }}"
+                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fa-solid fa-user text-xl w-8 text-center"></i>
-                        <span class="ml-3 text-lg sidebar-text">Profile</span>
+                        <span class="ml-3 text-lg sidebar-text">My Profile</span>
                     </a>
-                    <a href="setting.html"
+                    <!-- <a href="settings.html"
                         class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-cog text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Settings</span>
-                    </a>
+                    </a> -->
                 </nav>
-
-
-                <a href="signout.html"
+                <a href="{{ url_for('logout') }}"
                     class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] mt-auto">
                     <i class="fas fa-sign-out-alt text-xl w-8 text-center"></i>
                     <span class="ml-3 text-lg sidebar-text">Sign Out</span>

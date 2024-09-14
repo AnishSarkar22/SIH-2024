@@ -17,52 +17,46 @@
                 style="border-top-right-radius: 30px; border-bottom-right-radius: 30px;">
                 <div class="flex items-center justify-center mb-6">
                     <i class="fas fa-r text-4xl text-center"></i>
-                    <!-- <h1 class="text-2xl font-light text-gray-500 font-['Julius_Sans_One'] sidebar-text">REBOOTERS</h1> -->
                 </div>
                 
-
-                <!-- <button id="menuToggle" class="fas fa-bars text-2xl cursor-pointer mb-6 self-end"></button> -->
-
                 <nav class="flex flex-col flex-grow space-y-4">
-                    <a href="#"
-                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] active:bg-[#f6a870] active:text-white">
+                    <a href="{{ url_for('dashboard') }}"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-home text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Home</span>
                     </a>
                     <a href="{{ url_for('classes') }}"
-                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fa-solid fa-user-group text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Classes</span>
                     </a>
-                    <a href="mentors.html"
-                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                    <a href="{{ url_for('mentors') }}"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-user-tie text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Mentors</span>
                     </a>
-                    <a href="messages.html"
-                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                    <a href="{{ url_for('messages') }}"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fa-solid fa-inbox text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Messages</span>
                     </a>
-                    <a href="bookmarks.html"
-                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                    <a href="{{ url_for('bookmarks') }}"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-bookmark text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Bookmarks</span>
                     </a>
-                    <a href="profile.html"
+                    <a href="{{ url_for('profile') }}"
                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fa-solid fa-user text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">My Profile</span>
                     </a>
-                    <!-- <a href="setting.html"
-                       class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
+                    <!-- <a href="settings.html"
+                        class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870]">
                         <i class="fas fa-cog text-xl w-8 text-center"></i>
                         <span class="ml-3 text-lg sidebar-text">Settings</span>
                     </a> -->
                 </nav>
-                
-                
-                <a href="signout.html"
+                <a href="{{ url_for('logout') }}"
                     class="flex items-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-[#f6a870] mt-auto">
                     <i class="fas fa-sign-out-alt text-xl w-8 text-center"></i>
                     <span class="ml-3 text-lg sidebar-text">Sign Out</span>
@@ -102,7 +96,7 @@
                                 <div class="divide-y divide-gray-100 dark:divide-gray-700">
                                     <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
                                         <div class="flex-shrink-0 relative">
-                                            <img class="rounded-full w-11 h-11" src="/static/images/dashboard/img1.jpeg" alt="Jese image">
+                                            <img class="rounded-full w-11 h-11" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
                                             <div class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
                                                 <svg class="w-2 h-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                                                     <path d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z"/>
@@ -339,7 +333,7 @@
                     </div>
                 </div>
                 <!-- Frequently Asked Questions -->
-                <div class="bg-white mt-6 dark:bg-gray-800 p-8 rounded-lg shadow-sm shadow-gray-700">
+                <div class="bg-white mt-6 dark:bg-gray-900 p-8 rounded-lg ">
                     <h2 class="text-2xl font-semibold mb-8 text-gray-900 dark:text-gray-100 text-center">Frequently
                         Asked Questions</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
