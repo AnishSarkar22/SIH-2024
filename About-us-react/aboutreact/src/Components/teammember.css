@@ -1,0 +1,30 @@
+/* Container for the carousel */
+.carousel-container {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth; /* Enables smooth scrolling */
+  -webkit-overflow-scrolling: touch; /* Enhances scrolling on touch devices */
+}
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.carousel-container {
+  scrollbar-width: none;
+}
+
+/* Individual carousel card styling */
+.carousel-card {
+  flex: 0 0 auto; /* Prevents shrinking and allows scrolling */
+  width: 28rem; /* Adjust the width to match your content */
+  margin-right: 2rem; /* Adds space between cards */
+  box-sizing: border-box; /* Includes padding and border in the width */
+}
+
+/* Optional: Add space between cards */
+/* .carousel-card:not(:last-child) {
+  margin-right: 1rem; 
+} */
