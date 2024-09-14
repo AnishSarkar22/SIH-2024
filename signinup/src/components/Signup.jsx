@@ -91,7 +91,6 @@ export default function SignUp() {
     >
       <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
         <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-          {/* //<SitemarkIcon /> */}
           <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">
             Sign up
           </h1>
@@ -185,6 +184,15 @@ export default function SignUp() {
                 Sign in
               </a>
             </p>
+            <p className="text-center text-gray-600 dark:text-gray-400 mt-2">
+              Interested in mentoring?{" "}
+              <a
+                href="#"
+                className="text-indigo-600 hover:underline"
+              >
+                Apply as a Mentor
+              </a>
+            </p>
           </form>
           <div className="flex items-center justify-between mt-4">
             <hr className="w-full border-gray-300 dark:border-gray-600" />
@@ -204,7 +212,7 @@ export default function SignUp() {
               onClick={() => alert("Sign in with Twitter")}
               className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
             >
-              <TwitterIcon className="mr-4" /> {/* Increased space */}
+              <TwitterIcon className="mr-4" />
               Sign in with Twitter
             </button>
           </div>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 
-import { GoogleIcon, TwitterIcon } from "./CustomItems"; // Import TwitterIcon
+import { GoogleIcon, TwitterIcon } from "./CustomItems";
 import ForgotPassword from "./Forgetpassword";
-
+import RoleToggle from "./RoleToggle";
 
 export default function SignIn() {
   const [emailError, setEmailError] = useState(false);
@@ -11,6 +11,7 @@ export default function SignIn() {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(""); // Track which button is clicked
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -143,6 +144,9 @@ export default function SignIn() {
           >
             Sign in
           </button>
+
+          {/* Add Mentee and Mentor Buttons */}
+          <RoleToggle onRoleChange={setSelectedRole} />
         </form>
 
         <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
@@ -152,22 +156,25 @@ export default function SignIn() {
           </Link>
         </p>
 
-        <div className="flex flex-col gap-2 mt-6">
-          <button
-            onClick={() => alert("Sign in with Google")}
-            className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
-          >
-            <GoogleIcon className="mr-4" /> {/* Increased space */}
-            Sign in with Google
-          </button>
-          <button
-            onClick={() => alert("Sign in with Twitter")}
-            className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
-          >
-            <TwitterIcon className="mr-4" /> {/* Increased space */}
-            Sign in with Twitter
-          </button>
-        </div>
+        {/* Conditionally render social sign-in buttons */}
+        {selectedRole !== "mentor" && (
+          <div className="flex flex-col gap-2 mt-6">
+            <button
+              onClick={() => alert("Sign in with Google")}
+              className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+            >
+              <GoogleIcon className="mr-4" /> {/* Increased space */}
+              Sign in with Google
+            </button>
+            <button
+              onClick={() => alert("Sign in with Twitter")}
+              className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+            >
+              <TwitterIcon className="mr-4" /> {/* Increased space */}
+              Sign in with Twitter
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
