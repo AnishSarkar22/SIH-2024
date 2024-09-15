@@ -155,7 +155,7 @@ const TeamCarousel = () => {
                     Soham Bhattacharya
                   </h3>
                   <p className="text-sm text-gray-700">
-                    Frontend Developer & Database Expert
+                    Frontend Developer & App Developer
                   </p>
                 </div>
               </div>
@@ -197,7 +197,7 @@ const TeamCarousel = () => {
                     Aniket Ghosh
                   </h3>
                   <p className="text-sm text-gray-700">
-                    Frontend Developer & App Developer
+                    Frontend Developer & Database Expert
                   </p>
                 </div>
               </div>
