@@ -45,7 +45,8 @@
     "styled-components": "^6.1.13",
     "swiper": "^11.1.14",
     "tailwind-scrollbar": "^3.1.0",
-    "tw-elements-react": "^1.0.0-alpha-end"
+    "tw-elements-react": "^1.0.0-alpha-end",
+    "webrtc-adapter": "^9.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
