@@ -68,7 +68,7 @@ const Dashboard = () => {
     {
       name: "Radhika Sharma",
       role: "Research and Development @ NJM",
-      image: "/images/mentor2.jpg",
+      image: "/images/mentor2.jpeg",
       rating: "5.0 (18 reviews)",
       price: "₹6000/mo",
       skills: ["Brand Strategy", "Personal Branding", "Marketing", "Leadership", "Social Media"],
