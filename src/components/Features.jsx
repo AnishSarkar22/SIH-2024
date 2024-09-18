@@ -62,8 +62,7 @@ export default function Features() {
         backgroundSize: "24.375rem"
       },
     },
-    ".center-content": {
-      height: "300px",
+    centerContent: {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -84,6 +83,7 @@ export default function Features() {
       "--tw-text-opacity": "1",
       color: "rgb(61 84 102 / var(--tw-bg-opacity))"
     },
+    ".move-up":{marginBottom: "-80px"},
   };
 
   return (
@@ -98,7 +98,7 @@ export default function Features() {
         <h2 className="text-4xl font-bold text-[#2F4454] mb-6 text-center">
           At your fingertips: a dedicated coach
         </h2>
-        <p className="text-gray-1200 mt-5 text-center ">
+        <p className="text-gray-1200 mt-5 text-center center-content">
           Want to build your career, successfully repair your relationships, and
           enhance your
           <br />
@@ -106,18 +106,18 @@ export default function Features() {
         </p>
         <div className="flex items-center justify-center min-h-screen mt-[-130px]">
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-5">
-            <div className="bg-white p-6 rounded-lg shadow-2xl center-content">
+            <div className="bg-white p-6 rounded-lg shadow-2xl center-content" style={styles.centerContent}>
               <img
                 src="images/online-study.svg"
                 alt="Group Sessions"
                 className="w-17 h-19 mb-6"
               />
-              <h3 className="text-xl font-semibold mb-4">free group sessions</h3>
+              <h3 className="text-xl font-semibold mb-4 text-center">free group sessions</h3>
               <p className="text-gray-600 text-center mt-4">
                 One powerful online software suite that combines
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-2xl center-content">
+            <div className="bg-white p-6 rounded-lg shadow-2xl center-content" style={styles.centerContent}>
               <img
                 src="images/3d-rendering-people-avatars-zoom-call-removebg 1.svg"
                 alt="Video Calls"
@@ -128,7 +128,7 @@ export default function Features() {
                 One powerful online software suite that combines
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-2xl center-content">
+            <div className="bg-white p-6 rounded-lg shadow-2xl center-content" style={styles.centerContent}>
               <img
                 src="images/Saly-26.svg"
                 alt="Flexible Program"
@@ -141,7 +141,7 @@ export default function Features() {
                 One powerful online software suite that combines
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-2xl center-content">
+            <div className="bg-white p-6 rounded-lg shadow-2xl center-content" style={styles.centerContent}>
               <img
                 src="images/Saly-12.svg"
                 alt="Personal Chats"
@@ -157,7 +157,7 @@ export default function Features() {
         <div className="flex flex-col py-6 mx-auto items-center xl:pt-1 xl:pb-32 spaced-section">
           <a
             href="#"
-            className="bg-[#2F4454] text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300"
+            className="bg-[#2F4454] text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300 move-up" style={{ marginBottom: '-20px' }} 
           >
             Find a mentor
           </a>

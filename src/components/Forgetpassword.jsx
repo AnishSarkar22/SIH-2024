@@ -30,6 +30,7 @@ function ForgotPassword({ open, handleClose }) {
               type="email"
               placeholder="Email address"
               className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              tabindex="1"
             />
           </div>
         </div>

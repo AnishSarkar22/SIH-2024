@@ -60,9 +60,9 @@ const Dashboard = () => {
 
   const mentors = [
     {
-      name: "Thomas John",
+      name: "Karan Singh",
       role: "Lead SRE @ MICROSOFT",
-      image: "./images/img1.jpeg",
+      image: "/images/mentor1.png",
       rating: "5.0 (44 reviews)",
       price: "₹5000/mo",
       skills: ["Azure", "Cloud", "Google Cloud", "Python", "Ansible", "Kubernetes"],
@@ -70,7 +70,23 @@ const Dashboard = () => {
     {
       name: "Radhika Sharma",
       role: "Research and Development @ NJM",
-      image: "./images/img2.jpeg",
+      image: "/images/mentor2.jpg",
+      rating: "5.0 (18 reviews)",
+      price: "₹6000/mo",
+      skills: ["Brand Strategy", "Personal Branding", "Marketing", "Leadership", "Social Media"],
+    },
+    {
+      name: "Aniket Luthra",
+      role: "Research and Development @ NJM",
+      image: "/images/mentor3.jpg",
+      rating: "5.0 (18 reviews)",
+      price: "₹6000/mo",
+      skills: ["Brand Strategy", "Personal Branding", "Marketing", "Leadership", "Social Media"],
+    },
+    {
+      name: "Ronak Kumar",
+      role: "Research and Development @ NJM",
+      image: "/images/mentor4.jpg",
       rating: "5.0 (18 reviews)",
       price: "₹6000/mo",
       skills: ["Brand Strategy", "Personal Branding", "Marketing", "Leadership", "Social Media"],
@@ -137,7 +153,7 @@ const Dashboard = () => {
               {/* Chat with AI */}
               <div className="bg-white rounded-lg shadow shadow-gray-400 p-6 dark:bg-gray-800">
                 <h2 className="text-xl font-semibold mb-4 text-center">
-                  Chat with AI
+                  Personal Assistant
                 </h2>
                 <div className="bg-gray-100 p-4 rounded-lg mb-4 dark:bg-gray-800">
                   <div className="flex items-center mb-2">
@@ -145,7 +161,7 @@ const Dashboard = () => {
                     <div>
                       <p className="font-semibold text-2xl">John</p>
                       <p className="text-gray-500 text-md">
-                        12:49 pm Aug 19 2024
+                        Sep 17 2024
                       </p>
                     </div>
                   </div>
@@ -260,7 +276,7 @@ const Dashboard = () => {
                           <img
                             src={mentor.image}
                             alt={mentor.name}
-                            className="w-24 h-24 rounded-lg"
+                            className="w-25 h-24 rounded-lg"
                           />
                           <div className="ml-4 flex-1">
                             <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100">

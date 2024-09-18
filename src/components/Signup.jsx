@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoogleIcon, FacebookIcon, TwitterIcon } from "./CustomItems";
 import TemplateFrame from "./TemplateFrame";
+import axios from 'axios';
 
 export default function SignUp() {
   const [mode, setMode] = useState("light");
@@ -71,15 +72,27 @@ export default function SignUp() {
     return isValid;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    if (validateInputs()) {
+      const data = new FormData(event.currentTarget);
+      const userData = {
+        name: data.get("name"),
+        email: data.get("email"),
+        password: data.get("password"),
+      };
+
+      try {
+        const response = await axios.post('http://localhost:5000/api/signup', userData);
+        if (response.data.success) {
+          console.log('Signup successful', response.data);
+          // Handle successful signup (e.g., redirect to login page or show success message)
+        }
+      } catch (error) {
+        console.error('Signup failed', error.response?.data || error.message);
+        // Handle signup error (e.g., show error message to user)
+      }
+    }
   };
 
   return (
@@ -89,7 +102,7 @@ export default function SignUp() {
       mode={mode}
       toggleColorMode={toggleColorMode}
     >
-      <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
+      <div className="min-h-screen flex justify-center items-center bg-white">
         <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">
             Sign up
@@ -98,7 +111,7 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="name"
-                className="text-gray-700 dark:text-gray-200"
+                className="text-gray-700"
               >
                 Full name
               </label>
@@ -108,7 +121,7 @@ export default function SignUp() {
                 name="name"
                 required
                 placeholder="Jon Snow"
-                className={`w-full p-2 mt-1 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
+                className={`w-full p-2 mt-1 border text-black rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
                   nameError ? "border-red-500" : ""
                 }`}
               />
@@ -129,7 +142,7 @@ export default function SignUp() {
                 name="email"
                 required
                 placeholder="your@email.com"
-                className={`w-full p-2 mt-1 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
+                className={`w-full p-2 mt-1 border text-black rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
                   emailError ? "border-red-500" : ""
                 }`}
               />
@@ -150,7 +163,7 @@ export default function SignUp() {
                 name="password"
                 required
                 placeholder="••••••"
-                className={`w-full p-2 mt-1 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
+                className={`w-full p-2 mt-1 border rounded-md text-black dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
                   passwordError ? "border-red-500" : ""
                 }`}
               />
@@ -202,7 +215,7 @@ export default function SignUp() {
           <div className="flex flex-col gap-2 mt-4">
             <button
               type="button"
-              className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-400"
               onClick={() => alert("Sign up with Google")}
             >
               <GoogleIcon />
@@ -210,7 +223,7 @@ export default function SignUp() {
             </button>
             <button
               onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-400"
             >
               <TwitterIcon className="mr-4" />
               Sign in with Twitter

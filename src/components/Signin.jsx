@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import { GoogleIcon, TwitterIcon } from "./CustomItems";
-import ForgotPassword from "./Forgetpassword";
+// import ForgotPassword from "./Forgetpassword";
 import RoleToggle from "./RoleToggle";
 
 export default function Signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(""); // Track which button is clicked
+  const [selectedRole, setSelectedRole] = useState("mentee");
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,22 +24,10 @@ export default function Signin() {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
   const validateInputs = () => {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setEmailError(true);
       setEmailErrorMessage("Please enter a valid email address.");
       isValid = false;
@@ -45,7 +36,7 @@ export default function Signin() {
       setEmailErrorMessage("");
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!password || password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage("Password must be at least 6 characters long.");
       isValid = false;
@@ -55,6 +46,49 @@ export default function Signin() {
     }
 
     return isValid;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (validateInputs()) {
+      try {
+        console.log('Attempting to sign in with:', { email, role: selectedRole });
+        const response = await axios.post('http://localhost:5000/api/signin', {
+          email,
+          password,
+          role: selectedRole
+        });
+
+        console.log('Sign-in response:', response);
+
+        if (response.status === 200 && response.data.user_id) {
+          localStorage.setItem('user_id', response.data.user_id);
+          localStorage.setItem('role', response.data.role);
+
+          console.log('User ID and role stored in localStorage');
+
+          // Redirect based on role
+          if (response.data.role === 'mentee') {
+            console.log('Redirecting to /dashboard');
+            navigate('/dashboard');
+          } else {
+            console.log('Redirecting to /mentor-dashboard');
+            navigate('/mentor-dashboard');
+          }
+        } else {
+          console.error('Unexpected response structure:', response);
+          alert('Sign in failed. Unexpected response from server.');
+        }
+      } catch (error) {
+        console.error('Sign in error:', error);
+        if (error.response) {
+          console.error('Error response:', error.response.data);
+          alert(`Sign in failed: ${error.response.data.error || 'Please check your credentials and try again.'}`);
+        } else {
+          alert('Sign in failed. Please check your network connection and try again.');
+        }
+      }
+    }
   };
 
   return (
@@ -78,10 +112,12 @@ export default function Signin() {
               type="email"
               autoComplete="email"
               required
-              className={`w-full p-2 mt-1 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
+              className={`w-full p-2 mt-1 border text-black rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
                 emailError ? "border-red-500" : "border-gray-300"
               }`}
               placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             {emailError && (
               <p className="text-red-500 text-sm">{emailErrorMessage}</p>
@@ -114,6 +150,8 @@ export default function Signin() {
                 passwordError ? "border-red-500" : "border-gray-300"
               }`}
               placeholder="••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (
               <p className="text-red-500 text-sm">{passwordErrorMessage}</p>
@@ -135,18 +173,16 @@ export default function Signin() {
             </label>
           </div>
 
-          <ForgotPassword open={open} handleClose={handleClose} />
+          {/* <ForgotPassword open={open} handleClose={handleClose} /> */}
+
+          <RoleToggle onRoleChange={setSelectedRole} initialRole="mentee" />
 
           <button
             type="submit"
-            onClick={validateInputs}
             className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Sign in
           </button>
-
-          {/* Add Mentee and Mentor Buttons */}
-          <RoleToggle onRoleChange={setSelectedRole} />
         </form>
 
         <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
@@ -156,21 +192,20 @@ export default function Signin() {
           </Link>
         </p>
 
-        {/* Conditionally render social sign-in buttons */}
-        {selectedRole !== "mentor" && (
+        {selectedRole === "mentee" && (
           <div className="flex flex-col gap-2 mt-6">
             <button
               onClick={() => alert("Sign in with Google")}
-              className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-400"
             >
-              <GoogleIcon className="mr-4" /> {/* Increased space */}
+              <GoogleIcon className="mr-4" />
               Sign in with Google
             </button>
             <button
               onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-400"
             >
-              <TwitterIcon className="mr-4" /> {/* Increased space */}
+              <TwitterIcon className="mr-4" />
               Sign in with Twitter
             </button>
           </div>

@@ -1,17 +1,24 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 export default function Hero() {
   const textElementRef = useRef(null);
   const cursorElementRef = useRef(null);
 
   useEffect(() => {
-    const specialties = ["Marketing", "Skill Development", "AWS", "SEO", "AI", "Career"];
+    const specialties = [
+      "Marketing",
+      "Skill Development",
+      "AWS",
+      "SEO",
+      "AI",
+      "Career",
+    ];
     let currentIndex = 0;
     const textElement = textElementRef.current;
     const cursorElement = cursorElementRef.current;
 
     function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+      return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     async function typeText(text) {
@@ -41,7 +48,8 @@ export default function Hero() {
 
     const cursorBlinking = setInterval(() => {
       if (cursorElement) {
-        cursorElement.style.opacity = cursorElement.style.opacity === "0" ? "1" : "0";
+        cursorElement.style.opacity =
+          cursorElement.style.opacity === "0" ? "1" : "0";
       }
     }, 500);
 
@@ -55,29 +63,49 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="py-4 md:py-6">
-      <div className="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center">
+    <section id="hero" className="py-4 md:py-6" style={{
+      backgroundImage: "url('images/bg-tablet-pattern.svg')",
+      backgroundSize: "40rem",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "100% -2%",
+    }}>
+      <div className="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center" >
         {/* LEFT COLUMN */}
-        <div className="md:w-1/2 space-y-8 text-center md:text-left font-extrabold"
+        <div
+          className="md:w-1/2 space-y-8 text-center md:text-left font-extrabold"
           style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-            <span className="text-navy-900" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>1-on-1 </span>
-            <span 
-              ref={textElementRef} 
+          <h1
+            className="text-5xl md:text-6xl font-bold leading-tight"
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          >
+            <span
+              className="text-navy-900"
+              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            >
+              1-on-1{" "}
+            </span>
+            <span
+              ref={textElementRef}
               className="text-teal-600"
               style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
             ></span>
-            <span 
-              ref={cursorElementRef} 
+            <span
+              ref={cursorElementRef}
               className="text-teal-600 animate-blink"
               style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-            >|</span>
+            >
+              |
+            </span>
             <br />
             Mentorship
           </h1>
-          <h3 className="text-lg md:text-xl text-gray-700" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-            Connecting Ambition with Expertise,<br /> Seamlessly Scheduled.
+          <h3
+            className="text-lg md:text-xl text-gray-700"
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          >
+            Connecting Ambition with Expertise,
+            <br /> Seamlessly Scheduled.
           </h3>
           <div className="pt-2">
             <a
@@ -90,13 +118,16 @@ export default function Hero() {
           </div>
         </div>
         {/* RIGHT COLUMN */}
-        <div className="md:w-1/2 mb-6 md:mb-0">
-          <video 
-            src="images/3d-casual-life-user-interface-elements.webm" 
-            className="w-full h-auto object-cover" 
-            autoPlay 
-            loop 
-            muted 
+        <div
+          className="md:w-1/2 mb-6 md:mb-0"
+          
+        >
+          <video
+            src="images/3d-casual-life-user-interface-elements.webm"
+            className="w-full h-auto object-cover"
+            autoPlay
+            loop
+            muted
             playsInline
           >
             Your browser does not support the video tag.

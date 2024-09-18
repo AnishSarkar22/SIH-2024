@@ -9,9 +9,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative container mx-auto px-4 py-0 md:px-2 md:py-1 xl:px-12 mt-10">
+    <nav className="relative container mx-full px-12 py-0 md:px-2 md:py-1 xl:px-12 mt-0 w-full ">
       {/* FLEX CONTAINER */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between" >
         {/* LOGO */}
         <div className="pt-0">
           
@@ -72,7 +72,7 @@ export default function Navbar() {
           >
             Log in
           </Link>
-          <Link
+          <Link 
             to="/signup"
             className="bg-white border border-black text-darkBlue font-bold py-3 px-6 rounded-lg transition duration-300"
             style={{
@@ -82,7 +82,7 @@ export default function Navbar() {
               padding: '0.75rem 1.5rem',
               borderRadius: '0.5rem',
               transition: 'background-color 0.3s',
-              textDecoration: 'none'
+              textDecoration: 'none',
             }}
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'darkgrey'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
