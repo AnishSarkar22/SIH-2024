@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo,useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -26,14 +26,12 @@ const NextArrow = ({ onClick }) => (
   </button>
 );
 
-
 const Dashboard = () => {
- const [sidebarShrink, setSidebarShrink] = useState(() => {
+  const [sidebarShrink, setSidebarShrink] = useState(() => {
     const savedSidebarState = localStorage.getItem("sidebarState");
     return savedSidebarState === "shrink";
   });
 
-  {/* Const for dark and light */}
   const [darkMode, setDarkMode] = useState(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
     return savedDarkMode === "enabled";
@@ -105,6 +103,36 @@ const Dashboard = () => {
         answer:
           "Each mentor offers multiple pricing tiers. You'll be charged the monthly fee for mentorship or the session price if you book a session.",
       },
+      {
+        question: "What is the role of a mentee on this platform?",
+        answer:
+          "As a mentee, you can connect with experienced mentors or advisors for guidance on a wide range of topics, including career growth, skill development, personal challenges, or relationship advice. The platform provides a safe and supportive environment where you can seek help tailored to your specific needs, ensuring holistic development and well-being.",
+      },
+      {
+        question: "How do I book a session with a mentor?",
+        answer:
+          "Simply browse through available mentors, select a mentor based on your requirements, and use the automated calendar booking system to find a suitable time for a session.",
+      },
+      {
+        question: "Can I reschedule or cancel my session?",
+        answer:
+          "Yes, rescheduling or canceling a session is allowed. You can easily manage your bookings through the platform, subject to the mentor’s availability.",
+      },
+      {
+        question: "What should I do if a mentor is unresponsive and not responding to my application?",
+        answer:
+          "Mentors are typically given a set amount of time to respond to applications. If you haven't heard back within 3-5 business days, you may reach out to the platform's support team for assistance.",
+      },
+      {
+        question: "What should I do if I have a problem or feel uncomfortable with my mentor?",
+        answer:
+          "If you experience any issues or feel uncomfortable with your mentor, you can report the situation through the platform's support or feedback system. We take such concerns seriously and will review the matter confidentially. If necessary, we can help you find another mentor or provide further assistance to ensure you have a positive and supportive experience.",
+      },
+      {
+        question: "How do I provide feedback about my session?",
+        answer:
+          "After your session, you'll be prompted to rate your mentor and leave feedback to help us improve the platform experience.",
+      },
     ],
     []
   );
@@ -129,6 +157,7 @@ const Dashboard = () => {
     prevArrow: <PrevArrow onClick={() => sliderRef.current.slickPrev()} />,
     nextArrow: <NextArrow onClick={() => sliderRef.current.slickNext()} />,
   };
+
   return (
     <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
       <Sidebar
@@ -291,7 +320,7 @@ const Dashboard = () => {
                               </span>
                             </div>
                           </div>
-                          <span className="ml-auto font-semibold">
+                          <span className="ml-auto font-semibold dark:text-white">
                             {mentor.price}
                           </span>
                         </div>
@@ -336,4 +365,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard; 

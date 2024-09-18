@@ -205,9 +205,9 @@ function Classes() {
                           ${darkMode ? "#ffffff" : "#000000"} !important;
                       }
 
-                      .fc .fc-daygrid-day-frame {
-                        border: 1px solid ${darkMode ? "#ffffff" : "#000000"} !important;
-                      }
+                      // .fc .fc-daygrid-day-frame {
+                      //   border: 1px solid ${darkMode ? "#ffffff" : "#000000"} !important;
+                      // }
 
                       .fc .fc-daygrid {
                         border: 2px solid ${darkMode ? "#ffffff" : "#000000"} !important;
