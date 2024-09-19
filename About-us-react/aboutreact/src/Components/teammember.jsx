@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import "./teammember.css";
 import anish from "../img/anish.png";
 import sohom from "../img/sohom.jpg";
 import arnab from "../img/arnab.png";
@@ -11,41 +10,9 @@ const TeamCarousel = () => {
   const containerRef = useRef(null);
   const [autoScrollInterval, setAutoScrollInterval] = useState(null);
 
-  const cardWidth = 320; // Width of each card
-  const cardGap = 28; // Space between cards
-  const scrollAmount = cardWidth + cardGap; // Total scroll amount
-
-  const scrollNext = () => {
-    if (containerRef.current) {
-      const scrollPosition = containerRef.current.scrollLeft + scrollAmount;
-      const maxScrollLeft =
-        containerRef.current.scrollWidth - containerRef.current.clientWidth;
-
-      containerRef.current.scrollTo({
-        left: scrollPosition > maxScrollLeft ? 0 : scrollPosition,
-        behavior: "smooth",
-      });
-
-      resetAutoScroll();
-    }
-  };
-
-  const scrollPrev = () => {
-    if (containerRef.current) {
-      const scrollPosition = containerRef.current.scrollLeft - scrollAmount;
-
-      containerRef.current.scrollTo({
-        left:
-          scrollPosition < 0
-            ? containerRef.current.scrollWidth -
-              containerRef.current.clientWidth
-            : scrollPosition,
-        behavior: "smooth",
-      });
-
-      resetAutoScroll();
-    }
-  };
+  const cardWidth = 320;
+  const cardGap = 28;
+  const scrollAmount = cardWidth + cardGap;
 
   const startAutoScroll = () => {
     const interval = setInterval(() => {
@@ -59,16 +26,9 @@ const TeamCarousel = () => {
           behavior: "smooth",
         });
       }
-    }, 3000); // Adjust interval to slow down auto-scroll
+    }, 3000);
 
     setAutoScrollInterval(interval);
-  };
-
-  const resetAutoScroll = () => {
-    if (autoScrollInterval) {
-      clearInterval(autoScrollInterval);
-      startAutoScroll();
-    }
   };
 
   useEffect(() => {
@@ -81,195 +41,81 @@ const TeamCarousel = () => {
     };
   }, [autoScrollInterval]);
 
+  const carouselContainerStyle = {
+    display: "flex",
+    overflowX: "scroll",
+    scrollBehavior: "smooth",
+    WebkitOverflowScrolling: "touch",
+    scrollbarWidth: "none",
+    msOverflowStyle: "none",
+  };
+
+  const carouselCardStyle = {
+    flex: "0 0 auto",
+    width: `${cardWidth}px`,
+    marginRight: `${cardGap}px`,
+    boxSizing: "border-box",
+  };
+
   return (
     <div className="flex-grow mt-5 bg-gray-50 rounded-lg p-6 mb-6">
       <h2 className="text-3xl font-bold mb-4 text-gray-900 text-center">
         Team Member
       </h2>
       <div className="relative w-full max-w-5xl mx-auto">
-        <div className="flex items-center justify-between">
-          {/* Left Arrow */}
-          <button
-            type="button"
-            onClick={scrollPrev}
-            className="absolute left-0 transform -translate-y-1/2 top-1/2 p-2 bg-gray-200 rounded-full focus:outline-none z-10 carousel-button"
-          >
-            <svg
-              className="w-6 h-6 text-gray-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            <span className="sr-only">Previous</span>
-          </button>
-
-          {/* Mentor Cards Container */}
-          <div
-            ref={containerRef}
-            className="carousel-container"
-            style={{ padding: `0 ${cardGap / 2}px` }}
-          >
-            {/* Card 1 */}
+        <div
+          ref={containerRef}
+          className="carousel-container"
+          style={{ ...carouselContainerStyle, padding: `0 ${cardGap / 2}px` }}
+        >
+          {[
+            {
+              name: "Anish Sarker",
+              role: "AI Expert & Backend Developer",
+              img: anish,
+            },
+            {
+              name: "Soham Bhattacharya",
+              role: "Frontend Developer & App Developer",
+              img: sohom,
+            },
+            { name: "Arnab Dua", role: "Content Writer", img: arnab },
+            {
+              name: "Aniket Ghosh",
+              role: "Frontend Developer & Database Expert",
+              img: aniket,
+            },
+            {
+              name: "Kankana Biswas",
+              role: "Content Writer & App Developer",
+              img: kankana,
+            },
+            {
+              name: "Doyelshree Bhui",
+              role: "UX and UI designer & Backend Developer",
+              img: doyel,
+            },
+          ].map((member, index) => (
             <div
+              key={index}
               className="carousel-card bg-gray-100 rounded-lg p-6"
-              style={{ width: cardWidth }}
+              style={carouselCardStyle}
             >
               <div className="flex flex-col items-center justify-center mb-4">
                 <img
-                  src={anish}
-                  alt="Anish Sarker"
+                  src={member.img}
+                  alt={member.name}
                   className="w-32 h-32 rounded-xl border-2 object-cover"
                 />
                 <div className="mt-4 text-center">
                   <h3 className="font-semibold text-lg text-gray-900">
-                    Anish Sarker
+                    {member.name}
                   </h3>
-                  <p className="text-sm text-gray-700">
-                    AI Expert & Backend Developer
-                  </p>
+                  <p className="text-sm text-gray-700">{member.role}</p>
                 </div>
               </div>
             </div>
-
-            {/* Card 2 */}
-            <div
-              className="carousel-card bg-gray-100 rounded-lg p-6"
-              style={{ width: cardWidth }}
-            >
-              <div className="flex flex-col items-center justify-center mb-4">
-                <img
-                  src={sohom}
-                  alt="Soham Bhattacharya"
-                  className="w-32 h-32 rounded-xl border-2 object-cover"
-                />
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg text-gray-900">
-                    Soham Bhattacharya
-                  </h3>
-                  <p className="text-sm text-gray-700">
-                    Frontend Developer & App Developer
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div
-              className="carousel-card bg-gray-100 rounded-lg p-6"
-              style={{ width: cardWidth }}
-            >
-              <div className="flex flex-col items-center justify-center mb-4">
-                <img
-                  src={arnab}
-                  alt="Arnab Dua"
-                  className="w-32 h-32 rounded-xl border-2 object-cover"
-                />
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg text-gray-900">
-                    Arnab Dua
-                  </h3>
-                  <p className="text-sm text-gray-700">Content Writer</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4 */}
-            <div
-              className="carousel-card bg-gray-100 rounded-lg p-6"
-              style={{ width: cardWidth }}
-            >
-              <div className="flex flex-col items-center justify-center mb-4">
-                <img
-                  src={aniket}
-                  alt="Aniket Ghosh"
-                  className="w-32 h-32 rounded-xl border-2 object-cover"
-                />
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg text-gray-900">
-                    Aniket Ghosh
-                  </h3>
-                  <p className="text-sm text-gray-700">
-                    Frontend Developer & Database Expert
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 5 */}
-            <div
-              className="carousel-card bg-gray-100 rounded-lg p-6"
-              style={{ width: cardWidth }}
-            >
-              <div className="flex flex-col items-center justify-center mb-4">
-                <img
-                  src={kankana}
-                  alt="Kankana Biswas"
-                  className="w-32 h-32 rounded-xl border-2 object-cover"
-                />
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg text-gray-900">
-                    Kankana Biswas
-                  </h3>
-                  <p className="text-sm text-gray-700">
-                    Content Writer & App Developer
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 6 */}
-            <div
-              className="carousel-card bg-gray-100 rounded-lg p-6"
-              style={{ width: cardWidth }}
-            >
-              <div className="flex flex-col items-center justify-center mb-4">
-                <img
-                  src={doyel}
-                  alt="Doyelshree Bhui"
-                  className="w-32 h-32 rounded-xl border-2 object-cover"
-                />
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg text-gray-900">
-                    Doyelshree Bhui
-                  </h3>
-                  <p className="text-sm text-gray-700">
-                    UX and UI designer & Backend Developer
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Arrow */}
-          <button
-            type="button"
-            onClick={scrollNext}
-            className="absolute right-0 transform -translate-y-1/2 top-1/2 p-2 bg-gray-200 rounded-full focus:outline-none z-10 carousel-button"
-          >
-            <svg
-              className="w-6 h-6 text-gray-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-            <span className="sr-only">Next</span>
-          </button>
+          ))}
         </div>
       </div>
     </div>
