@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "./Header"; // Import Header component
 import Sidebar from "./Sidebar"; // Import Sidebar component
 import { formatDate } from "@fullcalendar/core";
@@ -10,6 +10,27 @@ import { INITIAL_EVENTS, createEventId } from "./event-utils"; // Correct import
 import Carousel from "react-multi-carousel"; // Import Carousel component
 import "react-multi-carousel/lib/styles.css"; // Import Carousel styles
 import "../index.css"; // Import the stylesheet
+import { ChevronLeft, ChevronRight } from "react-feather";
+
+const PrevArrow = ({ onClick }) => (
+  <button
+    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    onClick={onClick}
+    style={{ marginTop: "8px" }}
+  >
+    <ChevronLeft className="text-gray-800 dark:text-gray-300" />
+  </button>
+);
+
+const NextArrow = ({ onClick }) => (
+  <button
+    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    onClick={onClick}
+    style={{ marginTop: "8px" }}
+  >
+    <ChevronRight className="text-gray-800 dark:text-gray-300" />
+  </button>
+);
 
 function Classes() {
   const [sidebarShrink, setSidebarShrink] = useState(() => {
@@ -210,7 +231,7 @@ function Classes() {
                       // }
 
                       .fc .fc-daygrid {
-                        border: 2px solid ${darkMode ? "#ffffff" : "#000000"} !important;
+                        border: 1px solid ${darkMode ? "#ffffff" : "#000000"} !important;
                       }
                     `}</style>
                   </div>
@@ -232,16 +253,8 @@ function Classes() {
                     rtl={false ? "true" : undefined} // Ensure rtl is passed as a string or omitted
                     containerClass="carousel-container"
                     itemClass="carousel-item-padding-40-px"
-                    customLeftArrow={
-                      <div className="custom-left-arrow absolute top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full cursor-pointer z-10 w-10 h-10 flex items-center justify-center">
-                        {"<"}
-                      </div>
-                    }
-                    customRightArrow={
-                      <div className="custom-right-arrow absolute top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full cursor-pointer z-10 right-1 w-10 h-10 flex items-center justify-center">
-                        {">"}
-                      </div>
-                    }
+                    customLeftArrow={<PrevArrow />}
+                    customRightArrow={<NextArrow />}
                   >
                     <div className="flex flex-col justify-between bg-gray-100 dark:bg-gray-800 p-6 rounded-lg h-full mx-4">
                       <div className="flex items-center">
