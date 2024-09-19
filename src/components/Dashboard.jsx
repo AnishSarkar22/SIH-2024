@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import "ldrs/tailChase";
 
 const PrevArrow = ({ onClick }) => (
   <button
@@ -63,7 +64,14 @@ const Dashboard = () => {
       image: "/images/mentor1.png",
       rating: "5.0 (44 reviews)",
       price: "₹5000/mo",
-      skills: ["Azure", "Cloud", "Google Cloud", "Python", "Ansible", "Kubernetes"],
+      skills: [
+        "Azure",
+        "Cloud",
+        "Google Cloud",
+        "Python",
+        "Ansible",
+        "Kubernetes",
+      ],
     },
     {
       name: "Radhika Sharma",
@@ -71,7 +79,13 @@ const Dashboard = () => {
       image: "/images/mentor2.jpeg",
       rating: "5.0 (18 reviews)",
       price: "₹6000/mo",
-      skills: ["Brand Strategy", "Personal Branding", "Marketing", "Leadership", "Social Media"],
+      skills: [
+        "Brand Strategy",
+        "Personal Branding",
+        "Marketing",
+        "Leadership",
+        "Social Media",
+      ],
     },
     {
       name: "Aniket Luthra",
@@ -79,7 +93,13 @@ const Dashboard = () => {
       image: "/images/mentor3.jpg",
       rating: "5.0 (18 reviews)",
       price: "₹6000/mo",
-      skills: ["Brand Strategy", "Personal Branding", "Marketing", "Leadership", "Social Media"],
+      skills: [
+        "Brand Strategy",
+        "Personal Branding",
+        "Marketing",
+        "Leadership",
+        "Social Media",
+      ],
     },
     {
       name: "Ronak Kumar",
@@ -87,9 +107,22 @@ const Dashboard = () => {
       image: "/images/mentor4.jpg",
       rating: "5.0 (18 reviews)",
       price: "₹6000/mo",
-      skills: ["Brand Strategy", "Personal Branding", "Marketing", "Leadership", "Social Media"],
+      skills: [
+        "Brand Strategy",
+        "Personal Branding",
+        "Marketing",
+        "Leadership",
+        "Social Media",
+      ],
     },
   ];
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const faqItems = useMemo(
     () => [
@@ -119,12 +152,14 @@ const Dashboard = () => {
           "Yes, rescheduling or canceling a session is allowed. You can easily manage your bookings through the platform, subject to the mentor’s availability.",
       },
       {
-        question: "What should I do if a mentor is unresponsive and not responding to my application?",
+        question:
+          "What should I do if a mentor is unresponsive and not responding to my application?",
         answer:
           "Mentors are typically given a set amount of time to respond to applications. If you haven't heard back within 3-5 business days, you may reach out to the platform's support team for assistance.",
       },
       {
-        question: "What should I do if I have a problem or feel uncomfortable with my mentor?",
+        question:
+          "What should I do if I have a problem or feel uncomfortable with my mentor?",
         answer:
           "If you experience any issues or feel uncomfortable with your mentor, you can report the situation through the platform's support or feedback system. We take such concerns seriously and will review the matter confidentially. If necessary, we can help you find another mentor or provide further assistance to ensure you have a positive and supportive experience.",
       },
@@ -157,6 +192,14 @@ const Dashboard = () => {
     prevArrow: <PrevArrow onClick={() => sliderRef.current.slickPrev()} />,
     nextArrow: <NextArrow onClick={() => sliderRef.current.slickNext()} />,
   };
+  // for loading spinner
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <l-tail-chase size="40" speed="1.75" color="black"></l-tail-chase>
+      </div>
+    );
+  }
 
   return (
     <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
@@ -189,9 +232,7 @@ const Dashboard = () => {
                     <i className="fas fa-user-circle text-6xl rounded-full text-green-600 mr-2 p-2"></i>
                     <div>
                       <p className="font-semibold text-2xl">John</p>
-                      <p className="text-gray-500 text-md">
-                        Sep 17 2024
-                      </p>
+                      <p className="text-gray-500 text-md">Sep 17 2024</p>
                     </div>
                   </div>
                   <p className="text-gray-700 dark:text-gray-300">
@@ -365,4 +406,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

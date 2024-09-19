@@ -60,7 +60,7 @@ function Message() {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-100 ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
       <Sidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
