@@ -9,6 +9,7 @@ import { PiSmileySticker } from "react-icons/pi";
 import { RiAttachmentLine } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import "webrtc-adapter";
+import Cal from "@calcom/embed-react";
 
 const initialMessages = [
   {
@@ -29,60 +30,7 @@ const initialMessages = [
     initials: "JA",
     link: "/mentor-chat/2",
   },
-  {
-    id: 3,
-    name: "Neha Kumari",
-    message: "Dear Ayo, You are yet to submit your assignment for chapt...",
-    time: "5:30 pm Aug 19 2024",
-    avatarColor: "bg-blue-500",
-    initials: "NK",
-    link: "/mentor-chat/3",
-  },
-  {
-    id: 4,
-    name: "Ashi Singh",
-    message: "Dear Ayo, You are yet to submit your assignment for chapt...",
-    time: "6:30 pm Aug 19 2024",
-    avatarColor: "bg-yellow-500",
-    initials: "AS",
-    link: "/mentor-chat/4",
-  },
-  {
-    id: 5,
-    name: "Priya Verma",
-    message: "Can you help me with the project guidelines?",
-    time: "8:00 am Aug 20 2024",
-    avatarColor: "bg-purple-500",
-    initials: "PV",
-    link: "/mentor-chat/5",
-  },
-  {
-    id: 6,
-    name: "Amit Patel",
-    message: "I have a question about the recent lecture.",
-    time: "9:15 am Aug 20 2024",
-    avatarColor: "bg-red-500",
-    initials: "AP",
-    link: "/mentor-chat/6",
-  },
-  {
-    id: 7,
-    name: "Sana Khan",
-    message: "Could you review my assignment draft?",
-    time: "11:45 am Aug 20 2024",
-    avatarColor: "bg-orange-500",
-    initials: "SK",
-    link: "/mentor-chat/7",
-  },
-  {
-    id: 8,
-    name: "Vikram Singh",
-    message: "I need clarification on the homework.",
-    time: "1:30 pm Aug 20 2024",
-    avatarColor: "bg-teal-500",
-    initials: "VS",
-    link: "/mentor-chat/8",
-  },
+  // Add more initial messages as needed
 ];
 
 const MChat = () => {
@@ -101,6 +49,7 @@ const MChat = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [isVideoCallOpen, setIsVideoCallOpen] = useState(false);
+  const [isCalModalOpen, setIsCalModalOpen] = useState(false); // Define the state for calendar modal
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
   const peerConnectionRef = useRef(null);
@@ -251,155 +200,131 @@ const MChat = () => {
               className="w-9 h-9 text-gray-500 dark:text-gray-400 cursor-pointer rounded-full border-black border dark:bg-gray-700 p-2"
               onClick={() => navigate("/mentor-message")}
             />
-            <div
-              className={`w-12 h-12 rounded-full ${message.avatarColor}`}
-            ></div>
+            <div className="w-12 h-12 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold">
+              {message?.initials}
+            </div>
             <div>
-              <span className="font-bold text-2xl">{message.name}</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {" "}
-                (ID: {chatId})
-              </span>
+              <div className="font-bold">{message?.name}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                {message?.message}
+              </div>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
-            <SlCalender className="w-6 h-6 text-gray-500 dark:text-gray-400" />
+          <div className="flex space-x-3">
             <MdVideoCall
-              className="w-9 h-9 text-blue-500 cursor-pointer"
+              className="w-9 h-9 text-gray-500 dark:text-gray-400 cursor-pointer"
               onClick={startVideoCall}
+            />
+            <SlCalender
+              className="w-9 h-9 text-gray-500 dark:text-gray-400 cursor-pointer"
+              onClick={() => setIsCalModalOpen(true)}
             />
           </div>
         </div>
-        <div
-          className={`border-t ${darkMode ? "border-white" : "border-black"}`}
-        ></div>
-        {isVideoCallOpen ? (
-          <div className="p-4 flex flex-col items-center space-y-4">
-            <div className="flex justify-center space-x-4">
-              <video
-                ref={localVideoRef}
-                autoPlay
-                playsInline
-                className="w-1/2 h-auto bg-gray-500"
-              />
-              <video
-                ref={remoteVideoRef}
-                autoPlay
-                playsInline
-                className="w-1/2 h-auto bg-gray-500"
+        {/* Messages and input */}
+        <div className="flex-1 p-4 overflow-y-auto">
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              className={`flex items-start mb-4 ${msg.name === "You" ? "justify-end" : ""
+                }`}
+            >
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${msg.avatarColor}`}
+              >
+                {msg.initials}
+              </div>
+              <div className="ml-3 max-w-xs">
+                <div className="font-bold">{msg.name}</div>
+                <div>{msg.message}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Message input */}
+        <div className="flex items-center p-4 border-t dark:border-gray-700">
+          <PiSmileySticker className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer" />
+          <RiAttachmentLine
+            className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer ml-3"
+            onClick={handleAttachmentClick}
+          />
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
+          {selectedFile && (
+            <div className="flex items-center ml-3">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                {selectedFile.name}
+              </span>
+              <RxCross2
+                className="w-4 h-4 text-red-500 cursor-pointer ml-2"
+                onClick={handleRemoveFile}
               />
             </div>
+          )}
+          <input
+            type="text"
+            className="flex-1 px-4 py-2 ml-4 rounded-lg border dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+            placeholder="Type your message..."
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <BsFillSendFill
+            className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer ml-3"
+            onClick={handleSendMessage}
+          />
+        </div>
+      </div>
+
+      {/* Calendar Modal */}
+      {isCalModalOpen && (
+       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+       <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 p-6 rounded-lg shadow-lg w-full max-w-4xl h-[80vh]">
+         <div className="flex justify-between items-center mb-4">
+           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Schedule a Meeting</h2>
+           <button
+             className="text-gray-500 dark:text-gray-400"
+             onClick={() => setIsCalModalOpen(false)}
+           >  
+             <RxCross2 className="w-6 h-6" />
+           </button>
+         </div>
+         <div className="w-full h-full overflow-hidden">
+           <Cal calLink="rick/get-rick-rolled" className="w-full h-full border-none"  />
+         </div>
+       </div>
+     </div>
+      )}
+
+      {/* Video Call Modal */}
+      {isVideoCallOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg relative dark:bg-gray-900 dark:text-white">
+            <h2 className="text-xl mb-4">Video Call</h2>
+            <video
+              ref={localVideoRef}
+              autoPlay
+              muted
+              className="w-64 h-64 bg-gray-300"
+            ></video>
+            <video
+              ref={remoteVideoRef}
+              autoPlay
+              className="w-64 h-64 bg-gray-300 mt-4"
+            ></video>
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
               onClick={endVideoCall}
             >
               End Call
             </button>
           </div>
-        ) : (
-          <>
-            <div className="flex-grow overflow-y-auto p-4 space-y-4">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`flex items-start space-x-3 ${
-                    msg.name === "You" ? "justify-end" : ""
-                  }`}
-                >
-                  <div className="flex flex-col items-start">
-                    {msg.name === "You" && (
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        You
-                      </span>
-                    )}
-                    <div
-                      className={`max-w-xs ${
-                        msg.name === "You"
-                          ? "bg-blue-500 text-white"
-                          : msg.name === "Rohit Sharma" && !darkMode
-                          ? "bg-gray-300"
-                          : "bg-gray-200 dark:bg-gray-700"
-                      } rounded-lg p-3`}
-                    >
-                      <p>{msg.message}</p>
-                      {msg.file && (
-                        <div className="mt-2">
-                          <span className="text-sm text-gray-500 dark:text-gray-400">
-                            Attached file:
-                          </span>
-                          <a
-                            href={URL.createObjectURL(msg.file)}
-                            download={msg.file.name}
-                            className="block text-blue-500 dark:text-blue-400"
-                          >
-                            {msg.file.name}
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                    <span
-                      className={`text-xs opacity-75 dark:text-gray-400 ${
-                        msg.name === "You" ? "text-right" : ""
-                      }`}
-                    >
-                      {msg.time}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {selectedFile && (
-              <div className="p-4 border-t dark:border-gray-700">
-                <div className="mb-4 p-2 border rounded-lg dark:border-gray-600 dark:bg-gray-800 flex justify-between items-center">
-                  <span className="text-sm dark:text-gray-400">
-                    Attached file: {selectedFile.name}
-                  </span>
-                  <RxCross2
-                    className="w-5 h-5 text-gray-500 dark:text-gray-400 cursor-pointer"
-                    onClick={handleRemoveFile}
-                  />
-                </div>
-              </div>
-            )}
-            <div
-              className={`p-4 border-t ${
-                darkMode ? "border-white" : "border-black"
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <PiSmileySticker className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer" />
-                <div className="relative flex-grow">
-                  <input
-                    type="text"
-                    className="w-full p-2 rounded-lg border dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-                    placeholder="Type your message..."
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                </div>
-                <RiAttachmentLine
-                  className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer"
-                  onClick={handleAttachmentClick}
-                />
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                  onKeyDown={handleKeyDown}
-                />
-                <button
-                  className="p-2 rounded-lg bg-blue-500 text-white dark:bg-blue-700 flex items-center justify-center"
-                  onClick={handleSendMessage}
-                >
-                  <BsFillSendFill className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          </>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

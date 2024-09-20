@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import MSidebar from './MSidebar';
 import MHeader from './MHeader';
 import MNavbar from './MNavbar';
@@ -7,7 +7,7 @@ function MProfile() {
   const [darkMode, setDarkMode] = useState(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
     return savedDarkMode === "enabled";
-  }); // Set initial state from localStorage
+  });
 
   const [sidebarShrink, setSidebarShrink] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -23,6 +23,7 @@ function MProfile() {
     github: "https://github.com/username"
   });
   const [profileImage, setProfileImage] = useState(null);
+  const fileInputRef = useRef(null); // Ref for the file input
 
   const toggleSidebar = () => {
     setSidebarShrink(!sidebarShrink);
@@ -35,7 +36,6 @@ function MProfile() {
 
   const handleEditClick = () => {
     setEditMode(!editMode);
-    document.getElementById('fileInput').click();
   };
 
   const handleChange = (e) => {
@@ -54,6 +54,13 @@ function MProfile() {
         setProfileImage(e.target.result);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  // Trigger file input dialog
+  const handleProfilePictureClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Trigger the file input dialog
     }
   };
 
@@ -78,7 +85,7 @@ function MProfile() {
               <h1>Your Profile</h1>
             </div>
             <div className="flex-1 space-y-7">
-            {/* Personal Information */}
+              {/* Personal Information */}
               <section className="bg-gray-200 dark:bg-gray-700 p-6 rounded-lg shadow">
                 <h2 className="text-3xl font-semibold mb-6 dark:text-white">
                   Personal Information
@@ -105,141 +112,61 @@ function MProfile() {
                         </svg>
                       )}
                     </div>
-                    <button onClick={handleEditClick} className="flex items-center text-blue-600 dark:text-blue-400 font-medium border-2 border-gray-400 px-2 py-1 rounded-xl">
+                    <button
+                      onClick={handleProfilePictureClick} // Open file dialog
+                      className="flex items-center text-blue-600 dark:text-blue-400 font-medium border-2 border-gray-400 px-2 py-1 rounded-xl"
+                    >
                       <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                       </svg>
-                      Edit
+                      Edit 
                     </button>
                     <input
                       type="file"
                       onChange={handleFileChange}
                       className="hidden"
-                      id="fileInput"
+                      ref={fileInputRef} // Assign the ref to the input
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">First Name</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="firstName"
-                          value={profileData.firstName}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
+                    {/* Fields for personal information */}
+                    {Object.keys(profileData).map((key) => (
+                      <div key={key} className="relative">
+                        <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
+                          {key.charAt(0).toUpperCase() + key.slice(1)}
+                        </label>
+                        <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
+                          <input
+                            type="text"
+                            name={key}
+                            value={profileData[key]}
+                            onChange={handleChange}
+                            className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
+                            readOnly={!editMode}
+                          />
+                          <button onClick={handleEditClick} className="absolute right-2 top-1/2 transform -translate-y-1/2 mt-4 text-black dark:text-white">
+                            <svg
+                              className="w-5 h-5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">Last Name</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="lastName"
-                          value={profileData.lastName}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">Email</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="email"
-                          value={profileData.email}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">Location</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="location"
-                          value={profileData.location}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">Profession</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="profession"
-                          value={profileData.profession}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">Hobbies</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="hobbies"
-                          value={profileData.hobbies}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">LinkedIn URL</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="linkedIn"
-                          value={profileData.linkedIn}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">Twitter URL</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="twitter"
-                          value={profileData.twitter}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">GitHub URL</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          name="github"
-                          value={profileData.github}
-                          onChange={handleChange}
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly={!editMode}
-                        />
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </section>
-            {/* Email Preferences */}
+              {/* Email Preferences */}
               <section className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Email Preferences</h2>
                 <div className="space-y-3">
@@ -257,7 +184,7 @@ function MProfile() {
                   </label>
                 </div>
               </section>
-            {/* Close your account */}
+              {/* Close your account */}
               <section className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Close your account</h2>
                 <p className="text-sm text-gray-600 mb-4 dark:text-white">Once you delete your account, there's no going back. Please be certain!</p>

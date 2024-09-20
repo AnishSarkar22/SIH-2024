@@ -4,3 +4,6 @@ psycopg2-binary
 bcrypt
 jwt
 DateTime
+openai
+
+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
