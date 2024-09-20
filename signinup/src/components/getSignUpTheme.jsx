@@ -45,9 +45,8 @@ export const Button = ({
 export const Card = ({ variant = "elevation", children, ...props }) => {
   const baseClasses = "rounded-lg transition-all duration-100 ease-in-out";
   const variantClasses = {
-    elevation: "bg-white dark:bg-gray-800 shadow-md",
-    outlined:
-      "bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-700",
+    elevation: "bg-white shadow-md",
+    outlined: "bg-gradient-to-b from-white to-gray-50 border border-gray-200",
   };
 
   const classes = `${baseClasses} ${variantClasses[variant]}`;
@@ -63,9 +62,9 @@ export const TextField = ({ error, ...props }) => {
   const baseClasses =
     "w-full px-3 py-2 text-base rounded-lg transition-all duration-100 ease-in-out focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-brand-400";
   const normalClasses =
-    "border border-gray-300 dark:border-gray-700 bg-gray-100 bg-opacity-40 dark:bg-gray-900 dark:bg-opacity-80 hover:border-brand-300";
+    "border border-gray-300 bg-gray-100 bg-opacity-40 hover:border-brand-300";
   const errorClasses =
-    "border border-red-300 dark:border-red-700 bg-red-100 bg-opacity-40 dark:bg-red-900 dark:bg-opacity-80 text-red-500 dark:text-red-300";
+    "border border-red-300 bg-red-100 bg-opacity-40 text-red-500";
 
   const classes = `${baseClasses} ${error ? errorClasses : normalClasses}`;
 
@@ -76,7 +75,7 @@ export const Checkbox = ({ ...props }) => {
   return (
     <input
       type="checkbox"
-      className="w-4 h-4 text-brand-500 bg-gray-100 rounded border-gray-300 focus:ring-brand-400 dark:focus:ring-brand-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+      className="w-4 h-4 text-brand-500 bg-gray-100 rounded border-gray-300 focus:ring-brand-400 focus:ring-2"
       {...props}
     />
   );
@@ -85,7 +84,7 @@ export const Checkbox = ({ ...props }) => {
 export const Link = ({ children, ...props }) => {
   return (
     <a
-      className="font-medium text-brand-700 dark:text-brand-200 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-400"
+      className="font-medium text-brand-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-400"
       {...props}
     >
       {children}

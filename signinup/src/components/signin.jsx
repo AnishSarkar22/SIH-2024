@@ -58,18 +58,13 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
-      <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-        <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">
-          Sign in
-        </h1>
+    <div className="min-h-screen flex justify-center items-center">
+      <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
+        <h1 className="text-2xl font-bold text-center mb-6">Sign in</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-            >
+            <label htmlFor="email" className="block text-sm font-medium">
               Email
             </label>
             <input
@@ -78,8 +73,8 @@ export default function SignIn() {
               type="email"
               autoComplete="email"
               required
-              className={`w-full p-2 mt-1 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
-                emailError ? "border-red-500" : "border-gray-300"
+              className={`w-full p-2 mt-1 border rounded-md ${
+                emailError ? "border-red-500" : ""
               }`}
               placeholder="your@email.com"
             />
@@ -90,16 +85,13 @@ export default function SignIn() {
 
           <div>
             <div className="flex justify-between items-center">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-              >
+              <label htmlFor="password" className="block text-sm font-medium">
                 Password
               </label>
               <button
                 type="button"
                 onClick={handleClickOpen}
-                className="text-sm text-indigo-600 hover:text-indigo-500"
+                className="text-sm text-indigo-600"
               >
                 Forgot your password?
               </button>
@@ -110,8 +102,8 @@ export default function SignIn() {
               type="password"
               autoComplete="current-password"
               required
-              className={`w-full p-2 mt-1 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 ${
-                passwordError ? "border-red-500" : "border-gray-300"
+              className={`w-full p-2 mt-1 border rounded-md ${
+                passwordError ? "border-red-500" : ""
               }`}
               placeholder="••••••"
             />
@@ -125,12 +117,9 @@ export default function SignIn() {
               id="remember-me"
               name="remember-me"
               type="checkbox"
-              className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              className="h-4 w-4 border rounded"
             />
-            <label
-              htmlFor="remember-me"
-              className="ml-2 text-sm text-gray-700 dark:text-gray-200"
-            >
+            <label htmlFor="remember-me" className="ml-2 text-sm">
               Remember me
             </label>
           </div>
@@ -140,7 +129,7 @@ export default function SignIn() {
           <button
             type="submit"
             onClick={validateInputs}
-            className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md"
           >
             Sign in
           </button>
@@ -149,9 +138,9 @@ export default function SignIn() {
           <RoleToggle onRoleChange={setSelectedRole} />
         </form>
 
-        <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+        <p className="text-center text-sm mt-4">
           Don&apos;t have an account?{" "}
-          <Link to="/signup" className="text-indigo-600 hover:underline">
+          <Link to="/signup" className="text-indigo-600">
             Sign up
           </Link>
         </p>
@@ -161,14 +150,14 @@ export default function SignIn() {
           <div className="flex flex-col gap-2 mt-6">
             <button
               onClick={() => alert("Sign in with Google")}
-              className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+              className="w-full p-2 text-white border rounded-md flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 transition duration-200"
             >
               <GoogleIcon className="mr-4" /> {/* Increased space */}
               Sign in with Google
             </button>
             <button
               onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-black"
+              className="w-full p-2 text-white border rounded-md flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 transition duration-200"
             >
               <TwitterIcon className="mr-4" /> {/* Increased space */}
               Sign in with Twitter
