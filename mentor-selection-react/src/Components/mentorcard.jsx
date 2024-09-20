@@ -5,7 +5,7 @@ import img2 from "../img/1pic (2).png";
 import img3 from "../img/3pic.png";
 
 const MentorCard = ({ darkMode }) => {
-  const [filters, setFilters] = useState({ language: "", domain: "" });
+  const [filters, setFilters] = useState({ language: "", domains: [] });
 
   const cardStyles = darkMode
     ? "bg-gray-900 text-white border border-gray-700 shadow-lg"
@@ -108,12 +108,14 @@ const MentorCard = ({ darkMode }) => {
     },
   ];
 
-  const filteredMentors = mentors.filter(
-    (mentor) =>
-      (filters.language === "" ||
-        mentor.languages.includes(filters.language)) &&
-      (filters.domain === "" || mentor.domains.includes(filters.domain))
-  );
+  const filteredMentors = mentors.filter((mentor) => {
+    const languageMatch =
+      filters.language === "" || mentor.languages.includes(filters.language);
+    const domainMatch =
+      filters.domains.length === 0 ||
+      filters.domains.some((domain) => mentor.domains.includes(domain));
+    return languageMatch && domainMatch;
+  });
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
