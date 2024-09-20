@@ -12,12 +12,12 @@ function ForgotPassword({ open, handleClose }) {
         open ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
     >
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md">
         <div className="px-6 py-4">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-lg font-semibold text-gray-900">
             Reset password
           </h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+          <p className="mt-2 text-sm text-gray-600">
             Enter your account&apos;s email address, and we&apos;ll send you a
             link to reset your password.
           </p>
@@ -29,16 +29,15 @@ function ForgotPassword({ open, handleClose }) {
               name="email"
               type="email"
               placeholder="Email address"
-              className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-              tabindex="1"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
         </div>
-        <div className="flex justify-end px-6 py-4 bg-gray-50 dark:bg-gray-700 rounded-b-lg">
+        <div className="flex justify-end px-6 py-4 bg-gray-50 rounded-b-lg">
           <button
             type="button"
             onClick={handleClose}
-            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-600 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
+            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
           >
             Cancel
           </button>

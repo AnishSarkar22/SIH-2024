@@ -1,5 +1,6 @@
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
+
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import bcrypt
@@ -9,6 +10,7 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__, static_folder='../dist')
 CORS(app)
+
 
 # Configure your PostgreSQL connection
 db_config = {
@@ -40,10 +42,8 @@ def signup():
     name = data.get('name')
     email = data.get('email')
     password = data.get('password')
-
     # Hash the password
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
     # In a real application, you should hash the password before storing it
     try:
         conn = get_db_connection()
@@ -67,7 +67,6 @@ def signin():
     email = data.get('email')
     password = data.get('password')
     role = data.get('role')
-
     if not email or not password or not role:
         return jsonify({"error": "Email, password, and role are required"}), 400
     
@@ -80,7 +79,6 @@ def signin():
         # Query the appropriate table based on the role
         cur.execute(f"SELECT * FROM {table_name} WHERE email = %s", (email,))
         user = cur.fetchone()
-
         if user:
             stored_password = user['password']
             if bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
@@ -93,11 +91,9 @@ def signin():
                 return jsonify({"error": "Invalid email or password"}), 401
         else:
             return jsonify({"error": "Invalid email or password"}), 401
-
     except Exception as e:
         print(f"Error during sign in: {e}")
         return jsonify({"error": "An error occurred during sign in"}), 500
-
     finally:
         try:
             cur.close()
@@ -106,4 +102,4 @@ def signin():
             print(f"Error closing the database connection: {e}")
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)

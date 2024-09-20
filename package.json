@@ -28,6 +28,7 @@
     "@rewind-ui/core": "^0.20.0",
     "apexcharts": "^3.53.0",
     "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "flowbite": "^2.5.1",
     "ldrs": "^1.0.2",
     "lucide-react": "^0.441.0",
