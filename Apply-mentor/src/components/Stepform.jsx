@@ -1,7 +1,53 @@
 import React, { useState } from "react";
-// src/index.js or src/App.js
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
+const AvatarUpload = ({ photoPreview, handleFileChange }) => {
+  return (
+    <div className="flex items-center ml-6 mb-4">
+      {/* Avatar Icon */}
+      {!photoPreview && (
+        <i
+          id="avatarIcon"
+          className="fa-solid fa-user text-2xl text-[#131316] mr-4 flex items-center justify-center w-16 h-16 border-2 border-black rounded-full box-border"
+        ></i>
+      )}
+
+      {/* Image Preview */}
+      {photoPreview && (
+        <img
+          id="photoPreview"
+          src={photoPreview}
+          className="max-w-[4rem] max-h-[4rem] object-cover rounded-full border-2 border-black mr-4"
+          alt="Photo Preview"
+        />
+      )}
+
+      {/* File Input */}
+      <div className="relative flex-1 file-input-wrapper">
+        <input
+          type="file"
+          id="photoInput"
+          className="file-input hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+        <label
+          htmlFor="photoInput"
+          className="flex items-center border-2 border-black rounded-md bg-blue-100 text-black px-2 py-1 font-bold cursor-pointer text-xs relative overflow-hidden w-40"
+        >
+          <i className="fa-solid fa-upload mr-1 text-black"></i>
+          <span className="upload-text">Upload your photo</span>
+        </label>
+        <p
+          id="uploadStatus"
+          className={`upload-status ${photoPreview ? "block" : "hidden"}`}
+        >
+          Image uploaded
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const StepForm = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -11,8 +57,8 @@ const StepForm = () => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setPhotoPreview(e.target.result);
+      reader.onloadend = () => {
+        setPhotoPreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -79,36 +125,10 @@ const StepForm = () => {
             </p>
           </div>
           <form>
-            <div className="mb-4 flex items-center ml-6">
-              <i id="avatarIcon" className="fa-solid fa-user avatar-icon"></i>
-              {photoPreview && (
-                <img
-                  id="photoPreview"
-                  src={photoPreview}
-                  className="image-preview"
-                  alt="Photo Preview"
-                />
-              )}
-              <div className="file-input-wrapper flex-1">
-                <input
-                  type="file"
-                  id="photoInput"
-                  className="file-input"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-                <label htmlFor="photoInput" className="file-label">
-                  <i className="fa-solid fa-upload upload-icon"></i>
-                  <span className="upload-text">Upload your photo</span>
-                </label>
-              </div>
-            </div>
-            <p
-              id="uploadStatus"
-              className={photoPreview ? "upload-status" : "hidden"}
-            >
-              Image uploaded
-            </p>
+            <AvatarUpload
+              photoPreview={photoPreview}
+              handleFileChange={handleFileChange}
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
