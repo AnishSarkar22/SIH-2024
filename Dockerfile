@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 # Build the React app
-RUN npm run build
+# RUN npm run build
 
 # Stage 2: Set up Python environment and copy Flask backend
 FROM python:3.12.4-slim

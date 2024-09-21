@@ -7,21 +7,29 @@ from psycopg2.extras import RealDictCursor
 import bcrypt
 import os
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__, static_folder='../dist')
-app.secret_key = '123qewr4tger43rwefdg'
+# app.config['SESSION_COOKIE_NAME'] = 'session'
+secret_key = os.getenv('SECRET_KEY')
+if not secret_key:
+    raise ValueError("No SECRET_KEY set for Flask application")
+app.secret_key = secret_key
+
 
 CORS(app)
 
 
 # Configure your PostgreSQL connection
 db_config = {
-    'host': 'guideme.cdwa88e88mfc.eu-central-2.rds.amazonaws.com',
-    'database': 'users',
-    'user': 'guideme_master',
-    'password': '89*Qi9%Y#5q5oySq&6',
-    'port': '5432'
+    'host': os.getenv('DB_HOST'),
+    'database': os.getenv('DB_NAME'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'port': os.getenv('DB_PORT')
 }
 
 def get_db_connection():
@@ -130,5 +138,5 @@ def logout():
     session.clear()
     return jsonify({"message": "Logged out successfully"}), 200
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)

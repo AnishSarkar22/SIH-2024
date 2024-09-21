@@ -5,3 +5,4 @@ bcrypt
 jwt
 DateTime
 openai
+python-dotenv
