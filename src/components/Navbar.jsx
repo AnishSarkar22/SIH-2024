@@ -1,185 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import BeVietnamProBold from '../fonts/BeVietnamPro-Bold.woff';
 
 export default function Navbar() {
   const styles = {
-    "@layer base": {
-      "@font-face": [
-        {
-          fontFamily: "'Be Vietnam Pro'",
-          fontStyle: "normal",
-          fontWeight: 400,
-          src:
-            "url('../styles/fonts/BeVietnamPro-Bold.woff'), format('woff'),\n                url('../styles/fonts/BeVietnamPro-Bold.woff2'), format('woff2')",
-          fontDisplay: "swap"
-        },
-        {
-          fontFamily: "'Be Vietnam Pro'",
-          fontWeight: 500,
-          src:
-            "url('../styles/fonts/BeVietnamPro-Bold.woff'), format('woff'),\n                url('../styles/fonts/BeVietnamPro-Bold.woff2'), format('woff2')",
-          fontDisplay: "swap"
-        },
-        {
-          fontFamily: "'Be Vietnam Pro'",
-          fontWeight: 700,
-          fontStyle: "normal",
-          src:
-            "url('../styles/fonts/BeVietnamPro-Bold.woff'), format('woff'),\n                url('../styles/fonts/BeVietnamPro-Bold.woff2'), format('woff2')",
-          fontDisplay: "swap"
-        }
-      ],
-      body: { fontFamily: "'Be Vietnam Pro', sans-serif" },
-      h1: { "@apply font-bold": true, "@apply text-darkBlue": true },
-      h2: { "@apply font-medium": true, "@apply font-bold": true },
-      p: { "@apply font-normal": true, "@apply text-base": true },
-      ".button a": { "@apply font-bold": true, "@apply text-sm": true },
-      "h1, h2, h3, h5": { "@apply text-darkBlue": true },
-      ".social-icons-footer": {
-        scale: "1.3",
-        "@media only screen and (max-width: 376px)": { scale: "5" }
-      },
-      ".input-failed": { border: ".0625rem solid #f25f3a" },
-      ".input-success": { border: ".0625rem solid #9095a7" }
-    },
-    body: {
-      backgroundImage: "url('images/bg-tablet-pattern.svg')",
-      backgroundSize: "50rem",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "120% -8%"
-    },
-    "@media only screen and (max-width: 376px)": {
-      body: {
-        backgroundPosition: "5.125rem -4.5rem",
-        backgroundSize: "24.375rem"
-    },
-    },
-    ".move-up": { marginTop: "-10px" },
-      ".bg-2F4454": {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgb(47 68 84 / var(--tw-bg-opacity))"
-    },
-    ".cursor": {
-      fontWeight: 100,
-      color: "#2E8B57",
-      animation: "blink 1s step-end infinite"
-    },
-    "@keyframes blink": { "from, to": { opacity: 1 }, "50%": { opacity: 0 } },
-    ".button": { display: "flex", gap: "16px" },
-    ".container": { width: "100%" },
-    "@media (min-width: 375px)": { ".container": { maxWidth: "375px" } },
-    "@media (min-width: 768px)": { ".container": { maxWidth: "768px" } },
-    "@media (min-width: 976px)": { ".container": { maxWidth: "976px" } },
-    "@media (min-width: 1440px)": { ".container": { maxWidth: "1440px" } },
-    "#mobile-nav-btn": {
-    position: "relative",
-    zIndex: 2,
-    width: "1.25rem",
-    height: "1.25rem"
-  },
-  "#mobile-nav-btn span": {
-    width: "1.25rem",
-    height: ".1875rem",
-    backgroundColor: "#242d52",
-    display: "flex",
-    position: "absolute",
-    transition: "0.3s",
-    WebkitTransition: "0.3s",
-    MozTransition: "0.3s",
-    OTransition: "0.3s"
-  },
-  "#mobile-nav-btn span:nth-child(1)": { top: "30%" },
-  "#mobile-nav-btn span:nth-child(2)": { top: "60%" },
-  "#mobile-nav-btn span:nth-child(3)": { top: "90%" },
-  "#mobile-nav-btn.open span:nth-child(1)": {
-    top: "50%",
-    transform: "rotate(-45deg)",
-    WebkitTransform: "rotate(-45deg)",
-    MozTransform: "rotate(-45deg)",
-    msTransform: "rotate(-45deg)",
-    OTransform: "rotate(-45deg)"
-  },
-  "#mobile-nav-btn.open span:nth-child(2)": { top: "50%", opacity: 0 },
-  "#mobile-nav-btn.open span:nth-child(3)": {
-    top: "50%",
-    transform: "rotate(45deg)",
-    WebkitTransform: "rotate(45deg)",
-    MozTransform: "rotate(45deg)",
-    msTransform: "rotate(45deg)",
-    OTransform: "rotate(45deg)"
-  },
-  ".cta-button": { boxShadow: "0 8px 10px rgb(242 95 58 / 0.35)" },
-  ".hamburger": {
-    cursor: "pointer",
-    display: "inline-block",
-    transition: "all 0.3s ease-in-out"
-  },
-  ".hamburger:hover": { opacity: 0.7 },
-
-    }
-
+    fontFamily: 'Be Vietnam Pro, sans-serif',
+    fontWeight: 'bold',
+  };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [backgroundOpacity, setBackgroundOpacity] = useState(1);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const newOpacity = Math.max(1 - scrollTop / 300, 0.8); // Adjust the divisor to control the rate of opacity change
+      setBackgroundOpacity(newOpacity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="relative container mx-auto px-4 py-0 md:px-2 md:py-1 xl:px-12 mt-10">
+    <nav className="fixed w-11/12 container mx-auto px-4 py-0 md:px-4 md:py-4 xl:px-12 mt-6 z-50" style={{ top: 0, right: 0, left: 0 }}>
+      <div
+        className="absolute inset-0 bg-white transition-opacity duration-300 rounded-lg"
+        style={{ opacity: backgroundOpacity, right: 0, left: 0, top: 0 }}
+      ></div>
       {/* FLEX CONTAINER */}
-      <div className="flex items-center justify-between">
+      <div className="relative font-custom flex items-center justify-between" style={styles}>
         {/* LOGO */}
         <div className="pt-0">
           <a href="/templates/index.html">
             <img
               src="images/logo-no-background.svg"
-              height={50}
-              width={150}
+              className="h-[50px] w-[150px]"
               alt="logo"
             />
           </a>
         </div>
+        {/* DESKTOP MENU */}
         <div className="hidden md:flex space-x-12">
-          <a
-            href="#"
-            aria-label="Visit our Pricing page"
-            className="text-veryDarkBlue hover:text-teal-600 transition ease-in"
-          >
+          <a href="#" aria-label="Visit our Pricing page" className="text-veryDarkBlue hover:text-teal-600 transition ease-in">
             Home
           </a>
-          <a
-            href="#"
-            aria-label="Visit our Product page"
-            className="hover:text-teal-600 transition ease-in"
-          >
+          <a href="#" aria-label="Visit our Product page" className="hover:text-teal-600 transition ease-in">
             Careers
           </a>
-          <a
-            href="#"
-            aria-label="Visit our About Us page"
-            className="hover:text-teal-600 transition ease-in"
-          >
+          <a href="#" aria-label="Visit our About Us page" className="hover:text-teal-600 transition ease-in">
             Blogs
           </a>
-          <a
-            href="#"
-            aria-label="Visit our Careers page"
-            className="hover:text-teal-600 transition ease-in"
-          >
+          <a href="#" aria-label="Visit our Careers page" className="hover:text-teal-600 transition ease-in">
             About Us
           </a>
         </div>
-        {/* CTA BUTTON */}
+        {/* CTA BUTTONS */}
         <div className="hidden md:flex space-x-4">
-          <a
-            href="#"
-            className="bg-2F4454 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300"
-          >
+          <a href="#" className="bg-[#2F4454] text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">
             Log in
           </a>
-          <a
-            href="#"
-            className="bg-white text-darkBlue hover-bg-darkgrey outline-button font-bold py-3 px-6 rounded-lg transition duration-300"
-          >
+          <a href="#" className="bg-white text-darkBlue hover:bg-gray-200 border border-darkBlue font-bold py-3 px-6 rounded-lg transition duration-300">
             Sign up
           </a>
         </div>
@@ -187,22 +72,20 @@ export default function Navbar() {
         <button
           onClick={toggleMobileMenu}
           id="mobile-nav-btn"
-          className="block hamburger focus:outline-none md:hidden move-right"
-          style={{ zIndex: 100 }}
+          className="block md:hidden -mt-2.5 relative z-20 w-5 h-5 focus:outline-none"
         >
-          <span className={`block w-6 h-0.5 bg-black mb-1 ${isMobileMenuOpen ? 'transform rotate-45 translate-y-1.5' : ''}`}></span>
-          <span className={`block w-6 h-0.5 bg-black mb-1 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-          <span className={`block w-6 h-0.5 bg-black ${isMobileMenuOpen ? 'transform -rotate-45 -translate-y-1.5' : ''}`}></span>
-          
+          <span className={`block w-5 h-0.5 bg-black mb-1 absolute transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : 'top-1/4'}`}></span>
+          <span className={`block w-5 h-0.5 bg-black mb-1 absolute transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'opacity-0' : 'top-2/4'}`}></span>
+          <span className={`block w-5 h-0.5 bg-black absolute transition-all duration-300 ease-in-out ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : 'top-3/4'}`}></span>
         </button>
       </div>
-      {/* MOBILE MENU overlay*/}
-      <div className="md:hidden move-right">
+      {/* MOBILE MENU OVERLAY */}
+      <div className="md:hidden">
         <div
           id="mobile-nav-menu"
           className={`${
             isMobileMenuOpen ? 'flex opacity-100 pointer-events-auto' : 'hidden opacity-0 pointer-events-none'
-          }inset-0 bg-white transition-opacity duration-300 absolute flex-col items-center self-end rounded py-8 mt-10 space-y-6 font-bold bg-veryLightGray left-6 right-6 drop-shadow-lg sm:w-auto sm:self-center z-50`}
+          } absolute inset-x-6 top-20 flex-col items-center bg-white rounded py-8 space-y-6 font-bold shadow-lg transition-all duration-300 ease-in-out z-10`}
         >
           <a href="#" className="text-darkBlue hover:text-teal-600">
             Home
@@ -217,16 +100,10 @@ export default function Navbar() {
             About Us
           </a>
           <div className="flex flex-col space-y-2">
-            <a
-              href="#"
-              className="bg-2F4454 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300"
-            >
+            <a href="#" className="bg-[#2F4454] text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300">
               Log in
             </a>
-            <a
-              href="#"
-              className="bg-white text-darkBlue hover-bg-darkgrey outline-button font-bold py-3 px-6 rounded-lg transition duration-300"
-            >
+            <a href="#" className="bg-white text-darkBlue hover:bg-gray-200 border border-darkBlue font-bold py-3 px-6 rounded-lg transition duration-300">
               Sign up
             </a>
           </div>
