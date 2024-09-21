@@ -1,5 +1,4 @@
-# SIH-2024
-## Mentor Connect
+# Mentor Connect
 
 ### Project Overview
 
