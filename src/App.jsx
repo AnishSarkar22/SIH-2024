@@ -20,6 +20,9 @@ import Leaderboard from './components/Leaderboard';
 import Signin from './components/Signin';
 import SignUp from './components/Signup';
 import AboutUs from './components/AboutUs';
+import HNavbar from './components/HNavbar';
+import BasicDetails from './components/BasicDetails';
+import ApplyMentor from './components/ApplyMentor';
 // import PrivateRoute from './components/PrivateRoute'; 
 
 
@@ -68,6 +71,8 @@ function App() {
         <Route path="/mentor-profile/settings" element={<MSetting />} />
         <Route path="/mentors" element={<Mentor />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/basic-details" element={<BasicDetails />} />
+        <Route path="/apply-mentor" element={<ApplyMentor />} />
           
           {/* Redirect to home if route does not exist */}
         <Route path="*" element={<Navigate to="/home" />} />

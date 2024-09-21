@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { GoogleIcon, FacebookIcon, TwitterIcon } from "./CustomItems";
 import TemplateFrame from "./TemplateFrame";
-import axios from 'axios';
-import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { Navigate, Link } from "react-router-dom";
 
 export default function SignUp() {
   const [emailError, setEmailError] = useState(false);
@@ -60,14 +60,17 @@ export default function SignUp() {
       };
 
       try {
-        const response = await axios.post('http://localhost:5000/api/signup', userData);
+        const response = await axios.post(
+          "http://localhost:5000/api/signup",
+          userData
+        );
         if (response.data.success) {
-          console.log('Signup successful', response.data);
+          console.log("Signup successful", response.data);
           // Handle successful signup (e.g., redirect to login page or show success message)
-          Navigate('/basic-detail');
+          return <Link to="/basic-details" />;
         }
       } catch (error) {
-        console.error('Signup failed', error.response?.data || error.message);
+        console.error("Signup failed", error.response?.data || error.message);
         // Handle signup error (e.g., show error message to user)
       }
     }
@@ -82,10 +85,7 @@ export default function SignUp() {
           </h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
-              <label
-                htmlFor="name"
-                className="text-gray-700"
-              >
+              <label htmlFor="name" className="text-gray-700">
                 Full name
               </label>
               <input
@@ -103,10 +103,7 @@ export default function SignUp() {
               )}
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="text-gray-700"
-              >
+              <label htmlFor="email" className="text-gray-700">
                 Email
               </label>
               <input
@@ -124,10 +121,7 @@ export default function SignUp() {
               )}
             </div>
             <div>
-              <label
-                htmlFor="password"
-                className="text-gray-700"
-              >
+              <label htmlFor="password" className="text-gray-700">
                 Password
               </label>
               <input
@@ -150,17 +144,13 @@ export default function SignUp() {
                 id="allowExtraEmails"
                 className="w-4 h-4 text-indigo-600 border-gray-300 rounded"
               />
-              <label
-                htmlFor="allowExtraEmails"
-                className="ml-2 text-gray-700"
-              >
+              <label htmlFor="allowExtraEmails" className="ml-2 text-gray-700">
                 I want to receive updates via email.
               </label>
             </div>
             <button
               type="submit"
               className="w-full p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-              onClick={validateInputs}
             >
               Sign up
             </button>
@@ -172,10 +162,7 @@ export default function SignUp() {
             </p>
             <p className="text-center text-gray-600 mt-2">
               Interested in mentoring?{" "}
-              <a
-                href="#"
-                className="text-indigo-600 hover:underline"
-              >
+              <a href="#" className="text-indigo-600 hover:underline">
                 Apply as a Mentor
               </a>
             </p>
