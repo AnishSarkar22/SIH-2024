@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import { GoogleIcon, TwitterIcon } from "./CustomItems";
 // import ForgotPassword from "./Forgetpassword";
@@ -15,6 +15,7 @@ export default function Signin() {
   const [open, setOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("mentee");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,41 +53,26 @@ export default function Signin() {
     event.preventDefault();
     if (validateInputs()) {
       try {
-        console.log('Attempting to sign in with:', { email, role: selectedRole });
         const response = await axios.post('http://localhost:5000/api/signin', {
           email,
           password,
           role: selectedRole
         });
 
-        console.log('Sign-in response:', response);
-
         if (response.status === 200 && response.data.user_id) {
           localStorage.setItem('user_id', response.data.user_id);
           localStorage.setItem('role', response.data.role);
 
-          console.log('User ID and role stored in localStorage');
-
-          // Redirect based on role
-          if (response.data.role === 'mentee') {
-            console.log('Redirecting to /dashboard');
-            navigate('/dashboard');
-          } else {
-            console.log('Redirecting to /mentor-dashboard');
-            navigate('/mentor-dashboard');
-          }
+          // Redirect to the page the user was trying to access, or to the appropriate dashboard
+          const destination = location.state?.from || 
+            (response.data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
+          navigate(destination, { replace: true });
         } else {
-          console.error('Unexpected response structure:', response);
           alert('Sign in failed. Unexpected response from server.');
         }
       } catch (error) {
         console.error('Sign in error:', error);
-        if (error.response) {
-          console.error('Error response:', error.response.data);
-          alert(`Sign in failed: ${error.response.data.error || 'Please check your credentials and try again.'}`);
-        } else {
-          alert('Sign in failed. Please check your network connection and try again.');
-        }
+        alert('Sign in failed. Please check your credentials and try again.');
       }
     }
   };

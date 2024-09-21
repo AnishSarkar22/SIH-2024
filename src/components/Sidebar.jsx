@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaUserFriends, FaUserTie, FaInbox, FaMedal, FaBook, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const [isSidebarShrink, setIsSidebarShrink] = useState(sidebarShrink);
@@ -8,6 +9,7 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
     return localStorage.getItem("darkMode") === "true";
   });
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState(location.pathname);
 
   useEffect(() => {
@@ -38,6 +40,15 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
 
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post('/api/logout');
+      navigate('/signin');
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   const getLinkStyle = (path) => {
@@ -142,10 +153,10 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
           </Link>
         </nav>
         <Link 
-          to="/sign-out" 
+          to="/signin" 
           className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${isSidebarShrink ? 'hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center' : 'hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600'}`}
-          onClick={() => setActiveLink('/sign-out')}
-          style={getLinkStyle('/sign-out')}
+          onClick={handleLogout}
+          style={getLinkStyle('/signin')}
         >
           <div className="flex items-center">
             <FaSignOutAlt className="text-xl w-8 text-center" />

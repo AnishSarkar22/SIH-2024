@@ -1,4 +1,5 @@
-from flask import Flask, send_from_directory, jsonify, request
+from functools import wraps
+from flask import Flask, send_from_directory, session, jsonify, request
 from flask_cors import CORS
 
 import psycopg2
@@ -9,6 +10,8 @@ from datetime import datetime, timedelta
 
 
 app = Flask(__name__, static_folder='../dist')
+app.secret_key = '123qewr4tger43rwefdg'
+
 CORS(app)
 
 
@@ -35,6 +38,27 @@ def serve(path):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({"error": "Authentication required"}), 401
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/api/protected', methods=['GET'])
+@login_required
+def protected_route():
+    return jsonify({"message": "This is a protected route"})
+
+# Example of another protected route
+@app.route('/api/user-data', methods=['GET'])
+@login_required
+def user_data():
+    user_id = session.get('user_id')
+    # Fetch and return user data based on user_id
+    return jsonify({"user_id": user_id, "data": "User-specific data"})
     
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -100,6 +124,11 @@ def signin():
             conn.close()
         except Exception as e:
             print(f"Error closing the database connection: {e}")
+
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    session.clear()
+    return jsonify({"message": "Logged out successfully"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
