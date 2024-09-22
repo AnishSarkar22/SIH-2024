@@ -4,8 +4,20 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import BeVietnamProBold from '../fonts/BeVietnamPro-Bold.woff';
 
 export default function Counselors() {
+  const styles = {
+    "@font-face": {
+      fontFamily: 'Be Vietnam Pro',
+      fontStyle: 'normal',
+      fontWeight: 'bold',
+      src: `url(${BeVietnamProBold}) format('woff')`,
+      fontDisplay: 'swap',
+    },
+    fontFamily: 'Be Vietnam Pro, sans-serif',
+    fontWeight: 'bold',
+  };
   const swiperRef = useRef(null);
 
   useEffect(() => {
@@ -13,7 +25,7 @@ export default function Counselors() {
       new Swiper(swiperRef.current, {
         modules: [Navigation, Pagination, Autoplay],
         slidesPerView: 1,
-        spaceBetween: 20,
+        spaceBetween: 30,
         loop: true,
         centeredSlides: true,
         autoplay: {
@@ -40,71 +52,108 @@ export default function Counselors() {
   }, []);
 
   return (
-    <section id="counselors" className="py-12 mb-20 mt-3 bg-white">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="flex flex-col md:flex-row items-start justify-between mb-8">
+    <section id="counselors" className="md:py-40 xl:py-40 bg-[url('images/bg-tablet-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[-70%_15%] mt-50px relative" style={styles}>
+      <div className="relative mx-auto px-8 mt-[300px] md:mt-[-300px] md:pt-60 text-[#2F4454]">
+        <div className="flex flex-col md:flex-row items-center justify-between mt-[-400px] md:mt-0">
           {/* Left Info Column */}
-          <div className="md:w-1/2 mb-8 md:mb-0 mt-9">
-            <h2 className="text-4xl font-extrabold text-left mb-4 text-blue-900">
+          <div className="md:w-3/4 mb-12 md:mb-0 md:-mr-24">
+            <h2 className="text-4xl font-bold text-center md:text-left mb-4 ml-4">
               Our counselors sculpting
               <br />
               student success
             </h2>
-            <p className="text-gray-600 text-left max-w-md text-sm">
-              500+ Counselors with 20+ years of experience in our team who have helped 1 Million+ students to kick start their Career Journey.
+            <p className="text-gray-600 text-center md:text-left max-w-md ml-4">
+              500+ Counselors with 20+ years of experience in our team who have
+              helped 1 Million+ students to kick start their Career Journey.
             </p>
           </div>
           {/* Carousel Column */}
-          <div className="md:w-1/2">
-            <div ref={swiperRef} className="swiper testimonial-slider">
+          <div className="flex container mx-auto md:w-2/3">
+            <div ref={swiperRef} className="swiper testimonial-slider py-16 w-full h-full md:flex-row max-w-[950px] mx-auto">
               <div className="swiper-wrapper">
                 {/* TESTIMONIAL 1 */}
-                <TestimonialSlide
-                  image="images/image 1.svg"
-                  name="Thomas John"
-                  education="Bachelors in Hospitality"
-                  experience="9+ years of counselling"
-                />
+                <div className="swiper-slide">
+                  <div className="flex flex-col p-7 space-y-6 rounded-lg bg-white justify-center items-center sm:justify-start sm:items-start">
+                    <img
+                      src="images/image 1.svg"
+                      className="w-40 mt-2.5"
+                      alt="Thomas John"
+                    />
+                    <h2 className="font-bold text-darkBlue text-left text-xl">Thomas John</h2>
+                    <p className="text-darkGrayishBlue text-left mt-1 text-lg">Bachelors in Hospitality</p>
+                    <div className="flex justify-start space-x-4">
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">SEO</p>
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">AWS</p>
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Generative AI</p>
+                    </div>
+                    <div className="flex justify-start space-x-4 text-left">
+                      <p className="text-gray-600 bg-slate-200 rounded-full p-1 text-xs">AI</p>
+                    </div>
+                  </div>
+                </div>
                 {/* TESTIMONIAL 2 */}
-                <TestimonialSlide
-                  image="images/image 2.svg"
-                  name="Radhika Sharma"
-                  education="Masters in Psychology"
-                  experience="10+ years of counselling"
-                />
+                <div className="swiper-slide">
+                  <div className="flex flex-col text-center p-7 space-y-6 rounded-lg bg-white justify-center items-center sm:justify-start sm:items-start">
+                    <img
+                      src="images/image 2.svg"
+                      className="w-40 mt-2.5"
+                      alt="Radhika Sharma"
+                    />
+                    <p className="font-bold text-darkBlue text-left text-xl">Radhika Sharma</p>
+                    <p className="text-darkGrayishBlue text-left mt-1 text-lg">Masters in Psychology</p>
+                    <div className="flex justify-start space-x-4">
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Interview Preparation</p>
+                    </div>
+                    <div className="flex justify-start space-x-4">
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Mock Interviews</p>
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Interviews</p>
+                    </div>
+                    
+                  </div>
+                </div>
                 {/* TESTIMONIAL 3 */}
-                <TestimonialSlide
-                  image="images/image 3.svg"
-                  name="Gautam Nigam"
-                  education="Program Manager@Meta"
-                  experience="15+ years of counselling"
-                />
+                <div className="swiper-slide">
+                  <div className="flex flex-col text-center p-7 space-y-6 rounded-lg bg-white justify-center items-center sm:justify-start sm:items-start">
+                    <img
+                      src="images/image 3.svg"
+                      className="w-40 mt-2.5"
+                      alt="Gautam Nigam"
+                    />
+                    <p className="font-bold text-darkBlue text-left text-xl">Gautam Nigam</p>
+                    <p className="text-darkGrayishBlue text-left text-lg">Program Manager@Meta</p>
+                    <div className="flex justify-start space-x-4">
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Javascript</p>
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Typescript</p>
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">React</p>
+                    </div>
+                    
+                  </div>
+                </div>
                 {/* TESTIMONIAL 4 */}
-                <TestimonialSlide
-                  image="images/image 302.svg"
-                  name="Sushmita Sinha"
-                  education="Data Analyst"
-                  experience="12+ years of counselling"
-                />
+                <div className="swiper-slide">
+                  <div className="flex flex-col text-center p-7 space-y-6 rounded-lg bg-white justify-center items-center sm:justify-start sm:items-start">
+                    <img
+                      src="images/image 302.svg"
+                      className="w-40 mt-2.5"
+                      alt="Sushmita Sinha"
+                    />
+                    <p className="font-bold text-darkBlue text-left text-xl">Sushmita Sinha</p>
+                    <p className="text-darkGrayishBlue text-left text-lg">Data Analyst</p>
+                    <div className="flex justify-start space-x-4">
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">JavaScript</p>
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">NodeJs</p>
+                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">React</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="swiper-pagination mt-4"></div>
+              <div
+                className="swiper-pagination absolute bottom-[-1rem] w-full hidden"
+              ></div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function TestimonialSlide({ image, name, education, experience }) {
-  return (
-    <div className="swiper-slide py-8">
-      <div className="flex flex-col items-center text-center space-y-2">
-        <img src={image} className="w-20 h-20 object-cover rounded-full" alt={name} />
-        <h3 className="font-bold text-gray-800 text-lg">{name}</h3>
-        <p className="text-gray-500 text-sm">{education}</p>
-        <p className="text-teal-500 text-sm">{experience}</p>
-      </div>
-    </div>
   );
 }

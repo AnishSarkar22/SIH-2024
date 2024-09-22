@@ -20,7 +20,7 @@ import Leaderboard from './components/Leaderboard';
 import Signin from './components/Signin';
 import SignUp from './components/Signup';
 import AboutUs from './components/AboutUs';
-import HNavbar from './components/HNavbar';
+// import HNavbar from './components/HNavbar';
 import BasicDetails from './components/BasicDetails';
 import ApplyMentor from './components/ApplyMentor';
 // import PrivateRoute from './components/PrivateRoute'; 

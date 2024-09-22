@@ -11,6 +11,7 @@ export default function SignUp() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [nameError, setNameError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState("");
+  const [serverErrorMessage, setServerErrorMessage] = useState("");
 
   const validateInputs = () => {
     const email = document.getElementById("email");
@@ -61,7 +62,7 @@ export default function SignUp() {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/signup",
+          "http://backend:5000/api/signup",
           userData
         );
         if (response.data.success) {
@@ -71,7 +72,11 @@ export default function SignUp() {
         }
       } catch (error) {
         console.error("Signup failed", error.response?.data || error.message);
-        // Handle signup error (e.g., show error message to user)
+        if (error.response && error.response.status === 500) {
+          setServerErrorMessage("An internal server error occurred. Please try again later.");
+        } else {
+          setServerErrorMessage("Signup failed. Please check your inputs and try again.");
+        }
       }
     }
   };
@@ -148,6 +153,9 @@ export default function SignUp() {
                 I want to receive updates via email.
               </label>
             </div>
+            {serverErrorMessage && (
+              <p className="text-red-500 text-sm">{serverErrorMessage}</p>
+            )}
             <button
               type="submit"
               className="w-full p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"

@@ -22,6 +22,12 @@ module.exports = {
       animation: {
         slide: 'slide 1.5s forwards',
       },
+      fontFamily: {
+        custom: ['"Be Vietnam Pro"', 'sans-serif'],
+      },
+      colors: {
+        '2F4454': '#2F4454',
+      }
     },
   },
   plugins: [

@@ -1,24 +1,37 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
+import BeVietnamProBold from '../fonts/BeVietnamPro-Bold.woff';
 
 export default function Hero() {
+  const style = {
+    ".cursor": {
+      fontWeight: 100,
+      color: "#2E8B57",
+      animation: "blink 1s step-end infinite"
+    },
+    "@keyframes blink": { "from, to": { opacity: 1 }, "50%": { opacity: 0 } },
+  }
+  const font ={
+    "@font-face": {
+    fontFamily: 'Be Vietnam Pro',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    src: `url(${BeVietnamProBold}) format('woff')`,
+    fontDisplay: 'swap',
+  },
+  fontFamily: 'Be Vietnam Pro, sans-serif',
+  fontWeight: 'bold',
+  }
   const textElementRef = useRef(null);
   const cursorElementRef = useRef(null);
 
   useEffect(() => {
-    const specialties = [
-      "Marketing",
-      "Skill Development",
-      "AWS",
-      "SEO",
-      "AI",
-      "Career",
-    ];
+    const specialties = ["Marketing", "AWS", "SEO", "AI", "Career"];
     let currentIndex = 0;
     const textElement = textElementRef.current;
     const cursorElement = cursorElementRef.current;
 
     function sleep(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     async function typeText(text) {
@@ -48,8 +61,7 @@ export default function Hero() {
 
     const cursorBlinking = setInterval(() => {
       if (cursorElement) {
-        cursorElement.style.opacity =
-          cursorElement.style.opacity === "0" ? "1" : "0";
+        cursorElement.style.opacity = cursorElement.style.opacity === "0" ? "1" : "0";
       }
     }, 500);
 
@@ -63,71 +75,49 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="py-4 md:py-6" style={{
-      backgroundImage: "url('images/bg-tablet-pattern.svg')",
-      backgroundSize: "40rem",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "100% -2%",
-    }}>
-      <div className="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center" >
-        {/* LEFT COLUMN */}
-        <div
-          className="md:w-1/2 space-y-8 text-center md:text-left font-extrabold"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-        >
-          <h1
-            className="text-5xl md:text-6xl font-bold leading-tight"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-          >
-            <span
-              className="text-navy-900"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-            >
-              1-on-1{" "}
-            </span>
-            <span
-              ref={textElementRef}
-              className="text-teal-600"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-            ></span>
-            <span
-              ref={cursorElementRef}
-              className="text-teal-600 animate-blink"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-            >
-              |
-            </span>
-            <br />
-            Mentorship
+    <section id="hero" className="font-custom mb-24 bg-[url('images/bg-tablet-pattern.svg')] bg-[length:40rem] bg-no-repeat bg-[90%_-1%]" style={font}>
+      
+      <div className="font-custom container flex flex-col-reverse items-center px-16 mx-auto mt-32 space-y-0 md:flex-row md:space-y-10">
+        <div className="flex flex-col mb-2 space-y-12 md:mb-28 md:w-1/2">
+          <h1 className="max-w-md text-4xl font-bold text-center md:text-4xl md:text-left text-darkBlue" style={{ fontSize: '3rem', lineHeight: '0.4' }}>
+            <div className="mb-4" style={{ lineHeight: '0.7' }}>
+              <span className="font-bold text-[#2F4454] text-navy-900" style={{ lineHeight: '0.7' }}>1-on-1&nbsp;</span>
+              <br className="block lg:hidden" />
+              <span 
+                ref={textElementRef} 
+                className="text-[3rem] text-[rgba(11,112,119,1)] pt-8 leading-[1.2]"
+                datatypeitid="c5pse95kk3o"
+              ></span>
+              <span 
+                ref={cursorElementRef} 
+                className="text-[4rem] text-[rgba(11,112,119,1)] font-thin animate-blink"
+              >|</span>
+              <br className="hidden md:block" />
+            </div>
+            <div className="pt-1.5 text-[#2F4454]">
+              Mentorship
+            </div>
           </h1>
-          <h3
-            className="text-lg md:text-xl text-gray-700"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-          >
-            Connecting Ambition with Expertise,
-            <br /> Seamlessly Scheduled.
+          <h3 className="max-w-md text-xl text-center md:text-xl md:text-left text-[#2F4454]">
+            Connecting Ambition with Expertise, Seamlessly Scheduled.
           </h3>
-          <div className="pt-2">
+          <div className="flex justify-center md:justify-start space-x-4">
             <a
               href="#"
-              className="inline-block bg-[#2F4454] text-white font-bold py-2 px-6 rounded-lg transition duration-300 hover:bg-teal-700"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              className="bg-[#2F4454] text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300"
             >
               Get Started
             </a>
           </div>
         </div>
-        {/* RIGHT COLUMN */}
-        <div
-          className="md:w-1/2 mb-6 md:mb-0"
-          
-        >
-          <video
-            src="images/3d-casual-life-user-interface-elements.webm"
+        
+        <div className="md:w-1/2 top-[-120px] sm:top-[-100px] lg:top-[-100px] xl:top-[-160px]">
+          <video 
+            src="images/3d-casual-life-user-interface-elements.webm" 
             className="w-full h-auto object-cover"
-            autoPlay
-            loop
-            muted
+            autoPlay 
+            loop 
+            muted 
             playsInline
           >
             Your browser does not support the video tag.
@@ -135,5 +125,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  );
+  )
 }

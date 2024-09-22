@@ -7,21 +7,16 @@ from psycopg2.extras import RealDictCursor
 import bcrypt
 import os
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# # Load environment variables from .env file
+# load_dotenv()
 
 app = Flask(__name__, static_folder='../dist')
 # app.config['SESSION_COOKIE_NAME'] = 'session'
-secret_key = os.getenv('SECRET_KEY')
-if not secret_key:
-    raise ValueError("No SECRET_KEY set for Flask application")
-app.secret_key = secret_key
-
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 CORS(app)
-
 
 # Configure your PostgreSQL connection
 db_config = {
@@ -35,9 +30,22 @@ db_config = {
 def get_db_connection():
     return psycopg2.connect(**db_config)
 
+# example of api fetching
 @app.route('/api/data', methods=['GET'])
 def get_data():
     return jsonify({"message": "Hello from Flask!"})
+# example of api database connection
+@app.route('/api/test-db-connection')
+def test_db_connection():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('SELECT 1')
+        cur.close()
+        conn.close()
+        return jsonify({"message": "Successfully connected to the database"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -138,5 +146,5 @@ def logout():
     session.clear()
     return jsonify({"message": "Logged out successfully"}), 200
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+   app.run(debug=True, host='0.0.0.0', port=5000)
