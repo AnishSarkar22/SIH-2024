@@ -7,29 +7,45 @@ from psycopg2.extras import RealDictCursor
 import bcrypt
 import os
 from datetime import datetime, timedelta
+# from dotenv import load_dotenv
 
+# # Load environment variables from .env file
+# load_dotenv()
 
 app = Flask(__name__, static_folder='../dist')
-app.secret_key = '123qewr4tger43rwefdg'
+# app.config['SESSION_COOKIE_NAME'] = 'session'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 CORS(app)
 
-
 # Configure your PostgreSQL connection
 db_config = {
-    'host': 'guideme.cdwa88e88mfc.eu-central-2.rds.amazonaws.com',
-    'database': 'users',
-    'user': 'guideme_master',
-    'password': '89*Qi9%Y#5q5oySq&6',
-    'port': '5432'
+    'host': os.getenv('DB_HOST'),
+    'database': os.getenv('DB_NAME'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'port': os.getenv('DB_PORT')
 }
 
 def get_db_connection():
     return psycopg2.connect(**db_config)
 
+# example of api fetching
 @app.route('/api/data', methods=['GET'])
 def get_data():
     return jsonify({"message": "Hello from Flask!"})
+# example of api database connection
+@app.route('/api/test-db-connection')
+def test_db_connection():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('SELECT 1')
+        cur.close()
+        conn.close()
+        return jsonify({"message": "Successfully connected to the database"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -131,4 +147,4 @@ def logout():
     return jsonify({"message": "Logged out successfully"}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+   app.run(debug=True, host='0.0.0.0', port=5000)

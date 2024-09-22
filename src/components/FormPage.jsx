@@ -1,14 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import intlTelInput from "intl-tel-input";
 import "intl-tel-input/build/css/intlTelInput.css";
 import moment from "moment-timezone";
+import { Link } from 'react-router-dom';
+import Select from "react-select";
+import languages from "@cospired/i18n-iso-languages";
+import en from "@cospired/i18n-iso-languages/langs/en.json";
+
+
+// Register the English language for i18n-iso-languages
+languages.registerLocale(en);
+// Generate language options from the library
+const languageOptions = Object.entries(languages.getNames("en"))
+  .map(([code, name]) => ({
+    value: code,
+    label: name,
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label));
 
 const FormPage = () => {
   const phoneInputRef = useRef(null);
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
 
   useEffect(() => {
     const input = phoneInputRef.current;
-
     if (input) {
       intlTelInput(input, {
         initialCountry: "auto",
@@ -34,14 +49,18 @@ const FormPage = () => {
     });
   }, []);
 
+  const handleLanguageChange = (selectedOptions) => {
+    setSelectedLanguages(selectedOptions);
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-      <div id="page1" className="form-page">
+      <div id="page1" className="form-page ">
         <form>
           {/* Full Name */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 First Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -52,7 +71,7 @@ const FormPage = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 Middle Name
               </label>
               <input
@@ -62,7 +81,7 @@ const FormPage = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 Last Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -75,9 +94,9 @@ const FormPage = () => {
           </div>
 
           {/* Phone Number and Language */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 Phone Number <span className="text-red-500">*</span>
               </label>
               <input
@@ -91,22 +110,43 @@ const FormPage = () => {
             </div>
 
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
-                Language <span className="text-red-500">*</span>
+              <label className="block text-gray-700 font-bold mb-4">
+                Languages <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                className="w-full border border-black rounded-md p-2"
-                placeholder="Language"
-                required
+              <Select
+                isMulti
+                name="languages"
+                options={languageOptions}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange={handleLanguageChange}
+                value={selectedLanguages}
+                placeholder="Select languages"
+                styles={{
+                  control: (base) => ({
+                    ...base,
+                    borderColor: "#000", // Match border color to other inputs
+                    borderRadius: "0.375rem", // Match rounded corners
+                    padding: "0.25rem", // Add padding to match
+                    boxShadow: "none", // Remove box shadow
+                    "&:hover": {
+                      borderColor: "#000", // Keep border color on hover
+                    },
+                  }),
+                  multiValue: (base) => ({
+                    ...base,
+                    backgroundColor: "#e5e5e5", // Match background color
+                    borderRadius: "0.375rem", // Match rounded corners
+                  }),
+                }}
               />
             </div>
           </div>
 
           {/* Country and Time Zone */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 Country <span className="text-red-500">*</span>
               </label>
               <input
@@ -117,7 +157,7 @@ const FormPage = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 Time Zone <span className="text-red-500">*</span>
               </label>
               <select
@@ -133,9 +173,9 @@ const FormPage = () => {
           </div>
 
           {/* Age and Gender */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 Age <span className="text-red-500">*</span>
               </label>
               <input
@@ -146,7 +186,7 @@ const FormPage = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="block text-gray-700 font-bold mb-4">
                 Gender <span className="text-red-500">*</span>
               </label>
               <select
@@ -163,6 +203,15 @@ const FormPage = () => {
               </select>
             </div>
           </div>
+
+          {/* Continue Button */}
+          <Link to="/dashboard">
+            <button>
+              <div className="bg-blue-600 p-2 rounded-xl text-white">
+                <h2>Continue</h2>
+              </div>
+            </button>
+          </Link>
         </form>
       </div>
     </div>
