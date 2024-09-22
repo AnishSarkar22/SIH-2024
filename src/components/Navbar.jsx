@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import BeVietnamProBold from '../fonts/BeVietnamPro-Bold.woff';
+
 
 export default function Navbar() {
   const styles = {
@@ -46,18 +48,18 @@ export default function Navbar() {
         </div>
         {/* DESKTOP MENU */}
         <div className="hidden md:flex space-x-12">
-          <a href="#" aria-label="Visit our Pricing page" className="text-veryDarkBlue hover:text-teal-600 transition ease-in">
+          <Link to="/" aria-label="Visit our Pricing page" className="text-veryDarkBlue hover:text-teal-600 transition ease-in">
             Home
-          </a>
-          <a href="#" aria-label="Visit our Product page" className="hover:text-teal-600 transition ease-in">
+          </Link>
+          <Link to="/careers" aria-label="Visit our Product page" className="hover:text-teal-600 transition ease-in">
             Careers
-          </a>
-          <a href="#" aria-label="Visit our About Us page" className="hover:text-teal-600 transition ease-in">
+          </Link>
+          <Link to="/blogs" aria-label="Visit our About Us page" className="hover:text-teal-600 transition ease-in">
             Blogs
-          </a>
-          <a href="#" aria-label="Visit our Careers page" className="hover:text-teal-600 transition ease-in">
+          </Link>
+          <Link to="/about-us" aria-label="Visit our Careers page" className="hover:text-teal-600 transition ease-in">
             About Us
-          </a>
+          </Link>
         </div>
         {/* CTA BUTTONS */}
         <div className="hidden md:flex space-x-4">
