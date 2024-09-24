@@ -7,10 +7,10 @@ from psycopg2.extras import RealDictCursor
 import bcrypt
 import os
 from datetime import datetime, timedelta
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 # # Load environment variables from .env file
-# load_dotenv()
+load_dotenv()
 
 app = Flask(__name__, static_folder='../dist')
 # app.config['SESSION_COOKIE_NAME'] = 'session'
@@ -147,4 +147,4 @@ def logout():
     return jsonify({"message": "Logged out successfully"}), 200
 
 if __name__ == '__main__':
-   app.run(debug=True, host='0.0.0.0', port=5000)
+   app.run(host='0.0.0.0', port=5000)

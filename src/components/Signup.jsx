@@ -62,7 +62,7 @@ export default function SignUp() {
 
       try {
         const response = await axios.post(
-          "http://backend:5000/api/signup",
+          "http://localhost:5000/api/signup",
           userData
         );
         if (response.data.success) {

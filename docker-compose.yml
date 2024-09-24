@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile.backend
+    env_file:
+      - .env
+    environment:
+      - FLASK_APP=server.py
+      - FLASK_ENV=production
+    ports:
+      - "80:80"
+    networks:
+      - default
+    command: ["sh", "-c", "service nginx start && gunicorn --bind 0.0.0.0:5000 --chdir backend 'server:app'"]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - default
+    command: ["npm", "run", "dev"]
+
+networks:
+  default:
+    driver: bridge

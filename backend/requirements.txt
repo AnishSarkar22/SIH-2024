@@ -1,9 +1,11 @@
 flask
 flask_cors 
 psycopg2-binary
+Flask-SQLAlchemy
 bcrypt
-jwt
 DateTime
 openai
 gunicorn
 python-dotenv
+Flask-Session
+PyJWT
