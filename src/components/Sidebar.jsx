@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaUserFriends, FaUserTie, FaInbox, FaMedal, FaBook, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import axios from 'axios';
 
 const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const [isSidebarShrink, setIsSidebarShrink] = useState(sidebarShrink);
@@ -44,8 +43,21 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/api/logout');
-      navigate('/signin');
+      const response = await fetch("http://127.0.0.1:5000/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include' // Include cookies in the request
+      });
+
+      if (response.ok) {
+        // Redirect to signin page
+        navigate("/signin");
+      } else {
+        const errorData = await response.json();
+        console.error("Error during logout:", errorData.error);
+      }
     } catch (error) {
       console.error("Error during logout:", error);
     }

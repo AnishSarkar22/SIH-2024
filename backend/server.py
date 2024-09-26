@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import Flask, send_from_directory, session, jsonify, request
+from flask import Flask, send_from_directory, session, jsonify, request, make_response
 from flask_cors import CORS
 import logging
 # from supabase import create_client, Client
@@ -21,8 +21,6 @@ app = Flask(__name__, static_folder='../dist')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 CORS(app, resources={r"/*": {"origins": "http://localhost"}})  # Assuming frontend is running on localhost
 
-# CORS(app)
-
 # SUPABASE_URL = os.getenv('SUPABASE_URL')
 # SUPABASE_KEY = os.getenv('SUPABASE_KEY')
 # supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
@@ -43,10 +41,6 @@ db_config = {
 def get_db_connection():
     return psycopg2.connect(**db_config)
 
-# example of api fetching
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    return jsonify({"message": "Hello from Flask!"})
 # example of api database connection
 @app.route('/api/test-db-connection')
 def test_db_connection():
@@ -204,13 +198,18 @@ def signin():
         # Verify the user's credentials with Firebase
         user = auth.get_user_by_email(email)
         firebase_user_id = user.uid
-        
+        id_token = auth.create_custom_token(user.uid)
+
         # Here we assume the frontend has already verified the password with Firebase
-        return jsonify({
+        response = jsonify({
             "message": "Sign in successful", 
             "firebase_user_id": firebase_user_id, 
-            "role": role
-        }), 200
+            "role": role,
+            "id_token": id_token.decode('utf-8')  # Include the ID token in the JSON response
+        })
+        response.set_cookie('idToken', id_token.decode('utf-8'), httponly=True, secure=True)
+        return response, 200
+        
     except firebase_admin.auth.UserNotFoundError:
         return jsonify({"error": "Invalid email or password"}), 401
     except Exception as e:
@@ -219,8 +218,40 @@ def signin():
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
-    session.clear()
-    return jsonify({"message": "Logged out successfully"}), 200
+    # Get the Firebase ID token from the cookie
+    id_token = request.cookies.get('idToken')
+    
+    if not id_token:
+        return jsonify({"error": "No token provided"}), 401
+
+    try:
+        # Log the token for debugging purposes
+        logging.debug(f"ID Token: {id_token}")
+
+        # Verify the ID token
+        decoded_token = auth.verify_id_token(id_token)
+        uid = decoded_token['uid']
+        
+        # Revoke all refresh tokens for the user
+        auth.revoke_refresh_tokens(uid)
+        
+        # Clear the session
+        session.clear()
+        
+        # Create a response
+        response = make_response(jsonify({"message": "Logged out successfully"}))
+        
+        # Clear the ID token cookie
+        response.set_cookie('idToken', '', expires=0)
+        
+        return response, 200
+    
+    except auth.InvalidIdTokenError:
+        logging.error("Invalid ID token")
+        return jsonify({"error": "Invalid token"}), 401
+    except Exception as e:
+        logging.error(f"Error during logout: {e}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
    app.run(debug=True, host='0.0.0.0', port=5000)

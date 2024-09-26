@@ -204,7 +204,7 @@ export default function SignUp() {
           <div className="flex flex-col gap-2 mt-4">
             <button
               type="button"
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-200"
+              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
               onClick={() => alert("Sign up with Google")}
             >
               <FaGoogle className="mr-1"/>
@@ -212,7 +212,7 @@ export default function SignUp() {
             </button>
             <button
               onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-200"
+              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
             >
               <FaXTwitter className="mr-1"/>
               Sign up with X

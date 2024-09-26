@@ -66,8 +66,8 @@ export default function Signin() {
         const data = await response.json();
 
         if (response.ok) {
-          localStorage.setItem('user_id', data.user_id);
-          localStorage.setItem('role', data.role);
+          // localStorage.setItem('idToken', data.id_token);
+          // localStorage.setItem('role', data.role);
 
           const destination = location.state?.from || 
             (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
@@ -185,14 +185,14 @@ export default function Signin() {
           <div className="flex flex-col gap-2 mt-6">
             <button
               onClick={() => alert("Log in with Google")}
-              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-200"
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
             >
               <FaGoogle className="mr-1"/>
               Log in with Google
             </button>
             <button
               onClick={() => alert("Log in with Twitter")}
-              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-200"
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
             >
               <FaXTwitter className="mr-1"/>
               Log in with X
