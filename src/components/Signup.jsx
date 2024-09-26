@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GoogleIcon, FacebookIcon, TwitterIcon } from "./CustomItems";
+import { FaXTwitter, FaGoogle } from "react-icons/fa6";
 import TemplateFrame from "./TemplateFrame";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -78,7 +78,7 @@ export default function SignUp() {
         return;
       }
   
-      // Proceed with signup
+      // Proceed with signup to basic details
       const response = await fetch('http://127.0.0.1:5000/api/signup', {
         method: 'POST',
         headers: {
@@ -98,6 +98,8 @@ export default function SignUp() {
       setServerErrorMessage(`Signup failed: ${error.message}`);
     }
   };
+
+
   
   return (
     <TemplateFrame>
@@ -202,18 +204,18 @@ export default function SignUp() {
           <div className="flex flex-col gap-2 mt-4">
             <button
               type="button"
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-400"
+              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-200"
               onClick={() => alert("Sign up with Google")}
             >
-              <GoogleIcon />
+              <FaGoogle className="mr-1"/>
               Sign up with Google
             </button>
             <button
               onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-400"
+              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-200"
             >
-              <TwitterIcon className="mr-4" />
-              Sign in with Twitter
+              <FaXTwitter className="mr-1"/>
+              Sign up with X
             </button>
           </div>
         </div>

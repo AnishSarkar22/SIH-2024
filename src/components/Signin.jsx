@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { GoogleIcon, TwitterIcon } from "./CustomItems";
+import { FaXTwitter, FaGoogle } from "react-icons/fa6";
 import RoleToggle from "./RoleToggle";
 
 export default function Signin() {
@@ -51,7 +51,7 @@ export default function Signin() {
     event.preventDefault();
     if (validateInputs()) {
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/signin', {
+        const response = await fetch('http://127.0.0.1:5000/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -73,11 +73,11 @@ export default function Signin() {
             (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
           navigate(destination, { replace: true });
         } else {
-          alert('Sign in failed: ' + data.error);
+          alert('Log in failed: ' + data.error);
         }
       } catch (error) {
         console.error('Sign in error:', error);
-        alert('Sign in failed. Please check your credentials and try again.');
+        alert('Log in failed. Please check your credentials and try again.');
       }
     }
   };
@@ -86,7 +86,7 @@ export default function Signin() {
     <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
       <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">
-          Sign in
+          Log in
         </h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -170,7 +170,7 @@ export default function Signin() {
             type="submit"
             className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Sign in
+            Log in
           </button>
         </form>
 
@@ -184,18 +184,18 @@ export default function Signin() {
         {selectedRole === "mentee" && (
           <div className="flex flex-col gap-2 mt-6">
             <button
-              onClick={() => alert("Sign in with Google")}
-              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-400"
+              onClick={() => alert("Log in with Google")}
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-200"
             >
-              <GoogleIcon className="mr-4" />
-              Sign in with Google
+              <FaGoogle className="mr-1"/>
+              Log in with Google
             </button>
             <button
-              onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-400"
+              onClick={() => alert("Log in with Twitter")}
+              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-200"
             >
-              <TwitterIcon className="mr-4" />
-              Sign in with Twitter
+              <FaXTwitter className="mr-1"/>
+              Log in with X
             </button>
           </div>
         )}

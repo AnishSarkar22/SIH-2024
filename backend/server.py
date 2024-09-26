@@ -187,7 +187,7 @@ def signup():
             logging.debug("Database connection closed")
 
 
-@app.route('/api/signin', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def signin():
     data = request.json
     email = data.get('email')

@@ -142,7 +142,7 @@ export default function Features() {
   const cards = cardData.map((card) => (
     <div
       key={card.key}
-      className="bg-blue-100 p-4 sm:p-6 rounded-lg shadow-2xl flex flex-col justify-center items-center h-[300px] sm:h-[400px] w-full hover:bg-blue-50 transition-all duration-500 transform hover:-translate-y-2"
+      className="bg-white p-4 sm:p-6 rounded-lg shadow-2xl flex flex-col justify-center items-center h-[300px] sm:h-[400px] w-full hover:bg-slate-100 transition-all duration-500 transform hover:-translate-y-2"
     >
       {card.image ? (
         <img
@@ -154,10 +154,10 @@ export default function Features() {
         <img
           src={card.video}
           alt={card.title}
-          className="w-60 h-60 sm:w-72 sm:h-32 mb-2 sm:mb-1 md:h-60 md:w-60 pointer-events-none object-cover"
+          className="w-60 h-60 sm:w-72 sm:h-32 mb-2 sm:mb-1 md:h-60 md:w-80 pointer-events-none object-cover"
         />
       )}
-      <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-0 mt-0 text-center pointer-events-none">
+      <h3 className="text-lg sm:text-xl font-semibold text-2F4454 mb-1 sm:mb-0 mt-0 text-center pointer-events-none">
         {card.title}
       </h3>
       <p className="text-sm sm:text-base text-gray-600 text-center mt-1 sm:mt-2 pointer-events-none">
@@ -177,7 +177,7 @@ export default function Features() {
             <CardStack cards={cards} />
           </div>
         </div>
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-end text-center md:text-right mt-10 md:mt-24 md:mt-0 md:mr-12 mb-40">
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-end text-center md:text-right mt-10 md:mt-24 md:mr-40 mb-40">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D5466] mb-12 sm:mb-6">
             At your fingertips: a dedicated coach
           </h2>
