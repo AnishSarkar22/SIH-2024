@@ -1,11 +1,9 @@
 flask
 flask_cors 
 psycopg2-binary
-Flask-SQLAlchemy
 bcrypt
 DateTime
 openai
 gunicorn
 python-dotenv
-Flask-Session
-PyJWT
+firebase-admin

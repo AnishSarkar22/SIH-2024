@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoogleIcon, FacebookIcon, TwitterIcon } from "./CustomItems";
 import TemplateFrame from "./TemplateFrame";
-import axios from "axios";
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp() {
   const [emailError, setEmailError] = useState(false);
@@ -12,6 +11,8 @@ export default function SignUp() {
   const [nameError, setNameError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [serverErrorMessage, setServerErrorMessage] = useState("");
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate(); 
 
   const validateInputs = () => {
     const email = document.getElementById("email");
@@ -50,40 +51,58 @@ export default function SignUp() {
     return isValid;
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (validateInputs()) {
-      const data = new FormData(event.currentTarget);
-      const userData = {
-        name: data.get("name"),
-        email: data.get("email"),
-        password: data.get("password"),
-      };
-
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/api/signup",
-          userData
-        );
-        if (response.data.success) {
-          console.log("Signup successful", response.data);
-          // Handle successful signup (e.g., redirect to login page or show success message)
-          return <Link to="/basic-details" />;
-        }
-      } catch (error) {
-        console.error("Signup failed", error.response?.data || error.message);
-        if (error.response && error.response.status === 500) {
-          setServerErrorMessage("An internal server error occurred. Please try again later.");
-        } else {
-          setServerErrorMessage("Signup failed. Please check your inputs and try again.");
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateInputs()) {
+      return;
+    }
+  
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const name = document.getElementById("name").value;
+  
+    try {
+      // Check if email already exists
+      const checkResponse = await fetch('http://127.0.0.1:5000/api/check-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+  
+      const checkData = await checkResponse.json();
+      if (checkData.exists) {
+        setEmailError(true);
+        setEmailErrorMessage("An account with this email already exists.");
+        return;
       }
+  
+      // Proceed with signup
+      const response = await fetch('http://127.0.0.1:5000/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+      });
+  
+      const data = await response.json();
+      if (data.success) {
+        setMessage(`Signup successful! User ID: ${data.user_id}`);
+        navigate('/basic-details'); // Navigate to the basic-details page
+      } else {
+        setServerErrorMessage(`Signup failed: ${data.error}`);
+      }
+    } catch (error) {
+      setServerErrorMessage(`Signup failed: ${error.message}`);
     }
   };
-
+  
   return (
     <TemplateFrame>
-      <div className="min-h-screen flex justify-center items-center bg-white">
+
+      <div className="min-h-screen flex justify-center items-center bg-gray-100">
         <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Sign up
@@ -170,7 +189,7 @@ export default function SignUp() {
             </p>
             <p className="text-center text-gray-600 mt-2">
               Interested in mentoring?{" "}
-              <a href="#" className="text-indigo-600 hover:underline">
+              <a href="/apply-mentor" className="text-indigo-600 hover:underline">
                 Apply as a Mentor
               </a>
             </p>

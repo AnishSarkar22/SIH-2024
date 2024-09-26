@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from 'axios';
 import { GoogleIcon, TwitterIcon } from "./CustomItems";
-// import ForgotPassword from "./Forgetpassword";
 import RoleToggle from "./RoleToggle";
 
 export default function Signin() {
@@ -53,22 +51,29 @@ export default function Signin() {
     event.preventDefault();
     if (validateInputs()) {
       try {
-        const response = await axios.post('http://localhost:5000/api/signin', {
-          email,
-          password,
-          role: selectedRole
+        const response = await fetch('http://127.0.0.1:5000/api/signin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            role: selectedRole
+          }),
         });
 
-        if (response.status === 200 && response.data.user_id) {
-          localStorage.setItem('user_id', response.data.user_id);
-          localStorage.setItem('role', response.data.role);
+        const data = await response.json();
 
-          // Redirect to the page the user was trying to access, or to the appropriate dashboard
+        if (response.ok) {
+          localStorage.setItem('user_id', data.user_id);
+          localStorage.setItem('role', data.role);
+
           const destination = location.state?.from || 
-            (response.data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
+            (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
           navigate(destination, { replace: true });
         } else {
-          alert('Sign in failed. Unexpected response from server.');
+          alert('Sign in failed: ' + data.error);
         }
       } catch (error) {
         console.error('Sign in error:', error);
@@ -159,9 +164,7 @@ export default function Signin() {
             </label>
           </div>
 
-          {/* <ForgotPassword open={open} handleClose={handleClose} /> */}
-
-          <RoleToggle onRoleChange={setSelectedRole} initialRole="mentee" />
+          <RoleToggle onRoleChange={setSelectedRole} />
 
           <button
             type="submit"
