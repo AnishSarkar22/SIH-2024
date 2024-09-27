@@ -26,6 +26,7 @@
     "@heroicons/react": "^2.1.5",
     "@mui/icons-material": "^6.1.0",
     "@mui/material": "^6.1.0",
+    "@react-oauth/google": "^0.12.1",
     "@react-spring/web": "^9.7.4",
     "@rewind-ui/core": "^0.20.0",
     "@supabase/supabase-js": "^2.45.4",

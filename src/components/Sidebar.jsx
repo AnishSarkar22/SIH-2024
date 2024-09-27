@@ -53,7 +53,7 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
 
       if (response.ok) {
         // Redirect to signin page
-        navigate("/signin");
+        navigate("/login");
       } else {
         const errorData = await response.json();
         console.error("Error during logout:", errorData.error);

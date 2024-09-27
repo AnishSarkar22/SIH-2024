@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaXTwitter, FaGoogle } from "react-icons/fa6";
 import TemplateFrame from "./TemplateFrame";
 import { useNavigate, Link } from "react-router-dom";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 export default function SignUp() {
   const [emailError, setEmailError] = useState(false);
@@ -11,8 +12,8 @@ export default function SignUp() {
   const [nameError, setNameError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [serverErrorMessage, setServerErrorMessage] = useState("");
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate(); 
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const validateInputs = () => {
     const email = document.getElementById("email");
@@ -56,41 +57,46 @@ export default function SignUp() {
     if (!validateInputs()) {
       return;
     }
-  
+
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const name = document.getElementById("name").value;
-  
+
     try {
       // Check if email already exists
-      const checkResponse = await fetch('http://127.0.0.1:5000/api/check-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email })
-      });
-  
+      const checkResponse = await fetch(
+        "http://127.0.0.1:5000/api/check-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+          credentials: "include", // Include cookies in the request
+        }
+      );
+
       const checkData = await checkResponse.json();
       if (checkData.exists) {
         setEmailError(true);
         setEmailErrorMessage("An account with this email already exists.");
         return;
       }
-  
+
       // Proceed with signup to basic details
-      const response = await fetch('http://127.0.0.1:5000/api/signup', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:5000/api/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, email, password }),
+        credentials: "include", // Include cookies in the request
       });
-  
+
       const data = await response.json();
       if (data.success) {
         setMessage(`Signup successful! User ID: ${data.user_id}`);
-        navigate('/basic-details'); // Navigate to the basic-details page
+        navigate("/basic-details"); // Navigate to the basic-details page
       } else {
         setServerErrorMessage(`Signup failed: ${data.error}`);
       }
@@ -99,11 +105,39 @@ export default function SignUp() {
     }
   };
 
+  // const handleGoogleLoginSuccess = async (credentialResponse) => {
+  //   console.log("Google Sign-In Successful:", credentialResponse);
+  //   const { credential } = credentialResponse;
+    
+  //   try {
+  //     const response = await fetch("http://127.0.0.1:5000/api/google-signin", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ id_token: credential }),
+  //       credentials: "include",
+  //     });
 
-  
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       setMessage(`Google sign-in successful! User ID: ${data.user_id}`);
+  //       navigate("/basic-details");
+  //     } else {
+  //       setServerErrorMessage(`Google sign-in failed: ${data.error}`);
+  //     }
+  //   } catch (error) {
+  //     setServerErrorMessage(`Google sign-in failed: ${error.message}`);
+  //   }
+  // };
+
+  // const handleGoogleLoginFailure = (error) => {
+  //   console.error("Google Sign-In Failed:", error);
+  //   setServerErrorMessage(`Google sign-in failed: ${error.error || error.message}`);
+  // };
+
   return (
     <TemplateFrame>
-
       <div className="min-h-screen flex justify-center items-center bg-gray-100">
         <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
@@ -191,7 +225,10 @@ export default function SignUp() {
             </p>
             <p className="text-center text-gray-600 mt-2">
               Interested in mentoring?{" "}
-              <a href="/apply-mentor" className="text-indigo-600 hover:underline">
+              <a
+                href="/apply-mentor"
+                className="text-indigo-600 hover:underline"
+              >
                 Apply as a Mentor
               </a>
             </p>
@@ -210,11 +247,17 @@ export default function SignUp() {
               <FaGoogle className="mr-1"/>
               Sign up with Google
             </button>
+            {/* <GoogleOAuthProvider clientId="441408230497-hbn9flrej32j5abugtcnsk2isrq0rh84.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onError={handleGoogleLoginFailure}
+              />
+            </GoogleOAuthProvider> */}
             <button
               onClick={() => alert("Sign in with Twitter")}
               className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
             >
-              <FaXTwitter className="mr-1"/>
+              <FaXTwitter className="mr-1" />
               Sign up with X
             </button>
           </div>

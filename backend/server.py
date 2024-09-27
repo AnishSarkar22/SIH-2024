@@ -4,11 +4,10 @@ from flask_cors import CORS
 import logging
 # from supabase import create_client, Client
 import firebase_admin
-from firebase_admin import credentials, auth
+from firebase_admin import credentials, auth, exceptions
 from firebase_admin.exceptions import FirebaseError
 import psycopg2
 from psycopg2.extras import RealDictCursor
-import bcrypt
 import os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
@@ -21,9 +20,21 @@ app = Flask(__name__, static_folder='../dist')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 CORS(app, resources={r"/*": {"origins": "http://localhost"}})  # Assuming frontend is running on localhost
 
-# SUPABASE_URL = os.getenv('SUPABASE_URL')
-# SUPABASE_KEY = os.getenv('SUPABASE_KEY')
-# supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+# # Secure session cookie settings
+# app.config['SESSION_COOKIE_SECURE'] = True
+# app.config['SESSION_COOKIE_HTTPONLY'] = True
+# app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+
+# # Use Redis for session storage
+# app.config['SESSION_TYPE'] = 'redis'
+# app.config['SESSION_REDIS'] = redis.StrictRedis(
+#     host=os.getenv('REDIS_HOST', 'localhost'),
+#     port=int(os.getenv('REDIS_PORT', 6379)),
+#     db=int(os.getenv('REDIS_DB', 0))
+# )
+
+# # Initialize the session
+# Session(app)  # Added initialization
 
 # Initialize Firebase Admin SDK
 cred = credentials.Certificate('guideme-2c89d-firebase-adminsdk-nk9hq-00add1eee5.json')
@@ -78,54 +89,6 @@ def check_email():
         return jsonify({"exists": False}), 200
     except Exception as e:
         return jsonify({"exists": False, "error": str(e)}), 500
-
-# @app.route('/api/signup', methods=['POST'])
-# def signup():
-#     data = request.json
-#     name = data.get('name')
-#     email = data.get('email')
-#     password = data.get('password')
-#     # role = data.get('role')
-
-#     logging.debug("Received signup request with data: %s", data)
-
-#     if not name or not email or not password:
-#         logging.error("Missing required fields: name=%s, email=%s, password=%s", name, email, password)
-#         return jsonify({"success": False, "error": "Missing required fields"}), 400
-
-#     # Sign up user with Supabase
-#     response = supabase.auth.sign_up({
-#         'email': email,
-#         'password': password
-#     })
-
-#     logging.debug("Supabase signup response: %s", response)
-
-#     if response.get('error'):
-#         logging.error("Supabase signup error: %s", response['error']['message'])
-#         return jsonify({"success": False, "error": response['error']['message']}), 400
-
-#     user_id = response['user']['id']
-
-#     # Store user data in PostgreSQL
-#     try:
-#         conn = get_db_connection()
-#         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-#             cur.execute(
-#                 "INSERT INTO mentees (id, name, email) VALUES (%s, %s, %s) RETURNING id",
-#                 (user_id, name, email)
-#             )
-#             user_id = cur.fetchone()['id']
-#             conn.commit()
-#         logging.debug("User data inserted into PostgreSQL with user_id: %s", user_id)
-#         return jsonify({"success": True, "user_id": user_id}), 201
-#     except psycopg2.Error as e:
-#         conn.rollback()
-#         logging.error("PostgreSQL error: %s", str(e))
-#         return jsonify({"success": False, "error": str(e)}), 400
-#     finally:
-#         conn.close()
-#         logging.debug("Database connection closed")
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -198,57 +161,92 @@ def signin():
         # Verify the user's credentials with Firebase
         user = auth.get_user_by_email(email)
         firebase_user_id = user.uid
-        id_token = auth.create_custom_token(user.uid)
+        
+        # Here we assume the frontend has already verified the password with Firebase
+        session['user_id'] = firebase_user_id
+        session['role'] = role
 
         # Here we assume the frontend has already verified the password with Firebase
-        response = jsonify({
+        return jsonify({
             "message": "Sign in successful", 
             "firebase_user_id": firebase_user_id, 
-            "role": role,
-            "id_token": id_token.decode('utf-8')  # Include the ID token in the JSON response
-        })
-        response.set_cookie('idToken', id_token.decode('utf-8'), httponly=True, secure=True)
-        return response, 200
+            "role": role
+        }), 200
         
+
     except firebase_admin.auth.UserNotFoundError:
         return jsonify({"error": "Invalid email or password"}), 401
     except Exception as e:
         logging.error(f"Error during sign in: {e}")
         return jsonify({"error": "An error occurred during sign in"}), 500
+    
+@app.route('/api/protected', methods=['GET'])
+def protected():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        role = session['role']
+        return jsonify({
+            "message": "Access granted",
+            "user_id": user_id,
+            "role": role
+        }), 200
+    else:
+        return jsonify({"error": "Unauthorized access"}), 401
+    
+@app.route('/api/google-signin', methods=['POST'])
+def google_signin():
+    id_token = request.json.get('id_token')
+    if not id_token:
+        return jsonify({"error": "ID token is required"}), 400
+
+    try:
+        # Verify the ID token with Firebase
+        decoded_token = auth.verify_id_token(id_token)
+        user_id = decoded_token['uid']
+        email = decoded_token['email']
+        name = decoded_token.get('name', '')
+
+        # Check if the user exists in PostgreSQL
+        conn = get_db_connection()
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("SELECT id FROM mentees WHERE id = %s", (user_id,))
+            user = cur.fetchone()
+            if not user:
+                # If user does not exist, create a new user
+                cur.execute(
+                    "INSERT INTO mentees (id, name, email) VALUES (%s, %s, %s) RETURNING id",
+                    (user_id, name, email)
+                )
+                user_id = cur.fetchone()['id']
+                conn.commit()
+
+        # Create a session for the user
+        session['user_id'] = user_id
+        session['email'] = email
+
+        return jsonify({"message": "Google sign-in successful", "user_id": user_id}), 200
+
+    except exceptions.FirebaseError as e:
+        logging.error(f"Firebase error during Google sign-in: {e}")
+        return jsonify({"error": "Firebase error occurred"}), 500
+    except Exception as e:
+        logging.error(f"Error during Google sign-in: {e}")
+        return jsonify({"error": "An error occurred during Google sign-in"}), 500
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
-    # Get the Firebase ID token from the cookie
-    id_token = request.cookies.get('idToken')
-    
-    if not id_token:
-        return jsonify({"error": "No token provided"}), 401
-
     try:
-        # Log the token for debugging purposes
-        logging.debug(f"ID Token: {id_token}")
-
-        # Verify the ID token
-        decoded_token = auth.verify_id_token(id_token)
-        uid = decoded_token['uid']
-        
-        # Revoke all refresh tokens for the user
-        auth.revoke_refresh_tokens(uid)
-        
         # Clear the session
         session.clear()
         
         # Create a response
         response = make_response(jsonify({"message": "Logged out successfully"}))
         
-        # Clear the ID token cookie
-        response.set_cookie('idToken', '', expires=0)
-        
         return response, 200
     
-    except auth.InvalidIdTokenError:
-        logging.error("Invalid ID token")
-        return jsonify({"error": "Invalid token"}), 401
     except Exception as e:
         logging.error(f"Error during logout: {e}")
         return jsonify({"error": str(e)}), 500
