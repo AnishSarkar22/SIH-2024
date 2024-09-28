@@ -296,7 +296,7 @@ function Statistics() {
           className="flex-1 overflow-y-auto p-6 space-y-6"
         >
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 overflow-hidden">
-            <h2 className="text-xl font-semibold mb-2">Minutes mentored</h2>
+            <h2 className="text-xl font-semibold mb-2">Progress Over Time</h2>
             <p className="text-6xl font-bold text-blue-400 mb-4">23,456</p>
             <div id="area-chart" className="w-full h-64"></div>
           </div>
@@ -304,14 +304,14 @@ function Statistics() {
           <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
             {/* Bookings */}
             <div className="w-full md:w-1/2 bg-white dark:bg-gray-700 rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold mb-2">Bookings</h2>
+              <h2 className="text-lg font-semibold mb-2">Session Participation</h2>
               <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">80</p>
               <div id="bookings-chart" className="w-full h-64"></div>
             </div>
 
             {/* Reviews */}
             <div className="w-full md:w-1/2 bg-white dark:bg-gray-700 rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold mb-2">Reviews</h2>
+              <h2 className="text-lg font-semibold mb-2">Mentor Feedback vs. Self-Assessment</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">Weekly Overview</p>
               <div id="reviews-chart" className="w-full h-40"></div>
               <p className="text-sm text-green-600 dark:text-green-400 mt-2">😊 You are doing good!</p>
@@ -319,7 +319,7 @@ function Statistics() {
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-2">Session RSVPs</h2>
+            <h2 className="text-xl font-semibold mb-2">Resource Utilization</h2>
             <p className="text-5xl font-bold text-blue-400 mb-4">890</p>
             <div id="legend-chart" className="w-full h-64"></div>
           </div>
