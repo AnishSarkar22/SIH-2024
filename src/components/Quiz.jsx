@@ -31,14 +31,16 @@ function Quiz() {
 
   const questions = [
     {
-      question: "What is the capital of France?",
-      options: ["Berlin", "Madrid", "Paris", "Lisbon"],
-      answer: "Paris",
+      question:
+        "Problem Solving: A man has 6 shirts and 3 pairs of pants. How many different outfits can he make, assuming each outfit consists of one shirt and one pair of pants?",
+      options: ["9", "18", "24", "36"],
+      answer: "18",
     },
     {
-      question: "Which planet is known as the Red Planet?",
-      options: ["Earth", "Mars", "Jupiter", "Saturn"],
-      answer: "Mars",
+      question:
+        "Logical Reasoning: In a certain code language, “MIND” is written as “OMLF”. How would “WORK” be written in the same code?",
+      options: ["XPTL", "XQTL", "XRTL", "YQTL"],
+      answer: "XQTL",
     },
     // Add more questions as needed
   ];
@@ -79,11 +81,11 @@ function Quiz() {
           {/* Left Section - Quiz Video and Details */}
           <div className="md:w-2/3 p-2">
             <h2 className="text-blue-600 dark:text-blue-400 font-semibold text-xl mb-2">
-              Protecting the Organisation from Cyber Attacks
+              Job Aptitude Assessment: Test Your Skills for Success
             </h2>
             <div className="bg-white dark:bg-gray-900 p-2 rounded-lg shadow-md">
               <img
-                src="/images/l2.png"
+                src="/images/quiz1.png"
                 alt="Quiz Preview"
                 className="rounded-lg mb-2"
                 style={{ width: "80%", height: "20rem" }}
@@ -94,25 +96,27 @@ function Quiz() {
                 <span>145 likes</span>
               </div>
               <p className="text-gray-600 dark:text-gray-300 mb-2">
-                One of the most efficient ways to protect against cyber attacks
-                and all types of data breaches is to train your employees on
-                cyber attack prevention.
+                This quiz is designed to assess your aptitude for job-related
+                skills, such as problem-solving, logical reasoning, and
+                numerical ability. These questions are typical of what
+                candidates might face during recruitment processes for various
+                roles.
               </p>
               <p className="text-gray-600 dark:text-gray-300">
-                The quiz consists of questions. To be successful with the
-                quizzes, it’s important to conversant with the topic by paying
-                attention to the short video.
+                By testing your analytical skills, this quiz will help you
+                understand areas where you might excel and where you can
+                improve, enhancing your preparation for job aptitude tests.
               </p>
               <p className="text-gray-600 dark:text-gray-300">
-                To start, click the “Start” button. When finished, click the
-                “Submit” button.
+                To start, click the “Start Quiz” button. When finished, click
+                the “Submit” button.
               </p>
-              <button
+              {/* <button
                 onClick={scrollToQuizDetails}
                 className="bg-blue-600 dark:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg w-full hover:bg-blue-700 dark:hover:bg-blue-600 mt-12"
               >
                 View Quiz Details
-              </button>
+              </button> */}
             </div>
           </div>
 

@@ -59,15 +59,15 @@ function Leaderboard() {
   const quizzes = [
     {
       id: 1,
-      title: "Protecting the Organization against Phishing Attacks",
+      title: "Job Aptitude Assessment: Test Your Skills for Success",
       time: "15 min",
-      image: "/public/images/l2.png",
+      image: "public/images/quiz1.png",
       question: "What is the most common type of phishing attack?",
       options: ["Email phishing", "Spear phishing", "Whaling", "Vishing"],
     },
     {
       id: 2,
-      title: "Ransomware and Attack Landscape in Corporate",
+      title: "Personality and Career Fit Q",
       time: "15 min",
       image: "/public/images/l3.png",
       question: "What is ransomware?",
@@ -78,20 +78,20 @@ function Leaderboard() {
         "A type of firewall",
       ],
     },
-    {
-      id: 3,
-      title: "Keeping Debit & Credit Cards Safe",
-      time: "15 min",
-      image: "/public/images/l4.png",
-      question:
-        "Which of the following is NOT a safe practice for using credit cards online?",
-      options: [
-        "Saving card details on trusted websites",
-        "Using a unique password for each online account",
-        "Sharing your PIN with family members for emergencies",
-        "Regularly checking your bank statements",
-      ],
-    },
+    // {
+    //   id: 3,
+    //   title: "Keeping Debit & Credit Cards Safe",
+    //   time: "15 min",
+    //   image: "/public/images/l4.png",
+    //   question:
+    //     "Which of the following is NOT a safe practice for using credit cards online?",
+    //   options: [
+    //     "Saving card details on trusted websites",
+    //     "Using a unique password for each online account",
+    //     "Sharing your PIN with family members for emergencies",
+    //     "Regularly checking your bank statements",
+    //   ],
+    // },
   ];
 
   return (
@@ -113,8 +113,8 @@ function Leaderboard() {
           toggleDarkMode={toggleDarkMode}
         />
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="bg-gray-50 dark:bg-gray-900 p-6 font-sans flex">
-            <div className="flex-1 bg-white shadow-md border border-black dark:border-white dark:bg-gray-800 rounded-lg p-8">
+          <div className="bg-white dark:bg-gray-900 p-6 flex w-full">
+            <div className="flex-1 bg-white shadow-md border dark:bg-gray-800 rounded-lg p-8 w-1/2">
               <div className="flex items-stretch mb-6">
                 <div className="flex-shrink-0">
                   <img
@@ -123,7 +123,7 @@ function Leaderboard() {
                     className="w-48 h-full rounded-xl mr-4 object-cover"
                   />
                 </div>
-                <div className="flex flex-col justify-between bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6 h-full">
+                <div className="flex flex-col justify-between bg-white dark:bg-gray-800 text-gray-700 p-4 rounded-lg shadow-md mb-6 h-full">
                   <div>
                     <h1 className="text-2xl font-bold dark:text-white">
                       John Doe
@@ -172,15 +172,15 @@ function Leaderboard() {
 
               <div className="mb-3">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold dark:text-white">
+                  <h2 className="text-xl font-bold text-gray-700 dark:text-white">
                     Featured Quizzes
                   </h2>
-                  <button
+                  {/* <button
                     className="px-4 py-2 bg-blue-500 text-white rounded-lg"
                     onClick={toggleDropdown}
                   >
                     Category
-                  </button>
+                  </button> */}
                 </div>
                 {isDropdownVisible && (
                   <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg p-4 mt-2 z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
@@ -251,7 +251,7 @@ function Leaderboard() {
                     </div>
                   </div>
                 )}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   {quizzes.map((quiz, index) => (
                     <a
                       key={index}
@@ -282,37 +282,37 @@ function Leaderboard() {
               </div>
             </div>
 
-            <div className="w-80 h-120 ml-6 bg-gray-300 dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col items-center border border-black dark:border-white">
-              <div className=" min-h-screen font-sans text-black">
+            <div className=" h-120 ml-6 bg-gray-300 dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col items-center border border-black dark:border-white w-fit">
+              <div className=" min-h-screen font-sans text-black w-80">
                 <div className="p-6">
                   <div className="flex items-center mb-4">
-                    <ArrowLeft className="w-6 h-6 text-white" />
-                    <h1 className="text-3xl font-bold text-white ml-4">LeaderBoard</h1>
+                    
+                    <h1 className="text-3xl font-bold text-black ml-12">Leaderboard</h1>
                   </div>
                   
                   <div className="flex justify-between items-end mb-8">
-                    <div className="w-1/3 bg-yellow-400 rounded-lg p-2 text-center -mb-4">
+                    <div className="w-1/3 bg-white rounded-lg p-2 text-center -mb-4">
                       <div className="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
-                        <img src="/placeholder.svg" alt="Marvin" className="w-full h-full object-cover" />
+                        <img src="public/images/illus-avatar-3.svg" alt="Shraddha" className="w-full h-full object-cover" />
                       </div>
-                      <p className="font-semibold">Marvin</p>
+                      <p className="font-semibold">Shraddha</p>
                       <p className="text-sm">99348</p>
                       <div className="text-2xl font-bold -mt-1">2</div>
                     </div>
                     <div className="w-1/3 bg-yellow-300 rounded-lg p-2 text-center relative z-10">
                       <Crown className="w-6 h-6 text-yellow-500 absolute -top-3 right-2" />
                       <div className="w-20 h-20 mx-auto mb-2 rounded-full overflow-hidden">
-                        <img src="/placeholder.svg" alt="Leslie" className="w-full h-full object-cover" />
+                        <img src="public/images/illus-avatar-1.svg" alt="Soniya" className="w-full h-full object-cover" />
                       </div>
-                      <p className="font-semibold">Leslie</p>
+                      <p className="font-semibold">Soniya</p>
                       <p className="text-sm">102456</p>
                       <div className="text-3xl font-bold -mt-1">1</div>
                     </div>
                     <div className="w-1/3 bg-yellow-400 rounded-lg p-2 text-center -mb-4">
                       <div className="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
-                        <img src="/placeholder.svg" alt="Kathryn" className="w-full h-full object-cover" />
+                        <img src="public/images/illus-avatar-2.svg" alt="Kartik" className="w-full h-full object-cover" />
                       </div>
-                      <p className="font-semibold">Kathryn</p>
+                      <p className="font-semibold">Kartik</p>
                       <p className="text-sm">95627</p>
                       <div className="text-2xl font-bold -mt-1">3</div>
                     </div>
