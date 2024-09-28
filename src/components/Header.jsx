@@ -51,7 +51,7 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
   }, [sidebarShrink]);
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm">
+    <header className="bg-white dark:bg-gray-900">
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-5">
           <button
@@ -70,7 +70,7 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
             <input
               type="text"
               placeholder="Search Mentors..."
-              className="w-[600px] p-2 pl-10 rounded-full border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm shadow-gray-600"
+              className="w-[600px] p-2 pl-10 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-md"
             />
             <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
           </div>
@@ -129,7 +129,7 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
                     <div className="flex-shrink-0 relative">
                       <img
                         className="rounded-full w-11 h-11"
-                        src="/docs/images/people/profile-picture-1.jpg"
+                        src="public/images/thomasjohn.jpeg"
                         alt="Jese image"
                       />
                       <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
@@ -146,12 +146,12 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
                       </div>
                     </div>
                     <div className="w-full ps-3">
-                      <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                      <div className="text-gray-500 text-sm mb-1.5 font-semibold dark:text-gray-400">
                         New message from{" "}
-                        <span className="font-semibold text-gray-900 dark:text-white">
+                        <span className=" text-gray-900 dark:text-white">
                           Jese Leos
                         </span>
-                        : "Hey, what's up? All set for the presentation?"
+                        : Are all your doubts clear?
                       </div>
                       <div className="text-xs text-blue-600 dark:text-blue-500">
                         a few moments ago

@@ -52,8 +52,8 @@ export default function Counselors() {
   }, []);
 
   return (
-    <section id="counselors" className="md:py-40 xl:py-40 bg-[url('images/bg-tablet-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[-70%_15%] mt-50px relative" style={styles}>
-      <div className="relative mx-auto px-8 mt-[300px] md:mt-[-300px] md:pt-60 text-[#2F4454]">
+    <section id="counselors" className="md:py-40 xl:py-40 bg-[url('static/mega-creator.svg')] bg-[length:50rem] bg-no-repeat bg-[-70%_15%] mt-50px relative" style={styles}>
+      <div className="relative mx-auto px-8 mt-[300px] md:mt-[-200px] md:pt-60 text-[#2F4454]">
         <div className="flex flex-col md:flex-row items-center justify-between mt-[-400px] md:mt-0">
           {/* Left Info Column */}
           <div className="md:w-3/4 mb-12 md:mb-0 md:-mr-24">
@@ -82,12 +82,12 @@ export default function Counselors() {
                     <h2 className="font-bold text-darkBlue text-left text-xl">Thomas John</h2>
                     <p className="text-darkGrayishBlue text-left mt-1 text-lg">Bachelors in Hospitality</p>
                     <div className="flex justify-start space-x-4">
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">SEO</p>
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">AWS</p>
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Generative AI</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">SEO</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">AWS</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">Generative AI</p>
                     </div>
                     <div className="flex justify-start space-x-4 text-left">
-                      <p className="text-gray-600 bg-slate-200 rounded-full p-1 text-xs">AI</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">AI</p>
                     </div>
                   </div>
                 </div>
@@ -102,11 +102,11 @@ export default function Counselors() {
                     <p className="font-bold text-darkBlue text-left text-xl">Radhika Sharma</p>
                     <p className="text-darkGrayishBlue text-left mt-1 text-lg">Masters in Psychology</p>
                     <div className="flex justify-start space-x-4">
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Interview Preparation</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">Interview Preparation</p>
                     </div>
                     <div className="flex justify-start space-x-4">
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Mock Interviews</p>
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Interviews</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">Mock Interviews</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">Interviews</p>
                     </div>
                     
                   </div>
@@ -122,9 +122,9 @@ export default function Counselors() {
                     <p className="font-bold text-darkBlue text-left text-xl">Gautam Nigam</p>
                     <p className="text-darkGrayishBlue text-left text-lg">Program Manager@Meta</p>
                     <div className="flex justify-start space-x-4">
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Javascript</p>
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">Typescript</p>
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">React</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">Javascript</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">Typescript</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">React</p>
                     </div>
                     
                   </div>
@@ -140,9 +140,9 @@ export default function Counselors() {
                     <p className="font-bold text-darkBlue text-left text-xl">Sushmita Sinha</p>
                     <p className="text-darkGrayishBlue text-left text-lg">Data Analyst</p>
                     <div className="flex justify-start space-x-4">
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">JavaScript</p>
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">NodeJs</p>
-                      <p className="text-gray-600 bg-slate-300 rounded-full p-1 text-xs">React</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">JavaScript</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">NodeJs</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">React</p>
                     </div>
                   </div>
                 </div>

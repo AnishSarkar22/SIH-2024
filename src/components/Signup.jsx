@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { GoogleIcon, FacebookIcon, TwitterIcon } from "./CustomItems";
+import { FaXTwitter, FaGoogle } from "react-icons/fa6";
 import TemplateFrame from "./TemplateFrame";
-import axios from "axios";
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 export default function SignUp() {
   const [emailError, setEmailError] = useState(false);
@@ -12,6 +12,8 @@ export default function SignUp() {
   const [nameError, setNameError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [serverErrorMessage, setServerErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const validateInputs = () => {
     const email = document.getElementById("email");
@@ -50,40 +52,93 @@ export default function SignUp() {
     return isValid;
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (validateInputs()) {
-      const data = new FormData(event.currentTarget);
-      const userData = {
-        name: data.get("name"),
-        email: data.get("email"),
-        password: data.get("password"),
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateInputs()) {
+      return;
+    }
 
-      try {
-        const response = await axios.post(
-          "http://backend:5000/api/signup",
-          userData
-        );
-        if (response.data.success) {
-          console.log("Signup successful", response.data);
-          // Handle successful signup (e.g., redirect to login page or show success message)
-          return <Link to="/basic-details" />;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const name = document.getElementById("name").value;
+
+    try {
+      // Check if email already exists
+      const checkResponse = await fetch(
+        "http://127.0.0.1:5000/api/check-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+          credentials: "include", // Include cookies in the request
         }
-      } catch (error) {
-        console.error("Signup failed", error.response?.data || error.message);
-        if (error.response && error.response.status === 500) {
-          setServerErrorMessage("An internal server error occurred. Please try again later.");
-        } else {
-          setServerErrorMessage("Signup failed. Please check your inputs and try again.");
-        }
+      );
+
+      const checkData = await checkResponse.json();
+      if (checkData.exists) {
+        setEmailError(true);
+        setEmailErrorMessage("An account with this email already exists.");
+        return;
       }
+
+      // Proceed with signup to basic details
+      const response = await fetch("http://127.0.0.1:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+        credentials: "include", // Include cookies in the request
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setMessage(`Signup successful! User ID: ${data.user_id}`);
+        navigate("/basic-details"); // Navigate to the basic-details page
+      } else {
+        setServerErrorMessage(`Signup failed: ${data.error}`);
+      }
+    } catch (error) {
+      setServerErrorMessage(`Signup failed: ${error.message}`);
     }
   };
 
+  // const handleGoogleLoginSuccess = async (credentialResponse) => {
+  //   console.log("Google Sign-In Successful:", credentialResponse);
+  //   const { credential } = credentialResponse;
+    
+  //   try {
+  //     const response = await fetch("http://127.0.0.1:5000/api/google-signin", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ id_token: credential }),
+  //       credentials: "include",
+  //     });
+
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       setMessage(`Google sign-in successful! User ID: ${data.user_id}`);
+  //       navigate("/basic-details");
+  //     } else {
+  //       setServerErrorMessage(`Google sign-in failed: ${data.error}`);
+  //     }
+  //   } catch (error) {
+  //     setServerErrorMessage(`Google sign-in failed: ${error.message}`);
+  //   }
+  // };
+
+  // const handleGoogleLoginFailure = (error) => {
+  //   console.error("Google Sign-In Failed:", error);
+  //   setServerErrorMessage(`Google sign-in failed: ${error.error || error.message}`);
+  // };
+
   return (
     <TemplateFrame>
-      <div className="min-h-screen flex justify-center items-center bg-white">
+      <div className="min-h-screen flex justify-center items-center bg-gray-100">
         <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Sign up
@@ -170,7 +225,10 @@ export default function SignUp() {
             </p>
             <p className="text-center text-gray-600 mt-2">
               Interested in mentoring?{" "}
-              <a href="#" className="text-indigo-600 hover:underline">
+              <a
+                href="/apply-mentor"
+                className="text-indigo-600 hover:underline"
+              >
                 Apply as a Mentor
               </a>
             </p>
@@ -183,18 +241,24 @@ export default function SignUp() {
           <div className="flex flex-col gap-2 mt-4">
             <button
               type="button"
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-400"
+              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
               onClick={() => alert("Sign up with Google")}
             >
-              <GoogleIcon />
+              <FaGoogle className="mr-1"/>
               Sign up with Google
             </button>
+            {/* <GoogleOAuthProvider clientId="441408230497-hbn9flrej32j5abugtcnsk2isrq0rh84.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onError={handleGoogleLoginFailure}
+              />
+            </GoogleOAuthProvider> */}
             <button
               onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-400"
+              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
             >
-              <TwitterIcon className="mr-4" />
-              Sign in with Twitter
+              <FaXTwitter className="mr-1" />
+              Sign up with X
             </button>
           </div>
         </div>

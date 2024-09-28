@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "./Header"; // Import Header component
-import Sidebar from "./Sidebar"; // Import Sidebar component
+import MHeader from "./MHeader"; // Import Mentor Header component
+import MSidebar from "./MSidebar"; // Import Mentor Sidebar component
 import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -32,7 +32,7 @@ const NextArrow = ({ onClick }) => (
   </button>
 );
 
-function Classes() {
+function MSchedule() {
   const [sidebarShrink, setSidebarShrink] = useState(() => {
     const savedSidebarState = localStorage.getItem("sidebarState");
     return savedSidebarState === "shrink";
@@ -121,13 +121,13 @@ function Classes() {
 
   return (
     <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
-      <Sidebar
+      <MSidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
         toggleSidebar={toggleSidebar}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header
+        <MHeader
           toggleSidebar={toggleSidebar}
           sidebarShrink={sidebarShrink}
           darkMode={darkMode}
@@ -356,4 +356,4 @@ function renderEventContent(eventInfo) {
   );
 }
 
-export default Classes;
+export default MSchedule;

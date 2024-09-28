@@ -1,9 +1,10 @@
 flask
 flask_cors 
 psycopg2-binary
-bcrypt
-jwt
 DateTime
 openai
 gunicorn
 python-dotenv
+firebase-admin
+# redis
+# Flask-Session

@@ -75,7 +75,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="font-custom mb-24 bg-[url('images/bg-tablet-pattern.svg')] bg-[length:40rem] bg-no-repeat bg-[90%_-1%]" style={font}>
+    <section id="hero" className="font-custom mb-24 bg-[url('static/bg-pattern.svg')] bg-[length:40rem] bg-no-repeat bg-[90%_-1%]" style={font}>
       
       <div className="font-custom container flex flex-col-reverse items-center px-16 mx-auto mt-32 space-y-0 md:flex-row md:space-y-10">
         <div className="flex flex-col mb-2 space-y-12 md:mb-28 md:w-1/2">

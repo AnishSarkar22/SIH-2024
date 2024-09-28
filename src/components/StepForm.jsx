@@ -1,7 +1,53 @@
 import React, { useState } from "react";
-// src/index.js or src/App.js
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
+const AvatarUpload = ({ photoPreview, handleFileChange }) => {
+  return (
+    <div className="flex items-center ml-6 mb-4">
+      {/* Avatar Icon */}
+      {!photoPreview && (
+        <i
+          id="avatarIcon"
+          className="fa-solid fa-user text-2xl text-[#131316] mr-4 flex items-center justify-center w-16 h-16 border-2 border-black rounded-full box-border px-5 py-4"
+        ></i>
+      )}
+
+      {/* Image Preview */}
+      {photoPreview && (
+        <img
+          id="photoPreview"
+          src={photoPreview}
+          className="max-w-[4rem] max-h-[4rem] object-cover rounded-full border-2 border-black mr-4"
+          alt="Photo Preview"
+        />
+      )}
+
+      {/* File Input */}
+      <div className="relative flex-1 file-input-wrapper">
+        <input
+          type="file"
+          id="photoInput"
+          className="file-input hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+        <label
+          htmlFor="photoInput"
+          className="flex items-center border-2 border-black rounded-md bg-blue-100 text-black px-2 py-1 font-bold cursor-pointer text-xs relative overflow-hidden w-40"
+        >
+          <i className="fa-solid fa-upload mr-1 text-black"></i>
+          <span className="upload-text">Upload your photo</span>
+        </label>
+        <p
+          id="uploadStatus"
+          className={`upload-status ${photoPreview ? "block" : "hidden"}`}
+        >
+          Image uploaded
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const StepForm = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -11,8 +57,8 @@ const StepForm = () => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setPhotoPreview(e.target.result);
+      reader.onloadend = () => {
+        setPhotoPreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -42,15 +88,19 @@ const StepForm = () => {
               >
                 {step}
               </div>
-              <div className="mt-2 text-sm font-medium text-gray-500">
+              <div
+                className="mt-2 text-sm font-medium text-gray-500"
+                style={index === 2 ? { marginLeft: "-1rem" } : {}}
+              >
                 {index === 0 ? "Profile" : index === 1 ? "Info" : "Summary"}
               </div>
             </div>
             {index < 2 && (
               <div
-                className={`flex-1 h-1 ${
+                className={`h-1 ${
                   currentPage > index ? "bg-indigo-600" : "bg-gray-300"
                 }`}
+                style={{ marginTop: "-1.5rem", width: "600px" }} // Increase the width and move the line up
               ></div>
             )}
           </React.Fragment>
@@ -79,36 +129,10 @@ const StepForm = () => {
             </p>
           </div>
           <form>
-            <div className="mb-4 flex items-center ml-6">
-              <i id="avatarIcon" className="fa-solid fa-user avatar-icon"></i>
-              {photoPreview && (
-                <img
-                  id="photoPreview"
-                  src={photoPreview}
-                  className="image-preview"
-                  alt="Photo Preview"
-                />
-              )}
-              <div className="file-input-wrapper flex-1">
-                <input
-                  type="file"
-                  id="photoInput"
-                  className="file-input"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-                <label htmlFor="photoInput" className="file-label">
-                  <i className="fa-solid fa-upload upload-icon"></i>
-                  <span className="upload-text">Upload your photo</span>
-                </label>
-              </div>
-            </div>
-            <p
-              id="uploadStatus"
-              className={photoPreview ? "upload-status" : "hidden"}
-            >
-              Image uploaded
-            </p>
+            <AvatarUpload
+              photoPreview={photoPreview}
+              handleFileChange={handleFileChange}
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
@@ -156,7 +180,7 @@ const StepForm = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
               <div>
                 <label className="block text-gray-700 font-bold mb-2">
                   Job Title
@@ -197,7 +221,7 @@ const StepForm = () => {
           <form>
             {/* Category Section */}
             <p className="text-gray-700 font-bold mb-2">Category</p>
-            <div className="mb-6 p-4 border border-black rounded-md bg-white shadow-sm">
+            <div className="mb-6 p-4 rounded-md bg-white">
               <div className="flex items-center">
                 <input
                   type="text"
@@ -216,7 +240,7 @@ const StepForm = () => {
 
             {/* Skills Section */}
             <p className="text-gray-700 font-bold mb-2">Skills</p>
-            <div className="mb-6 p-4 border border-black rounded-md bg-white shadow-sm">
+            <div className="mb-6 p-4 rounded-md bg-white">
               <textarea
                 id="skills"
                 className="w-full border-black rounded-md p-2"
@@ -234,7 +258,7 @@ const StepForm = () => {
 
             {/* Bio Section */}
             <p className="text-gray-700 font-bold mb-2">Bio</p>
-            <div className="mb-6 p-4 border border-black rounded-md bg-white shadow-sm">
+            <div className="mb-6 p-4 rounded-md bg-white">
               <textarea
                 id="bio"
                 className="w-full border-black rounded-md p-2"
@@ -282,7 +306,7 @@ const StepForm = () => {
               </div>
 
               {/* Personal Website */}
-              <div className="sm:col-span-2">
+              <div className="sm:col-span-2 mb-6">
                 <label
                   htmlFor="website"
                   className="block text-gray-700 font-bold mb-2"
@@ -322,7 +346,7 @@ const StepForm = () => {
       {/* Page 3: Summary */}
       {currentPage === 2 && (
         <div id="page3" className="form-page">
-          <div className="bg-white rounded-lg shadow-md p-8 max-w-4xl mx-auto mt-3">
+          <div className="bg-white rounded-lg p-8 max-w-4xl mx-auto mt-3">
             <div className="bg-blue-300 text-white p-4 rounded-lg mb-6">
               <div className="flex items-center space-x-2">
                 <span className="w-6 h-6 flex items-center justify-center bg-blue-800 text-white rounded-full">
@@ -344,7 +368,7 @@ const StepForm = () => {
 
             <form id="mentor-form">
               <div className="grid grid-cols-2 gap-6 mb-6">
-                <div className="border rounded-md p-4">
+                <div className="rounded-md p-4">
                   <label
                     htmlFor="introVideo"
                     className="block text-sm font-medium text-gray-700 mb-1"
@@ -359,7 +383,7 @@ const StepForm = () => {
                     className="w-full px-3 py-2 border border-black rounded-md"
                   />
                 </div>
-                <div className="border rounded-md p-4">
+                <div className="rounded-md p-4">
                   <label
                     htmlFor="featuredArticle"
                     className="block text-sm font-medium text-gray-700 mb-1"
@@ -376,7 +400,7 @@ const StepForm = () => {
                 </div>
               </div>
 
-              <div className="mb-6 border rounded-md p-4">
+              <div className="mb-6 rounded-md p-4">
                 <label
                   htmlFor="whyMentor"
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -391,7 +415,7 @@ const StepForm = () => {
                 ></textarea>
               </div>
 
-              <div className="mb-6 border rounded-md p-4">
+              <div className="mb-6 rounded-md p-4">
                 <label
                   htmlFor="greatestAchievement"
                   className="block text-sm font-medium text-gray-700 mb-1"
