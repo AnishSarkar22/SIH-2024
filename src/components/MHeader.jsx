@@ -182,7 +182,7 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
           </div>
           <div className="flex items-center space-x-2">
             <img
-              src="public/images/avatar-anisha.png"
+              src="images/avatar-anisha.png"
               alt="User avatar"
               className="w-8 h-8 rounded-full"
             />

@@ -34,7 +34,7 @@ function Resource() {
                     darkMode={darkMode}
                     toggleDarkMode={toggleDarkMode}
                 />
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900 p-6">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900 p-6">
                     <div className="space-y-10">
                         {/* Notes */}
                         <Section title="Notes" viewAllLink="#">
@@ -60,6 +60,7 @@ function Resource() {
                             </div>
                         </Section>
                         {/* Research Paper Links */}
+                        
                         <Section title="Research Paper Links" viewAllLink="#">
                             <ul className="space-y-6">
                                 <li>
@@ -80,7 +81,7 @@ function Resource() {
                             </ul>
                         </Section>
                         {/* Book Recommendation */}
-                        <Section title="Book Recommendation" viewAllLink="#">
+                        <Section title="Book Recommendations" viewAllLink="#">
                             <div className="grid grid-cols-3 gap-4">
                                 <BookCover src="src/components/Soul.jpeg" alt="Soul by Olivia Wilson" title="Soul" author="Olivia Wilson" />
                                 <BookCover src="public/images/art-of-teaching.jpeg" alt="The Art of Teaching Children by Phillip Done" title="The Art of Teaching Children" author="Phillip Done" />

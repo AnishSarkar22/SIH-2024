@@ -145,14 +145,14 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
             </div>
           </Link>
           <Link 
-            to="/mentor-calendar" 
+            to="/mentor-schedule" 
             className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${isSidebarShrink ? 'hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center' : 'hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600'}`}
-            onClick={() => setActiveLink('/mentor-calendar')}
-            style={getLinkStyle('/mentor-calendar')}
+            onClick={() => setActiveLink('/mentor-schedule')}
+            style={getLinkStyle('/mentor-schedule')}
           >
             <div className="flex items-center">
               <FaCalendarAlt className="text-xl w-8 text-center" />
-              {!isSidebarShrink && <span className="ml-3 text-lg sidebar-text">Calendar</span>}
+              {!isSidebarShrink && <span className="ml-3 text-lg sidebar-text">Schedule</span>}
             </div>
           </Link>
           <Link 

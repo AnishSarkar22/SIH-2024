@@ -29,6 +29,7 @@ import Personal_AI from './components/Personal_AI';
 import MPersonal_AI from './components/MPersonal_AI';
 import Quiz from './components/Quiz';
 import Resource from './components/Resource';
+import MSchedule from './components/MSchedule';
 // import PrivateRoute from './components/PrivateRoute'; 
 
 
@@ -84,6 +85,7 @@ function App() {
         <Route path="/mpersonal-ai" element={<MPersonal_AI />} /> {/* Added route for MPersonal_AI */}
         <Route path="/quiz/:id" element={<Quiz />} />
         <Route path="/resources" element={<Resource />} />
+        <Route path="/mentor-schedule" element={<MSchedule />} />
 
           {/* Redirect to home if route does not exist */}
         <Route path="*" element={<Navigate to="/home" />} />
