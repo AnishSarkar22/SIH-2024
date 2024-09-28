@@ -120,7 +120,7 @@ function Classes() {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-100 ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
       <Sidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
@@ -146,7 +146,7 @@ function Classes() {
                 </h1>
                 <div className="shadow-md max-w-[2000px] mt-0">
                   {/* Reduced gap by setting mt-0 */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 h-full border border-black dark:border-none">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 h-ful">
                     <FullCalendar
                       plugins={[
                         dayGridPlugin,

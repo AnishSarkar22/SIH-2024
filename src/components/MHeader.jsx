@@ -51,7 +51,7 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
   }, [sidebarShrink]);
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm">
+    <header className="bg-white dark:bg-gray-900">
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-5">
           <button
@@ -66,14 +66,14 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
               <FaChevronLeft size={24} /> // Increase the size of the icon
             )}
           </button>
-          <div className="relative flex-grow mr-4" style={{ width: "300%" }}>
+          {/* <div className="relative flex-grow mr-4" style={{ width: "300%" }}>
             <input
               type="text"
               placeholder="Search Mentors..."
               className="w-[600px] p-2 pl-10 rounded-full border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm shadow-gray-600"
             />
             <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center space-x-8">
           <button
@@ -129,7 +129,7 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
                     <div className="flex-shrink-0 relative">
                       <img
                         className="rounded-full w-11 h-11"
-                        src="/docs/images/people/profile-picture-1.jpg"
+                        src="public/images/thomasjohn.jpeg"
                         alt="Jese image"
                       />
                       <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
@@ -146,12 +146,12 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
                       </div>
                     </div>
                     <div className="w-full ps-3">
-                      <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                      <div className="text-gray-500 text-sm mb-1.5 font-semibold dark:text-gray-400">
                         New message from{" "}
                         <span className="font-semibold text-gray-900 dark:text-white">
                           Jese Leos
                         </span>
-                        : "Hey, what's up? All set for the presentation?"
+                        : Are all your doubts clear?
                       </div>
                       <div className="text-xs text-blue-600 dark:text-blue-500">
                         a few moments ago
@@ -182,7 +182,7 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
           </div>
           <div className="flex items-center space-x-2">
             <img
-              src="/api/placeholder/32/32"
+              src="public/images/avatar-anisha.png"
               alt="User avatar"
               className="w-8 h-8 rounded-full"
             />
@@ -191,7 +191,7 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
             </span>
           </div>
           <button
-            className="flex items-center px-4 py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 hover:bg-blue-400 dark:bg-gray-700 dark:text-white dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex items-center px-4 py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <i className="fa-solid fa-plus mr-2"></i> {/* Plus Icon */}
             <span>Create Session</span> {/* Button Text */}

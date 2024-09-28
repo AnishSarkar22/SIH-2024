@@ -168,7 +168,7 @@ export default function Features() {
 
   return (
     <section
-      className="py-20 md:py-40 xl:py-10 bg-white mt-[100px] sm:mt-[200px] md:mt-[-50px] lg:mt-[-100px] xl:mt-[-10px] relative bg-[url('images/bg-tablet-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[175%_100%] pb-[100px] top-[-40px]"
+      className="py-20 md:py-40 xl:py-10 bg-white mt-[100px] sm:mt-[200px] md:mt-[-50px] lg:mt-[-100px] xl:mt-[-10px] relative bg-[url('static/bg-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[175%_100%] pb-[100px] top-[-40px]"
       style={styles}
     >
       <div className="relative mx-auto px-4 sm:px-6 lg:px-8 bg-[length:45rem] bg-no-repeat bg-center flex flex-col md:flex-row items-center md:items-start">

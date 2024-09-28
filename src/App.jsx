@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Classes from './components/Classes';
@@ -23,6 +24,11 @@ import AboutUs from './components/AboutUs';
 // import HNavbar from './components/HNavbar';
 import BasicDetails from './components/BasicDetails';
 import ApplyMentor from './components/ApplyMentor';
+import Blog from './components/blog';
+import Personal_AI from './components/Personal_AI';
+import MPersonal_AI from './components/MPersonal_AI';
+import Quiz from './components/Quiz';
+import Resource from './components/Resource';
 // import PrivateRoute from './components/PrivateRoute'; 
 
 
@@ -73,7 +79,12 @@ function App() {
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/basic-details" element={<BasicDetails />} />
         <Route path="/apply-mentor" element={<ApplyMentor />} />
-          
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/personal-ai" element={<Personal_AI />} /> {/* Added route for Personal_AI */}
+        <Route path="/mpersonal-ai" element={<MPersonal_AI />} /> {/* Added route for MPersonal_AI */}
+        <Route path="/quiz/:id" element={<Quiz />} />
+        <Route path="/resources" element={<Resource />} />
+
           {/* Redirect to home if route does not exist */}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>

@@ -33,7 +33,7 @@ export default function Navbar() {
       style={{ top: 0, right: 0, left: 0 }}
     >
       <div
-        className="absolute inset-0 bg-white transition-opacity duration-300 rounded-lg"
+        className="absolute inset-0 bg-white transition-opacity duration-300 rounded-lg shadow"
         style={{ opacity: backgroundOpacity, right: 0, left: 0, top: 0 }}
       ></div>
       {/* FLEX CONTAINER */}
@@ -55,28 +55,28 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-12">
           <Link
             to="/"
-            aria-label="Visit our Pricing page"
+            aria-label="Visit our Home page"
             className="text-veryDarkBlue hover:text-teal-600 transition ease-in"
           >
             Home
           </Link>
           <Link
             to=""
-            aria-label="Visit our Product page"
+            aria-label="Visit our Careers page"
             className="hover:text-teal-600 transition ease-in"
           >
             Careers
           </Link>
           <Link
-            to=""
-            aria-label="Visit our About Us page"
+            to="/blog"
+            aria-label="Visit our Blogs page"
             className="hover:text-teal-600 transition ease-in"
           >
             Blogs
           </Link>
           <Link
             to="/aboutus"
-            aria-label="Visit our Careers page"
+            aria-label="Visit our About Us page"
             className="hover:text-teal-600 transition ease-in"
           >
             About Us

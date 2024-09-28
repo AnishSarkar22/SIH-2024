@@ -37,7 +37,7 @@ function MDashboard() {
           darkMode={darkMode}
         />
         <main className="flex-1 p-8 dark:bg-gray-900">
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-8  text-gray-800 dark:text-white">
             <div>
               <h1 className="text-2xl font-bold dark:text-white">
                 Hello, Radhika Sharma
@@ -54,37 +54,37 @@ function MDashboard() {
             </div>
           </div>
 
-          <h2 className="text-lg font-semibold mb-3 dark:text-white">
+          <h2 className="text-lg font-semibold mb-3 text-gray-800 dark:text-white">
             Quick actions
           </h2>
 
           <div className="grid grid-cols-3 gap-6">
             <div className="grid grid-cols-2 gap-4 col-span-3">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm shadow-gray-700">
-                <h2 className="text-lg font-semibold text-black dark:text-white mb-3">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">
                   Schedule Meetings
                 </h2>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <i className="far fa-calendar-alt text-4xl mr-4 text-black dark:text-white"></i>
+                    <i className="far fa-calendar-alt text-4xl mr-4 text-gray-800 dark:text-white"></i>
                     <div className="flex flex-col justify-center">
-                      <h3 className="font-bold text-2xl leading-tight text-black dark:text-white">
-                        Upcoming 3 meeting
+                      <h3 className="font-bold text-2xl leading-tight text-gray-800 dark:text-white">
+                        Upcoming 3 meetings
                       </h3>
                     </div>
                   </div>
                   <div className="flex flex-col space-y-2">
-                    <button className="px-10 py-1 border border-gray-700 dark:border-gray-600 text-black dark:text-gray-300 rounded">
+                    <button className="px-10 py-1 border border-gray-700 dark:border-gray-600 text-gray-800 dark:text-white rounded  hover:bg-slate-300  dark:hover:bg-slate-900">
                       View
                     </button>
-                    <button className="px-10 py-1 text-black relative border border-gray-700 dark:border-gray-600 dark:text-gray-300 rounded">
+                    <button className="px-10 py-1 relative border border-gray-700 dark:border-gray-600 text-gray-800 dark:text-white rounded  hover:bg-slate-300  dark:hover:bg-slate-900">
                       New
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm shadow-gray-700">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-gray-800 dark:text-white">
                 <h2 className="text-lg font-semibold mb-3 dark:text-white">
                   Meetings Availability
                 </h2>
@@ -101,10 +101,10 @@ function MDashboard() {
                     </div>
                   </div>
                   <div className="flex flex-col space-y-2">
-                    <button className="px-3 py-1 border border-gray-700 dark:border-gray-600 text-black dark:text-white rounded">
+                    <button className="px-3 py-1 border border-gray-700 dark:border-gray-600 text-black dark:text-white rounded  hover:bg-slate-300  dark:hover:bg-slate-900">
                       Sync Calendar
                     </button>
-                    <button className="px-3 py-1 text-black dark:text-white rounded relative border border-gray-700 dark:border-gray-600">
+                    <button className="px-3 py-1 text-black dark:text-white rounded relative border border-gray-700 dark:border-gray-600  hover:bg-slate-300  dark:hover:bg-slate-900">
                       Edit
                     </button>
                   </div>
@@ -113,8 +113,8 @@ function MDashboard() {
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-6 col-span-3">
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm shadow-gray-700">
-                <h2 className="text-xl text-center font-semibold mb-3 dark:text-gray-300">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 className="text-xl text-center font-semibold mb-3 text-gray-800 dark:text-white">
                   Your impact at a glance
                 </h2>
                 <div className="grid grid-cols-2 gap-6 flex-1">
@@ -191,8 +191,8 @@ function MDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm shadow-gray-700">
-                <h2 className="text-xl font-semibold text-center mb-4 dark:text-gray-300">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md ">
+                <h2 className="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-white">
                   Upcoming Meetings
                 </h2>
                 <div className="space-y-4">

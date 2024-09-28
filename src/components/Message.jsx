@@ -40,6 +40,15 @@ const chatData = [
     initials: 'AS',
     link: '/chat/4',
   },
+  {
+    id: 'p',
+    name: 'Chat',
+    message: 'How can I help you?',
+    time: '12:50 pm Aug 19 2024',
+    avatarColor: 'bg-pink-500',
+    initials: 'C',
+    link: '/chat/p',
+  },
 ];
 
 function Message() {
@@ -60,7 +69,7 @@ function Message() {
   };
 
   return (
-    <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-blue ${darkMode ? "dark" : ""}`}>
       <Sidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
@@ -73,12 +82,12 @@ function Message() {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900 mt-10">
           <div className="container mx-auto px-6">
-            <div className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 h-[calc(100vh-200px)] overflow-y-auto bg-white dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700`}>
+            <div className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 h-[calc(100vh-200px)] rounded-lg shadow-md overflow-y-auto bg-white dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700`}>
               {/* AI Chat */}
-              <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 p-4">
-                <div className="flex items-center mb-4">
+              <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 p-4 flex items-center justify-between">
+                <div className="flex items-center">
                   <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold mr-3">
                     AI
                   </div>
@@ -91,11 +100,11 @@ function Message() {
                     </p>
                   </div>
                 </div>
-                <input
-                  type="text"
-                  placeholder="Type your message..."
-                  className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100"
-                />
+                <Link to="/personal-ai">
+                  <button className="px-8 py-2 bg-blue-500 text-white rounded-lg">
+                    Chat
+                  </button>
+                </Link>
               </div>
 
               {/* Messages */}

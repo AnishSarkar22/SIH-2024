@@ -57,7 +57,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="overflow-hidden py-0 mt-[-100px] bg-[url('images/bg-tablet-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[160%_10%]" style={styles}>
+    <section id="testimonials" className="overflow-hidden py-0 mt-[-33px] bg-[url('static/bg-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[160%_10%]" style={styles}>
       <h2 className="text-4xl font-bold text-center py-4 mt-7">Success Stories</h2>
       <p className="text-gray-600 text-center max-w-md mx-auto mt-7">
         Still not convinced?

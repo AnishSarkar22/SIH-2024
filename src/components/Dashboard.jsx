@@ -220,10 +220,10 @@ const Dashboard = () => {
             <h1 className="text-3xl font-bold mb-8 text-center text-gray-700 dark:text-gray-200">
               Welcome back, John 👋
             </h1>
-            {/* Chat with AI and Your Plan */}
+            {/* Personal Assistant and Your Plan */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-gray-800 dark:text-white">
-              {/* Chat with AI */}
-              <div className="bg-white rounded-lg shadow shadow-gray-400 p-6 dark:bg-gray-800">
+              {/* Personal Assistant */}
+              <div className="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
                 <h2 className="text-xl font-semibold mb-4 text-center">
                   Personal Assistant
                 </h2>
@@ -242,22 +242,22 @@ const Dashboard = () => {
                 <input
                   type="text"
                   placeholder="Type here......"
-                  className="w-full p-3 rounded-lg border shadow-sm shadow-gray-700 border-gray-300 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-gray-300 dark:border-gray-800"
+                  className="w-full p-3 rounded-lg border shadow-lg border-gray-100 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-gray-300 dark:border-gray-800"
                 />
                 <a
                   href="#"
-                  className="text-blue-500 hover:underline flex justify-center text-center"
+                  className="text-blue-500 hover:underline flex justify-center text-center mt-3"
                 >
                   Continue your Conversation →
                 </a>
               </div>
               {/* Your Plan */}
-              <div className="bg-white rounded-lg shadow shadow-gray-400 p-6 dark:bg-gray-800">
-                <h2 className="text-xl font-semibold text-center mb-4 dark:text-gray-300">
+              <div className="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
+                <h2 className="text-xl font-semibold text-center mb-4  text-gray-800 dark:text-white">
                   Your Plan
                 </h2>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
+                <div className="space-y-4 shadow-md rounded-lg">
+                  <div className="flex justify-between items-center px-4 pt-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
                       <span>Mayowa Ade</span>
@@ -266,10 +266,10 @@ const Dashboard = () => {
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-600">09:34</span>
+                      <span className="text-gray-800 dark:text-white">09:34</span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center px-4">
                     <div className="flex items-center">
                       <i className="fas fa-user text-green-500 mr-2"></i>
                       <span>Gautam Nigam</span>
@@ -278,10 +278,10 @@ const Dashboard = () => {
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-600">11:30</span>
+                      <span className="text-gray-800 dark:text-white">11:30</span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center px-4">
                     <div className="flex items-center">
                       <i className="fas fa-user text-green-500 mr-2"></i>
                       <span>Mayowa Ade</span>
@@ -290,10 +290,10 @@ const Dashboard = () => {
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-600">13:40</span>
+                      <span className="text-gray-800 dark:text-white">13:40</span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center px-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
                       <span>Joshua Ashiru</span>
@@ -302,10 +302,10 @@ const Dashboard = () => {
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-600">15:30</span>
+                      <span className="text-gray-800 dark:text-white">15:30</span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center px-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
                       <span>Olawuyi Tobi</span>
@@ -314,10 +314,10 @@ const Dashboard = () => {
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-600">19:30</span>
+                      <span className="text-gray-800 dark:text-white">19:30</span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center px-4 pb-4">
                     <div className="flex items-center">
                       <i className="fas fa-user text-green-500 mr-2"></i>
                       <span>Gautam Nigam</span>
@@ -326,7 +326,7 @@ const Dashboard = () => {
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-600">11:30</span>
+                      <span className="text-gray-800 dark:text-white">11:30</span>
                     </div>
                   </div>
                 </div>
@@ -341,7 +341,7 @@ const Dashboard = () => {
                 <Slider ref={sliderRef} {...settings}>
                   {mentors.map((mentor, index) => (
                     <div key={index} className="flex justify-center px-1">
-                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-90 h-64 flex flex-col mx-4 border border-gray-300">
+                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-90 h-64 flex flex-col mx-4 border border-gray-300 dark:border-gray-800">
                         <div className="flex items-start mb-4">
                           <img
                             src={mentor.image}

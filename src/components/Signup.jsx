@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaXTwitter, FaGoogle } from "react-icons/fa6";
 import TemplateFrame from "./TemplateFrame";
 import { useNavigate, Link } from "react-router-dom";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 export default function SignUp() {
   const [emailError, setEmailError] = useState(false);

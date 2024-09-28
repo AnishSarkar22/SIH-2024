@@ -74,18 +74,19 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen">
-      <aside className={`flex flex-col ${isSidebarShrink ? 'w-16' : 'w-64'} bg-slate-300 dark:bg-gray-800 transition-width duration-300 rounded-r-2xl overflow-hidden h-full`}>
+      {/* change color of sidebar */}
+      <aside className={`flex flex-col ${isSidebarShrink ? 'w-20' : 'w-64'} bg-white dark:bg-gray-800 border dark:border-gray-800 transition-width duration-300 rounded-r-2xl overflow-hidden h-full`}>
         <div className={`p-4 flex items-center border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-300'}`}>
           <img 
             src={isDarkMode ? "/images/logo-white-removebg-preview.svg" : "/images/logo-color-removebg-preview.svg"} 
             alt="Rewind-UI" 
             className="w-12 h-12" 
           />
-          {!isSidebarShrink && <span className="ml-3 font-semibold text-xl dark:text-white">Guide Me</span>}
+          {!isSidebarShrink && <span className="ml-3 font-semibold text-xl text-gray-700 dark:text-gray-200">GuideMe</span>}
         </div>
-        <div className={`border-t ${isDarkMode ? '' : 'border-black'}`}></div>
-
-        <nav className="flex-grow overflow-y-auto flex flex-col space-y-4 mt-1-300 dark:bg-slate-800 rounded-r-2xl mt-12">
+        <div className={` ${isDarkMode ? '' : ''}`}></div>
+        {/* change color of sidebar */}
+        <nav className="flex-grow overflow-y-auto flex flex-col space-y-4 mt-1-300 dark:bg-gray-800 rounded-r-2xl mt-12">
           <Link 
             to="/dashboard" 
             className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${isSidebarShrink ? 'hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center' : 'hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600'}`}

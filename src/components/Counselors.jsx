@@ -52,8 +52,8 @@ export default function Counselors() {
   }, []);
 
   return (
-    <section id="counselors" className="md:py-40 xl:py-40 bg-[url('images/bg-tablet-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[-70%_15%] mt-50px relative" style={styles}>
-      <div className="relative mx-auto px-8 mt-[300px] md:mt-[-300px] md:pt-60 text-[#2F4454]">
+    <section id="counselors" className="md:py-40 xl:py-40 bg-[url('static/mega-creator.svg')] bg-[length:50rem] bg-no-repeat bg-[-70%_15%] mt-50px relative" style={styles}>
+      <div className="relative mx-auto px-8 mt-[300px] md:mt-[-200px] md:pt-60 text-[#2F4454]">
         <div className="flex flex-col md:flex-row items-center justify-between mt-[-400px] md:mt-0">
           {/* Left Info Column */}
           <div className="md:w-3/4 mb-12 md:mb-0 md:-mr-24">
