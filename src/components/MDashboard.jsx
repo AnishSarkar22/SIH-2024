@@ -43,7 +43,7 @@ function MDashboard() {
                 Hello, Radhika Sharma
               </h1>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                radhikashma@gmail.com
+                radhikasharma@gmail.com
               </p>
             </div>
             <div className="flex items-center space-x-2">

@@ -129,7 +129,7 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
                     <div className="flex-shrink-0 relative">
                       <img
                         className="rounded-full w-11 h-11"
-                        src="public/images/thomasjohn.jpeg"
+                        src="images/thomasjohn.jpeg"
                         alt="Jese image"
                       />
                       <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
@@ -182,12 +182,12 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
           </div>
           <div className="flex items-center space-x-2">
             <img
-              src="/images/l1.png"
+              src="images/kankana.png"
               alt="User avatar"
               className="w-8 h-8 rounded-full"
             />
             <span className="text-gray-700 dark:text-gray-200">
-              John Doe
+               John Doe
             </span>
           </div>
         </div>

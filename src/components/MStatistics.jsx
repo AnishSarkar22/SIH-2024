@@ -303,14 +303,14 @@ function MStatistics() {
 
           <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
             {/* Bookings */}
-            <div className="w-full md:w-1/2 bg-white dark:bg-gray-700 rounded-lg shadow-md p-6">
+            <div className="w-full md:w-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
               <h2 className="text-lg font-semibold mb-2">Bookings</h2>
               <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">80</p>
               <div id="bookings-chart" className="w-full h-64"></div>
             </div>
 
             {/* Reviews */}
-            <div className="w-full md:w-1/2 bg-white dark:bg-gray-700 rounded-lg shadow-md p-6">
+            <div className="w-full md:w-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
               <h2 className="text-lg font-semibold mb-2">Reviews</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">Weekly Overview</p>
               <div id="reviews-chart" className="w-full h-40"></div>

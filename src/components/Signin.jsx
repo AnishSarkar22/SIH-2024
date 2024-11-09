@@ -80,28 +80,28 @@ export default function Signin() {
     }
   };
 
-  const checkAuthentication = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:5000/api/protected', {
-        method: 'GET',
-        credentials: 'include',  // Include cookies in the request
-      });
+  // const checkAuthentication = async () => {
+  //   try {
+  //     const response = await fetch('http://127.0.0.1:5000/api/protected', {
+  //       method: 'GET',
+  //       credentials: 'include',  // Include cookies in the request
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (response.ok) {
-        const destination = location.state?.from || 
-          (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
-        navigate(destination, { replace: true });
-      }
-    } catch (error) {
-      console.error('Authentication check error:', error);
-    }
-  };
+  //     if (response.ok) {
+  //       const destination = location.state?.from || 
+  //         (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
+  //       navigate(destination, { replace: true });
+  //     }
+  //   } catch (error) {
+  //     console.error('Authentication check error:', error);
+  //   }
+  // };
 
-  useEffect(() => {
-    checkAuthentication();
-  }, []);
+  // useEffect(() => {
+  //   checkAuthentication();
+  // }, []);
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">

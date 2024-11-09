@@ -32,7 +32,7 @@ const Setting = () => {
         isDarkMode={darkMode}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-gray-900">
         <Header
           toggleSidebar={toggleSidebar}
           sidebarShrink={sidebarShrink}
@@ -48,7 +48,7 @@ const Setting = () => {
 
             <div className="flex-1 space-y-7">
               {/* Details */}
-              <section className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                 <div className="space-y-6">
                   <div className="flex items-center mb-4"></div>
                   <div className="grid grid-cols-2 gap-6">
@@ -166,7 +166,7 @@ const Setting = () => {
               </section>
 
               {/* Notification */}
-              <section className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4 dark:text-white">Notification</h2>
                 <div className="flex items-center justify-between">
                   <span className="dark:text-white">Turn notification On/Off</span>
@@ -185,7 +185,7 @@ const Setting = () => {
               </section>
 
               {/* Close Your Account */}
-              <section className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4 dark:text-white">Close your account</h2>
                 <p className="text-sm text-gray-600 mb-4 dark:text-gray-300">
                   Once you delete your account, there's no going back. Please be certain!

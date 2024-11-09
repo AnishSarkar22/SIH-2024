@@ -10,6 +10,18 @@ import { RiAttachmentLine } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import "webrtc-adapter";
 import Cal from "@calcom/embed-react";
+import { X } from 'lucide-react';
+// import { Button } from '@/components/ui/button';
+// import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader'; 
+import CardActions from '@mui/material/CardActions';
+import MicOff from '@mui/icons-material/MicOff';
+import Mic from '@mui/icons-material/Mic';
+import VideoOff from '@mui/icons-material/VideocamOff';
+import Video from '@mui/icons-material/Videocam';
 
 const initialMessages = [
   {
@@ -55,6 +67,11 @@ const MChat = () => {
   const peerConnectionRef = useRef(null);
   const localStreamRef = useRef(null);
   const remoteStreamRef = useRef(null);
+  const toggleMute = () => setIsMuted(!isMuted);
+  const toggleVideo = () => setIsVideoOff(!isVideoOff);
+
+  const [isMuted, setIsMuted] = useState(false);
+  const [isVideoOff, setIsVideoOff] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarShrink(!sidebarShrink);
@@ -226,8 +243,9 @@ const MChat = () => {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex items-start mb-4 ${msg.name === "You" ? "justify-end" : ""
-                }`}
+              className={`flex items-start mb-4 ${
+                msg.name === "You" ? "justify-end" : ""
+              }`}
             >
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${msg.avatarColor}`}
@@ -282,47 +300,72 @@ const MChat = () => {
 
       {/* Calendar Modal */}
       {isCalModalOpen && (
-       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-       <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 p-6 rounded-lg shadow-lg w-full max-w-4xl h-[80vh]">
-         <div className="flex justify-between items-center mb-4">
-           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Schedule a Meeting</h2>
-           <button
-             className="text-gray-500 dark:text-gray-400"
-             onClick={() => setIsCalModalOpen(false)}
-           >  
-             <RxCross2 className="w-6 h-6" />
-           </button>
-         </div>
-         <div className="w-full h-full overflow-hidden">
-           <Cal calLink="rick/get-rick-rolled" className="w-full h-full border-none"  />
-         </div>
-       </div>
-     </div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 p-6 rounded-lg shadow-lg w-full max-w-4xl h-[80vh]">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Schedule a Meeting
+              </h2>
+              <button
+                className="text-gray-500 dark:text-gray-400"
+                onClick={() => setIsCalModalOpen(false)}
+              >
+                <RxCross2 className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="w-full h-full overflow-hidden">
+              <Cal
+                calLink="rick/get-rick-rolled"
+                className="w-full h-full border-none"
+              />
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Video Call Modal */}
       {isVideoCallOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg relative dark:bg-gray-900 dark:text-white">
-            <h2 className="text-xl mb-4">Video Call</h2>
-            <video
-              ref={localVideoRef}
-              autoPlay
-              muted
-              className="w-64 h-64 bg-gray-300"
-            ></video>
-            <video
-              ref={remoteVideoRef}
-              autoPlay
-              className="w-64 h-64 bg-gray-300 mt-4"
-            ></video>
-            <button
-              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
-              onClick={endVideoCall}
-            >
-              End Call
-            </button>
-          </div>
+          <Card className="w-full max-w-2xl bg-white dark:bg-gray-900">
+            <CardHeader className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">Video Call</h2>
+              <Button variant="ghost" size="icon" onClick={endVideoCall}>
+                <X className="h-6 w-6" />
+              </Button>
+            </CardHeader>
+            <CardContent className="grid grid-cols-2 gap-4">
+              <div className="relative">
+                <video
+                  ref={localVideoRef}
+                  autoPlay
+                  muted
+                  className="w-full h-64 bg-gray-300 rounded-lg object-cover"
+                />
+                <span className="absolute bottom-2 left-2 bg-gray-900 text-white px-2 py-1 text-sm rounded-md">You</span>
+              </div>
+              <div className="relative">
+                <video
+                  ref={remoteVideoRef}
+                  autoPlay
+                  className="w-full h-64 bg-gray-300 rounded-lg object-cover"
+                />
+                <span className="absolute bottom-2 left-2 bg-gray-900 text-white px-2 py-1 text-sm rounded-md">Remote</span>
+              </div>
+            </CardContent>
+            <CardActions className="justify-between">
+              <div className="flex space-x-2">
+                <Button variant="outline" size="icon" onClick={toggleMute}>
+                  {isMuted ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+                </Button>
+                <Button variant="outline" size="icon" onClick={toggleVideo}>
+                  {isVideoOff ? <VideoOff className="h-4 w-4" /> : <Video className="h-4 w-4" />}
+                </Button>
+              </div>
+              <Button variant="destructive" onClick={endVideoCall}>
+                End Call
+              </Button>
+            </CardActions>
+          </Card>
         </div>
       )}
     </div>

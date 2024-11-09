@@ -20,6 +20,8 @@ services:
     networks:
       - default
     # command: ["npm", "run", "dev"]
+    depends_on:
+      - backend
 
 networks:
   default:

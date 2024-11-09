@@ -6,12 +6,12 @@ import MHeader from './MHeader'; // Adjust the path as necessary
 const chatData = [
   {
     id: 1,
-    name: 'Rohit Sharma',
+    name: 'John Doe',
     message: 'Can you check out the formulas in these images att...',
     time: '12:50 pm Aug 19 2024',
     avatarColor: 'bg-pink-500',
-    initials: 'RS',
-    link: '/chat/1',
+    initials: 'JD',
+    link: '/mentor-chat/1', // Updated link
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const chatData = [
     time: '2:10 pm Aug 19 2024',
     avatarColor: 'bg-green-500',
     initials: 'JA',
-    link: '/chat/2',
+    link: '/mentor-chat/2', // Updated link
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const chatData = [
     time: '5:30 pm Aug 19 2024',
     avatarColor: 'bg-blue-500',
     initials: 'NK',
-    link: '/chat/3',
+    link: '/mentor-chat/3', // Updated link
   },
   {
     id: 4,
@@ -38,16 +38,43 @@ const chatData = [
     time: '6:30 pm Aug 19 2024',
     avatarColor: 'bg-yellow-500',
     initials: 'AS',
-    link: '/chat/4',
+    link: '/mentor-chat/4', // Updated link
   },
   {
-    id: 'p',
-    name: 'Chat',
-    message: 'How can I help you?',
-    time: '12:50 pm Aug 19 2024',
-    avatarColor: 'bg-pink-500',
-    initials: 'C',
-    link: '/chat/p',
+    id: 5,
+    name: 'Priya Verma',
+    message: 'Can you help me with the project guidelines?',
+    time: '8:00 am Aug 20 2024',
+    avatarColor: 'bg-purple-500',
+    initials: 'PV',
+    link: '/mentor-chat/5', // Updated link
+  },
+  {
+    id: 6,
+    name: 'Amit Patel',
+    message: 'I have a question about the recent lecture.',
+    time: '9:15 am Aug 20 2024',
+    avatarColor: 'bg-red-500',
+    initials: 'AP',
+    link: '/mentor-chat/6', // Updated link
+  },
+  {
+    id: 7,
+    name: 'Sana Khan',
+    message: 'Could you review my assignment draft?',
+    time: '11:45 am Aug 20 2024',
+    avatarColor: 'bg-orange-500',
+    initials: 'SK',
+    link: '/mentor-chat/7', // Updated link
+  },
+  {
+    id: 8,
+    name: 'Vikram Singh',
+    message: 'I need clarification on the homework.',
+    time: '1:30 pm Aug 20 2024',
+    avatarColor: 'bg-teal-500',
+    initials: 'VS',
+    link: '/mentor-chat/8', // Updated link
   },
 ];
 
@@ -69,7 +96,7 @@ function MMessage() {
   };
 
   return (
-    <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-gray-100 ${darkMode ? "dark" : ""}`}>
       <MSidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
@@ -82,9 +109,9 @@ function MMessage() {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900 mt-10">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
           <div className="container mx-auto px-6">
-            <div className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 h-[calc(100vh-200px)] rounded-lg shadow-md overflow-y-auto bg-white dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700`}>
+            <div className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 h-[calc(100vh-200px)] overflow-y-auto bg-white dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700`}>
               {/* AI Chat */}
               <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 p-4 flex items-center justify-between">
                 <div className="flex items-center">
@@ -100,7 +127,7 @@ function MMessage() {
                     </p>
                   </div>
                 </div>
-                <Link to="/personal-ai">
+                <Link to="/mpersonal-ai">
                   <button className="px-8 py-2 bg-blue-500 text-white rounded-lg">
                     Chat
                   </button>
