@@ -6,9 +6,8 @@ import os
 app = Flask(__name__)
 
 # MongoDB Atlas connection string
-# Replace this with your actual connection string
-app.config["MONGO_URI"] = "mongodb+srv://admin1:t4eqpV9JtlP1JNMB@cluster0.77ywm.mongodb.net/users?retryWrites=true&w=majority&appName=Cluster0"
-# Use this line to bypass SSL certificate verification (for testing only)
+app.config["MONGO_URI"] = os.getenv('MONGODB_URI')
+# To bypass SSL certificate verification (for testing only)
 app.config["MONGO_URI"] += "&tlsAllowInvalidCertificates=true"
 
 mongo = PyMongo(app)
