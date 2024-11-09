@@ -85,7 +85,7 @@ function Quiz() {
             </h2>
             <div className="bg-white dark:bg-gray-900 p-2 rounded-lg shadow-md">
               <img
-                src="/images/quiz1.png"
+                src="images/quiz1.png"
                 alt="Quiz Preview"
                 className="rounded-lg mb-2"
                 style={{ width: "80%", height: "20rem" }}

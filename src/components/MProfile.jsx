@@ -65,7 +65,7 @@ function MProfile() {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-white dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
       <MSidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
@@ -86,7 +86,7 @@ function MProfile() {
             </div>
             <div className="flex-1 space-y-7">
               {/* Personal Information */}
-              <section className="bg-gray-200 dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg- dark:bg-gray-800 p-6 rounded-lg shadow">
                 <h2 className="text-3xl font-semibold mb-6 dark:text-white">
                   Personal Information
                 </h2>
@@ -167,7 +167,7 @@ function MProfile() {
                 </div>
               </section>
               {/* Email Preferences */}
-              <section className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Email Preferences</h2>
                 <div className="space-y-3">
                   <label className="flex items-start">
@@ -185,7 +185,7 @@ function MProfile() {
                 </div>
               </section>
               {/* Close your account */}
-              <section className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Close your account</h2>
                 <p className="text-sm text-gray-600 mb-4 dark:text-white">Once you delete your account, there's no going back. Please be certain!</p>
                 <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 text-sm">Delete account</button>

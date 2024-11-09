@@ -61,15 +61,15 @@ function Leaderboard() {
       id: 1,
       title: "Job Aptitude Assessment: Test Your Skills for Success",
       time: "15 min",
-      image: "public/images/quiz1.png",
+      image: "images/quiz1.png",
       question: "What is the most common type of phishing attack?",
       options: ["Email phishing", "Spear phishing", "Whaling", "Vishing"],
     },
     {
       id: 2,
-      title: "Personality and Career Fit Q",
+      title: "Personality and Career Fit Test",
       time: "15 min",
-      image: "/public/images/l3.png",
+      image: "images/quiz2.jpeg",
       question: "What is ransomware?",
       options: [
         "A type of malware that encrypts files and demands payment",
@@ -82,7 +82,7 @@ function Leaderboard() {
     //   id: 3,
     //   title: "Keeping Debit & Credit Cards Safe",
     //   time: "15 min",
-    //   image: "/public/images/l4.png",
+    //   image: "images/l4.png",
     //   question:
     //     "Which of the following is NOT a safe practice for using credit cards online?",
     //   options: [
@@ -114,13 +114,13 @@ function Leaderboard() {
         />
         <div className="flex-1 overflow-y-auto p-4">
           <div className="bg-white dark:bg-gray-900 p-6 flex w-full">
-            <div className="flex-1 bg-white shadow-md border dark:bg-gray-800 rounded-lg p-8 w-1/2">
+            <div className="flex-1 bg-white shadow-md dark:bg-gray-800 rounded-lg p-8 w-1/2">
               <div className="flex items-stretch mb-6">
                 <div className="flex-shrink-0">
                   <img
-                    src="/public/images/l1.png"
+                    src="images/l1.png"
                     alt="User avatar"
-                    className="w-48 h-full rounded-xl mr-4 object-cover"
+                    className="w-40 h-full rounded-xl mr-4 object-fill"
                   />
                 </div>
                 <div className="flex flex-col justify-between bg-white dark:bg-gray-800 text-gray-700 p-4 rounded-lg shadow-md mb-6 h-full">
@@ -282,18 +282,18 @@ function Leaderboard() {
               </div>
             </div>
 
-            <div className=" h-120 ml-6 bg-gray-300 dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col items-center border border-black dark:border-white w-fit">
+            <div className=" h-120 ml-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md flex flex-col items-center w-fit">
               <div className=" min-h-screen font-sans text-black w-80">
                 <div className="p-6">
                   <div className="flex items-center mb-4">
                     
-                    <h1 className="text-3xl font-bold text-black ml-12">Leaderboard</h1>
+                    <h1 className="text-3xl font-bold text-gray-700 dark:text-white ml-12">Leaderboard</h1>
                   </div>
                   
                   <div className="flex justify-between items-end mb-8">
                     <div className="w-1/3 bg-white rounded-lg p-2 text-center -mb-4">
                       <div className="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
-                        <img src="public/images/illus-avatar-3.svg" alt="Shraddha" className="w-full h-full object-cover" />
+                        <img src="images/illus-avatar-3.svg" alt="Shraddha" className="w-full h-full object-cover" />
                       </div>
                       <p className="font-semibold">Shraddha</p>
                       <p className="text-sm">99348</p>
@@ -302,7 +302,7 @@ function Leaderboard() {
                     <div className="w-1/3 bg-yellow-300 rounded-lg p-2 text-center relative z-10">
                       <Crown className="w-6 h-6 text-yellow-500 absolute -top-3 right-2" />
                       <div className="w-20 h-20 mx-auto mb-2 rounded-full overflow-hidden">
-                        <img src="public/images/illus-avatar-1.svg" alt="Soniya" className="w-full h-full object-cover" />
+                        <img src="images/illus-avatar-1.svg" alt="Soniya" className="w-full h-full object-cover" />
                       </div>
                       <p className="font-semibold">Soniya</p>
                       <p className="text-sm">102456</p>
@@ -310,7 +310,7 @@ function Leaderboard() {
                     </div>
                     <div className="w-1/3 bg-yellow-400 rounded-lg p-2 text-center -mb-4">
                       <div className="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
-                        <img src="public/images/illus-avatar-2.svg" alt="Kartik" className="w-full h-full object-cover" />
+                        <img src="images/illus-avatar-2.svg" alt="Kartik" className="w-full h-full object-cover" />
                       </div>
                       <p className="font-semibold">Kartik</p>
                       <p className="text-sm">95627</p>
@@ -322,9 +322,9 @@ function Leaderboard() {
                 <div className="bg-orange-100 rounded-t-[2rem] p-6">
                   <div className="flex justify-center mb-6">
                     <div className="bg-orange-200 rounded-full overflow-hidden">
-                      <button className="px-6 py-2 text-orange-800">March</button>
-                      <button className="px-6 py-2 text-orange-800">April</button>
-                      <button className="px-6 py-2 bg-orange-500 text-white">May</button>
+                      <button className="px-6 py-2 text-orange-800">July</button>
+                      <button className="px-6 py-2 text-orange-800">August</button>
+                      <button className="px-6 py-2 bg-orange-500 text-white">Sep</button>
                     </div>
                   </div>
                   

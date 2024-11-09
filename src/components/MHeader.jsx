@@ -129,7 +129,7 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
                     <div className="flex-shrink-0 relative">
                       <img
                         className="rounded-full w-11 h-11"
-                        src="public/images/thomasjohn.jpeg"
+                        src="images/thomasjohn.jpeg"
                         alt="Jese image"
                       />
                       <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">

@@ -61,7 +61,7 @@ const Dashboard = () => {
     {
       name: "Karan Singh",
       role: "Lead SRE @ MICROSOFT",
-      image: "/images/mentor1.png",
+      image: "images/mentor1.png",
       rating: "5.0 (44 reviews)",
       price: "₹5000/mo",
       skills: [
@@ -231,7 +231,7 @@ const Dashboard = () => {
                   <div className="flex items-center mb-2">
                     <i className="fas fa-user-circle text-6xl rounded-full text-green-600 mr-2 p-2"></i>
                     <div>
-                      <p className="font-semibold text-2xl">John</p>
+                      <p className="font-semibold text-2xl">Kankana</p>
                       <p className="text-gray-500 text-md">Sep 17 2024</p>
                     </div>
                   </div>

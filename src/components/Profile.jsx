@@ -72,7 +72,7 @@ function Profile() {
         isDarkMode={darkMode}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-gray-900">
         <Header
           toggleSidebar={toggleSidebar}
           sidebarShrink={sidebarShrink}
@@ -87,13 +87,13 @@ function Profile() {
             </div>
             <div className="flex-1 space-y-7">
               {/* Personal Information */}
-              <section className="bg-gray-200 dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                 <h2 className="text-3xl font-semibold mb-6 dark:text-white">
                   Personal Information
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-800 border-black border-2 dark:border-0">
+                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-700 border-black border-2 dark:border-0">
                       {profileImage ? (
                         <img src={profileImage} alt="Profile" className="w-20 h-20 rounded-full" />
                       ) : (
@@ -168,7 +168,7 @@ function Profile() {
                 </div>
               </section>
               {/* Availability Section */}
-              <section className="bg-gray-200 dark:bg-gray-700 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                 <h2 className="text-3xl font-semibold mb-8 dark:text-white">Availability</h2>
                 <h4 className="text-md font-semibold mb-8 dark:text-white">In general, when do you prefer to meet your mentor?</h4>
                 <div className="space-y-8">

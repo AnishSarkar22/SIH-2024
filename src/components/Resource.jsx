@@ -41,19 +41,19 @@ function Resource() {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center">
                                     <a href="https://cdsco.gov.in/opencms/export/sites/CDSCO_WEB/Pdf-documents/medical-device/Guidelines_Grouping_of_MDandIVD.pdf" rel="noopener noreferrer">
-                                        <img src="public/images/note-1.jpeg" className="w-full h-auto rounded-lg mb-2" />
+                                        <img src="images/note-1.jpeg" className="w-full h-auto rounded-lg mb-2" />
                                     </a>
                                     <p className="text-sm text-gray-600 dark:text-gray-300 text-center">Group Tests Guidelines</p>
                                 </div>
                                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center">
                                     <a href="https://files.eric.ed.gov/fulltext/ED099427.pdf" rel="noopener noreferrer">
-                                        <img src="public/images/note-1.jpeg" className="w-full h-auto rounded-lg mb-2" />
+                                        <img src="images/note-1.jpeg" className="w-full h-auto rounded-lg mb-2" />
                                     </a>
                                     <p className="text-sm text-gray-600 dark:text-gray-300 text-center">Unit/Administration & Scoring Hours</p>
                                 </div>
                                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center">
                                     <a href="https://www.revenue.ie/en/tax-professionals/tdm/income-tax-capital-gains-tax-corporation-tax/part-29/29-03-01.pdf" rel="noopener noreferrer">
-                                        <img src="public/images/note-1.jpeg" alt="Time Apportionment Totality" className="w-full h-auto rounded-lg mb-2" />
+                                        <img src="images/note-1.jpeg" alt="Time Apportionment Totality" className="w-full h-auto rounded-lg mb-2" />
                                     </a>
                                     <p className="text-sm text-gray-600 dark:text-gray-300 text-center">Time Apportionment Totality</p>
                                 </div>
@@ -83,9 +83,9 @@ function Resource() {
                         {/* Book Recommendation */}
                         <Section title="Book Recommendations" viewAllLink="#">
                             <div className="grid grid-cols-3 gap-4">
-                                <BookCover src="src/components/Soul.jpeg" alt="Soul by Olivia Wilson" title="Soul" author="Olivia Wilson" />
-                                <BookCover src="public/images/art-of-teaching.jpeg" alt="The Art of Teaching Children by Phillip Done" title="The Art of Teaching Children" author="Phillip Done" />
-                                <BookCover src="public/images/educational-technology.jpeg" alt="Educational Technology: A Primer for the 21st Century" title="Educational Technology" author="Ronghuai Huang, J. Michael Spector, Junfeng Yang" />
+                                <BookCover src="images/Soul.jpeg" alt="Soul by Olivia Wilson" title="Soul" author="Olivia Wilson" />
+                                <BookCover src="images/art-of-teaching.jpeg" alt="The Art of Teaching Children by Phillip Done" title="The Art of Teaching Children" author="Phillip Done" />
+                                <BookCover src="images/educational-technology.jpeg" alt="Educational Technology: A Primer for the 21st Century" title="Educational Technology" author="Ronghuai Huang, J. Michael Spector, Junfeng Yang" />
                             </div>
                         </Section>
                     </div>

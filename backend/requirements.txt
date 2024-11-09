@@ -6,5 +6,8 @@ openai
 gunicorn
 python-dotenv
 firebase-admin
+Flask-PyMongo
+PyMongo
+bson
 # redis
 # Flask-Session

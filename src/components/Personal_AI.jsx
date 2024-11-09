@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import MSidebar from "./MSidebar";
-import MHeader from "./MHeader";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
 import { BsFillSendFill } from "react-icons/bs";
 import { PiSmileySticker } from "react-icons/pi";
 import { RiAttachmentLine } from "react-icons/ri";
@@ -82,13 +82,13 @@ const Personal_AI = () => {
 
   return (
     <div className={`flex h-screen ${darkMode ? "dark" : ""} bg-white`}>
-      <MSidebar
+      <Sidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
         toggleSidebar={toggleSidebar}
       />
       <div className="flex-1 flex flex-col overflow-hidden dark:bg-gray-900 dark:text-white">
-        <MHeader
+        <Header
           toggleSidebar={toggleSidebar}
           sidebarShrink={sidebarShrink}
           darkMode={darkMode}

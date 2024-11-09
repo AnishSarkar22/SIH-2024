@@ -68,7 +68,7 @@ const MentorNotification = () => {
   ];
 
   return (
-    <div className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-white dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
       <MentorSidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
@@ -82,7 +82,7 @@ const MentorNotification = () => {
           toggleDarkMode={toggleDarkMode}
         />
         <MentorNavbar />
-        <div className="flex-1 bg-gray-100 dark:bg-gray-900">
+        <div className="flex-1">
           <div className="max-w-7xl mx-auto">
             <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center">
@@ -95,7 +95,7 @@ const MentorNotification = () => {
               <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                 {notifications.map((notification) => (
                   <li key={notification.id} className="px-6 py-4 flex items-start bg-white dark:bg-gray-800">
-                    <img src={notification.icon} alt="" className="h-12 w-12 rounded-full mr-4" />
+                    {/* <img src={notification.icon} alt="" className="h-12 w-12 rounded-full mr-4" /> */}
                     <div className="flex-grow pr-4">
                       <p className="text-sm font-medium text-gray-900 dark:text-white">{notification.title}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">{notification.description}</p>
