@@ -1,60 +1,121 @@
-from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
-from bson import ObjectId
+from dotenv import load_dotenv
 import os
+from datetime import datetime, timezone
 
-app = Flask(__name__)
+load_dotenv()
 
-# MongoDB Atlas connection string
-app.config["MONGO_URI"] = os.getenv('MONGODB_URI')
+MONGO_URI = os.getenv('MONGODB_URI')
 # To bypass SSL certificate verification (for testing only)
-app.config["MONGO_URI"] += "&tlsAllowInvalidCertificates=true"
+MONGO_URI += "&tlsAllowInvalidCertificates=true"
 
-mongo = PyMongo(app)
+mongo = PyMongo()
 
-@app.route("/")
-def hello_world():
-    return "Hello, World!"
+def init_db(app):
+    mongo.init_app(app, uri=MONGO_URI)
 
-@app.route("/check_connection")
-def check_connection():
+def test_connection():
+    """Test MongoDB connection and basic operations"""
     try:
-        # Check if mongo object is None
-        if mongo.db is None:
-            return jsonify({"status": "error", "message": "MongoDB connection not initialized"}), 500
+        # Verify connection
+        mongo.db.command('ping')
         
-        # The ismaster command is cheap and does not require auth.
-        mongo.db.command('ismaster')
-        return jsonify({"status": "success", "message": "Connected to MongoDB successfully!"})
+        # Try a basic operation
+        test_result = mongo.db.test.insert_one({"test": "connection"})
+        mongo.db.test.delete_one({"_id": test_result.inserted_id})
+        
+        return {
+            "status": "success",
+            "message": "Successfully connected to MongoDB"
+        }
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e), "type": str(type(e))}), 500
+        return {
+            "status": "error",
+            "message": f"Connection failed: {str(e)}"
+        }
 
-@app.route("/add_user", methods=["POST"])
-def add_user():
+def add_user_to_db(user_data):
+    """
+    Add a new user to the database
+    
+    Args:
+        user_data (dict): User information including id, name, and email
+        
+    Returns:
+        dict: Status of the operation and inserted document ID
+    """
+    # Validate required fields
+    if 'id' not in user_data:
+        return {'status': 'error', 'message': 'Missing required id field'}
+
     try:
-        user = request.json
+        # Check if user already exists
+        existing_user = mongo.db.users.find_one({"id": user_data["id"]})
+        if existing_user:
+            return {
+                "status": "error",
+                "message": "User with this ID already exists"
+            }
+        
+        user_data["created_at"] = datetime.now(timezone.utc) # Add timestamp
+        user_data["userType"] = "mentee" # Add userType field
+        
+        # Insert the user
+        result = mongo.db.users.insert_one(user_data)
+        
+        return {
+            "status": "success",
+            "id": str(result.inserted_id)
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+def get_user_by_id(user_id):
+    """Retrieve a user by their ID"""
+    try:
+        user = mongo.db.users.find_one({"id": user_id})
+        if user:
+            user['_id'] = str(user['_id'])
+            return {"status": "success", "user": user}
+        else:
+            return {"status": "error", "message": "User not found"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+def verify_user_type(user_id, role):
+    """
+    Verify if a user exists and has the correct userType
+    
+    Args:
+        user_id (str): Firebase user ID
+        role (str): Expected role ('mentee' or 'mentor')
+        
+    Returns:
+        dict: Status and user data if successful, error message if not
+    """
+    try:
+        user = mongo.db.users.find_one({"id": user_id})
         if not user:
-            return jsonify({"status": "error", "message": "No data provided"}), 400
-        
-        # Extract and validate fields
-        user_id = user.get("id")
-        name = user.get("name")
-        email = user.get("email")
-        
-        if not user_id or not name or not email:
-            return jsonify({"status": "error", "message": "id, name, and email are required"}), 400
-        
-        # Insert into database
-        result = mongo.db.user.insert_one({"id": user_id, "name": name, "email": email})
-        
-        return jsonify({"id": str(result.inserted_id), "message": "User added successfully"})
+            return {
+                "status": "error",
+                "message": "User not found in database"
+            }
+            
+        if user.get('userType') != role:
+            return {
+                "status": "error",
+                "message": f"User is not registered as a {role}"
+            }
+            
+        return {
+            "status": "success",
+            "user": user
+        }
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
-
-@app.route("/get_user", methods=["GET"])
-def get_items():
-    items = list(mongo.db.items.find())
-    return jsonify([{**item, "_id": str(item["_id"])} for item in items])
-
-if __name__ == "__main__":
-    app.run(debug=True, port=5002)
+        return {
+            "status": "error",
+            "message": str(e)
+        }

@@ -29,3 +29,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?s
+
+__pycache__/
+*.py[cod]
+*$py.class
