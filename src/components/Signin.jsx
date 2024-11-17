@@ -87,6 +87,14 @@ export default function Signin() {
         const data = await response.json();
 
         if (response.ok) {
+          // Save user data to localStorage
+          localStorage.setItem('userData', JSON.stringify({
+            name: data.name,
+            email: data.email,
+            role: data.role,
+            userId: data.firebase_user_id
+          }));
+          
           const destination = location.state?.from || 
             (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
           navigate(destination, { replace: true });

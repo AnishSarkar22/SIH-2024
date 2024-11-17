@@ -8,7 +8,7 @@ const AvatarUpload = ({ photoPreview, handleFileChange }) => {
       {!photoPreview && (
         <i
           id="avatarIcon"
-          className="fa-solid fa-user text-2xl text-[#131316] mr-4 flex items-center justify-center w-16 h-16 border-2 border-black rounded-full box-border px-4 py-4"
+          className="fa-solid fa-user text-2xl mr-5 flex items-center justify-center w-16 h-16 border-2 border-gray-700 rounded-full box-border px-4 py-4"
         ></i>
       )}
 
@@ -17,7 +17,7 @@ const AvatarUpload = ({ photoPreview, handleFileChange }) => {
         <img
           id="photoPreview"
           src={photoPreview}
-          className="max-w-[4rem] max-h-[4rem] object-cover rounded-full border-2 border-black mr-4"
+          className="max-w-[4rem] max-h-[4rem] object-cover rounded-full border-2 border-gray-700 mr-4"
           alt="Photo Preview"
         />
       )}
@@ -33,9 +33,9 @@ const AvatarUpload = ({ photoPreview, handleFileChange }) => {
         />
         <label
           htmlFor="photoInput"
-          className="flex items-center rounded-lg shadow border border-gray-300 text-black px-2 py-2 font-bold cursor-pointer text-xs relative overflow-hidden w-40"
+          className="flex items-center rounded-lg shadow border border-gray-300 text-gray-700 px-3 py-2 font-bold cursor-pointer text-xs relative overflow-hidden w-40"
         >
-          <i className="fa-solid fa-upload mr-2.5 text-black"></i>
+          <i className="fa-solid fa-upload mr-2.5 text-gray-700"></i>
           <span className="upload-text">Upload your photo</span>
         </label>
         {/* <p
@@ -136,7 +136,7 @@ const StepForm = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-gray-700 font-bold mb-4">
+                <label className="block text-gray-700 mb-4">
                   First Name
                 </label>
                 <input
@@ -146,7 +146,7 @@ const StepForm = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-bold mb-4">
+                <label className="block text-gray-700 mb-4">
                   Last Name
                 </label>
                 <input
@@ -154,7 +154,7 @@ const StepForm = () => {
                   className="w-full shadow rounded-lg p-2 border border-gray-300"
                   placeholder="Doe"
                 />
-              </div>
+              </div> 
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -220,7 +220,7 @@ const StepForm = () => {
         <div id="page2" className="form-page">
           <form>
             {/* Category Section */}
-            <p className="text-gray-700 font-bold mb-2">Category</p>
+            <p className="text-gray-700 font-bold mb-4">Category</p>
             <div className="mb-6 p-4 rounded-md bg-white">
               <div className="flex items-center">
                 <input
@@ -239,7 +239,7 @@ const StepForm = () => {
             </div>
 
             {/* Skills Section */}
-            <p className="text-gray-700 font-bold mb-2">Skills</p>
+            <p className="text-gray-700 font-bold mb-4">Skills</p>
             <div className="mb-6 p-4 rounded-md bg-white">
               <textarea
                 id="skills"
@@ -248,7 +248,7 @@ const StepForm = () => {
                 placeholder="Add a new skill..."
               ></textarea>
             </div>
-            <p className="text-gray-500 mb-2 text-sm">
+            <p className="text-gray-500 mb-4 text-sm">
               Describe your expertise to connect with mentees who have similar
               interests.
               <br />
@@ -266,7 +266,7 @@ const StepForm = () => {
                 placeholder=""
               ></textarea>
             </div>
-            <p className="text-gray-500 mb-2 text-sm">
+            <p className="text-gray-500 mb-4 text-sm">
               This will be public. Talk about yourself in the first person, as
               if you’d directly talk to a mentee.
             </p>
@@ -277,7 +277,7 @@ const StepForm = () => {
               <div>
                 <label
                   htmlFor="linkedin"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   LinkedIn URL
                 </label>
@@ -293,7 +293,7 @@ const StepForm = () => {
               <div>
                 <label
                   htmlFor="twitter"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   Twitter Handle
                 </label>
@@ -309,7 +309,7 @@ const StepForm = () => {
               <div className="sm:col-span-2 mb-6">
                 <label
                   htmlFor="website"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   Personal Website
                 </label>
@@ -371,7 +371,7 @@ const StepForm = () => {
                 <div className="rounded-md p-4">
                   <label
                     htmlFor="introVideo"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-gray-700 font-bold mb-4"
                   >
                     Intro Video
                   </label>
@@ -386,7 +386,7 @@ const StepForm = () => {
                 <div className="rounded-md p-4">
                   <label
                     htmlFor="featuredArticle"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-gray-700 font-bold mb-4"
                   >
                     Featured Article
                   </label>
@@ -403,7 +403,7 @@ const StepForm = () => {
               <div className="mb-6 rounded-md p-4">
                 <label
                   htmlFor="whyMentor"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   Why do you want to become a mentor? (Not publicly visible)
                 </label>
@@ -418,7 +418,7 @@ const StepForm = () => {
               <div className="mb-6 rounded-md p-4">
                 <label
                   htmlFor="greatestAchievement"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   What, in your opinion, has been your greatest achievement so
                   far? (Not publicly visible)

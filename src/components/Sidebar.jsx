@@ -52,6 +52,8 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
       });
 
       if (response.ok) {
+        // Clear localStorage
+        localStorage.clear();
         // Redirect to signin page
         navigate("/login");
       } else {

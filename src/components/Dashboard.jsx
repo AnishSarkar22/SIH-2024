@@ -28,6 +28,7 @@ const NextArrow = ({ onClick }) => (
 );
 
 const Dashboard = () => {
+  const [userName, setUserName] = useState('');
   const [sidebarShrink, setSidebarShrink] = useState(() => {
     const savedSidebarState = localStorage.getItem("sidebarState");
     return savedSidebarState === "shrink";
@@ -54,6 +55,20 @@ const Dashboard = () => {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
+
+  // display first name of the user
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      if (userData && userData.name) {
+        const firstName = userData.name.split(' ')[0];
+        setUserName(firstName);
+      }
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      setUserName('Guest');
+    }
+  }, []);
 
   const toggleSidebar = () => setSidebarShrink(!sidebarShrink);
 
@@ -218,7 +233,7 @@ const Dashboard = () => {
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6 py-8">
             <h1 className="text-3xl font-bold mb-8 text-center text-gray-700 dark:text-gray-200">
-              Welcome back, John 👋
+              Welcome back, {userName || 'Guest'} 👋
             </h1>
             {/* Personal Assistant and Your Plan */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-gray-800 dark:text-white">
@@ -231,7 +246,7 @@ const Dashboard = () => {
                   <div className="flex items-center mb-2">
                     <i className="fas fa-user-circle text-6xl rounded-full text-green-600 mr-2 p-2"></i>
                     <div>
-                      <p className="font-semibold text-2xl">Kankana</p>
+                      <p className="font-semibold text-2xl">Your Assistant</p>
                       <p className="text-gray-500 text-md">Sep 17 2024</p>
                     </div>
                   </div>

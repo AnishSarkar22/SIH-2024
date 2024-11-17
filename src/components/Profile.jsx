@@ -12,15 +12,16 @@ function Profile() {
   const [sidebarShrink, setSidebarShrink] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState({
-    firstName: "Jane",
+    firstName: "John",
     lastName: "Doe",
-    email: "abc2024@gmail.com",
+    email: "johndoe@gmail.com",
     location: "India",
     profession: "Software Developer",
-    hobbies: "games, music, dance",
-    linkedIn: "https://linkedin.com/username",
+    // hobbies: "games, music, dance",
+    linkedin: "https://linkedin.com/username",
     twitter: "https://x.com/username",
-    github: "https://github.com/username"
+    github: "https://github.com/username",
+    password: "******"
   });
 
   const [profileImage, setProfileImage] = useState(null);
@@ -93,7 +94,7 @@ function Profile() {
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-700 border-black border-2 dark:border-0">
+                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-700">
                       {profileImage ? (
                         <img src={profileImage} alt="Profile" className="w-20 h-20 rounded-full" />
                       ) : (
@@ -115,7 +116,7 @@ function Profile() {
                     </div>
                     <button
                       onClick={handleProfilePictureClick} // Open file dialog
-                      className="flex items-center text-blue-600 dark:text-blue-400 font-medium border-2 border-gray-400 px-2 py-1 rounded-xl"
+                      className="flex items-center text text-gray-700 dark:text-white font-bold shadow border border-gray-300 dark:border-gray-700 px-2 py-1 rounded-lg"
                     >
                       <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
@@ -133,19 +134,23 @@ function Profile() {
                     {/* Fields for personal information */}
                     {Object.keys(profileData).map((key) => (
                       <div key={key} className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
-                          {key.charAt(0).toUpperCase() + key.slice(1)}
+                        <label className="block text font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
+                        {key
+                          .replace(/([A-Z])/g, ' $1')
+                          .split(/(?=[A-Z])/)
+                          .join(' ')
+                          .replace(/^./, str => str.toUpperCase())}
                         </label>
-                        <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
+                        <div className="flex items-center border border-gray-300 rounded-lg dark:border-gray-700">
                           <input
                             type="text"
                             name={key}
                             value={profileData[key]}
                             onChange={handleChange}
-                            className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
+                            className="flex-grow px-3 py-2 rounded-lg border-none focus:outline-none dark:bg-gray-700 text-gray-500 dark:text-white"
                             readOnly={!editMode}
                           />
-                          <button onClick={handleEditClick} className="absolute right-2 top-1/2 transform -translate-y-1/2 mt-4 text-black dark:text-white">
+                          <button onClick={handleEditClick} className="absolute right-2 top-1/2 transform -translate-y-1/2 mt-4 text-gray-700 dark:text-white">
                             <svg
                               className="w-5 h-5"
                               fill="none"
@@ -168,7 +173,7 @@ function Profile() {
                 </div>
               </section>
               {/* Availability Section */}
-              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 text-gray-700 p-6 rounded-lg shadow">
                 <h2 className="text-3xl font-semibold mb-8 dark:text-white">Availability</h2>
                 <h4 className="text-md font-semibold mb-8 dark:text-white">In general, when do you prefer to meet your mentor?</h4>
                 <div className="space-y-8">

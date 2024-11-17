@@ -18,23 +18,12 @@ load_dotenv()
 
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-CORS(app, resources={r"/*": {"origins": ["http://localhost", "http://127.0.0.1:5000"],}}) # Assuming frontend is running on localhost
+CORS(app, resources={r"/*": {"origins": ["http://localhost", "http://127.0.0.1:5000"],}})
 
-# # Secure session cookie settings
-# app.config['SESSION_COOKIE_SECURE'] = True
-# app.config['SESSION_COOKIE_HTTPONLY'] = True
-# app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-
-# # Use Redis for session storage
-# app.config['SESSION_TYPE'] = 'redis'
-# app.config['SESSION_REDIS'] = redis.StrictRedis(
-#     host=os.getenv('REDIS_HOST', 'localhost'),
-#     port=int(os.getenv('REDIS_PORT', 6379)),
-#     db=int(os.getenv('REDIS_DB', 0))
-# )
-
-# # Initialize the session
-# Session(app)  # Added initialization
+# Secure session cookie settings
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 initialize_firebase()
 auth = get_auth()
@@ -157,6 +146,12 @@ def signin():
         if verification["status"] == "error":
             return jsonify({"error": verification["message"]}), 401
         
+        # Get user details from database
+        user_data = get_user_by_id(firebase_user_id)
+        if user_data["status"] == "error":
+            return jsonify({"error": "Failed to fetch user data"}), 500
+
+        
         # Set session after all checks pass
         session['user_id'] = firebase_user_id
         session['role'] = role
@@ -164,7 +159,9 @@ def signin():
         return jsonify({
             "message": "Sign in successful", 
             "firebase_user_id": firebase_user_id, 
-            "role": role
+            "role": role,
+            "name": user_data["user"].get("name", ""),  # Include name in response
+            "email": email
         }), 200
 
     except firebase_admin.auth.UserNotFoundError:
@@ -227,15 +224,12 @@ def google_signup():
 @app.route('/api/google_login', methods=['POST'])
 def google_login():
     try:
-        # Get the Google ID token from the client
         id_token = request.json.get('id_token')
         if not id_token:
             return jsonify({'status': 'error', 'message': 'No ID token provided'}), 400
 
-        # Verify the ID token
         decoded_token = auth.verify_id_token(id_token)
         
-        # Check if token is expired
         if datetime.fromtimestamp(decoded_token['exp']) < datetime.now():
             return jsonify({'status': 'error', 'message': 'Token expired'}), 401
 
@@ -246,11 +240,9 @@ def google_login():
             'email_verified': decoded_token.get('email_verified', False)
         }
 
-        # Check if user exists in firestore database
         result = get_user_by_id(user_info['id'])
         
         if result['status'] == 'success':
-            # Create session with additional security measures
             session['user_id'] = user_info['id']
             session['email'] = user_info['email']
             session['authenticated'] = True
@@ -258,7 +250,7 @@ def google_login():
             return jsonify({
                 'status': 'success',
                 'user_id': user_info['id'],
-                'name': user_info['name'],
+                'name': user_info['name'],  # Name is already included
                 'email': user_info['email']
             })
         else:
@@ -268,98 +260,6 @@ def google_login():
         return jsonify({'status': 'error', 'message': f'Invalid token: {str(e)}'}), 401
     except Exception as e:
         return jsonify({'status': 'error', 'message': f'Server error: {str(e)}'}), 500
-    
-# @app.route('/api/twitter_signup', methods=['POST'])
-# def twitter_signup():
-#     # Get the Twitter ID token from the client
-#     id_token = request.json.get('id_token')
-    
-#     if not id_token or not isinstance(id_token, str):
-#         return jsonify({'status': 'error', 'message': 'Invalid ID token'}), 400
-
-#     try:
-#         # Verify the ID token and get the user info
-#         decoded_token = auth.verify_id_token(id_token, check_revoked=True)
-        
-#         # Extract Twitter-specific user info
-#         user_info = {
-#             'id': decoded_token['uid'],
-#             'name': decoded_token.get('name', ''),
-#             'email': decoded_token.get('email', ''),
-#             'email_verified': decoded_token.get('email_verified', False),
-#             'twitter_handle': decoded_token.get('twitter_handle', ''),
-#             'profile_image': decoded_token.get('picture', '')
-#         }
-
-#         # Add the user to the firestore database
-#         result = add_user_to_db(user_info)
-
-#         if result['status'] == 'success':
-#             # Store the user ID in the session
-#             session['user_id'] = user_info['id']
-#             return jsonify({
-#                 'status': 'success',
-#                 'user_id': user_info['id'],
-#                 'twitter_handle': user_info['twitter_handle']
-#             })
-#         else:
-#             return jsonify({'status': 'error', 'message': result['message']}), 400
-            
-#     except auth.RevokedIdTokenError:
-#         return jsonify({'status': 'error', 'message': 'Token has been revoked'}), 401
-#     except auth.InvalidIdTokenError:
-#         return jsonify({'status': 'error', 'message': 'Invalid token'}), 401
-#     except Exception as e:
-#         return jsonify({'status': 'error', 'message': 'An unexpected error occurred'}), 500
-
-# @app.route('/api/twitter_login', methods=['POST'])
-# def twitter_login():
-#     try:
-#         # Get the Twitter ID token from client
-#         id_token = request.json.get('id_token')
-#         if not id_token:
-#             return jsonify({'status': 'error', 'message': 'No ID token provided'}), 400
-
-#         # Verify the ID token
-#         decoded_token = auth.verify_id_token(id_token)
-        
-#         # Check if token is expired
-#         if datetime.fromtimestamp(decoded_token['exp']) < datetime.now():
-#             return jsonify({'status': 'error', 'message': 'Token expired'}), 401
-
-#         user_info = {
-#             'id': decoded_token['uid'],
-#             'name': decoded_token.get('name', ''),
-#             'email': decoded_token.get('email', ''),
-#             'email_verified': decoded_token.get('email_verified', False),
-#             'twitter_handle': decoded_token.get('twitter_handle', ''),
-#             'profile_image': decoded_token.get('picture', '')
-#         }
-
-#         # Check if user exists in database
-#         result = get_user_by_id(user_info['id'])
-        
-#         if result['status'] == 'success':
-#             # Create session with security measures
-#             session['user_id'] = user_info['id']
-#             session['email'] = user_info['email']
-#             session['authenticated'] = True
-            
-#             return jsonify({
-#                 'status': 'success',
-#                 'user_id': user_info['id'],
-#                 'name': user_info['name'],
-#                 'email': user_info['email'],
-#                 'twitter_handle': user_info['twitter_handle'],
-#                 'profile_image': user_info['profile_image']
-#             })
-#         else:
-#             return jsonify({'status': 'error', 'message': 'User not found'}), 404
-
-#     except ValueError as e:
-#         return jsonify({'status': 'error', 'message': f'Invalid token: {str(e)}'}), 401
-#     except Exception as e:
-#         return jsonify({'status': 'error', 'message': f'Server error: {str(e)}'}), 500
 
 @app.route('/api/facebook_signup', methods=['POST'])
 def facebook_signup():
@@ -458,10 +358,8 @@ def logout():
     try:
         # Clear the session
         session.clear()
-        
         # Create a response
         response = make_response(jsonify({"message": "Logged out successfully"}))
-        
         return response, 200
     
     except Exception as e:
