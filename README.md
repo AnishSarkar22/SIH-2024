@@ -75,9 +75,7 @@ To set up this project locally, follow these steps:
 #### Deployment
 
 - Amazon EC2
-- MongoDB Atlas (AWS)
-
-### Screentshots
+- Firebase
 
 ### Demo
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FaXTwitter, FaGoogle } from "react-icons/fa6";
+import { FaXTwitter, FaGoogle, FaFacebook } from "react-icons/fa6";
 import TemplateFrame from "./TemplateFrame";
 import { useNavigate, Link } from "react-router-dom";
-import { GoogleAuthProvider, TwitterAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
+import { GoogleAuthProvider, TwitterAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
 
@@ -175,12 +175,66 @@ export default function SignUp() {
     }
   };
 
-  const handleTwitterSignup = async () => {
+  // const handleTwitterSignup = async () => {
+  //   try {
+  //     const provider = new TwitterAuthProvider();
+  //     const result = await signInWithPopup(auth, provider)
+  //       .catch((error) => {
+  //          Handle specific Twitter Auth errors
+  //         if (error.code === 'auth/popup-closed-by-user') {
+  //           throw new Error('Sign-up cancelled by user');
+  //         }
+  //         if (error.code === 'auth/popup-blocked') {
+  //           throw new Error('Popup was blocked by the browser');
+  //         }
+  //         throw error;
+  //       });
+
+  //     const { user } = result;
+
+  //      Send the Twitter ID token to the Flask API
+  //     const response = await fetch("http://127.0.0.1:5000/api/twitter_signup", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ id_token: await user.getIdToken() }),
+  //       credentials: "include",
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+
+  //     const data = await response.json();
+  //     if (data.status === "success") {
+  //       setMessage(`Twitter signup successful! User ID: ${data.user_id}`);
+  //       navigate("/basic-details");
+  //     } else {
+  //       throw new Error(data.message || 'Signup failed');
+  //     }
+
+  //   } catch (error) {
+
+  //     console.error('Twitter signup error:', error);
+      
+  //     // Set user-friendly error message
+  //     setServerErrorMessage(
+  //       `Sign-up failed: ${
+  //         error.message === '[object Object]' 
+  //           ? 'Unknown error occurred' 
+  //           : error.message
+  //       }`
+  //     );
+  //   }
+  // };
+
+  const handleFacebookSignup = async () => {
     try {
-      const provider = new TwitterAuthProvider();
+      const provider = new FacebookAuthProvider();
       const result = await signInWithPopup(auth, provider)
         .catch((error) => {
-          // Handle specific Twitter Auth errors
+          // Handle specific Facebook Auth errors
           if (error.code === 'auth/popup-closed-by-user') {
             throw new Error('Sign-up cancelled by user');
           }
@@ -192,8 +246,8 @@ export default function SignUp() {
 
       const { user } = result;
 
-      // Send the Twitter ID token to the Flask API
-      const response = await fetch("http://127.0.0.1:5000/api/twitter_signup", {
+      // Send the Facebook ID token to the Flask API
+      const response = await fetch("http://127.0.0.1:5000/api/facebook_signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -208,7 +262,7 @@ export default function SignUp() {
 
       const data = await response.json();
       if (data.status === "success") {
-        setMessage(`Twitter signup successful! User ID: ${data.user_id}`);
+        setMessage(`Facebook signup successful! User ID: ${data.user_id}`);
         navigate("/basic-details");
       } else {
         throw new Error(data.message || 'Signup failed');
@@ -216,7 +270,7 @@ export default function SignUp() {
 
     } catch (error) {
       // Log error for debugging
-      console.error('Twitter signup error:', error);
+      console.error('Facebook signup error:', error);
       
       // Set user-friendly error message
       setServerErrorMessage(
@@ -341,11 +395,12 @@ export default function SignUp() {
               Sign up with Google
             </button>
             <button
-              onClick={handleTwitterSignup}
+              type="button"
               className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
+              onClick={handleFacebookSignup}
             >
-              <FaXTwitter className="mr-1" />
-              Sign up with X
+              <FaFacebook className="mr-1" />
+              Sign up with Facebook
             </button>
           </div>
         </div>

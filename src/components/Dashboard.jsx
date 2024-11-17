@@ -241,7 +241,7 @@ const Dashboard = () => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Type here......"
+                  placeholder="Type here..."
                   className="w-full p-3 rounded-lg border shadow-lg border-gray-100 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-gray-300 dark:border-gray-800"
                 />
                 <a

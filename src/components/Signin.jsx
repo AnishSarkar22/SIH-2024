@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FaXTwitter, FaGoogle } from "react-icons/fa6";
+import { FaXTwitter, FaGoogle, FaFacebook } from "react-icons/fa6";
 import RoleToggle from "./RoleToggle";
-import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
+import { GoogleAuthProvider, TwitterAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
 
@@ -154,6 +154,60 @@ export default function Signin() {
     }
   };
 
+  const handleFacebookLogin = async () => {
+    try {
+      const provider = new FacebookAuthProvider();
+      const result = await signInWithPopup(auth, provider)
+        .catch((error) => {
+          // Handle specific Facebook Auth errors
+          if (error.code === 'auth/popup-closed-by-user') {
+            throw new Error('Login cancelled by user');
+          }
+          if (error.code === 'auth/popup-blocked') {
+            throw new Error('Popup was blocked by the browser');
+          }
+          throw error;
+        });
+
+      const { user } = result;
+
+      // Send the Facebook ID token to the Flask API
+      const response = await fetch("http://127.0.0.1:5000/api/facebook_login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id_token: await user.getIdToken() }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.status === "success") {
+        setMessage(`Facebook login successful! Welcome back!`);
+        navigate("/dashboard"); // Or your desired redirect path
+      } else {
+        throw new Error(data.message || 'Login failed');
+      }
+
+    } catch (error) {
+      // Log error for debugging 
+      console.error('Facebook login error:', error);
+      
+      // Set user-friendly error message
+      setServerErrorMessage(
+        `Login failed: ${
+          error.message === '[object Object]' 
+            ? 'Unknown error occurred' 
+            : error.message
+        }`
+      );
+    }
+  };
+
   // const checkAuthentication = async () => {
   //   try {
   //     const response = await fetch('http://127.0.0.1:5000/api/protected', {
@@ -286,11 +340,11 @@ export default function Signin() {
               Log in with Google
             </button>
             <button
-              onClick={() => alert("Log in with Twitter")}
+              onClick={handleFacebookLogin}
               className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
             >
-              <FaXTwitter className="mr-1"/>
-              Log in with X
+              <FaFacebook className="mr-1" />
+              Log in with Facebook
             </button>
           </div>
         )}

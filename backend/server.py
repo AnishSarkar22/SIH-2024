@@ -1,12 +1,13 @@
-from db import init_db, add_user_to_db, get_user_by_id, verify_user_type
+from db import add_user_to_db, get_user_by_id, verify_user_type, test_connection
 from functools import wraps
-from flask import Flask, send_from_directory, session, jsonify, request, make_response, redirect, url_for
+from flask import Flask, send_from_directory, session, jsonify, request, make_response
 from flask_cors import CORS
 import logging
 
 import firebase_admin
 from firebase_admin import credentials, auth, exceptions
 from firebase_admin.exceptions import FirebaseError
+from firebase_init import initialize_firebase, get_auth
 
 import os
 from datetime import datetime
@@ -14,8 +15,7 @@ from dotenv import load_dotenv
 
 app = Flask(__name__, static_folder='../dist')
 load_dotenv()
-# Initialize MongoDB
-init_db(app)
+
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 CORS(app, resources={r"/*": {"origins": ["http://localhost", "http://127.0.0.1:5000"],}}) # Assuming frontend is running on localhost
@@ -36,9 +36,8 @@ CORS(app, resources={r"/*": {"origins": ["http://localhost", "http://127.0.0.1:5
 # # Initialize the session
 # Session(app)  # Added initialization
 
-# Initialize Firebase Admin SDK
-cred = credentials.Certificate('guideme-2c89d-firebase-adminsdk-nk9hq-00add1eee5.json')
-firebase_admin.initialize_app(cred)
+initialize_firebase()
+auth = get_auth()
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -48,6 +47,20 @@ def serve(path):
     else:
         return send_from_directory(app.static_folder, 'index.html')
     
+@app.route('/api/test-connection', methods=['GET'])
+def check_connection():
+    try:
+        result = test_connection()
+        if result["status"] == "success":
+            return jsonify(result), 200
+        else:
+            return jsonify(result), 500
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Unexpected error: {str(e)}"
+        }), 500    
+
 @app.route('/api/check-email', methods=['POST'])
 def check_email():
     data = request.json
@@ -87,7 +100,7 @@ def signup():
         user_id = user.uid
         logging.debug("Firebase signup response: %s", user_id)
 
-        # Store user data in MongoDB
+        # Store user data in firestore
         user_data = {
             "id": user_id,
             "name": name,
@@ -97,12 +110,12 @@ def signup():
         result = add_user_to_db(user_data)
 
         if result["status"] == "success":
-            logging.debug("User data inserted into MongoDB with user_id: %s", user_id)
+            logging.debug("User data inserted into firestore with user_id: %s", user_id)
             return jsonify({"success": True, "user_id": user_id}), 201
         else:
-            # If MongoDB insertion fails, we should delete the Firebase user
+            # If insertion fails, we should delete the Firebase user
             auth.delete_user(user_id)
-            logging.error("MongoDB insertion error: %s", result["message"])
+            logging.error("firestore insertion error: %s", result["message"])
             return jsonify({"success": False, "error": result["message"]}), 400
             
     except auth.EmailAlreadyExistsError as e:
@@ -139,7 +152,7 @@ def signin():
         user = auth.get_user_by_email(email)
         firebase_user_id = user.uid
         
-        # Verify user type in MongoDB
+        # Verify user type in firebase
         verification = verify_user_type(firebase_user_id, role)
         if verification["status"] == "error":
             return jsonify({"error": verification["message"]}), 401
@@ -159,12 +172,6 @@ def signin():
     except Exception as e:
         logging.error(f"Error during sign in: {e}")
         return jsonify({"error": "An error occurred during sign in"}), 500
-    except firebase_admin.auth.UserNotFoundError:
-        return jsonify({"error": "Invalid email or password"}), 401
-    except Exception as e:
-        logging.error(f"Error during sign in: {e}")
-        return jsonify({"error": "An error occurred during sign in"}), 500
-
 
 @app.route('/api/protected', methods=['GET'])
 def protected():
@@ -191,7 +198,7 @@ def google_signup():
         # Verify the ID token and get the user info
         decoded_token = auth.verify_id_token(id_token, check_revoked=True)
         user_info = {
-            'id': decoded_token['uid'],
+            'id': decoded_token['uid'], # Google's user ID
             'name': decoded_token['name'],
             'email': decoded_token['email'],
             'email_verified': decoded_token['email_verified'],
@@ -201,7 +208,7 @@ def google_signup():
         if not user_info['email_verified']:
             return jsonify({'status': 'error', 'message': 'Email not verified'}), 400
 
-        # Add the user to the MongoDB database
+        # Add the user to the firestore database
         result = add_user_to_db(user_info)
 
         if result['status'] == 'success':
@@ -239,7 +246,7 @@ def google_login():
             'email_verified': decoded_token.get('email_verified', False)
         }
 
-        # Check if user exists in MongoDB database
+        # Check if user exists in firestore database
         result = get_user_by_id(user_info['id'])
         
         if result['status'] == 'success':
@@ -262,9 +269,101 @@ def google_login():
     except Exception as e:
         return jsonify({'status': 'error', 'message': f'Server error: {str(e)}'}), 500
     
-@app.route('/api/twitter_signup', methods=['POST'])
-def twitter_signup():
-    # Get the Twitter ID token from the client
+# @app.route('/api/twitter_signup', methods=['POST'])
+# def twitter_signup():
+#     # Get the Twitter ID token from the client
+#     id_token = request.json.get('id_token')
+    
+#     if not id_token or not isinstance(id_token, str):
+#         return jsonify({'status': 'error', 'message': 'Invalid ID token'}), 400
+
+#     try:
+#         # Verify the ID token and get the user info
+#         decoded_token = auth.verify_id_token(id_token, check_revoked=True)
+        
+#         # Extract Twitter-specific user info
+#         user_info = {
+#             'id': decoded_token['uid'],
+#             'name': decoded_token.get('name', ''),
+#             'email': decoded_token.get('email', ''),
+#             'email_verified': decoded_token.get('email_verified', False),
+#             'twitter_handle': decoded_token.get('twitter_handle', ''),
+#             'profile_image': decoded_token.get('picture', '')
+#         }
+
+#         # Add the user to the firestore database
+#         result = add_user_to_db(user_info)
+
+#         if result['status'] == 'success':
+#             # Store the user ID in the session
+#             session['user_id'] = user_info['id']
+#             return jsonify({
+#                 'status': 'success',
+#                 'user_id': user_info['id'],
+#                 'twitter_handle': user_info['twitter_handle']
+#             })
+#         else:
+#             return jsonify({'status': 'error', 'message': result['message']}), 400
+            
+#     except auth.RevokedIdTokenError:
+#         return jsonify({'status': 'error', 'message': 'Token has been revoked'}), 401
+#     except auth.InvalidIdTokenError:
+#         return jsonify({'status': 'error', 'message': 'Invalid token'}), 401
+#     except Exception as e:
+#         return jsonify({'status': 'error', 'message': 'An unexpected error occurred'}), 500
+
+# @app.route('/api/twitter_login', methods=['POST'])
+# def twitter_login():
+#     try:
+#         # Get the Twitter ID token from client
+#         id_token = request.json.get('id_token')
+#         if not id_token:
+#             return jsonify({'status': 'error', 'message': 'No ID token provided'}), 400
+
+#         # Verify the ID token
+#         decoded_token = auth.verify_id_token(id_token)
+        
+#         # Check if token is expired
+#         if datetime.fromtimestamp(decoded_token['exp']) < datetime.now():
+#             return jsonify({'status': 'error', 'message': 'Token expired'}), 401
+
+#         user_info = {
+#             'id': decoded_token['uid'],
+#             'name': decoded_token.get('name', ''),
+#             'email': decoded_token.get('email', ''),
+#             'email_verified': decoded_token.get('email_verified', False),
+#             'twitter_handle': decoded_token.get('twitter_handle', ''),
+#             'profile_image': decoded_token.get('picture', '')
+#         }
+
+#         # Check if user exists in database
+#         result = get_user_by_id(user_info['id'])
+        
+#         if result['status'] == 'success':
+#             # Create session with security measures
+#             session['user_id'] = user_info['id']
+#             session['email'] = user_info['email']
+#             session['authenticated'] = True
+            
+#             return jsonify({
+#                 'status': 'success',
+#                 'user_id': user_info['id'],
+#                 'name': user_info['name'],
+#                 'email': user_info['email'],
+#                 'twitter_handle': user_info['twitter_handle'],
+#                 'profile_image': user_info['profile_image']
+#             })
+#         else:
+#             return jsonify({'status': 'error', 'message': 'User not found'}), 404
+
+#     except ValueError as e:
+#         return jsonify({'status': 'error', 'message': f'Invalid token: {str(e)}'}), 401
+#     except Exception as e:
+#         return jsonify({'status': 'error', 'message': f'Server error: {str(e)}'}), 500
+
+@app.route('/api/facebook_signup', methods=['POST'])
+def facebook_signup():
+    # Get the Facebook ID token from the client
     id_token = request.json.get('id_token')
     
     if not id_token or not isinstance(id_token, str):
@@ -274,17 +373,17 @@ def twitter_signup():
         # Verify the ID token and get the user info
         decoded_token = auth.verify_id_token(id_token, check_revoked=True)
         
-        # Extract Twitter-specific user info
+        # Extract Facebook-specific user info
         user_info = {
             'id': decoded_token['uid'],
             'name': decoded_token.get('name', ''),
             'email': decoded_token.get('email', ''),
             'email_verified': decoded_token.get('email_verified', False),
-            'twitter_handle': decoded_token.get('twitter_handle', ''),
+            'facebook_id': decoded_token.get('facebook_id', ''),
             'profile_image': decoded_token.get('picture', '')
         }
 
-        # Add the user to the MongoDB database
+        # Add the user to the firestore database
         result = add_user_to_db(user_info)
 
         if result['status'] == 'success':
@@ -293,7 +392,7 @@ def twitter_signup():
             return jsonify({
                 'status': 'success',
                 'user_id': user_info['id'],
-                'twitter_handle': user_info['twitter_handle']
+                'facebook_id': user_info['facebook_id']
             })
         else:
             return jsonify({'status': 'error', 'message': result['message']}), 400
@@ -305,10 +404,10 @@ def twitter_signup():
     except Exception as e:
         return jsonify({'status': 'error', 'message': 'An unexpected error occurred'}), 500
 
-@app.route('/api/twitter_login', methods=['POST'])
-def twitter_login():
+@app.route('/api/facebook_login', methods=['POST'])
+def facebook_login():
     try:
-        # Get the Twitter ID token from client
+        # Get the Facebook ID token from client
         id_token = request.json.get('id_token')
         if not id_token:
             return jsonify({'status': 'error', 'message': 'No ID token provided'}), 400
@@ -325,7 +424,7 @@ def twitter_login():
             'name': decoded_token.get('name', ''),
             'email': decoded_token.get('email', ''),
             'email_verified': decoded_token.get('email_verified', False),
-            'twitter_handle': decoded_token.get('twitter_handle', ''),
+            'facebook_id': decoded_token.get('facebook_id', ''),
             'profile_image': decoded_token.get('picture', '')
         }
 
@@ -343,7 +442,7 @@ def twitter_login():
                 'user_id': user_info['id'],
                 'name': user_info['name'],
                 'email': user_info['email'],
-                'twitter_handle': user_info['twitter_handle'],
+                'facebook_id': user_info['facebook_id'],
                 'profile_image': user_info['profile_image']
             })
         else:
@@ -370,4 +469,4 @@ def logout():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-   app.run(debug=True, host='0.0.0.0', port=5000)
+   app.run(debug=True, host='0.0.0.0', port=5000) # remove debug=True for production
