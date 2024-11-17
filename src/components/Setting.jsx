@@ -47,126 +47,8 @@ const Setting = () => {
             </div>
 
             <div className="flex-1 space-y-7">
-              {/* Details */}
-              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <div className="space-y-6">
-                  <div className="flex items-center mb-4"></div>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-xl text-black mb-3 dark:text-white font-bold">Change Email</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          value="abc2024@gmail.com"
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly
-                        />
-                        <button className="text-black dark:text-white px-3 py-2 rounded-xl focus:outline-none">
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xl text-black mb-3 dark:text-white font-bold">Change Password</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          value="*********"
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly
-                        />
-                        <button className="text-black dark:text-white px-3 py-2 rounded-xl focus:outline-none">
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xl text-black mb-3 dark:text-white font-bold">And another email</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          value="abc2024@gmail.com"
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly
-                        />
-                        <button className="text-black dark:text-white px-3 py-2 rounded-xl focus:outline-none">
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div></div>
-                    <div>
-                      <label className="block text-xl text-black mb-3 dark:text-white font-bold">Gender</label>
-                      <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
-                        <input
-                          type="text"
-                          value="Software Developer"
-                          className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
-                          readOnly
-                        />
-                        <button className="text-black dark:text-white px-3 py-2 rounded-xl focus:outline-none">
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
               {/* Notification */}
-              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 text-gray-700 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4 dark:text-white">Notification</h2>
                 <div className="flex items-center justify-between">
                   <span className="dark:text-white">Turn notification On/Off</span>
@@ -185,7 +67,7 @@ const Setting = () => {
               </section>
 
               {/* Close Your Account */}
-              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 text-gray-700 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4 dark:text-white">Close your account</h2>
                 <p className="text-sm text-gray-600 mb-4 dark:text-gray-300">
                   Once you delete your account, there's no going back. Please be certain!

@@ -141,7 +141,7 @@ export default function Counselors() {
                     <p className="text-darkGrayishBlue text-left text-lg">Data Analyst</p>
                     <div className="flex justify-start space-x-4">
                       <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">JavaScript</p>
-                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">NodeJs</p>
+                      <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">NodeJS</p>
                       <p className="text-blue-800 bg-blue-100 text-xs px-2 py-1 rounded-full mr-2 font-normal">React</p>
                     </div>
                   </div>

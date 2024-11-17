@@ -8,7 +8,7 @@ const AvatarUpload = ({ photoPreview, handleFileChange }) => {
       {!photoPreview && (
         <i
           id="avatarIcon"
-          className="fa-solid fa-user text-2xl text-[#131316] mr-4 flex items-center justify-center w-16 h-16 border-2 border-black rounded-full box-border px-5 py-4"
+          className="fa-solid fa-user text-2xl mr-5 flex items-center justify-center w-16 h-16 border-2 border-gray-700 rounded-full box-border px-4 py-4"
         ></i>
       )}
 
@@ -17,7 +17,7 @@ const AvatarUpload = ({ photoPreview, handleFileChange }) => {
         <img
           id="photoPreview"
           src={photoPreview}
-          className="max-w-[4rem] max-h-[4rem] object-cover rounded-full border-2 border-black mr-4"
+          className="max-w-[4rem] max-h-[4rem] object-cover rounded-full border-2 border-gray-700 mr-4"
           alt="Photo Preview"
         />
       )}
@@ -33,17 +33,17 @@ const AvatarUpload = ({ photoPreview, handleFileChange }) => {
         />
         <label
           htmlFor="photoInput"
-          className="flex items-center border-2 border-black rounded-md bg-blue-100 text-black px-2 py-1 font-bold cursor-pointer text-xs relative overflow-hidden w-40"
+          className="flex items-center rounded-lg shadow border border-gray-300 text-gray-700 px-3 py-2 font-bold cursor-pointer text-xs relative overflow-hidden w-40"
         >
-          <i className="fa-solid fa-upload mr-1 text-black"></i>
+          <i className="fa-solid fa-upload mr-2.5 text-gray-700"></i>
           <span className="upload-text">Upload your photo</span>
         </label>
-        <p
+        {/* <p
           id="uploadStatus"
           className={`upload-status ${photoPreview ? "block" : "hidden"}`}
         >
           Image uploaded
-        </p>
+        </p> */}
       </div>
     </div>
   );
@@ -136,76 +136,76 @@ const StepForm = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-gray-700 font-bold mb-2">
-                  First name
+                <label className="block text-gray-700 mb-4">
+                  First Name
                 </label>
                 <input
                   type="text"
-                  className="w-full border border-black rounded-md p-2"
-                  placeholder="First name"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
+                  placeholder="John"
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-bold mb-2">
-                  Last name
+                <label className="block text-gray-700 mb-4">
+                  Last Name
                 </label>
                 <input
                   type="text"
-                  className="w-full border border-black rounded-md p-2"
-                  placeholder="Last name"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
+                  placeholder="Doe"
                 />
-              </div>
+              </div> 
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-gray-700 font-bold mb-2">
+                <label className="block text-gray-700 font-bold mb-4">
                   Email
                 </label>
                 <input
                   type="email"
-                  className="w-full border border-black rounded-md p-2"
-                  placeholder="Email"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
+                  placeholder="johndoe@example.com"
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-bold mb-2">
+                <label className="block text-gray-700 font-bold mb-4">
                   Password
                 </label>
                 <input
                   type="password"
-                  className="w-full border border-black rounded-md p-2"
-                  placeholder="Password"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
+                  placeholder="Must have at least 6 characters"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
               <div>
-                <label className="block text-gray-700 font-bold mb-2">
+                <label className="block text-gray-700 font-bold mb-4">
                   Job Title
                 </label>
                 <input
                   type="text"
-                  className="w-full border border-black rounded-md p-2"
-                  placeholder="Job Title"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
+                  placeholder="Software Engineer"
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-bold mb-2">
-                  Company
+                <label className="block text-gray-700 font-bold mb-4">
+                  Company (optional)
                 </label>
                 <input
                   type="text"
-                  className="w-full border border-black rounded-md p-2"
-                  placeholder="Company"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
+                  placeholder="ABC Corporation"
                 />
               </div>
             </div>
             <div className="flex justify-end">
               <button
                 type="button"
-                className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+                className="bg-indigo-600 text-white py-2 px-4 rounded-lg"
                 onClick={() => showPage(1)}
               >
                 Next Step
@@ -220,14 +220,14 @@ const StepForm = () => {
         <div id="page2" className="form-page">
           <form>
             {/* Category Section */}
-            <p className="text-gray-700 font-bold mb-2">Category</p>
+            <p className="text-gray-700 font-bold mb-4">Category</p>
             <div className="mb-6 p-4 rounded-md bg-white">
               <div className="flex items-center">
                 <input
                   type="text"
                   id="category"
-                  className="w-full border-black rounded-md p-2"
-                  placeholder="Category"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
+                  placeholder="Enter your category"
                 />
                 <button
                   type="button"
@@ -239,16 +239,16 @@ const StepForm = () => {
             </div>
 
             {/* Skills Section */}
-            <p className="text-gray-700 font-bold mb-2">Skills</p>
+            <p className="text-gray-700 font-bold mb-4">Skills</p>
             <div className="mb-6 p-4 rounded-md bg-white">
               <textarea
                 id="skills"
-                className="w-full border-black rounded-md p-2"
+                className="w-full shadow rounded-lg p-2 border border-gray-300"
                 rows="2"
                 placeholder="Add a new skill..."
               ></textarea>
             </div>
-            <p className="text-gray-500 mb-2 text-sm">
+            <p className="text-gray-500 mb-4 text-sm">
               Describe your expertise to connect with mentees who have similar
               interests.
               <br />
@@ -261,12 +261,12 @@ const StepForm = () => {
             <div className="mb-6 p-4 rounded-md bg-white">
               <textarea
                 id="bio"
-                className="w-full border-black rounded-md p-2"
+                className="w-full shadow rounded-lg p-2 border border-gray-300"
                 rows="4"
                 placeholder=""
               ></textarea>
             </div>
-            <p className="text-gray-500 mb-2 text-sm">
+            <p className="text-gray-500 mb-4 text-sm">
               This will be public. Talk about yourself in the first person, as
               if you’d directly talk to a mentee.
             </p>
@@ -277,14 +277,14 @@ const StepForm = () => {
               <div>
                 <label
                   htmlFor="linkedin"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   LinkedIn URL
                 </label>
                 <input
                   type="url"
                   id="linkedin"
-                  className="w-full border border-black rounded-md p-2"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
                   placeholder="https://www.linkedin.com/in/your-profile/"
                 />
               </div>
@@ -293,14 +293,14 @@ const StepForm = () => {
               <div>
                 <label
                   htmlFor="twitter"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   Twitter Handle
                 </label>
                 <input
                   type="url"
                   id="twitter"
-                  className="w-full border border-black rounded-md p-2"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
                   placeholder="https://twitter.com/your-profile"
                 />
               </div>
@@ -309,14 +309,14 @@ const StepForm = () => {
               <div className="sm:col-span-2 mb-6">
                 <label
                   htmlFor="website"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   Personal Website
                 </label>
                 <input
                   type="url"
                   id="website"
-                  className="w-full border border-black rounded-md p-2"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
                   placeholder="https://yourwebsite.com"
                 />
               </div>
@@ -326,14 +326,14 @@ const StepForm = () => {
             <div className="flex justify-between">
               <button
                 type="button"
-                className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+                className="bg-indigo-600 text-white py-2 px-4 rounded-lg"
                 onClick={() => showPage(0)}
               >
                 Previous Step
               </button>
               <button
                 type="button"
-                className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+                className="bg-indigo-600 text-white py-2 px-4 rounded-lg"
                 onClick={() => showPage(2)}
               >
                 Next Step
@@ -371,7 +371,7 @@ const StepForm = () => {
                 <div className="rounded-md p-4">
                   <label
                     htmlFor="introVideo"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-gray-700 font-bold mb-4"
                   >
                     Intro Video
                   </label>
@@ -380,13 +380,13 @@ const StepForm = () => {
                     id="introVideo"
                     name="introVideo"
                     placeholder="Paste your intro video URL"
-                    className="w-full px-3 py-2 border border-black rounded-md"
+                    className="w-full shadow rounded-lg p-2 border border-gray-300"
                   />
                 </div>
                 <div className="rounded-md p-4">
                   <label
                     htmlFor="featuredArticle"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-gray-700 font-bold mb-4"
                   >
                     Featured Article
                   </label>
@@ -395,7 +395,7 @@ const StepForm = () => {
                     id="featuredArticle"
                     name="featuredArticle"
                     placeholder="Link an article you've written"
-                    className="w-full px-3 py-2 border border-black rounded-md"
+                    className="w-full shadow rounded-lg p-2 border border-gray-300"
                   />
                 </div>
               </div>
@@ -403,7 +403,7 @@ const StepForm = () => {
               <div className="mb-6 rounded-md p-4">
                 <label
                   htmlFor="whyMentor"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   Why do you want to become a mentor? (Not publicly visible)
                 </label>
@@ -411,14 +411,14 @@ const StepForm = () => {
                   id="whyMentor"
                   name="whyMentor"
                   rows="4"
-                  className="w-full px-3 py-2 border border-black rounded-md"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
                 ></textarea>
               </div>
 
               <div className="mb-6 rounded-md p-4">
                 <label
                   htmlFor="greatestAchievement"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-gray-700 font-bold mb-4"
                 >
                   What, in your opinion, has been your greatest achievement so
                   far? (Not publicly visible)
@@ -427,7 +427,7 @@ const StepForm = () => {
                   id="greatestAchievement"
                   name="greatestAchievement"
                   rows="4"
-                  className="w-full px-3 py-2 border border-black rounded-md"
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
                 ></textarea>
               </div>
 
@@ -435,7 +435,7 @@ const StepForm = () => {
               <div className="flex justify-between mt-8">
                 <button
                   type="button"
-                  className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+                  className="bg-indigo-600 text-white py-2 px-4 rounded-lg"
                   onClick={() => showPage(1)}
                 >
                   Previous Step

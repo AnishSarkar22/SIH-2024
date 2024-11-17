@@ -8,6 +8,7 @@ import {
 import { BsToggle2Off, BsToggle2On } from "react-icons/bs"; // New toggle icons
 
 const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
+  const [userName, setUserName] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -49,6 +50,19 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
   useEffect(() => {
     localStorage.setItem("sidebarState", sidebarShrink ? "shrink" : "expanded");
   }, [sidebarShrink]);
+
+  // display full name of the user
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      if (userData && userData.name) {
+        setUserName(userData.name);
+      }
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      setUserName('Guest');
+    }
+  }, []);
 
   return (
     <header className="bg-white dark:bg-gray-900">
@@ -187,7 +201,7 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
               className="w-8 h-8 rounded-full"
             />
             <span className="text-gray-700 dark:text-gray-200">
-               John Doe
+              {userName || 'Guest'}
             </span>
           </div>
         </div>
