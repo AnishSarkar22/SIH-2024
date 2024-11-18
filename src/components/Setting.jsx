@@ -42,7 +42,7 @@ const Setting = () => {
         <Navbar />
         <div className="flex-1 p-6 overflow-auto">
           <div id="settings-content" className="content-section">
-            <div className="mb-6 text-5xl font-bold dark:text-white">
+            <div className="mb-6 text-5xl font-bold text-gray-700 dark:text-white">
               <h1>Settings</h1>
             </div>
 

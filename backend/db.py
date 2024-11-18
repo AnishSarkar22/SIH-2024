@@ -1,3 +1,4 @@
+# connection to firebase database and routes for adding and retrieving users
 from firebase_init import initialize_firebase, get_firestore
 
 from dotenv import load_dotenv

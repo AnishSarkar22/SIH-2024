@@ -90,7 +90,8 @@ const StepForm = () => {
               </div>
               <div
                 className="mt-2 text-sm font-medium text-gray-500"
-                style={index === 2 ? { marginLeft: "-1rem" } : {}}
+                style={index === 2 ? { marginLeft: "-1.5rem",
+                  marginRight: "-1.5rem" } : {}}
               >
                 {index === 0 ? "Profile" : index === 1 ? "Info" : "Summary"}
               </div>
@@ -100,7 +101,7 @@ const StepForm = () => {
                 className={`h-1 ${
                   currentPage > index ? "bg-indigo-600" : "bg-gray-300"
                 }`}
-                style={{ marginTop: "-1.5rem", width: "600px" }} // Increase the width and move the line up
+                style={{ marginTop: "-1.6rem", width: "600px" }} // Increase the width and move the line up
               ></div>
             )}
           </React.Fragment>
@@ -136,7 +137,7 @@ const StepForm = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-gray-700 mb-4">
+                <label className="block text-gray-700 font-bold mb-4">
                   First Name
                 </label>
                 <input
@@ -146,7 +147,7 @@ const StepForm = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 mb-4">
+                <label className="block text-gray-700 font-bold mb-4">
                   Last Name
                 </label>
                 <input
@@ -240,7 +241,7 @@ const StepForm = () => {
 
             {/* Skills Section */}
             <p className="text-gray-700 font-bold mb-4">Skills</p>
-            <div className="mb-6 p-4 rounded-md bg-white">
+            <div className="mb-1 p-4 rounded-md bg-white">
               <textarea
                 id="skills"
                 className="w-full shadow rounded-lg p-2 border border-gray-300"
@@ -248,7 +249,7 @@ const StepForm = () => {
                 placeholder="Add a new skill..."
               ></textarea>
             </div>
-            <p className="text-gray-500 mb-4 text-sm">
+            <p className="text-gray-500 mb-4 ml-4 text-sm">
               Describe your expertise to connect with mentees who have similar
               interests.
               <br />
@@ -258,7 +259,7 @@ const StepForm = () => {
 
             {/* Bio Section */}
             <p className="text-gray-700 font-bold mb-2">Bio</p>
-            <div className="mb-6 p-4 rounded-md bg-white">
+            <div className="mb-1 p-4 rounded-md bg-white">
               <textarea
                 id="bio"
                 className="w-full shadow rounded-lg p-2 border border-gray-300"
@@ -266,7 +267,7 @@ const StepForm = () => {
                 placeholder=""
               ></textarea>
             </div>
-            <p className="text-gray-500 mb-4 text-sm">
+            <p className="text-gray-500 mb-4 ml-4 text-sm">
               This will be public. Talk about yourself in the first person, as
               if you’d directly talk to a mentee.
             </p>
@@ -367,7 +368,7 @@ const StepForm = () => {
             </div>
 
             <form id="mentor-form">
-              <div className="grid grid-cols-2 gap-6 mb-6">
+              <div className="grid grid-cols-2 gap-6 mb-2">
                 <div className="rounded-md p-4">
                   <label
                     htmlFor="introVideo"
@@ -382,6 +383,9 @@ const StepForm = () => {
                     placeholder="Paste your intro video URL"
                     className="w-full shadow rounded-lg p-2 border border-gray-300"
                   />
+                  <p className="text-gray-500 mt-4 text-sm">
+                    Share a video link (from youtube) introducing yourself. This will be public.
+                  </p>
                 </div>
                 <div className="rounded-md p-4">
                   <label

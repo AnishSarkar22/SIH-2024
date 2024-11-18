@@ -14,13 +14,14 @@ function MProfile() {
   const [profileData, setProfileData] = useState({
     firstName: "Jane",
     lastName: "Doe",
-    email: "abc2024@gmail.com",
+    email: "johndoe@gmail.com",
     location: "India",
     profession: "Software Developer",
-    hobbies: "games,music,dance",
+    // hobbies: "games,music,dance",
     linkedIn: "https://linkedin.com/username",
     twitter: "https://x.com/username",
-    github: "https://github.com/username"
+    github: "https://github.com/username",
+    password: "******"
   });
   const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null); // Ref for the file input
@@ -65,13 +66,13 @@ function MProfile() {
   };
 
   return (
-    <div className={`flex h-screen bg-white dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
       <MSidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-gray-900">
         <MHeader
           toggleSidebar={toggleSidebar}
           sidebarShrink={sidebarShrink}
@@ -81,18 +82,18 @@ function MProfile() {
         <MNavbar />
         <div className="flex-1 p-6 overflow-auto">
           <div id="profile-content" className="content-section">
-            <div className="mb-6 text-5xl font-bold dark:text-white">
+            <div className="mb-6 text-5xl font-bold text-gray-700 dark:text-white">
               <h1>Your Profile</h1>
             </div>
             <div className="flex-1 space-y-7">
               {/* Personal Information */}
               <section className="bg- dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h2 className="text-3xl font-semibold mb-6 dark:text-white">
+                <h2 className="text-3xl font-semibold mb-6 text-gray-700 dark:text-white">
                   Personal Information
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-800 border-black border-2 dark:border-0">
+                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-700">
                       {profileImage ? (
                         <img src={profileImage} alt="Profile" className="w-20 h-20 rounded-full" />
                       ) : (
@@ -114,7 +115,7 @@ function MProfile() {
                     </div>
                     <button
                       onClick={handleProfilePictureClick} // Open file dialog
-                      className="flex items-center text-blue-600 dark:text-blue-400 font-medium border-2 border-gray-400 px-2 py-1 rounded-xl"
+                      className="flex items-center text-gray-700 dark:text-white font-bold shadow border border-gray-300  dark:border-gray-700 px-2 py-1 rounded-lg"
                     >
                       <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
@@ -132,19 +133,23 @@ function MProfile() {
                     {/* Fields for personal information */}
                     {Object.keys(profileData).map((key) => (
                       <div key={key} className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
-                          {key.charAt(0).toUpperCase() + key.slice(1)}
+                        <label className="block text font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
+                        {key
+                          .replace(/([A-Z])/g, ' $1')
+                          .split(/(?=[A-Z])/)
+                          .join(' ')
+                          .replace(/^./, str => str.toUpperCase())}
                         </label>
-                        <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
+                        <div className="flex items-center border border-gray-300 rounded-lg dark:border-gray-700">
                           <input
                             type="text"
                             name={key}
                             value={profileData[key]}
                             onChange={handleChange}
-                            className="flex-grow px-3 py-2 rounded-xl border-none focus:outline-none dark:bg-gray-700 dark:text-white"
+                            className="flex-grow px-3 py-2 rounded-lg border-none focus:outline-none dark:bg-gray-700 text-gray-500 dark:text-white"
                             readOnly={!editMode}
                           />
-                          <button onClick={handleEditClick} className="absolute right-2 top-1/2 transform -translate-y-1/2 mt-4 text-black dark:text-white">
+                          <button onClick={handleEditClick} className="absolute right-2 top-1/2 transform -translate-y-1/2 mt-4 text-gray-700 dark:text-white">
                             <svg
                               className="w-5 h-5"
                               fill="none"
@@ -167,8 +172,8 @@ function MProfile() {
                 </div>
               </section>
               {/* Email Preferences */}
-              <section className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg shadow">
-                <h2 className="text-xl font-semibold mb-4">Email Preferences</h2>
+              <section className="bg-white dark:bg-gray-800 text-gray-700 p-6 rounded-lg shadow">
+                <h2 className="text-3xl font-semibold mb-4">Email Preferences</h2>
                 <div className="space-y-3">
                   <label className="flex items-start">
                     <input type="checkbox" className="mt-1 rounded text-blue-600" checked />
@@ -185,7 +190,7 @@ function MProfile() {
                 </div>
               </section>
               {/* Close your account */}
-              <section className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg shadow">
+              <section className="bg-white dark:bg-gray-800 dark:text-white text-gray-700 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Close your account</h2>
                 <p className="text-sm text-gray-600 mb-4 dark:text-white">Once you delete your account, there's no going back. Please be certain!</p>
                 <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 text-sm">Delete account</button>

@@ -1,3 +1,4 @@
+# Initialize Firebase Admin SDK and return Firebase Auth and Firestore instances
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
 import os
