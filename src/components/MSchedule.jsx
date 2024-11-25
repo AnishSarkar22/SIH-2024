@@ -6,7 +6,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { INITIAL_EVENTS, createEventId } from "./event-utils"; // Correct import
+import { INITIAL_EVENTS, createEventId } from "./services/event-utils.js"; // Import initial events and createEventId function
 import Carousel from "react-multi-carousel"; // Import Carousel component
 import "react-multi-carousel/lib/styles.css"; // Import Carousel styles
 import "../index.css"; // Import the stylesheet

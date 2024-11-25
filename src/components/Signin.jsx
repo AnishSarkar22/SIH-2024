@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FaXTwitter, FaGoogle, FaFacebook } from "react-icons/fa6";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import RoleToggle from "./RoleToggle";
-import { GoogleAuthProvider, TwitterAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from "firebase/analytics";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBmZKpEXmtho6Ezs_mmie688yZfZs1-CJs",
-  authDomain: "guideme-2c89d.firebaseapp.com",
-  projectId: "guideme-2c89d",
-  storageBucket: "guideme-2c89d.firebasestorage.app",
-  messagingSenderId: "441408230497",
-  appId: "1:441408230497:web:878a1ba17a5a929fc5c620",
-  measurementId: "G-SL3RFEQTLP"
-};
-
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
+import {
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  getAuth,
+} from "firebase/auth";
+import { auth } from "./services/firebase";
 
 export default function Signin() {
-  const [serverErrorMessage, setServerErrorMessage] = useState(""); 
+  const [serverErrorMessage, setServerErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -71,39 +62,45 @@ export default function Signin() {
     event.preventDefault();
     if (validateInputs()) {
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/login', {
-          method: 'POST',
+        const response = await fetch("http://127.0.0.1:5000/api/login", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             email,
             password,
-            role: selectedRole
+            role: selectedRole,
           }),
-          credentials: 'include',  // Include cookies in the request
+          credentials: "include",
         });
 
         const data = await response.json();
 
-        if (response.ok) {
-          // Save user data to localStorage
-          localStorage.setItem('userData', JSON.stringify({
-            name: data.name,
-            email: data.email,
-            role: data.role,
-            userId: data.firebase_user_id
-          }));
-          
-          const destination = location.state?.from || 
-            (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
+        if (response.ok && data.success) {
+          localStorage.setItem(
+            "userData",
+            JSON.stringify({
+              name: data.name,
+              email: data.email,
+              role: data.role,
+              userId: data.firebase_user_id,
+            })
+          );
+
+          localStorage.setItem("userId", data.firebase_user_id); // Add these specific items
+          localStorage.setItem("userType", data.role); // Add these specific items
+
+          const destination =
+            location.state?.from ||
+            (data.role === "mentee" ? "/dashboard" : "/mentor-dashboard");
           navigate(destination, { replace: true });
         } else {
-          alert('Log in failed: ' + data.error);
+          setServerErrorMessage(data.error || "Login failed");
         }
       } catch (error) {
-        console.error('Sign in error:', error);
-        alert('Log in failed. Please check your credentials and try again.');
+        console.error("Sign in error:", error);
+        setServerErrorMessage("Login failed. Please try again.");
       }
     }
   };
@@ -111,20 +108,19 @@ export default function Signin() {
   const handleGoogleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider)
-        .catch((error) => {
-          // Handle specific Google Auth errors
-          if (error.code === 'auth/popup-closed-by-user') {
-            throw new Error('Login cancelled by user');
-          }
-          if (error.code === 'auth/popup-blocked') {
-            throw new Error('Popup was blocked by the browser');
-          }
-          throw error;
-        });
-  
+      const result = await signInWithPopup(auth, provider).catch((error) => {
+        // Handle specific Google Auth errors
+        if (error.code === "auth/popup-closed-by-user") {
+          throw new Error("Login cancelled by user");
+        }
+        if (error.code === "auth/popup-blocked") {
+          throw new Error("Popup was blocked by the browser");
+        }
+        throw error;
+      });
+
       const { user } = result;
-  
+
       // Send the Google ID token to the Flask API
       const response = await fetch("http://127.0.0.1:5000/api/google_login", {
         method: "POST",
@@ -134,28 +130,29 @@ export default function Signin() {
         body: JSON.stringify({ id_token: await user.getIdToken() }),
         credentials: "include",
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       if (data.status === "success") {
+        localStorage.setItem("userId", data.firebase_user_id);
+        localStorage.setItem("userType", data.role);
         setMessage(`Google login successful! Welcome back!`);
         navigate("/dashboard"); // Or your desired redirect path
       } else {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || "Login failed");
       }
-  
     } catch (error) {
       // Log error for debugging
-      console.error('Google login error:', error);
-      
+      console.error("Google login error:", error);
+
       // Set user-friendly error message
       setServerErrorMessage(
         `Login failed: ${
-          error.message === '[object Object]' 
-            ? 'Unknown error occurred' 
+          error.message === "[object Object]"
+            ? "Unknown error occurred"
             : error.message
         }`
       );
@@ -165,17 +162,16 @@ export default function Signin() {
   const handleFacebookLogin = async () => {
     try {
       const provider = new FacebookAuthProvider();
-      const result = await signInWithPopup(auth, provider)
-        .catch((error) => {
-          // Handle specific Facebook Auth errors
-          if (error.code === 'auth/popup-closed-by-user') {
-            throw new Error('Login cancelled by user');
-          }
-          if (error.code === 'auth/popup-blocked') {
-            throw new Error('Popup was blocked by the browser');
-          }
-          throw error;
-        });
+      const result = await signInWithPopup(auth, provider).catch((error) => {
+        // Handle specific Facebook Auth errors
+        if (error.code === "auth/popup-closed-by-user") {
+          throw new Error("Login cancelled by user");
+        }
+        if (error.code === "auth/popup-blocked") {
+          throw new Error("Popup was blocked by the browser");
+        }
+        throw error;
+      });
 
       const { user } = result;
 
@@ -195,21 +191,22 @@ export default function Signin() {
 
       const data = await response.json();
       if (data.status === "success") {
+        localStorage.setItem("userId", data.firebase_user_id);
+        localStorage.setItem("userType", data.role);
         setMessage(`Facebook login successful! Welcome back!`);
         navigate("/dashboard"); // Or your desired redirect path
       } else {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || "Login failed");
       }
-
     } catch (error) {
-      // Log error for debugging 
-      console.error('Facebook login error:', error);
-      
+      // Log error for debugging
+      console.error("Facebook login error:", error);
+
       // Set user-friendly error message
       setServerErrorMessage(
         `Login failed: ${
-          error.message === '[object Object]' 
-            ? 'Unknown error occurred' 
+          error.message === "[object Object]"
+            ? "Unknown error occurred"
             : error.message
         }`
       );
@@ -226,7 +223,7 @@ export default function Signin() {
   //     const data = await response.json();
 
   //     if (response.ok) {
-  //       const destination = location.state?.from || 
+  //       const destination = location.state?.from ||
   //         (data.role === 'mentee' ? '/dashboard' : '/mentor-dashboard');
   //       navigate(destination, { replace: true });
   //     }
@@ -323,6 +320,13 @@ export default function Signin() {
 
           <RoleToggle onRoleChange={setSelectedRole} />
 
+          {/* Add error message here */}
+          {serverErrorMessage && (
+            <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
+              {serverErrorMessage}
+            </div>
+          )}
+
           <button
             type="submit"
             className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -344,14 +348,14 @@ export default function Signin() {
               onClick={handleGoogleLogin}
               className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
             >
-              <FaGoogle className="mr-1"/>
+              <FontAwesomeIcon icon={faGoogle} className="mr-1" />
               Log in with Google
             </button>
             <button
               onClick={handleFacebookLogin}
               className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
             >
-              <FaFacebook className="mr-1" />
+              <FontAwesomeIcon icon={faFacebook} className="mr-1"/>
               Log in with Facebook
             </button>
           </div>

@@ -5,7 +5,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import "ldrs/tailChase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleUser,
+} from "@fortawesome/free-solid-svg-icons";
+
 
 const PrevArrow = ({ onClick }) => (
   <button
@@ -131,13 +135,6 @@ const Dashboard = () => {
       ],
     },
   ];
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const faqItems = useMemo(
     () => [
@@ -207,14 +204,14 @@ const Dashboard = () => {
     prevArrow: <PrevArrow onClick={() => sliderRef.current.slickPrev()} />,
     nextArrow: <NextArrow onClick={() => sliderRef.current.slickNext()} />,
   };
-  // for loading spinner
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <l-tail-chase size="40" speed="1.75" color="black"></l-tail-chase>
-      </div>
-    );
-  }
+  // // for loading spinner
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <l-tail-chase size="40" speed="1.75" color="black"></l-tail-chase>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
@@ -244,7 +241,7 @@ const Dashboard = () => {
                 </h2>
                 <div className="bg-gray-100 p-4 rounded-lg mb-4 dark:bg-gray-800">
                   <div className="flex items-center mb-2">
-                    <i className="fas fa-user-circle text-6xl rounded-full text-green-600 mr-2 p-2"></i>
+                    <FontAwesomeIcon icon={faCircleUser} className="text-6xl rounded-full mr-2 p-2" />
                     <div>
                       <p className="font-semibold text-2xl">Your Assistant</p>
                       <p className="text-gray-500 text-md">Sep 17 2024</p>

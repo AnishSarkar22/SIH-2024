@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MSidebar from "./MSidebar";
 import MHeader from "./MHeader";
-import { RxAvatar } from "react-icons/rx";
-import { FaUserGroup } from "react-icons/fa6";
-import { FaRegThumbsUp } from "react-icons/fa6";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendarWeek,
+  faClock,
+  faCircleCheck,
+  faCircleUser,
+  faEnvelopeCircleCheck,
+  faUser,
+  faUserGroup,
+} from "@fortawesome/free-solid-svg-icons";
 
 function MDashboard() {
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [darkMode, setDarkMode] = useState(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
     return savedDarkMode === "enabled";
@@ -21,6 +30,36 @@ function MDashboard() {
     setDarkMode(!darkMode);
     localStorage.setItem("darkMode", !darkMode ? "enabled" : "disabled");
   };
+
+  // display first name and email of the user
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData) {
+        // Handle name
+        if (userData.name) {
+          const firstName = userData.name.split(" ")[0];
+          setUserName(firstName);
+        } else {
+          setUserName("Guest");
+        }
+
+        // Handle email
+        if (userData.email) {
+          setUserEmail(userData.email);
+        } else {
+          setUserEmail("No email provided");
+        }
+      } else {
+        setUserName("Guest");
+        setUserEmail("mentor@example.com");
+      }
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      setUserName("Guest");
+      setUserEmail("No email provided");
+    }
+  }, []);
 
   return (
     <div className={`flex h-screen ${darkMode ? "dark" : ""}`}>
@@ -40,17 +79,20 @@ function MDashboard() {
           <div className="flex justify-between items-center mb-8  text-gray-800 dark:text-white">
             <div>
               <h1 className="text-2xl font-bold dark:text-white">
-                Hello, Radhika Sharma
+                Hello, {userName || "Guest"} 👋
               </h1>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                radhikasharma@gmail.com
+                {userEmail || "mentor@example.com"}
               </p>
             </div>
             <div className="flex items-center space-x-2">
               <span className="text-blue-600 font-semibold dark:text-blue-400">
                 Verified mentor
               </span>
-              <i className="fas fa-check-circle text-blue-600 dark:text-blue-400"></i>
+              <FontAwesomeIcon
+                icon={faCircleCheck}
+                className="fas fa-check-circle text-blue-600 dark:text-blue-400"
+              />
             </div>
           </div>
 
@@ -60,13 +102,16 @@ function MDashboard() {
 
           <div className="grid grid-cols-3 gap-6">
             <div className="grid grid-cols-2 gap-4 col-span-3">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">
                   Schedule Meetings
                 </h2>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <i className="far fa-calendar-alt text-4xl mr-4 text-gray-800 dark:text-white"></i>
+                    <FontAwesomeIcon
+                      icon={faCalendarWeek}
+                      className="far fa-calendar-alt text-4xl mr-4 text-gray-800 dark:text-white"
+                    />
                     <div className="flex flex-col justify-center">
                       <h3 className="font-bold text-2xl leading-tight text-gray-800 dark:text-white">
                         Upcoming 3 meetings
@@ -90,7 +135,10 @@ function MDashboard() {
                 </h2>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <i className="far fa-clock text-4xl mr-4 text-black dark:text-white"></i>
+                    <FontAwesomeIcon
+                      icon={faClock}
+                      className="far fa-clock text-4xl mr-4 text-black dark:text-white"
+                    />
                     <div className="flex flex-col justify-center">
                       <p className="font-semibold text-xl text-black dark:text-white">
                         11:00 AM - 10:00 PM
@@ -119,9 +167,10 @@ function MDashboard() {
                 </h2>
                 <div className="grid grid-cols-2 gap-6 flex-1">
                   <div className="flex items-center space-x-2">
-                    <RxAvatar
-                      className="text-blue-600 dark:text-blue-400"
-                      size={60}
+                    <FontAwesomeIcon
+                      icon={faCircleUser}
+                      className="text-blue-600 dark:text-blue-400 mr-3"
+                      size={"3x"}
                     />
                     <div>
                       <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
@@ -136,9 +185,10 @@ function MDashboard() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RxAvatar
-                      className="text-orange-500 dark:text-orange-400"
-                      size={60}
+                    <FontAwesomeIcon
+                      icon={faCircleUser}
+                      className="text-orange-500 dark:text-orange-400 mr-1"
+                      size={"3x"}
                     />
                     <div>
                       <p className="text-3xl font-bold text-orange-500 dark:text-orange-400">
@@ -153,9 +203,10 @@ function MDashboard() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <FaUserGroup
-                      className="text-red-500 pt-1 dark:text-red-400 border-2 rounded-full border-red-500 p-1"
-                      size={60}
+                    <FontAwesomeIcon
+                      icon={faEnvelopeCircleCheck}
+                      className="text-red-500 dark:text-red-400 rounded-full"
+                      size={"3x"}
                     />
                     <div>
                       <p className="text-3xl font-bold text-red-500 dark:text-red-400">
@@ -169,11 +220,12 @@ function MDashboard() {
                       </p>
                     </div>
                   </div>
-                  <div className="text-center">
+                  <div className="">
                     <div className="flex items-center space-x-2">
-                      <FaRegThumbsUp
-                        className="text-blue-400 dark:text-blue-300 border-2 rounded-full border-blue-400 p-1"
-                        size={60}
+                      <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        className="text-blue-400 dark:text-blue-300 rounded-full mr-1"
+                        size={"3x"}
                       />
                       <div>
                         <p className="text-3xl font-bold text-blue-400 dark:text-blue-300">
@@ -198,7 +250,10 @@ function MDashboard() {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                      <FontAwesomeIcon
+                        icon={faUserGroup}
+                        className="text-blue-500 mr-2"
+                      />
                       <span className="dark:text-gray-300">
                         Sapna Mukherjee
                       </span>
@@ -214,7 +269,10 @@ function MDashboard() {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <i className="fas fa-user text-green-500 mr-2"></i>
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        className="text-green-500 mr-2 ml-0.5"
+                      />
                       <span className="dark:text-gray-300">Neha Dhupia</span>
                     </div>
                     <div>
@@ -228,7 +286,10 @@ function MDashboard() {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <i className="fas fa-user text-green-500 mr-2"></i>
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        className="text-green-500 mr-2 ml-0.5"
+                      />
                       <span className="dark:text-gray-300">Mayowa Ade</span>
                     </div>
                     <div>
@@ -242,7 +303,10 @@ function MDashboard() {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                      <FontAwesomeIcon
+                        icon={faUserGroup}
+                        className="text-blue-500 mr-2"
+                      />
                       <span className="dark:text-gray-300">Joshua Ashiru</span>
                     </div>
                     <div>
@@ -256,7 +320,10 @@ function MDashboard() {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                      <FontAwesomeIcon
+                        icon={faUserGroup}
+                        className="text-blue-500 mr-2"
+                      />
                       <span className="dark:text-gray-300">Olawuyi Tobi</span>
                     </div>
                     <div>

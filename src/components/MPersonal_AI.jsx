@@ -2,10 +2,14 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import MSidebar from "./MSidebar";
 import MHeader from "./MHeader";
-import { BsFillSendFill } from "react-icons/bs";
-import { PiSmileySticker } from "react-icons/pi";
-import { RiAttachmentLine } from "react-icons/ri";
-import { RxCross2 } from "react-icons/rx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faXmark,
+  faPaperclip,
+  faPaperPlane,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 
 const initialMessages = [
   {
@@ -96,6 +100,11 @@ const Personal_AI = () => {
         />
         <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
           <div className="flex items-center space-x-3">
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              className="w-5 h-5 text-gray-500 dark:text-gray-400 cursor-pointer rounded-full p-2"
+              onClick={() => navigate("/mentor-message")}
+            />
             <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">
               AI
             </div>
@@ -128,25 +137,31 @@ const Personal_AI = () => {
             </div>
           ))}
         </div>
-        {/* Message input */}
+        {/* Message input bottom bar */}
         <div className="flex items-center p-4 border-t dark:border-gray-700">
-          <PiSmileySticker className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer" />
-          <RiAttachmentLine
+          <FontAwesomeIcon
+            icon={faFaceSmile}
+            className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer"
+          />
+          <FontAwesomeIcon
+            icon={faPaperclip}
             className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer ml-3"
             onClick={handleAttachmentClick}
           />
           <input
-            ref={fileInputRef}
             type="file"
-            onChange={handleFileChange}
+            // accept=".pdf,.jpg,.jpeg,.png"
+            ref={fileInputRef}
             style={{ display: "none" }}
+            onChange={handleFileChange}
           />
           {selectedFile && (
             <div className="flex items-center ml-3">
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 {selectedFile.name}
               </span>
-              <RxCross2
+              <FontAwesomeIcon
+                icon={faXmark}
                 className="w-4 h-4 text-red-500 cursor-pointer ml-2"
                 onClick={handleRemoveFile}
               />
@@ -154,13 +169,14 @@ const Personal_AI = () => {
           )}
           <input
             type="text"
-            className="flex-1 px-4 py-2 ml-4 rounded-lg border dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+            className="placeholder-gray-400 flex-1 px-4 py-2 ml-4 rounded-lg border dark:bg-gray-800 dark:border-gray-700 dark:text-white"
             placeholder="Type your message..."
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <BsFillSendFill
+          <FontAwesomeIcon
+            icon={faPaperPlane}
             className="w-6 h-6 text-gray-500 dark:text-gray-400 cursor-pointer ml-3"
             onClick={handleSendMessage}
           />

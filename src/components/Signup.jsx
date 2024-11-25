@@ -1,24 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FaXTwitter, FaGoogle, FaFacebook } from "react-icons/fa6";
 import TemplateFrame from "./TemplateFrame";
 import { useNavigate, Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { GoogleAuthProvider, TwitterAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from "firebase/analytics";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBmZKpEXmtho6Ezs_mmie688yZfZs1-CJs",
-  authDomain: "guideme-2c89d.firebaseapp.com",
-  projectId: "guideme-2c89d",
-  storageBucket: "guideme-2c89d.firebasestorage.app",
-  messagingSenderId: "441408230497",
-  appId: "1:441408230497:web:878a1ba17a5a929fc5c620",
-  measurementId: "G-SL3RFEQTLP"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
+import { auth } from './services/firebase';
 
 export default function SignUp() {
   const [emailError, setEmailError] = useState(false);
@@ -391,7 +377,7 @@ export default function SignUp() {
               className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
               onClick={handleGoogleSignup}
             >
-              <FaGoogle className="mr-1"/>
+              <FontAwesomeIcon icon={faGoogle} className="mr-1" />
               Sign up with Google
             </button>
             <button
@@ -399,7 +385,7 @@ export default function SignUp() {
               className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
               onClick={handleFacebookSignup}
             >
-              <FaFacebook className="mr-1" />
+              <FontAwesomeIcon icon={faFacebook} className="mr-1" />
               Sign up with Facebook
             </button>
           </div>

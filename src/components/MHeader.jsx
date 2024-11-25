@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaChevronLeft,
-  FaChevronRight,
-  FaMoon,
-  FaSun,
-} from "react-icons/fa"; // Correct imports
-import { BsToggle2Off, BsToggle2On } from "react-icons/bs"; // New toggle icons
 
-const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faToggleOn,
+  faToggleOff,
+  faChevronLeft,
+  faChevronRight,
+  faMoon,
+  faSun,
+  faPlus,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+
+const MHeader = ({
+  toggleSidebar,
+  sidebarShrink,
+  darkMode,
+  toggleDarkMode,
+}) => {
+  const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -50,6 +61,19 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
     localStorage.setItem("sidebarState", sidebarShrink ? "shrink" : "expanded");
   }, [sidebarShrink]);
 
+  // display full name of the user
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData && userData.name) {
+        setUserName(userData.name);
+      }
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      setUserName("Guest");
+    }
+  }, []);
+
   return (
     <header className="bg-white dark:bg-gray-900">
       <div className="flex items-center justify-between p-4">
@@ -58,39 +82,42 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
             onClick={toggleSidebar}
             className="text-gray-500 focus:outline-none"
             aria-label="Toggle Sidebar"
-            style={{ width: '50px', height: '50px' }} // Increase the size of the button
+            style={{ width: "50px", height: "50px" }} // Increase the size of the button
           >
             {sidebarShrink ? (
-              <FaChevronRight size={24} /> // Increase the size of the icon
+              <FontAwesomeIcon icon={faChevronRight} size="xl" /> // Increase the size of the icon
             ) : (
-              <FaChevronLeft size={24} /> // Increase the size of the icon
+              <FontAwesomeIcon icon={faChevronLeft} size="xl" /> // Increase the size of the icon
             )}
           </button>
-          {/* <div className="relative flex-grow mr-4" style={{ width: "300%" }}>
+          <div className="relative flex-grow mr-4" style={{ width: "300%" }}>
             <input
               type="text"
               placeholder="Search Mentors..."
-              className="w-[600px] p-2 pl-10 rounded-full border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm shadow-gray-600"
+              className="placeholder-gray-400 w-[600px] p-2 pl-10 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-md"
             />
-            <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
-          </div> */}
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
+            />
+          </div>
         </div>
         <div className="flex items-center space-x-8">
           <button
             onClick={toggleDarkMode}
             className="text-gray-500 focus:outline-none flex items-center space-x-6"
             aria-label="Toggle Dark Mode"
-            style={{ width: '80px', height: '60px' }} // Increase the size of the button
+            style={{ width: "80px", height: "60px" }} // Increase the size of the button
           >
             {darkMode ? (
               <>
-                <FaMoon size={30} /> 
-                <BsToggle2On size={40} /> 
+                <FontAwesomeIcon icon={faMoon} size="xl" />
+                <FontAwesomeIcon icon={faToggleOn} size="xl" />
               </>
             ) : (
               <>
-                <FaSun size={30} /> 
-                <BsToggle2Off size={40} /> 
+                <FontAwesomeIcon icon={faSun} size="xl" />
+                <FontAwesomeIcon icon={faToggleOff} size="xl" />
               </>
             )}
           </button>
@@ -182,18 +209,16 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
           </div>
           <div className="flex items-center space-x-2">
             <img
-              src="images/avatar-anisha.png"
+              src="https://img.icons8.com/fluency/240/user-male-circle--v2.png"
               alt="User avatar"
               className="w-8 h-8 rounded-full"
             />
             <span className="text-gray-700 dark:text-gray-200">
-            Radhika 
+              {userName || "Guest"}
             </span>
           </div>
-          <button
-            className="flex items-center px-4 py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <i className="fa-solid fa-plus mr-2"></i> {/* Plus Icon */}
+          <button className="flex items-center px-4 py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <FontAwesomeIcon icon={faPlus} className="mr-2" /> {/* Plus Icon */}
             <span>Create Session</span> {/* Button Text */}
           </button>
         </div>

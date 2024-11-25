@@ -22,7 +22,8 @@ import Signin from './components/Signin';
 import SignUp from './components/Signup';
 import AboutUs from './components/AboutUs';
 // import HNavbar from './components/HNavbar';
-import BasicDetails from './components/BasicDetails';
+import BasicDetails from './components/BasicDetails/BasicDetails';
+import ProfileCompletionForm2 from './components/BasicDetails/ProfileCompletionForm2';
 import ApplyMentor from './components/ApplyMentor';
 import Blog from './components/blog';
 import Personal_AI from './components/Personal_AI';
@@ -31,7 +32,6 @@ import Quiz from './components/Quiz';
 import Resource from './components/Resource';
 import MSchedule from './components/MSchedule';
 // import PrivateRoute from './components/PrivateRoute'; 
-
 
 function App() {
   return (
@@ -78,7 +78,10 @@ function App() {
         <Route path="/mentor-profile/settings" element={<MSetting />} />
         <Route path="/mentors" element={<Mentor />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+
         <Route path="/basic-details" element={<BasicDetails />} />
+        <Route path='/basic-details2' element={<ProfileCompletionForm2 />} />
+        
         <Route path="/apply-mentor" element={<ApplyMentor />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/personal-ai" element={<Personal_AI />} /> {/* Added route for Personal_AI */}

@@ -119,26 +119,28 @@ def signin():
         user = auth.get_user_by_email(email)
         firebase_user_id = user.uid
         
-        # Verify user type in firebase
+        # Verify user type in firebase before proceeding
         verification = verify_user_type(firebase_user_id, role)
         if verification["status"] == "error":
-            return jsonify({"error": verification["message"]}), 401
+            return jsonify({"error": f"User is not registered as a {role}"}), 403
         
-        # Get user details from database
+        # Get user details only if role verification passes
         user_data = get_user_by_id(firebase_user_id)
         if user_data["status"] == "error":
             return jsonify({"error": "Failed to fetch user data"}), 500
 
-        
-        # Set session after all checks pass
+        # Set session
         session['user_id'] = firebase_user_id
+        session['name'] = user_data["user"].get("name", "")
+        session['email'] = email
         session['role'] = role
         
         return jsonify({
+            "success": True,
             "message": "Sign in successful", 
             "firebase_user_id": firebase_user_id, 
             "role": role,
-            "name": user_data["user"].get("name", ""),  # Include name in response
+            "name": user_data["user"].get("name", ""),
             "email": email
         }), 200
 
@@ -260,6 +262,10 @@ def facebook_signup():
             'facebook_id': decoded_token.get('facebook_id', ''),
             'profile_image': decoded_token.get('picture', '')
         }
+        
+        # Check if email is verified
+        if not user_info['email_verified']:
+            return jsonify({'status': 'error', 'message': 'Email not verified'}), 400
 
         # Add the user to the firestore database
         result = add_user_to_db(user_info)
@@ -330,6 +336,20 @@ def facebook_login():
         return jsonify({'status': 'error', 'message': f'Invalid token: {str(e)}'}), 401
     except Exception as e:
         return jsonify({'status': 'error', 'message': f'Server error: {str(e)}'}), 500
+    
+@auth_routes.route('/current-user', methods=['GET'])
+def get_current_user():
+    if 'user_id' not in session:
+        return jsonify({"error": "Not authenticated"}), 401
+        
+    user_data = get_user_by_id(session['user_id'])
+    if user_data["status"] == "success":
+        return jsonify({
+            "user_id": session['user_id'],
+            "role": session.get('role'),
+            "name": user_data["user"].get("name")
+        }), 200
+    return jsonify({"error": "User not found"}), 404
 
 @auth_routes.route('/logout', methods=['POST'])
 def logout():

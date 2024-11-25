@@ -7,9 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# dependencies
 .venv
-node_modules
 .vite
+.pytest_cache
 dist
 dist-ssr
 *.local
@@ -18,6 +19,15 @@ dist-ssr
 .env.development.local
 .env.test.local
 .env.production.local
+/node_modules
+/.pnp
+.pnp.js
+
+# production
+/build
+
+# testing
+/coverage
 
 # Editor directories and files
 .vscode/*
@@ -33,3 +43,4 @@ dist-ssr
 __pycache__/
 *.py[cod]
 *$py.class
+.env

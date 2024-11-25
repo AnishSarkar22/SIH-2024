@@ -1,11 +1,14 @@
 # connection to firebase database and routes for adding and retrieving users
 from firebase_init import initialize_firebase, get_firestore
-
+from pathlib import Path
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timezone
 
-load_dotenv()
+# Get the project root directory (parent of current file's directory)
+ROOT_DIR = Path(__file__).parent.parent
+
+load_dotenv(ROOT_DIR / '.env')
 
 initialize_firebase()
 db = get_firestore()

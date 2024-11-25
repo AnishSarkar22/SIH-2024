@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowUpCircle } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUp } from "@fortawesome/free-regular-svg-icons";
+
+
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -18,13 +21,13 @@ const ScrollToTop = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
   return (
@@ -35,7 +38,11 @@ const ScrollToTop = () => {
           className="text-white hover:text-teal-600 p-3 rounded-full transition-colors duration-300"
           aria-label="Scroll to top"
         >
-          <ArrowUpCircle size={40} />
+          <FontAwesomeIcon
+            icon={faCircleUp}
+            size="2x"
+            style={{ cursor: "pointer" }}
+          />
         </button>
       )}
     </div>

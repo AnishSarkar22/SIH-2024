@@ -1,12 +1,11 @@
 import React from "react";
-import HNavbar from "./HNavbar"; // Corrected import statement
+import HNavbar from "./HNavbar";
 import Hero from "./Hero";
 import Features from "./Features";
 import Counselors from "./Counselors";
 import Testimonials from "./Testimonials";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
-import { BurgerClose as Icon } from "react-icons-animated";
 
 const styles = {
   "@layer base": {
