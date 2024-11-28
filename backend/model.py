@@ -3,10 +3,10 @@ import time
 import sys
 from dotenv import load_dotenv
 import os
+import gradio as gr
+from typing import Optional, Iterator
 
 load_dotenv()
-
-# Replace with your actual API key
 
 client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
@@ -83,8 +83,60 @@ def interactive_guidance(user_input, query_type):
         except KeyboardInterrupt:
             print("\nConversation interrupted. Returning to main menu.")
             break
+        
+
+def process_chat(message: str, history: Optional[list] = None) -> Iterator[str]:
+    """
+    Process chat messages for Gradio interface
+    """
+    if history is None:
+        history = []
+    
+    query_type = classify_query(message)
+    
+    if query_type not in ['career', 'education']:
+        yield "I'm sorry, but I can only provide career or educational guidance. Could you please ask a question related to these topics?"
+        return
+    
+    messages = [
+        {"role": "system", "content": "You are a helpful career and education advisor. Provide detailed guidance for the user's query."},
+        {"role": "user", "content": message}
+    ]
+    
+    response = get_gpt4o(messages, max_tokens=2000)
+    full_response = ""
+    
+    for chunk in response:
+        if chunk.choices[0].delta.content is not None:
+            content = chunk.choices[0].delta.content
+            full_response += content
+            yield full_response
+
+def create_gradio_interface():
+    """
+    Create and launch the Gradio interface
+    """
+    chat_interface = gr.ChatInterface(
+        fn=process_chat,
+        title="Career and Education Guidance Assistant",
+        description="Ask any questions related to career or education. I'm here to help!",
+        examples=[
+            "What career paths are available in artificial intelligence?",
+            "Should I pursue a master's degree in computer science?",
+            "How can I transition from software development to product management?",
+        ]
+    )
+
+    return chat_interface
+
+
 
 def main():
+    # Create and launch Gradio interface in a separate thread
+    interface = create_gradio_interface()
+    interface.launch(share=True, server_port=7860, server_name="0.0.0.0")
+    
+    # Continue with CLI interface
     print("Welcome to your personal assistant!")
     print("Ask any question related to career or education. Type 'quit' to exit.")
 
@@ -107,6 +159,9 @@ def main():
             break
 
     print("Thank you for using the Career and Education Guidance System. Goodbye!")
+
+
+
 
 if __name__ == "__main__":
     main()

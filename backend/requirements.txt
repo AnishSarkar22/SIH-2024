@@ -1,7 +1,10 @@
 flask
 flask_cors
 DateTime
+
 openai
+gradio
+
 gunicorn
 python-dotenv
 firebase-admin
