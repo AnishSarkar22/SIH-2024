@@ -374,18 +374,18 @@ export default function SignUp() {
           <div className="flex flex-col gap-2 mt-4">
             <button
               type="button"
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
+              className="w-full p-2 text-black dark:text-white border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
               onClick={handleGoogleSignup}
             >
-              <FontAwesomeIcon icon={faGoogle} className="mr-1" />
+              <FontAwesomeIcon icon={faGoogle} className="mr-1 text-black dark:text-white" />
               Sign up with Google
             </button>
             <button
               type="button"
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
+              className="w-full p-2 text-black dark:text-white border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
               onClick={handleFacebookSignup}
             >
-              <FontAwesomeIcon icon={faFacebook} className="mr-1" />
+              <FontAwesomeIcon icon={faFacebook} className="mr-1 text-black dark:text-white" />
               Sign up with Facebook
             </button>
           </div>

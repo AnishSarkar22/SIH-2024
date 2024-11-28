@@ -10,7 +10,7 @@ from chat import chat_routes
 
 app = Flask(__name__, static_folder='../dist')
 
-# Get the project root directory (parent of current file's directory)
+# Get project root directory (parent of current file's directory)
 ROOT_DIR = Path(__file__).parent.parent
 
 load_dotenv(ROOT_DIR / '.env')

@@ -1,9 +1,14 @@
 import openai
 import time
 import sys
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Replace with your actual API key
-client = openai.OpenAI(api_key='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')
+
+client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 def get_gpt4o(messages, max_tokens=1000):
     try:

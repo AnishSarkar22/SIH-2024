@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "react-feather";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,31 +8,38 @@ import Header from "./Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
+  faChevronLeft,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-300 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-800 w-12 h-12 flex items-center justify-center"
     onClick={onClick}
     style={{ marginLeft: "-20px" }}
   >
-    <ChevronLeft className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronLeft}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-300 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-800 w-12 h-12 flex items-center justify-center"
     onClick={onClick}
     style={{ marginRight: "-20px" }}
   >
-    <ChevronRight className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronRight}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
 const Dashboard = () => {
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
   const [sidebarShrink, setSidebarShrink] = useState(() => {
     const savedSidebarState = localStorage.getItem("sidebarState");
     return savedSidebarState === "shrink";
@@ -63,14 +70,14 @@ const Dashboard = () => {
   // display first name of the user
   useEffect(() => {
     try {
-      const userData = JSON.parse(localStorage.getItem('userData'));
+      const userData = JSON.parse(localStorage.getItem("userData"));
       if (userData && userData.name) {
-        const firstName = userData.name.split(' ')[0];
+        const firstName = userData.name.split(" ")[0];
         setUserName(firstName);
       }
     } catch (error) {
-      console.error('Error parsing user data:', error);
-      setUserName('Guest');
+      console.error("Error parsing user data:", error);
+      setUserName("Guest");
     }
   }, []);
 
@@ -230,7 +237,7 @@ const Dashboard = () => {
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6 py-8">
             <h1 className="text-3xl font-bold mb-8 text-center text-gray-700 dark:text-gray-200">
-              Welcome back, {userName || 'Guest'} 👋
+              Welcome back, {userName || "Guest"} 👋
             </h1>
             {/* Personal Assistant and Your Plan */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-gray-800 dark:text-white">
@@ -241,7 +248,10 @@ const Dashboard = () => {
                 </h2>
                 <div className="bg-gray-100 p-4 rounded-lg mb-4 dark:bg-gray-800">
                   <div className="flex items-center mb-2">
-                    <FontAwesomeIcon icon={faCircleUser} className="text-6xl rounded-full mr-2 p-2" />
+                    <FontAwesomeIcon
+                      icon={faCircleUser}
+                      className="text-6xl rounded-full mr-2 p-2"
+                    />
                     <div>
                       <p className="font-semibold text-2xl">Your Assistant</p>
                       <p className="text-gray-500 text-md">Sep 17 2024</p>
@@ -278,7 +288,9 @@ const Dashboard = () => {
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-800 dark:text-white">09:34</span>
+                      <span className="text-gray-800 dark:text-white">
+                        09:34
+                      </span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center px-4">
@@ -290,7 +302,9 @@ const Dashboard = () => {
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-800 dark:text-white">11:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        11:30
+                      </span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center px-4">
@@ -302,7 +316,9 @@ const Dashboard = () => {
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-800 dark:text-white">13:40</span>
+                      <span className="text-gray-800 dark:text-white">
+                        13:40
+                      </span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center px-4">
@@ -314,7 +330,9 @@ const Dashboard = () => {
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-800 dark:text-white">15:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        15:30
+                      </span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center px-4">
@@ -326,7 +344,9 @@ const Dashboard = () => {
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-800 dark:text-white">19:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        19:30
+                      </span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center px-4 pb-4">
@@ -338,7 +358,9 @@ const Dashboard = () => {
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-800 dark:text-white">11:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        11:30
+                      </span>
                     </div>
                   </div>
                 </div>

@@ -346,16 +346,16 @@ export default function Signin() {
           <div className="flex flex-col gap-2 mt-6">
             <button
               onClick={handleGoogleLogin}
-              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
+              className="w-full p-2 text-black dark:text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
             >
-              <FontAwesomeIcon icon={faGoogle} className="mr-1" />
+              <FontAwesomeIcon icon={faGoogle} className="mr-1 text-black dark:text-white" />
               Log in with Google
             </button>
             <button
               onClick={handleFacebookLogin}
-              className="w-full p-2 text-black border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
+              className="w-full p-2 text-black  dark:text-white border rounded-md dark:bg-gray-700 dark:border-gray-600 flex items-center justify-center gap-2 hover:bg-slate-100"
             >
-              <FontAwesomeIcon icon={faFacebook} className="mr-1"/>
+              <FontAwesomeIcon icon={faFacebook} className="mr-1 text-black dark:text-white"/>
               Log in with Facebook
             </button>
           </div>

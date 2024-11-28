@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import MHeader from "./MHeader"; // Import Mentor Header component
-import MSidebar from "./MSidebar"; // Import Mentor Sidebar component
+import MHeader from "./MHeader";
+import MSidebar from "./MSidebar";
 import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -10,25 +10,35 @@ import { INITIAL_EVENTS, createEventId } from "./services/event-utils.js"; // Im
 import Carousel from "react-multi-carousel"; // Import Carousel component
 import "react-multi-carousel/lib/styles.css"; // Import Carousel styles
 import "../index.css"; // Import the stylesheet
-import { ChevronLeft, ChevronRight } from "react-feather";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform w-10 h-10 rounded-full flex items-center justify-center shadow-lg  bg-gray-200 border border-gray-300 dark:bg-gray-700 dark:border-gray-600"
     onClick={onClick}
     style={{ marginTop: "8px" }}
   >
-    <ChevronLeft className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronLeft}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform p-3 rounded-full flex items-center justify-center shadow-lg w-10 h-10 bg-gray-200 border border-gray-300 dark:bg-gray-700 dark:border-gray-600"
     onClick={onClick}
     style={{ marginTop: "8px" }}
   >
-    <ChevronRight className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronRight}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
@@ -227,7 +237,9 @@ function MSchedule() {
                       }
 
                       // .fc .fc-daygrid-day-frame {
-                      //   border: 1px solid ${darkMode ? "#ffffff" : "#000000"} !important;
+                      //   border: 1px solid ${darkMode
+                        ? "#ffffff"
+                        : "#000000"} !important;
                       // }
 
                       .fc .fc-daygrid {
@@ -239,9 +251,9 @@ function MSchedule() {
               </div>
               {/* Upcoming Activities Section */}
               <div className="max-w-[3000px] p-7">
-              <h2 className="text-3xl text-gray-700 dark:text-white font-semibold mb-4">
-                    Upcoming Activities
-                  </h2>
+                <h2 className="text-3xl text-gray-700 dark:text-white font-semibold mb-4">
+                  Upcoming Activities
+                </h2>
                 <div className="bg-white text-gray-700 dark:text-white dark:bg-gray-900 rounded-lg shadow-md p-5">
                   <Carousel
                     responsive={responsive}
