@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      # dockerfile: Dockerfile.backend
+    # env_file:
+    #   - .env
+    ports:
+      - "5000:5000"
+    networks:
+      - default
+    # command: ["sh", "-c", "service nginx start && gunicorn --bind 0.0.0.0:5000 --chdir backend 'server:app'"]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    networks:
+      - default
+    # command: ["npm", "run", "dev"]
+    depends_on:
+      - backend
+
+networks:
+  default:
+    driver: bridge

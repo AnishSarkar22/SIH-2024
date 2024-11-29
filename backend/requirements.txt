@@ -1,0 +1,13 @@
+flask
+flask_cors 
+psycopg2-binary
+DateTime
+openai
+gunicorn
+python-dotenv
+firebase-admin
+Flask-PyMongo
+PyMongo
+bson
+# redis
+# Flask-Session
