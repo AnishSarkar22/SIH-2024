@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "intl-tel-input/build/css/intlTelInput.css";
 import intlTelInput from "intl-tel-input";
 import languages from "@cospired/i18n-iso-languages";
 import en from "@cospired/i18n-iso-languages/langs/en.json";
@@ -82,7 +83,7 @@ const ProfileCompletionForm = () => {
     e.preventDefault();
     if (validateForm()) {
       console.log("Form Submitted: ", formData);
-      navigate("/profile-completion-form2");
+      navigate("/basic-details2");
     }
   };
 

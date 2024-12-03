@@ -37,7 +37,7 @@
     "firebase": "^11.0.2",
     "flowbite": "^2.5.1",
     "fortawesome": "^0.0.1-security",
-    "intl-tel-input": "^24.7.0",
+    "intl-tel-input": "^24.8.0",
     "lucide-react": "^0.441.0",
     "moment-timezone": "^0.5.46",
     "react": "^18.3.1",
