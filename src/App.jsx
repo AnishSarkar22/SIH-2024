@@ -1,37 +1,40 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import Classes from './components/Classes';
-import Message from './components/Message';
-import Chat from './components/Chat';
-import MChat from './components/MChat';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import MProfile from './components/MProfile';
-import Statistics from './components/Statistics';
-import MStatistics from './components/MStatistics';
-import Notification from './components/Notification';
-import MNotification from './components/MNotification';
-import Setting from './components/Setting';
-import MSetting from './components/MSetting';
-import MDashboard from './components/MDashboard';
-import MMessage from './components/MMessage';
-import Mentor from './components/Mentor';
-import Leaderboard from './components/Leaderboard';
-import Signin from './components/Signin';
-import SignUp from './components/Signup';
-import AboutUs from './components/AboutUs';
+import Dashboard from './components/Mentee/Dashboard';
+import Classes from './components/Mentee/Classes';
+import Message from './components/Mentee/Message And Chat/Message';
+import Chat from './components/Mentee/Message And Chat/Chat';
+import MChat from './components/Mentor/Message And Chat/MChat';
+import Home from './components/Home/Home';
+import Profile from './components/Mentee/Profile/Profile';
+import MProfile from './components/Mentor/Profile/MProfile';
+import Statistics from './components/Mentee/Profile/Statistics';
+import MStatistics from './components/Mentor/Profile/MStatistics';
+import Notification from './components/Mentee/Profile/Notification';
+import MNotification from './components/Mentor/Profile/MNotification';
+import Setting from './components/Mentee/Profile/Setting';
+import MSetting from './components/Mentor/Profile/MSetting';
+import MDashboard from './components/Mentor/MDashboard';
+import MMessage from './components/Mentor/Message And Chat/MMessage';
+import Mentor from './components/Mentee/Mentor Option/Mentor';
+import Leaderboard from './components/Mentee/Leaderboard/Leaderboard';
+import Signin from './components/Login and Signup/Signin';
+import SignUp from './components/Login and Signup/Signup';
+import AboutUs from './components/AboutUs/AboutUs';
 // import HNavbar from './components/HNavbar';
-import BasicDetails from './components/BasicDetails/BasicDetails';
-import ProfileCompletionForm2 from './components/BasicDetails/ProfileCompletionForm2';
-import ApplyMentor from './components/ApplyMentor';
-import Blog from './components/blog';
-import Personal_AI from './components/Personal_AI';
-import MPersonal_AI from './components/MPersonal_AI';
-import Quiz from './components/Quiz';
-import Resource from './components/Resource';
-import MSchedule from './components/MSchedule';
+import BasicDetails from './components/BasicDetails';
+import ApplyMentor from './components/Apply Mentor/ApplyMentor';
+import Blog from './components/Blog/blog';
+import Personal_AI from './components/Mentee/Message And Chat/Personal_AI';
+import MPersonal_AI from './components/Mentor/Message And Chat/MPersonal_AI';
+import Quiz from './components/Mentee/Leaderboard/Quiz';
+import Resource from './components/Mentee/Resource';
+import MSchedule from './components/Mentor/MSchedule';
+import VideoCall from './components/VideoCall';
+import BasicDetails2 from './components/Basic Details/BasicDetails2';
+import ProfileCompletionForm2 from './components/Basic Details/ProfileCompletionForm2';
 // import PrivateRoute from './components/PrivateRoute'; 
+
 
 function App() {
   return (
@@ -78,10 +81,7 @@ function App() {
         <Route path="/mentor-profile/settings" element={<MSetting />} />
         <Route path="/mentors" element={<Mentor />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-
         <Route path="/basic-details" element={<BasicDetails />} />
-        <Route path='/basic-details2' element={<ProfileCompletionForm2 />} />
-        
         <Route path="/apply-mentor" element={<ApplyMentor />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/personal-ai" element={<Personal_AI />} /> {/* Added route for Personal_AI */}
@@ -89,8 +89,10 @@ function App() {
         <Route path="/quiz/:id" element={<Quiz />} />
         <Route path="/resources" element={<Resource />} />
         <Route path="/mentor-schedule" element={<MSchedule />} />
-
-          {/* Redirect to home if route does not exist */}
+        <Route path="/video-call" element={<VideoCall />} />
+        <Route path="/basic-details2" element={<BasicDetails2 />} />
+        <Route path="/profile-completion-form2" element={<ProfileCompletionForm2 />} />
+        {/* Redirect to home if route does not exist */}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </Router>

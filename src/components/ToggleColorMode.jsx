@@ -1,13 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleUser,
-  faChevronLeft,
-  faChevronRight,
-  faMoon,
-} from "@fortawesome/free-solid-svg-icons";
+import { MoonIcon } from "@heroicons/react/24/solid";
 
 function ToggleColorMode({ toggleColorMode, ...props }) {
   return (
@@ -17,7 +10,7 @@ function ToggleColorMode({ toggleColorMode, ...props }) {
       aria-label="Theme toggle button"
       {...props}
     >
-      <FontAwesomeIcon icon={faMoon} className="h-6 w-6" />
+      <MoonIcon className="h-6 w-6" />
     </button>
   );
 }

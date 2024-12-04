@@ -1,9 +1,9 @@
 module.exports = {
   content: [
     './src/**/*.{html,js,jsx,ts,tsx}',
-    './public/*.html'
+    './public/*.html',
   ],
-  darkMode: 'class', // This is correct
+  darkMode: 'class',
   theme: {
     extend: {
       scrollbar: {
