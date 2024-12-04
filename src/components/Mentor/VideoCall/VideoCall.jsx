@@ -30,10 +30,9 @@ import CallHeader from './CallHeader'; // Import the CallHeader component
 
 // Configuration
 const apiKey = 'mmhfdzb5evj2';
-// Update the token with a valid one
-const token = 'YOUR_NEW_VALID_JWT_TOKEN';
-const userId = 'Lumiya';
-const callId = '6aZpB5qow4Zo';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0tpdF9GaXN0byIsInVzZXJfaWQiOiJLaXRfRmlzdG8iLCJ2YWxpZGl0eV9pbl9zZWNvbmRzIjo2MDQ4MDAsImlhdCI6MTczMzMzMzE5MSwiZXhwIjoxNzMzOTM3OTkxfQ.evX4MhP8elPze7gQu4LMMTuy45K0Sz6E3GMvgSdybYs';
+const userId = 'Kit_Fisto';
+const callId = '7SiTkJ6xICf4';
 
 const user = {
   id: userId,
@@ -156,7 +155,7 @@ const ChatUI = ({ onClose, channelId }) => {
   };
 
   return (
-    <div className="fixed bottom-24 right-4 w-96 h-[32rem] bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-700">
+    <div className="fixed bottom-2 right-4 w-96 h-[32rem] bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-700">
       <Channel
         EmptyStateIndicator={NoMessages}
         SendButton={SendButton}
@@ -250,14 +249,14 @@ export default function App() {
   const toggleChat = () => setShowChat(!showChat);
 
   return (
-    <div className="bg-gray-800 py-16 text-white min-h-screen relative">
+    <div className="bg-gray-800 py-12 text-white min-h-screen relative">
       <StreamVideo client={videoClient}>
         <StreamTheme>
           <StreamCall call={call}>
             <CallHeader isTransparent={false} isActive={false} /> {/* Add CallHeader component */}
-            <SpeakerLayout />
-            <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center justify-center space-x-4 bg-gray-800 p-4 rounded-lg shadow-lg">
-              <CallControls />
+            <SpeakerLayout className="mt-4" />
+            <div className="fixed bottom-2 left-1/2 transform -translate-x-1/2 flex items-center justify-center space-x-4 bg-gray-800 p-2 rounded-lg shadow-lg">
+              <CallControls/>
               <button 
                 onClick={toggleParticipants}
                 className="bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition-colors"

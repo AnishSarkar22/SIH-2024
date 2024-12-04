@@ -16,7 +16,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import CardActions from "@mui/material/CardActions";
-import VideoCallApp from "../../VideoCall"; // Import the default export from VideoCall.jsx
+import VideoCallApp from "../VideoCall/VideoCall"; // Import the default export from VideoCall.jsx
 
 const initialMessages = [
   {

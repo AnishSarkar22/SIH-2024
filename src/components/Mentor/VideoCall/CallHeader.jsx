@@ -19,9 +19,9 @@ const CallHeader = ({ isTransparent, isActive }) => {
   };
 
   return (
-    <div className={`fixed top-0 left-0 right-0 flex items-center justify-between ${isTransparent ? 'bg-transparent' : 'bg-[var(--str-video__base-color7)]'} rounded-[var(--str-video__border-radius-xxl)] p-[var(--str-video__spacing-lg)] z-20 max-w-[800px] mx-auto`}>
+    <div className={`fixed top-1 left-1/2 transform -translate-x-1/2 flex items-center justify-between ${isTransparent ? 'bg-transparent' : 'bg-[var(--str-video__base-color7)]'} rounded-[var(--str-video__border-radius-xxl)] p-[var(--str-video__spacing-lg)] z-20 max-w-[800px] w-full mb-4`}>
       <div className="flex items-center gap-4 flex-1">
-        <img src="/images/logo-white-removebg-preview.svg" alt="Logo" className="w-8 h-8 sm:w-12 sm:h-12" />
+        <img src="/images/logo-white-removebg-preview.svg" alt="Logo" className="w-8 h-8 sm:w-12 sm:h-12 mb-2" />
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2 bg-[var(--str-video__base-color6)] p-1 rounded-[var(--str-video__border-radius-md)] text-[var(--str-video__font-size-xs)] font-semibold">

@@ -30,9 +30,9 @@ import MPersonal_AI from './components/Mentor/Message And Chat/MPersonal_AI';
 import Quiz from './components/Mentee/Leaderboard/Quiz';
 import Resource from './components/Mentee/Resource';
 import MSchedule from './components/Mentor/MSchedule';
-import VideoCall from './components/VideoCall';
 import BasicDetails2 from './components/Basic Details/BasicDetails2';
 import ProfileCompletionForm2 from './components/Basic Details/ProfileCompletionForm2';
+import VideoCall from './components/Mentor/VideoCall/VideoCall';
 // import PrivateRoute from './components/PrivateRoute'; 
 
 
@@ -89,9 +89,9 @@ function App() {
         <Route path="/quiz/:id" element={<Quiz />} />
         <Route path="/resources" element={<Resource />} />
         <Route path="/mentor-schedule" element={<MSchedule />} />
-        <Route path="/video-call" element={<VideoCall />} />
         <Route path="/basic-details2" element={<BasicDetails2 />} />
         <Route path="/profile-completion-form2" element={<ProfileCompletionForm2 />} />
+        <Route path="/video-call" element={<VideoCall />} />
         {/* Redirect to home if route does not exist */}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
