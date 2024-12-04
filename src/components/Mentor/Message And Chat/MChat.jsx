@@ -2,8 +2,8 @@
 // mentors can chat with mentees
 import React, { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import MSidebar from "./MSidebar";
-import MHeader from "./MHeader";
+import MSidebar from "../MSidebar";
+import MHeader from "../MHeader";
 import "webrtc-adapter";
 import Cal from "@calcom/embed-react";
 import Button from "@mui/material/Button";

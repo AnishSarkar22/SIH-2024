@@ -1,12 +1,81 @@
 import React, { useState, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight, FaMoon, FaSun } from "react-icons/fa";
-import { BsToggle2Off, BsToggle2On, BsBellFill } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+  faMagnifyingGlass,
+  faBell,
+} from "@fortawesome/free-solid-svg-icons";
+import { styled } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
+import Avatar from '@mui/material/Avatar';
+
+
+const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+  width: 62,
+  height: 34,
+  padding: 7,
+  "& .MuiSwitch-switchBase": {
+    margin: 1,
+    padding: 0,
+    transform: "translateX(6px)",
+    "&.Mui-checked": {
+      color: "#fff",
+      transform: "translateX(22px)",
+      "& .MuiSwitch-thumb:before": {
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+          "#fff"
+        )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
+      },
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: "#aab4be",
+        ...theme.applyStyles("dark", {
+          backgroundColor: "#8796A5",
+        }),
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    backgroundColor: "#001e3c",
+    width: 32,
+    height: 32,
+    "&::before": {
+      content: "''",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      left: 0,
+      top: 0,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+        "#fff"
+      )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
+    },
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#003892",
+    }),
+  },
+  "& .MuiSwitch-track": {
+    opacity: 1,
+    backgroundColor: "#aab4be",
+    borderRadius: 20 / 2,
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#8796A5",
+    }),
+  },
+}));
 
 const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
   const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const handleDarkModeToggle = (event) => {
+    toggleDarkMode(event.target.checked);
+  };
 
   useEffect(() => {
     try {
@@ -53,7 +122,11 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
     }
   }, []);
 
-  
+  const initials = userName
+  .split(" ")
+  .map((name) => name[0])
+  .join("");
+
   return (
     <header className="bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="flex items-center justify-between p-4">
@@ -65,9 +138,9 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
             aria-label="Toggle Sidebar"
           >
             {sidebarShrink ? (
-              <FaChevronRight size={24} />
+              <FontAwesomeIcon icon={faChevronRight} size="xl" /> // Increase the size of the icon
             ) : (
-              <FaChevronLeft size={24} />
+              <FontAwesomeIcon icon={faChevronLeft} size="xl" /> // Increase the size of the icon
             )}
           </button>
           <div className="relative flex-grow">
@@ -76,29 +149,20 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
               placeholder="Search Mentors..."
               className="w-full lg:w-[600px] ml-7 lg:ml-0 mt-2 lg:mt-0 p-2 pl-10 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-md transition-colors duration-300"
             />
-            <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 ml-7 lg:ml-0 mt-1 lg:mt-0"></i>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
+            />
           </div>
         </div>
 
         {/* Dark Mode Toggle, Notifications, and User Info */}
         <div className="flex items-center space-x-8">
-          <button
-            onClick={toggleDarkMode}
-            className="text-gray-500 focus:outline-none items-center space-x-2 hidden lg:flex dark:text-gray-300"
+          <MaterialUISwitch
+            checked={darkMode}
+            onChange={handleDarkModeToggle}
             aria-label="Toggle Dark Mode"
-          >
-            {darkMode ? (
-              <>
-                <FaMoon size={24} />
-                <BsToggle2On size={24} />
-              </>
-            ) : (
-              <>
-                <FaSun size={24} />
-                <BsToggle2Off size={24} />
-              </>
-            )}
-          </button>
+          />
 
           {/* Notifications Dropdown */}
           <div className="relative hidden lg:block">
@@ -108,7 +172,7 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
               aria-expanded={isDropdownOpen}
               aria-haspopup="true"
             >
-              <BsBellFill size={24} />
+              <FontAwesomeIcon icon={faBell} size="xl" />
             </button>
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
@@ -175,13 +239,11 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
           </div>
 
           {/* User Info */}
-          <div className="items-center px-5 py-2 space-x-5 hidden lg:flex border-2  border-gray-500  dark:bg-slate-300 rounded-lg">
-            <img
-              src="images/kankana.png"
-              alt="User avatar"
-              className="w-8 h-8 rounded-full"
-            />
-            <span className="text-gray-500 font-bold text-lg dark:text-gray-700">{userName}</span>
+          <div className="flex items-center space-x-2">
+          <Avatar sx={{ bgcolor: "#3f51b5" }}>{initials}</Avatar>
+            <span className="text-gray-700 dark:text-gray-200">
+              {userName || "Guest"}
+            </span>
           </div>
         </div>
       </div>

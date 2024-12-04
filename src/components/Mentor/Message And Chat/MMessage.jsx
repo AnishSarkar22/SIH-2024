@@ -2,8 +2,8 @@
 // mentors can see all the chats they have with mentees
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MSidebar from "./MSidebar";
-import MHeader from "./MHeader";
+import MSidebar from "../MSidebar";
+import MHeader from "../MHeader";
 import {
   collection,
   query,
@@ -12,7 +12,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { db } from "../../services/firebase";
+import { db } from "../../services/firebase.js";
 
 function MMessage() {
   const [chats, setChats] = useState([]);

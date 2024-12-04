@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import MSidebar from "./MSidebar";
-import MHeader from "./MHeader";
+import MSidebar from "../MSidebar";
+import MHeader from "../MHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXmark,

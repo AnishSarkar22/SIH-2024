@@ -10,7 +10,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { db } from "./services/firebase";
+import { db } from "../../services/firebase.js";
 
 function Message() {
   const navigate = useNavigate();

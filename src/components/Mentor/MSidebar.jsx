@@ -11,15 +11,8 @@ import {
   faCalendarDays,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  FaHome,
-  FaUserFriends,
-  FaFileAlt,
-  FaBookmark,
-  FaInbox,
   FaCalendarAlt,
-  FaSignOutAlt,
   FaUsers,
-  FaRegThumbsUp,
   FaUser,
   FaMedal,
   FaBars,
@@ -168,7 +161,10 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentor-dashboard")}
             >
               <div className="flex items-center">
-                <FaHome className="text-xl w-8 text-center" />
+              <FontAwesomeIcon
+                icon={faHouse}
+                className="text-xl w-8 text-center"
+              />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Home</span>
                 )}
@@ -185,7 +181,10 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentor-message")}
             >
               <div className="flex items-center">
-                <FaInbox className="text-xl w-8 text-center" />
+              <FontAwesomeIcon
+                icon={faInbox}
+                className="text-xl w-8 text-center"
+              />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Messages</span>
                 )}
@@ -202,7 +201,7 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentor-booking")}
             >
               <div className="flex items-center">
-                <FaRegThumbsUp className="text-xl w-8 text-center" />
+              <FontAwesomeIcon icon={faCalendarCheck} className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Bookings</span>
                 )}
@@ -219,7 +218,7 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentor-gsession")}
             >
               <div className="flex items-center">
-                <FaUsers className="text-xl w-8 text-center" />
+              <FontAwesomeIcon icon={faUsers} className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">
                     Group Sessions
@@ -255,14 +254,17 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentor-profile")}
             >
               <div className="flex items-center">
-                <FaUser className="text-xl w-8 text-center" />
+              <FontAwesomeIcon
+                icon={faCircleUser}
+                className="text-xl w-8 text-center"
+              />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Profile</span>
                 )}
               </div>
             </Link>
           </nav>
-          <div className="mt-auto mb-4 lg:absolute bottom-0">
+          <div className="mt-auto lg:absolute bottom-0">
             <Link
               to="/login"
               className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
@@ -274,7 +276,10 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/login")}
             >
               <div className="flex items-center">
-                <FaSignOutAlt className="text-xl w-8 text-center" />
+                <FontAwesomeIcon
+                  icon={faRightFromBracket}
+                  className="text-xl w-8 text-center"
+                />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Sign Out</span>
                 )}

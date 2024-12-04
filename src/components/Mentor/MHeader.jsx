@@ -1,17 +1,103 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  FaChevronLeft,
-  FaChevronRight,
-  FaMoon,
-  FaSun,
-} from "react-icons/fa"; // Correct imports
-import { BsToggle2Off, BsToggle2On } from "react-icons/bs"; // New toggle icons
+  faChevronLeft,
+  faChevronRight,
+  faMagnifyingGlass,
+  faBell,
+} from "@fortawesome/free-solid-svg-icons";
+import { styled } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
+import Avatar from '@mui/material/Avatar';
 
-const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
+const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+  width: 62,
+  height: 34,
+  padding: 7,
+  "& .MuiSwitch-switchBase": {
+    margin: 1,
+    padding: 0,
+    transform: "translateX(6px)",
+    "&.Mui-checked": {
+      color: "#fff",
+      transform: "translateX(22px)",
+      "& .MuiSwitch-thumb:before": {
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+          "#fff"
+        )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
+      },
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: "#aab4be",
+        ...theme.applyStyles("dark", {
+          backgroundColor: "#8796A5",
+        }),
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    backgroundColor: "#001e3c",
+    width: 32,
+    height: 32,
+    "&::before": {
+      content: "''",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      left: 0,
+      top: 0,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+        "#fff"
+      )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
+    },
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#003892",
+    }),
+  },
+  "& .MuiSwitch-track": {
+    opacity: 1,
+    backgroundColor: "#aab4be",
+    borderRadius: 20 / 2,
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#8796A5",
+    }),
+  },
+}));
+
+const MHeader = ({
+  toggleSidebar,
+  sidebarShrink,
+  darkMode,
+  toggleDarkMode,
+}) => {
+  const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData && userData.name) {
+        setUserName(userData.name);
+      }
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      setUserName("Guest");
+    }
+  }, []);
+
+  const initials = userName
+    .split(" ")
+    .map((name) => name[0])
+    .join("");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleDarkModeToggle = (event) => {
+    toggleDarkMode(event.target.checked);
   };
 
   useEffect(() => {
@@ -58,42 +144,35 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
             onClick={toggleSidebar}
             className="text-gray-500 focus:outline-none"
             aria-label="Toggle Sidebar"
-            style={{ width: '50px', height: '50px' }} // Increase the size of the button
+            style={{ width: "50px", height: "50px" }} // Increase the size of the button
           >
             {sidebarShrink ? (
-              <FaChevronRight size={24} /> // Increase the size of the icon
+              <FontAwesomeIcon icon={faChevronRight} size="xl" /> // Increase the size of the icon
             ) : (
-              <FaChevronLeft size={24} /> // Increase the size of the icon
+              <FontAwesomeIcon icon={faChevronLeft} size="xl" /> // Increase the size of the icon
             )}
           </button>
-          {/* <div className="relative flex-grow mr-4" style={{ width: "300%" }}>
+          <div className="relative flex-grow">
             <input
               type="text"
               placeholder="Search Mentors..."
-              className="w-[600px] p-2 pl-10 rounded-full border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm shadow-gray-600"
+              className="w-full lg:w-[600px] ml-7 lg:ml-0 mt-2 lg:mt-0 p-2 pl-10 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-md transition-colors duration-300"
             />
-            <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
-          </div> */}
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
+            />
+          </div>
         </div>
+
+        {/* Dark Mode Toggle, Notifications, and User Info */}
         <div className="flex items-center space-x-8">
-          <button
-            onClick={toggleDarkMode}
-            className="text-gray-500 focus:outline-none lg:flex hidden items-center space-x-6"
+          <MaterialUISwitch
+            checked={darkMode}
+            onChange={handleDarkModeToggle}
             aria-label="Toggle Dark Mode"
-            style={{ width: '80px', height: '60px' }} // Increase the size of the button
-          >
-            {darkMode ? (
-              <>
-                <FaMoon size={30} /> 
-                <BsToggle2On size={40} /> 
-              </>
-            ) : (
-              <>
-                <FaSun size={30} /> 
-                <BsToggle2Off size={40} /> 
-              </>
-            )}
-          </button>
+          />
+
           <div className="relative hidden lg:block">
             <button
               id="dropdownNotificationButton"
@@ -181,18 +260,13 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
             )}
           </div>
           <div className="lg:flex hidden items-center space-x-2">
-            <img
-              src="images/avatar-anisha.png"
-              alt="User avatar"
-              className="w-8 h-8 rounded-full"
-            />
+          <Avatar sx={{ bgcolor: "#3f51b5" }}>{initials}</Avatar>
+
             <span className="text-gray-700 dark:text-gray-200">
-            Radhika 
+              {userName || "Guest"}
             </span>
           </div>
-          <button
-            className="flex items-center px-8 py-2 mt-2 lg:mt-0 lg:px-4 lg:py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
+          <button className="flex items-center px-8 py-2 mt-2 lg:mt-0 lg:px-4 lg:py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <i className="fa-solid fa-plus mr-2"></i> {/* Plus Icon */}
             <span>Create Session</span> {/* Button Text */}
           </button>
