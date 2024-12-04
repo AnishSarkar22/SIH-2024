@@ -1,29 +1,40 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "react-feather";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import "ldrs/tailChase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleUser,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-300 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-800 w-12 h-12 flex items-center justify-center"
     onClick={onClick}
     style={{ marginLeft: "-20px" }}
   >
-    <ChevronLeft className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronLeft}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-300 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-800 w-12 h-12 flex items-center justify-center"
     onClick={onClick}
     style={{ marginRight: "-20px" }}
   >
-    <ChevronRight className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronRight}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
@@ -216,9 +227,9 @@ const Dashboard = () => {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto mt-7 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6 py-8">
-            <h1 className="text-3xl font-bold mb-8 text-center text-gray-700 dark:text-gray-200">
+            <h1 className="text-3xl font-bold mb-12 text-center text-gray-700 dark:text-gray-200">
               Welcome back, {userName || "Guest"} 👋
             </h1>
             {/* Personal Assistant and Your Plan */}
@@ -230,7 +241,10 @@ const Dashboard = () => {
                 </h2>
                 <div className="bg-gray-100 lg:p-4 rounded-lg mb-4 dark:bg-gray-800">
                   <div className="flex items-center mb-6 lg:mb-3">
-                    <i className="fas fa-user-circle text-5xl lg:text-6xl rounded-full mr-2 p-2"></i>
+                  <FontAwesomeIcon
+                      icon={faCircleUser}
+                      className="text-6xl rounded-full mr-2 p-2"
+                    />
                     <div>
                       <p className="font-semibold text-xl lg:text-2xl">
                         Your Assistant
@@ -357,22 +371,19 @@ const Dashboard = () => {
               <div id="indicators-carousel" className="relative w-full">
                 <Slider ref={sliderRef} {...settings}>
                   {mentors.map((mentor, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-center px-1 py-12 lg:py-0 lg:pb-20"
-                    >
-                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 w-full h-70 flex flex-col mx-4 border border-gray-300 dark:border-gray-800">
-                        <div className="lg:flex items-start mb-4">
+                    <div key={index} className="flex justify-center px-1">
+                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-90 h-64 flex flex-col mx-4 border border-gray-300 dark:border-gray-800">
+                        <div className="flex items-start mb-4">
                           <img
                             src={mentor.image}
                             alt={mentor.name}
-                            className="w-25 h-24 rounded-lg mx-auto lg:mx-0"
+                            className="w-25 h-24 rounded-lg"
                           />
-                          <div className="lg:ml-4 mt-2 lg:mt-0 flex-1">
-                            <h3 className="font-semibold text-md lg:text-lg text-gray-900 dark:text-gray-100">
+                          <div className="ml-4 flex-1">
+                            <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100">
                               {mentor.name}
                             </h3>
-                            <p className="text-xs lg:text-sm text-gray-600 dark:text-gray-400">
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
                               {mentor.role}
                             </p>
                             <div className="flex items-center mt-1">
@@ -381,7 +392,7 @@ const Dashboard = () => {
                               </span>
                             </div>
                           </div>
-                          <span className="ml-auto text-xs lg:text-xl font-semibold dark:text-white">
+                          <span className="ml-auto font-semibold dark:text-white">
                             {mentor.price}
                           </span>
                         </div>

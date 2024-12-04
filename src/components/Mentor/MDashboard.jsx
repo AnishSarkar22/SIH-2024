@@ -75,8 +75,8 @@ function MDashboard() {
           toggleDarkMode={toggleDarkMode}
           darkMode={darkMode}
         />
-        <main className="flex-1 p-8 dark:bg-gray-900">
-          <div className="flex justify-between items-center mb-8  text-gray-800 dark:text-white">
+        <main className="flex-1 p-8 mt-7 dark:bg-gray-900">
+          <div className="flex justify-between items-center mb-14  text-gray-800 dark:text-white">
             <div>
               <h1 className="text-2xl font-bold dark:text-white">
                 Hello, {userName || "Guest"} 👋
