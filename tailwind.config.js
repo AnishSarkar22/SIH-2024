@@ -23,10 +23,13 @@ module.exports = {
         slide: 'slide 1.5s forwards',
       },
       fontFamily: {
-        custom: ['"Be Vietnam Pro"', 'sans-serif'],
+        'aeonik-bold': ['AeonikBold', 'sans-serif'],
       },
       colors: {
         '2F4454': '#2F4454',
+        primary: '#077f7f',
+        secondary: '#2f4454',
+        hover: '#f0f6f9',
       }
     },
   },

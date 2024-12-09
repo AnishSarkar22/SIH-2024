@@ -179,7 +179,7 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
                 )}
               </div>
             </Link>
-            <Link
+            {/* <Link
               to="/mentor-booking" // Keep this consistent with your routing
               className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
                 isSidebarShrink
@@ -195,7 +195,7 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
                   <span className="ml-3 text-lg sidebar-text">Bookings</span>
                 )}
               </div>
-            </Link>
+            </Link> */}
             <Link
               to="/group-sessions" // Changed from /mentor-gsession
               className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${

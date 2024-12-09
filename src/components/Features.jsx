@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import BeVietnamProBold from "../fonts/BeVietnamPro-Bold.woff";
 
 const CardStack = ({ cards }) => {
   const [stack, setStack] = useState(cards);
@@ -101,15 +100,7 @@ const CardStack = ({ cards }) => {
 
 export default function Features() {
   const styles = {
-    "@font-face": {
-      fontFamily: "Be Vietnam Pro",
-      fontStyle: "normal",
-      fontWeight: "bold",
-      src: `url(${BeVietnamProBold}) format('woff')`,
-      fontDisplay: "swap",
-    },
-    fontFamily: "Be Vietnam Pro, sans-serif",
-    fontWeight: "bold",
+    fontFamily: "'Aeonik', sans-serif"
   };
 
   const cardData = [
@@ -148,46 +139,56 @@ export default function Features() {
         <img
           src={card.image}
           alt={card.title}
-          className="w-14 h-16 sm:w-17 sm:h-19 mb-1 sm:mb-6 pointer-events-none"
+          className="w-14 h-14 sm:w-17 sm:h-19 mb-1 sm:mb-6 pointer-events-none"
         />
       ) : (
         <img
           src={card.video}
           alt={card.title}
-          className="w-60 h-60 sm:w-72 sm:h-32 mb-2 sm:mb-1 md:h-60 md:w-80 pointer-events-none object-cover"
+          className="w-60 h-48 sm:w-72 sm:h-32 mb-2 sm:mb-1 md:h-60 md:w-80 pointer-events-none object-cover"
         />
       )}
       <h3 className="text-lg sm:text-xl font-semibold text-2F4454 mb-1 sm:mb-0 mt-0 text-center pointer-events-none">
         {card.title}
       </h3>
-      <p className="text-sm sm:text-base text-gray-600 text-center mt-1 sm:mt-2 pointer-events-none">
+      <p className="text-sm sm:text-base text-gray-600 text-center mt-0 sm:mt-2 pointer-events-none">
         {card.description}
       </p>
     </div>
   ));
 
   return (
-    <section
-      className="py-20 md:py-40 xl:py-10 bg-white mt-[100px] sm:mt-[200px] md:mt-[-50px] lg:mt-[-100px] xl:mt-[-10px] relative bg-[url('static/bg-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[175%_100%] pb-[100px] top-[-40px]"
-      style={styles}
-    >
+    <section className="py-20 md:py-40 xl:py-1 bg-white mt-[100px] sm:mt-[200px] md:mt-[-50px] lg:mt-[-100px] xl:mt-[-10px] relative bg-[url('static/bg-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[175%_100%] pb-[100px] top-[-40px]">
       <div className="relative mx-auto px-4 sm:px-6 lg:px-8 bg-[length:45rem] bg-no-repeat bg-center flex flex-col md:flex-row items-center md:items-start">
-        <div className="w-full md:w-1/2 flex justify-center md:justify-start">
+        {/* Heading for mobile - shows first */}
+        <h2 className="md:hidden text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D5466] mb-8 text-center order-1">
+          At your fingertips: a dedicated coach
+        </h2>
+
+        {/* Card Stack - shows second on mobile */}
+        <div className="w-full md:w-1/2 flex justify-center md:justify-start order-2 md:order-none">
           <div className="w-full mt-8 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl px-4 md:ml-24">
             <CardStack cards={cards} />
           </div>
         </div>
+
+        {/* Text content container */}
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-end text-center md:text-right mt-10 md:mt-24 md:mr-40 mb-40">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D5466] mb-12 sm:mb-6">
+          {/* Desktop heading - hidden on mobile */}
+          <h2 className="hidden md:block text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D5466] mb-12 sm:mb-6">
             At your fingertips: a dedicated coach
           </h2>
-          <p className="text-sm sm:text-base text-center text-gray-600 mt-3 md:mr-10 sm:mt-5 max-w-2xl mx-auto md:mx-0">
+
+          {/* Paragraph - shows third on mobile */}
+          <p className="text-sm sm:text-base text-center text-gray-600 mt-3 md:mr-10 sm:mt-5 max-w-2xl mx-auto md:mx-0 order-3 md:order-none">
             Want to build your career, successfully repair your relationships,
             and
             <br className="hidden sm:inline" />
             enhance your education for a brighter future?
           </p>
-          <div className="flex gap-4 mt-12 sm:mt-[70px] md:mr-56 justify-center md:justify-end ">
+
+          {/* Button - shows last on mobile */}
+          <div className="flex gap-4 mt-12 sm:mt-[70px] md:mr-56 justify-center md:justify-end order-4 md:order-none">
             <a
               href="#"
               className="bg-[#2F4454] text-white font-bold py-2 px-4 sm:py-3 sm:px-6 rounded-lg hover:bg-teal-700 transition duration-300 text-sm sm:text-base"

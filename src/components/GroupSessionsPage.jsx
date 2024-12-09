@@ -5,6 +5,7 @@ import {
   faCalendar,
   faClock,
   faCheck,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import MSidebar from "./MSidebar";
@@ -317,11 +318,19 @@ const GroupSessionsPage = () => {
                 >
                   User Details
                 </h2>
-                <div className="space-y-2 overflow-y-auto max-h-[50vh] lg:max-h-[calc(100vh-180px)] pr-2">
+                <div className="space-y-2 overflow-y-auto max-h-[50vh] lg:max-h-[calc(100vh-180px)] pr-2 sm:pr-1
+                [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar]:rounded-full
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-track]:rounded-full
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  dark:[&::-webkit-scrollbar-track]:bg-slate-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-slate-500">
                   {users.map((user, index) => (
                     <div
                       key={index}
-                      className={`flex items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-lg hover:shadow-md transition-all duration-200 ${
+                      className={`flex items-center gap-2 sm:gap-4 p-1 sm:p-4 rounded-lg hover:shadow-md transition-all duration-200 ${
                         darkMode ? "hover:bg-gray-900" : "hover:bg-gray-100"
                       }`}
                     >
@@ -350,6 +359,26 @@ const GroupSessionsPage = () => {
                           {user.time} · {user.date}
                         </div>
                       </div>
+                      <td className="px-3 sm:px-1 py-3 sm:py-1">
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <button
+                            className={`px-4 py-1 text-green-500 border border-green-500 rounded-md sm:px-4 sm:py-2 text-xs sm:text-sm font-medium ${
+                              darkMode
+                                ? "hover:bg-green-900"
+                                : "hover:bg-green-100"
+                            }`}
+                          >
+                            <FontAwesomeIcon icon={faCheck} />
+                          </button>
+                          <button
+                            className={`px-2 py-1 text-red-500 border border-red-500 rounded-md sm:px-4 sm:py-2 text-xs sm:text-sm font-medium ${
+                              darkMode ? "hover:bg-red-950" : "hover:bg-red-100"
+                            }`}
+                          >
+                            <FontAwesomeIcon icon={faXmark} />
+                          </button>
+                        </div>
+                      </td>
                     </div>
                   ))}
                 </div>

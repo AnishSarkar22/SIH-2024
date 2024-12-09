@@ -133,7 +133,7 @@ function MSchedule() {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700">
           <div className="container mx-auto px-6">
             {/* <h1 className="text-3xl font-bold text-center text-gray-700 dark:text-gray-200">
               Classes Page

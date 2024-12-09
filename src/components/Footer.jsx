@@ -1,17 +1,8 @@
 import React from "react";
-import BeVietnamProBold from "../fonts/BeVietnamPro-Bold.woff";
 
 export default function Footer() {
   const styles = {
-    "@font-face": {
-      fontFamily: "Be Vietnam Pro",
-      fontStyle: "normal",
-      fontWeight: "bold",
-      src: `url(${BeVietnamProBold}) format('woff')`,
-      fontDisplay: "swap",
-    },
-    fontFamily: "Be Vietnam Pro, sans-serif",
-    fontWeight: "bold",
+    fontFamily: "'Aeonik', sans-serif"
   };
   return (
     <footer
