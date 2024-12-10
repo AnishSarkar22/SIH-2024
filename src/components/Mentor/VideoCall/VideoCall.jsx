@@ -249,7 +249,7 @@ export default function App() {
   const toggleChat = () => setShowChat(!showChat);
 
   return (
-    <div className="bg-gray-800 py-12 text-white min-h-screen relative">
+    <div className="bg-gray-800 py-13 text-white min-h-screen relative">
       <StreamVideo client={videoClient}>
         <StreamTheme>
           <StreamCall call={call}>
