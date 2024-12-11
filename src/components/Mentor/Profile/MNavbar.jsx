@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function MNavbar() {
   return (
     <nav className="bg-white dark:bg-gray-900 p-6 mb-6 shadow-md">
-      <ul className="flex space-x-4 lg:space-x-16 text-center justify-start">
+      <ul className="flex space-x-16 text-center justify-start">
         <li>
           <Link to="/mentor-profile"
             className="tab-link text-black dark:text-white hover:text-blue-800 dark:hover:text-blue-400 transition-colors duration-300 relative"

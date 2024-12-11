@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FilterComponent from "./FilterComponent";
+import { Link } from "react-router-dom";
 
 function Mentar_card({ darkMode }) {
   const [filters, setFilters] = useState({ language: "", domain: "" });
@@ -86,14 +87,14 @@ function Mentar_card({ darkMode }) {
             key={index}
             className={`rounded-lg p-6 max-w-3xl mx-auto ${cardStyles} mb-6`}
           >
-            <div className="lg:flex items-start mb-4">
+            <div className="flex items-start mb-4">
               <img
-                className="w-24 h-24 mb-3 lg:mb-0 rounded-full object-cover border-2 border-blue-500"
+                className="w-24 h-24 rounded-full object-cover border-2 border-blue-500"
                 src={mentor.image}
                 alt={mentor.name}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
-              <div className="lg:ml-6 flex-1">
+              <div className="ml-6 flex-1">
                 <h2
                   className={`text-2xl font-bold ${
                     darkMode ? "text-white" : "text-gray-900"
@@ -142,10 +143,12 @@ function Mentar_card({ darkMode }) {
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end lg:justify-between items-center">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">
-                View Profile
-              </button>
+            <div className="mt-6 flex justify-between items-center">
+              <Link to="/mentor-profile-details">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">
+                  View Profile
+                </button>
+              </Link>
             </div>
           </div>
         ))}

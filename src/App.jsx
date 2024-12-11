@@ -22,18 +22,25 @@ import Signin from './components/Login and Signup/Signin';
 import SignUp from './components/Login and Signup/Signup';
 import AboutUs from './components/AboutUs/AboutUs';
 // import HNavbar from './components/HNavbar';
-import BasicDetails from './components/BasicDetails';
 import ApplyMentor from './components/Apply Mentor/ApplyMentor';
-import Blog from './components/Blog/blog';
+import Blog from './components/Blogs/blog';
 import Personal_AI from './components/Mentee/Message And Chat/Personal_AI';
 import MPersonal_AI from './components/Mentor/Message And Chat/MPersonal_AI';
 import Quiz from './components/Mentee/Leaderboard/Quiz';
 import Resource from './components/Mentee/Resource';
 import MSchedule from './components/Mentor/MSchedule';
 import BasicDetails2 from './components/Basic Details/BasicDetails2';
-import ProfileCompletionForm2 from './components/Basic Details/ProfileCompletionForm2';
 import VideoCall from './components/Mentor/VideoCall/VideoCall';
 // import PrivateRoute from './components/PrivateRoute'; 
+import Blog1 from './components/Blogs/Blog1';
+import Blog2 from './components/Blogs/Blog2';
+import Blog3 from './components/Blogs/Blog3';
+import Blog4 from './components/Blogs/Blog4';
+import Blog5 from './components/Blogs/Blog5';
+import Blog6 from './components/Blogs/Blog6';
+import GroupSessions from './components/Mentor/GroupSessionsPage';
+import Bookings from './components/Mentor/Bookings';
+import Mentorprofile from './components/Mentee/Mentor Details/Mentorprofile';
 
 
 function App() {
@@ -81,18 +88,24 @@ function App() {
         <Route path="/mentor-profile/settings" element={<MSetting />} />
         <Route path="/mentors" element={<Mentor />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/basic-details" element={<BasicDetails />} />
         <Route path="/apply-mentor" element={<ApplyMentor />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/codementor-review-is-it-the-coding-mentor-youve-been-dreaming-of" element={<Blog1 />} />
+        <Route path="/blog/intj-meaning-what-it-really-means-for-your-tech-career" element={<Blog2 />} />
+        <Route path="/blog/tips-for-effective-remote-work" element={<Blog3 />} />
+        <Route path="/blog/understanding-javascript-closures" element={<Blog4 />} />
+        <Route path="/blog/beginners-guide-to-react" element={<Blog5 />} />
+        <Route path="/blog/top-web-development-trends-2024" element={<Blog6 />} />
+        <Route path="/one-to-one-booking" element={<Bookings />} />
         <Route path="/personal-ai" element={<Personal_AI />} /> {/* Added route for Personal_AI */}
         <Route path="/mpersonal-ai" element={<MPersonal_AI />} /> {/* Added route for MPersonal_AI */}
         <Route path="/quiz/:id" element={<Quiz />} />
         <Route path="/resources" element={<Resource />} />
+        <Route path="/group-sessions" element={<GroupSessions />} />
         <Route path="/mentor-schedule" element={<MSchedule />} />
-        <Route path="/basic-details2" element={<BasicDetails2 />} />
-        <Route path="/profile-completion-form2" element={<ProfileCompletionForm2 />} />
+        <Route path="/basic-details" element={<BasicDetails2 />} />
         <Route path="/video-call" element={<VideoCall />} />
-        {/* Redirect to home if route does not exist */}
+        <Route path="/mentor-profile-details" element={<Mentorprofile />} />
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </Router>

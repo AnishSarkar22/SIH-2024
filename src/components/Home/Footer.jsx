@@ -1,19 +1,9 @@
 import React from "react";
-import BeVietnamProBold from "../../fonts/BeVietnamPro-Bold.woff";
 
 export default function Footer() {
   const styles = {
-    "@font-face": {
-      fontFamily: "Be Vietnam Pro",
-      fontStyle: "normal",
-      fontWeight: "bold",
-      src: `url(${BeVietnamProBold}) format('woff')`,
-      fontDisplay: "swap",
-    },
-    fontFamily: "Be Vietnam Pro, sans-serif",
-    fontWeight: "bold",
+    fontFamily: "'Aeonik', sans-serif"
   };
-
   return (
     <footer
       id="footer"
@@ -27,22 +17,21 @@ export default function Footer() {
       {/* FLEX CONTAINER */}
       <div className="container flex flex-col-reverse justify-between px-6 py-1 h-full mx-auto space-y-8 lg:flex-row lg:space-y-0">
         {/* LOGO AND SOCIAL MEDIA LINKS CONTAINER */}
-        <div className="flex flex-col-reverse items-center justify-between space-y-12 lg:flex-col lg:items-start lg:justify-center lg:space-y-2">
+        <div className="flex flex-col-reverse items-center justify-between space-y-12 lg:flex-col lg:space-y-2 lg:items-start">
           {/* LOGO */}
-          <div className="lg:pt-10 pl-6 ml-5 lg:pl-0 lg:non lg:justify-start lg:w-full">
+          <div className="hidden sm:block lg:pt-10 pl-6 ml-5">
             <a href="/templates/index.html">
               <img
-              className="hidden lg:block"
                 src="images/logo-white-removebg-preview.svg"
                 height={40}
-                width={200}
+                width={120}
                 alt="logo"
               />
             </a>
           </div>
           {/* SOCIAL MEDIA LINKS */}
-          <div className="flex flex-row items-center justify-center w-full space-x-3 lg:pb-8 sm:py-8 ">
-            <ul className="flex flex-row justify-center list-none pt-12 space-x-8 lg:space-x-6">
+          <div className="flex flex-row items-center justify-between w-full space-x-3 lg:pb-8 sm:py-8">
+            <ul className="flex flex-row justify-between list-none pt-12 gap-4">
               <li>
                 <a href="#" aria-label="Visit our Facebook page">
                   <svg className="social-icons-footer text-white fill-current transition ease-in h-8 w-8 hover:text-teal-600 scale-150 md:h-6 md:scale-150">
@@ -81,7 +70,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        {/* FOOTER NAVIGATION LINK MENUS */}
+        {/*FOOTER NAVIGATION LINK MENUS */}
         <div className="flex justify-around space-x-32 mx-auto lg:pt-14">
           {/* MENU 1 */}
           <div className="flex flex-col space-y-4 text-white">
@@ -175,7 +164,7 @@ export default function Footer() {
         <p className="text-darkGrayishBlue">Copyright 2020. All Rights Reserved</p>
       </div> */}
       {/* ATTRIBUTIONS BANNER */}
-      <div className="flex flex-col attribution bg-veryDarkBlue py-4 items-center sm:py-2 mr-6 lg:ml-6">
+      <div className="flex flex-col attribution bg-veryDarkBlue py-4 items-center sm:py-2">
         <p className="text-white text-center sm:px-5">
           Copyright 2024. All Rights Reserved
         </p>

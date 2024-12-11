@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import Header from "../Header";
@@ -66,18 +66,6 @@ const Chat = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isCalModalOpen, setIsCalModalOpen] = useState(false);
 
-  const messagesEndRef = useRef(null);
-  const fileInputRef = useRef(null);
-  const calModalContentRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const toggleSidebar = () => {
     setSidebarShrink(!sidebarShrink);
   };
@@ -86,6 +74,8 @@ const Chat = () => {
     setDarkMode(!darkMode);
     localStorage.setItem("darkMode", !darkMode ? "enabled" : "disabled");
   };
+
+  const fileInputRef = useRef(null);
 
   const handleAttachmentClick = () => {
     fileInputRef.current.click();
@@ -188,7 +178,6 @@ const Chat = () => {
               </div>
             </div>
           ))}
-          <div ref={messagesEndRef} />
         </div>
         {selectedFile && (
           <div className="p-4 border-t dark:border-gray-700">
@@ -241,7 +230,7 @@ const Chat = () => {
       {/* Cal function  */}
       {isCalModalOpen && (
        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-       <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 p-2 lg:p-6 rounded-lg shadow-lg w-full max-w-4xl h-[100vh] lg:h-[80vh] overflow-y-auto">
+       <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 p-6 rounded-lg shadow-lg w-full max-w-4xl h-[80vh]">
          <div className="flex justify-between items-center mb-4">
            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Schedule a Meeting</h2>
            <button
@@ -251,7 +240,7 @@ const Chat = () => {
              <RxCross2 className="w-6 h-6" />
            </button>
          </div>
-         <div className="w-full h-full overflow-y-auto" ref={calModalContentRef}>
+         <div className="w-full h-full overflow-hidden">
            <Cal calLink="rick/get-rick-rolled" className="w-full h-full border-none"  />
          </div>
        </div>

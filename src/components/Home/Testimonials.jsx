@@ -4,22 +4,14 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Helmet } from 'react-helmet';
-import BeVietnamProBold from '../../fonts/BeVietnamPro-Bold.woff';
+
 
 export default function Testimonials() {
-  const styles = {
-    "@font-face": {
-      fontFamily: 'Be Vietnam Pro',
-      fontStyle: 'normal',
-      fontWeight: 'bold',
-      src: `url(${BeVietnamProBold}) format('woff')`,
-      fontDisplay: 'swap',
-    },
-    fontFamily: 'Be Vietnam Pro, sans-serif',
-    fontWeight: 'bold',
-  };
   const swiperRef = useRef(null);
+
+  const styles = {
+    fontFamily: "'Aeonik', sans-serif"
+  };
 
   useEffect(() => {
     if (swiperRef.current) {
@@ -57,8 +49,8 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="overflow-hidden py-0 mt-[-33px] bg-[url('static/bg-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[160%_10%]" style={styles}>
-      <h2 className="text-4xl font-bold text-center py-4 mt-7">Success Stories</h2>
+    <section id="testimonials" className="overflow-hidden py-0 -mt-2 bg-[url('static/bg-pattern.svg')] bg-[length:50rem] bg-no-repeat bg-[160%_10%]" style={styles}>
+      <h2 className="text-4xl font-bold text-center py-2 mt-2">Success Stories</h2>
       <p className="text-gray-600 text-center max-w-md mx-auto mt-7">
         Still not convinced?
         <br />

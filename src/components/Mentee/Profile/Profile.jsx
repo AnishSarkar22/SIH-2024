@@ -82,13 +82,13 @@ function Profile() {
         <Navbar />
         <div className="flex-1 p-6 overflow-auto">
           <div id="profile-content" className="content-section">
-            <div className="mb-6 text-5xl font-bold dark:text-white text-center lg:text-left">
+            <div className="mb-6 text-5xl font-bold dark:text-white">
               <h1>Your Profile</h1>
             </div>
             <div className="flex-1 space-y-7">
               {/* Personal Information */}
               <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h2 className="text-2xl lg:text-3xl font-semibold mb-6 dark:text-white text-center lg:text-left">
+                <h2 className="text-3xl font-semibold mb-6 dark:text-white">
                   Personal Information
                 </h2>
                 <div className="space-y-6">
@@ -129,14 +129,14 @@ function Profile() {
                       ref={fileInputRef} // Assign the ref to the input
                     />
                   </div>
-                  <div className="lg:grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-2 gap-6">
                     {/* Fields for personal information */}
                     {Object.keys(profileData).map((key) => (
                       <div key={key} className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-1 lg:mb-3 dark:text-white dark:font-bold">
+                        <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
                           {key.charAt(0).toUpperCase() + key.slice(1)}
                         </label>
-                        <div className="flex items-center border border-black rounded-xl dark:border-gray-600 mb-2 lg:mb-0">
+                        <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
                           <input
                             type="text"
                             name={key}
@@ -178,7 +178,7 @@ function Profile() {
                         type="radio"
                         name="availability"
                         value={timeSlot}
-                        className="form-radio h-6 w-6 text-blue-600 rounded-full border-gray-900 checked:bg-blue-600 checked:border-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+                        className="form-radio h-6 w-6 text-blue-600 rounded-full border-gray-300 checked:bg-blue-600 checked:border-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
                       />
                       <span className="ml-2 text-sm">{timeSlot}</span>
                     </label>

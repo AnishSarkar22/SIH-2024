@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import {
   CallingState,
   StreamCall,
@@ -10,10 +10,10 @@ import {
   CallParticipantsList,
   DeviceSettings,
   Icon,
-} from '@stream-io/video-react-sdk';
-import '@stream-io/video-react-sdk/dist/css/styles.css';
-import { useNavigate } from 'react-router-dom';
-import { FaUserGroup } from 'react-icons/fa6';
+} from "@stream-io/video-react-sdk";
+import "@stream-io/video-react-sdk/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
+import { FaUserGroup } from "react-icons/fa6";
 import {
   Chat,
   Channel,
@@ -23,29 +23,28 @@ import {
   useChannelStateContext,
   useChatContext,
   MESSAGE_ACTIONS,
-} from 'stream-chat-react';
-import 'stream-chat-react/dist/css/v2/index.css';  // Updated import path
-import { StreamChat } from 'stream-chat';
-import CallHeader from './CallHeader'; // Import the CallHeader component
+} from "stream-chat-react";
+import "stream-chat-react/dist/css/v2/index.css"; // Updated import path
+import { StreamChat } from "stream-chat";
+import CallHeader from "./CallHeader"; // Import the CallHeader component
+import { useCreateStreamChatClient } from "./useCreateStreamChatClient"; // Import the custom hook
 
 // Configuration
-const apiKey = 'mmhfdzb5evj2';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0tpdF9GaXN0byIsInVzZXJfaWQiOiJLaXRfRmlzdG8iLCJ2YWxpZGl0eV9pbl9zZWNvbmRzIjo2MDQ4MDAsImlhdCI6MTczMzMzMzE5MSwiZXhwIjoxNzMzOTM3OTkxfQ.evX4MhP8elPze7gQu4LMMTuy45K0Sz6E3GMvgSdybYs';
-const userId = 'Kit_Fisto';
-const callId = '7SiTkJ6xICf4';
+const apiKey = "mmhfdzb5evj2";
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0tpdF9GaXN0byIsInVzZXJfaWQiOiJLaXRfRmlzdG8iLCJ2YWxpZGl0eV9pbl9zZWNvbmRzIjo2MDQ4MDAsImlhdCI6MTczMzMzMzE5MSwiZXhwIjoxNzMzOTM3OTkxfQ.evX4MhP8elPze7gQu4LMMTuy45K0Sz6E3GMvgSdybYs";
+const userId = "Kit_Fisto";
+const callId = "7SiTkJ6xICf4";
 
 const user = {
   id: userId,
-  name: 'Oliver',
-  image: 'https://getstream.io/random_svg/?id=oliver&name=Oliver',
+  name: "Oliver",
+  image: "https://getstream.io/random_svg/?id=oliver&name=Oliver",
 };
 
-// Initialize clients
+// Initialize video client
 const videoClient = new StreamVideoClient({ apiKey, user, token });
-const call = videoClient.call('default', callId);
-
-const chatClient = StreamChat.getInstance(apiKey);
-chatClient.connectUser(user, token);
+const call = videoClient.call("default", callId);
 
 const ALLOWED_MESSAGE_ACTIONS = [
   MESSAGE_ACTIONS.edit,
@@ -68,7 +67,9 @@ const NoMessages = () => {
           </svg>
         </div>
         <h3 className="text-lg font-semibold mb-2">No messages yet</h3>
-        <p className="text-sm text-center">Be the first to start the conversation!</p>
+        <p className="text-sm text-center">
+          Be the first to start the conversation!
+        </p>
       </div>
     );
   }
@@ -123,8 +124,8 @@ const ChatUI = ({ onClose, channelId }) => {
 
   useEffect(() => {
     const createAndSetChannel = async () => {
-      const channel = client.channel('messaging', channelId, {
-        name: 'Video Call Chat',
+      const channel = client.channel("messaging", channelId, {
+        name: "Video Call Chat",
         members: [userId],
       });
       await channel.create();
@@ -135,31 +136,28 @@ const ChatUI = ({ onClose, channelId }) => {
   }, [channelId, client, setActiveChannel]);
 
   const sendMessage = async (text) => {
-    const channel = client.activeChannel;
+    const channel = client.activeChannels[channelId];
     if (channel) {
-      console.log('Sending message:', text);
+      console.log("Sending message:", text);
       await channel.sendMessage({ text });
     } else {
-      console.error('No active channel found');
+      console.error("No active channel found");
     }
   };
 
   const uploadFile = async (file) => {
-    const channel = client.activeChannel;
+    const channel = client.activeChannels[channelId];
     if (channel) {
-      console.log('Uploading file:', file);
+      console.log("Uploading file:", file);
       await channel.sendFile(file);
     } else {
-      console.error('No active channel found');
+      console.error("No active channel found");
     }
   };
 
   return (
     <div className="fixed bottom-2 right-4 w-96 h-[32rem] bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-700">
-      <Channel
-        EmptyStateIndicator={NoMessages}
-        SendButton={SendButton}
-      >
+      <Channel EmptyStateIndicator={NoMessages} SendButton={SendButton}>
         <Window>
           <ChatHeader onClose={onClose} />
           <div className="flex-1 overflow-y-auto">
@@ -167,7 +165,13 @@ const ChatUI = ({ onClose, channelId }) => {
           </div>
           <MessageInput
             focus
-            Input={(props) => <CustomInput {...props} sendMessage={sendMessage} uploadFile={uploadFile} />}
+            Input={(props) => (
+              <CustomInput
+                {...props}
+                sendMessage={sendMessage}
+                uploadFile={uploadFile}
+              />
+            )}
           />
         </Window>
       </Channel>
@@ -192,29 +196,43 @@ const ParticipantList = () => (
 );
 
 // Main App Component
-export default function App() {
+const VideoCall = () => {
   const [callJoined, setCallJoined] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showParticipants, setShowParticipants] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [isJoining, setIsJoining] = useState(false); // Add this state
   const navigate = useNavigate();
   const joinAttemptedRef = useRef(false);
 
+  const chatClient = useCreateStreamChatClient({
+    apiKey,
+    userData: user,
+    tokenOrProvider: token,
+  });
+
   const joinCall = async () => {
     try {
-      if (!joinAttemptedRef.current && 
-          !callJoined && 
-          call.state !== CallingState.JOINED && 
-          call.state !== CallingState.JOINING) {
+      if (isJoining) return; // Prevent multiple join attempts
+      setIsJoining(true);
+
+      if (
+        !joinAttemptedRef.current &&
+        !callJoined &&
+        call.state !== CallingState.JOINED &&
+        call.state !== CallingState.JOINING
+      ) {
         joinAttemptedRef.current = true;
         await call.join({ create: true });
         setCallJoined(true);
       }
       setLoading(false);
     } catch (error) {
-      console.error('Error joining the call:', error);
+      console.error("Error joining the call:", error);
       setLoading(false);
+    } finally {
+      setIsJoining(false); // Ensure state is reset
     }
   };
 
@@ -253,22 +271,26 @@ export default function App() {
       <StreamVideo client={videoClient}>
         <StreamTheme>
           <StreamCall call={call}>
-            <CallHeader isTransparent={false} isActive={false} /> {/* Add CallHeader component */}
+            <div className="py-5 mb-3">
+              <CallHeader isTransparent={false} isActive={false} />{" "}
+              {/* Add CallHeader component */}
+            </div>
+
             <SpeakerLayout className="mt-4" />
             <div className="fixed bottom-2 left-1/2 transform -translate-x-1/2 flex items-center justify-center space-x-4 bg-gray-800 p-2 rounded-lg shadow-lg">
-              <CallControls/>
-              <button 
+              <CallControls />
+              <button
                 onClick={toggleParticipants}
-                className="bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition-colors"
+                className="bg-gray-900 p-2 rounded-full hover:bg-gray-600 transition-colors"
               >
                 <FaUserGroup size={24} />
               </button>
-              <div className="bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition-colors">
+              <div className=" p-2 rounded-full hover:bg-gray-600 transition-colors">
                 <DeviceSettings />
               </div>
-              <button 
+              <button
                 onClick={toggleChat}
-                className="bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition-colors"
+                className="bg-gray-900 p-2 rounded-full hover:bg-gray-600 transition-colors"
               >
                 <Icon icon="chat" />
               </button>
@@ -290,4 +312,6 @@ export default function App() {
       </StreamVideo>
     </div>
   );
-}
+};
+
+export default VideoCall;

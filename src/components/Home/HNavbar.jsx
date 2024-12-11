@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import BeVietnamProBold from "../../fonts/BeVietnamPro-Bold.woff";
 
 export default function Navbar() {
   const styles = {
-    fontFamily: "Be Vietnam Pro, sans-serif",
-    fontWeight: "bold",
+    fontFamily: "'Aeonik', sans-serif"
   };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [backgroundOpacity, setBackgroundOpacity] = useState(1);
@@ -52,7 +50,7 @@ export default function Navbar() {
           </Link>
         </div>
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex space-x-12">
+        <div className="hidden md:flex space-x-12 font-aeonik-bold font-bold">
           <Link
             to="/"
             aria-label="Visit our Home page"

@@ -4,14 +4,32 @@ import {
   FaChevronRight,
   FaMoon,
   FaSun,
-} from "react-icons/fa"; // Correct imports
-import { BsToggle2Off, BsToggle2On } from "react-icons/bs"; // New toggle icons
+} from "react-icons/fa";
+import { BsToggle2Off, BsToggle2On, BsBellFill } from "react-icons/bs";
+import Checkbox from '@mui/material/Checkbox';
+import { styled } from '@mui/material/styles';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+const PurpleCheckbox = styled(Checkbox)({
+  color: 'purple',
+  '&.Mui-checked': {
+    color: 'purple',
+  },
+  width: '40px',
+  height: '50px',
+});
 
 const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleDialog = () => {
+    setIsDialogOpen(!isDialogOpen);
   };
 
   useEffect(() => {
@@ -58,73 +76,60 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
             onClick={toggleSidebar}
             className="text-gray-500 focus:outline-none"
             aria-label="Toggle Sidebar"
-            style={{ width: '50px', height: '50px' }} // Increase the size of the button
+            style={{ width: '50px', height: '50px' }}
           >
             {sidebarShrink ? (
-              <FaChevronRight size={24} /> // Increase the size of the icon
+              <FaChevronRight size={24} />
             ) : (
-              <FaChevronLeft size={24} /> // Increase the size of the icon
+              <FaChevronLeft size={24} />
             )}
           </button>
-          {/* <div className="relative flex-grow mr-4" style={{ width: "300%" }}>
+          <div className="relative flex-grow mr-4" style={{ width: "300%" }}>
             <input
               type="text"
               placeholder="Search Mentors..."
               className="w-[600px] p-2 pl-10 rounded-full border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm shadow-gray-600"
             />
             <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
-          </div> */}
+          </div>
         </div>
         <div className="flex items-center space-x-8">
           <button
             onClick={toggleDarkMode}
             className="text-gray-500 focus:outline-none lg:flex hidden items-center space-x-6"
             aria-label="Toggle Dark Mode"
-            style={{ width: '80px', height: '60px' }} // Increase the size of the button
+            style={{ width: '80px', height: '60px' }}
           >
             {darkMode ? (
               <>
-                <FaMoon size={30} /> 
-                <BsToggle2On size={40} /> 
+                <FaMoon size={30} />
+                <BsToggle2On size={40} />
               </>
             ) : (
               <>
-                <FaSun size={30} /> 
-                <BsToggle2Off size={40} /> 
+                <FaSun size={30} />
+                <BsToggle2Off size={40} />
               </>
             )}
           </button>
           <div className="relative hidden lg:block">
             <button
-              id="dropdownNotificationButton"
-              className="text-green-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none"
+              className="text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 focus:outline-none"
               onClick={toggleDropdown}
+              aria-expanded={isDropdownOpen}
+              aria-haspopup="true"
             >
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 14 20"
-              >
-                <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z" />
-              </svg>
-              <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5 dark:border-gray-900"></div>
+              <BsBellFill size={24} />
             </button>
-            {/* Dropdown Menu */}
             {isDropdownOpen && (
-              <div
-                id="dropdownNotification"
-                className="z-20 absolute right-0 w-64 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:divide-gray-700"
-                aria-labelledby="dropdownNotificationButton"
-              >
-                <div className="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+                <div className="px-4 py-2 text-gray-800 dark:text-gray-200">
                   Notifications
                 </div>
-                <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                <div className="divide-y divide-gray-100 dark:divide-gray-700 transition-colors duration-300">
                   <a
                     href="#"
-                    className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
                   >
                     <div className="flex-shrink-0 relative">
                       <img
@@ -132,7 +137,7 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
                         src="images/thomasjohn.jpeg"
                         alt="Jese image"
                       />
-                      <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
+                      <div className="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800 transition-colors duration-300">
                         <svg
                           className="w-2 h-2 text-white"
                           aria-hidden="true"
@@ -146,27 +151,26 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
                       </div>
                     </div>
                     <div className="w-full ps-3">
-                      <div className="text-gray-500 text-sm mb-1.5 font-semibold dark:text-gray-400">
+                      <div className="text-gray-500 text-sm mb-1.5 font-semibold dark:text-gray-400 transition-colors duration-300">
                         New message from{" "}
-                        <span className="font-semibold text-gray-900 dark:text-white">
+                        <span className=" text-gray-900 dark:text-white">
                           Jese Leos
                         </span>
                         : Are all your doubts clear?
                       </div>
-                      <div className="text-xs text-blue-600 dark:text-blue-500">
+                      <div className="text-xs text-blue-600 dark:text-blue-500 transition-colors duration-300">
                         a few moments ago
                       </div>
                     </div>
                   </a>
-                  {/* Add more notification items here */}
                 </div>
                 <a
                   href="#"
-                  className="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+                  className="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white transition-colors duration-300"
                 >
                   <div className="inline-flex items-center ">
                     <svg
-                      className="w-4 h-4 me-2 text-gray-500 dark:text-gray-400"
+                      className="w-4 h-4 me-2 text-gray-500 dark:text-gray-400 transition-colors duration-300"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="currentColor"
@@ -180,24 +184,93 @@ const MHeader = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => 
               </div>
             )}
           </div>
-          <div className="lg:flex hidden items-center space-x-2">
-            <img
-              src="images/avatar-anisha.png"
-              alt="User avatar"
-              className="w-8 h-8 rounded-full"
-            />
-            <span className="text-gray-700 dark:text-gray-200">
-            Radhika 
-            </span>
-          </div>
           <button
+            onClick={toggleDialog}
             className="flex items-center px-8 py-2 mt-2 lg:mt-0 lg:px-4 lg:py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <i className="fa-solid fa-plus mr-2"></i> {/* Plus Icon */}
-            <span>Create Session</span> {/* Button Text */}
+            <i className="fa-solid fa-plus mr-2"></i>
+            <span>Create Session</span>
           </button>
         </div>
       </div>
+      {isDialogOpen && (
+        <div className="fixed z-50 inset-0 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6 mx-4">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-medium dark:text-gray-200">Create a Session</h2>
+                <button
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 focus:outline-none"
+                  aria-label="Close"
+                  onClick={toggleDialog}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="title" className="block font-medium text-gray-700 dark:text-gray-300">Title</label>
+                  <input type="text" id="title" className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Add Title" />
+                </div>
+                <div>
+                  <label htmlFor="date" className="block font-medium text-gray-700 dark:text-gray-300">Date</label>
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 mr-2">
+                      <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                      </svg>
+                    </div>
+                    <input type="text" id="date" className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" value="Saturday, 7th December" />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="time" className="block font-medium text-gray-700 dark:text-gray-300">Time</label>
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 mr-2">
+                      <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                    </div>
+                    <input type="text" id="time" className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" value="3:30pm - 4:30pm" />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="description" className="block font-medium text-gray-700 dark:text-gray-300">Description</label>
+                  <textarea id="description" rows="3" className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Add Description"></textarea>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center">
+                    <PurpleCheckbox {...label} />
+                    <label htmlFor="notify" className="ml-2 block font-medium text-gray-700 dark:text-gray-300">Notify Me</label>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center">
+                    <svg width="30" height="40" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clipPath="url(#clip0_3318_2318)">
+                        <path d="M14.2857 0C15.7701 0 16.9643 1.04492 16.9643 2.34375V6.25H33.0357V2.34375C33.0357 1.04492 34.2299 0 35.7143 0C37.1987 0 38.3929 1.04492 38.3929 2.34375V6.25H42.8571C46.7969 6.25 50 9.05273 50 12.5V14.0625V18.75V43.75C50 47.1973 46.7969 50 42.8571 50H7.14286C3.20312 50 0 47.1973 0 43.75V18.75V14.0625V12.5C0 9.05273 3.20312 6.25 7.14286 6.25H11.6071V2.34375C11.6071 1.04492 12.8013 0 14.2857 0ZM44.6429 18.75H5.35714V43.75C5.35714 44.6094 6.16071 45.3125 7.14286 45.3125H42.8571C43.8393 45.3125 44.6429 44.6094 44.6429 43.75V18.75ZM36.7188 29.0039L24.2188 39.9414C23.1696 40.8594 21.4732 40.8594 20.4353 39.9414L13.2924 33.6914C12.2433 32.7734 12.2433 31.2891 13.2924 30.3809C14.3415 29.4727 16.0379 29.4629 17.0759 30.3809L22.3214 34.9707L32.9241 25.6934C33.9732 24.7754 35.6696 24.7754 36.7076 25.6934C37.7455 26.6113 37.7567 28.0957 36.7076 29.0039H36.7188Z" fill="black"/>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_3318_2318">
+                          <rect width="50" height="50" fill="white"/>
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <label htmlFor="programming-knowledge" className="ml-2 block font-medium text-gray-700 dark:text-gray-300">Programming Knowledge</label>
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <button className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

@@ -224,22 +224,18 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-gray-800 dark:text-white">
               {/* Personal Assistant */}
               <div className="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
-                <h2 className="text-2xl lg:text-xl font-semibold mb-3 lg:mb-4 text-center">
+                <h2 className="text-xl font-semibold mb-4 text-center">
                   Personal Assistant
                 </h2>
-                <div className="bg-gray-100 lg:p-4 rounded-lg mb-4 dark:bg-gray-800">
-                  <div className="flex items-center mb-6 lg:mb-3">
-                    <i className="fas fa-user-circle text-5xl lg:text-6xl rounded-full text-green-600 mr-2 p-2"></i>
+                <div className="bg-gray-100 p-4 rounded-lg mb-4 dark:bg-gray-800">
+                  <div className="flex items-center mb-2">
+                    <i className="fas fa-user-circle text-6xl rounded-full text-green-600 mr-2 p-2"></i>
                     <div>
-                      <p className="font-semibold text-xl lg:text-2xl">
-                        Kankana
-                      </p>
-                      <p className="text-gray-500 text-sm lg:text-md">
-                        Sep 17 2024
-                      </p>
+                      <p className="font-semibold text-2xl">Kankana</p>
+                      <p className="text-gray-500 text-md">Sep 17 2024</p>
                     </div>
                   </div>
-                  <p className="text-gray-700 text-sm lg:text-md dark:text-gray-300">
+                  <p className="text-gray-700 dark:text-gray-300">
                     What do you need help with?
                   </p>
                 </div>
@@ -257,92 +253,80 @@ const Dashboard = () => {
               </div>
               {/* Your Plan */}
               <div className="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
-                <h2 className="text-2xl lg:text-xl font-semibold text-center mb-4  text-gray-800 dark:text-white">
+                <h2 className="text-xl font-semibold text-center mb-4  text-gray-800 dark:text-white">
                   Your Plan
                 </h2>
                 <div className="space-y-4 shadow-md rounded-lg">
-                  <div className="flex justify-between items-center px-1 lg:px-4 pt-4">
+                  <div className="flex justify-between items-center px-4 pt-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
-                      <span className="text-md lg:text-lg">Mayowa Ade</span>
+                      <span>Mayowa Ade</span>
                     </div>
-                    <div className="flex items-center">
-                      <span className="bg-blue-100 text-blue-800 text-xs px-1 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
-                        Group
-                      </span>
-                      <span className="text-gray-800 dark:text-white">
-                        09:34
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center px-1 lg:px-4">
-                    <div className="flex items-center">
-                      <i className="fas fa-user text-green-500 mr-2"></i>
-                      <span className="text-md lg:text-lg">Gautam Nigam</span>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
-                        One-to-One
-                      </span>
-                      <span className="text-gray-800 dark:text-white">
-                        11:30
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center px-1 lg:px-4">
-                    <div className="flex items-center">
-                      <i className="fas fa-user text-green-500 mr-2"></i>
-                      <span className="text-md lg:text-lg">Mayowa Ade</span>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
-                        One-to-One
-                      </span>
-                      <span className="text-gray-800 dark:text-white">
-                        13:40
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center px-1 lg:px-4">
-                    <div className="flex items-center">
-                      <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
-                      <span className="text-md lg:text-lg">Joshua Ashiru</span>
-                    </div>
-                    <div className="flex items-center">
+                    <div>
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-800 dark:text-white">
-                        15:30
-                      </span>
+                      <span className="text-gray-800 dark:text-white">09:34</span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-1 lg:px-4">
-                    <div className="flex items-center">
-                      <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
-                      <span className="text-md lg:text-lg">Olawuyi Tobi</span>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
-                        Group
-                      </span>
-                      <span className="text-gray-800 dark:text-white">
-                        19:30
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center px-1 lg:px-4 pb-4">
+                  <div className="flex justify-between items-center px-4">
                     <div className="flex items-center">
                       <i className="fas fa-user text-green-500 mr-2"></i>
-                      <span className="text-md lg:text-lg">Gautam Nigam</span>
+                      <span>Gautam Nigam</span>
                     </div>
-                    <div className="flex items-center">
+                    <div>
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-800 dark:text-white">
-                        11:30
+                      <span className="text-gray-800 dark:text-white">11:30</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center px-4">
+                    <div className="flex items-center">
+                      <i className="fas fa-user text-green-500 mr-2"></i>
+                      <span>Mayowa Ade</span>
+                    </div>
+                    <div>
+                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
+                        One-to-One
                       </span>
+                      <span className="text-gray-800 dark:text-white">13:40</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center px-4">
+                    <div className="flex items-center">
+                      <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                      <span>Joshua Ashiru</span>
+                    </div>
+                    <div>
+                      <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
+                        Group
+                      </span>
+                      <span className="text-gray-800 dark:text-white">15:30</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center px-4">
+                    <div className="flex items-center">
+                      <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
+                      <span>Olawuyi Tobi</span>
+                    </div>
+                    <div>
+                      <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
+                        Group
+                      </span>
+                      <span className="text-gray-800 dark:text-white">19:30</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center px-4 pb-4">
+                    <div className="flex items-center">
+                      <i className="fas fa-user text-green-500 mr-2"></i>
+                      <span>Gautam Nigam</span>
+                    </div>
+                    <div>
+                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
+                        One-to-One
+                      </span>
+                      <span className="text-gray-800 dark:text-white">11:30</span>
                     </div>
                   </div>
                 </div>
@@ -356,22 +340,19 @@ const Dashboard = () => {
               <div id="indicators-carousel" className="relative w-full">
                 <Slider ref={sliderRef} {...settings}>
                   {mentors.map((mentor, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-center px-1 py-12 lg:py-0 lg:pb-20"
-                    >
-                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 w-full h-70 flex flex-col mx-4 border border-gray-300 dark:border-gray-800">
-                        <div className="lg:flex items-start mb-4">
+                    <div key={index} className="flex justify-center px-1">
+                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-90 h-64 flex flex-col mx-4 border border-gray-300 dark:border-gray-800">
+                        <div className="flex items-start mb-4">
                           <img
                             src={mentor.image}
                             alt={mentor.name}
-                            className="w-25 h-24 rounded-lg mx-auto lg:mx-0"
+                            className="w-25 h-24 rounded-lg"
                           />
-                          <div className="lg:ml-4 mt-2 lg:mt-0 flex-1">
-                            <h3 className="font-semibold text-md lg:text-lg text-gray-900 dark:text-gray-100">
+                          <div className="ml-4 flex-1">
+                            <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100">
                               {mentor.name}
                             </h3>
-                            <p className="text-xs lg:text-sm text-gray-600 dark:text-gray-400">
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
                               {mentor.role}
                             </p>
                             <div className="flex items-center mt-1">
@@ -380,7 +361,7 @@ const Dashboard = () => {
                               </span>
                             </div>
                           </div>
-                          <span className="ml-auto text-xs lg:text-xl font-semibold dark:text-white">
+                          <span className="ml-auto font-semibold dark:text-white">
                             {mentor.price}
                           </span>
                         </div>
@@ -407,10 +388,7 @@ const Dashboard = () => {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {faqItems.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`${index >= 5 ? "hidden lg:block" : ""}`}
-                  >
+                  <div key={index}>
                     <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                       {item.question}
                     </h3>
@@ -419,14 +397,6 @@ const Dashboard = () => {
                     </p>
                   </div>
                 ))}
-              </div>
-              <div className="flex justify-center mt-6 lg:hidden">
-                <button
-                  onClick={() => setShowAllFaqs(true)}
-                  className="text-blue-500 hover:underline"
-                >
-                  View All
-                </button>
               </div>
             </div>
           </div>

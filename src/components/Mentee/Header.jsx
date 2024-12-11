@@ -171,14 +171,14 @@ const Header = ({ toggleSidebar, sidebarShrink, darkMode, toggleDarkMode }) => {
           </div>
 
           {/* User Info */}
-          <div className="items-center px-5 py-2 space-x-5 hidden lg:flex border-2  border-gray-500  dark:bg-slate-300 rounded-lg">
+          {/* <div className="items-center px-5 py-2 space-x-5 hidden lg:flex border-2  border-gray-500  dark:bg-slate-300 rounded-lg">
             <img
               src="images/kankana.png"
               alt="User avatar"
               className="w-8 h-8 rounded-full"
             />
             <span className="text-gray-500 font-bold text-lg dark:text-gray-700">{userName}</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </header>

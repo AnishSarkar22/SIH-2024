@@ -95,3 +95,11 @@
 .fc-theme-dark .fc-daygrid-day-frame .fc-daygrid-day-bg {
   background-color: var(--fc-bg-color);
 }
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/src/fonts/AeonikTRIAL-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}

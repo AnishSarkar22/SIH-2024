@@ -65,13 +65,13 @@ function MProfile() {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
+    <div className={`flex h-screen bg-white dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
       <MSidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-gray-900">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <MHeader
           toggleSidebar={toggleSidebar}
           sidebarShrink={sidebarShrink}
@@ -81,18 +81,18 @@ function MProfile() {
         <MNavbar />
         <div className="flex-1 p-6 overflow-auto">
           <div id="profile-content" className="content-section">
-            <div className="mb-6 text-5xl font-bold dark:text-white text-center lg:text-left">
+            <div className="mb-6 text-5xl font-bold dark:text-white">
               <h1>Your Profile</h1>
             </div>
             <div className="flex-1 space-y-7">
               {/* Personal Information */}
-              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h2 className="text-2xl lg:text-3xl font-semibold mb-6 dark:text-white text-center lg:text-left">
+              <section className="bg- dark:bg-gray-800 p-6 rounded-lg shadow">
+                <h2 className="text-3xl font-semibold mb-6 dark:text-white">
                   Personal Information
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-700 border-black border-2 dark:border-0">
+                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-800 border-black border-2 dark:border-0">
                       {profileImage ? (
                         <img src={profileImage} alt="Profile" className="w-20 h-20 rounded-full" />
                       ) : (
@@ -128,14 +128,14 @@ function MProfile() {
                       ref={fileInputRef} // Assign the ref to the input
                     />
                   </div>
-                  <div className="lg:grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-2 gap-6">
                     {/* Fields for personal information */}
                     {Object.keys(profileData).map((key) => (
                       <div key={key} className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-1 lg:mb-3 dark:text-white dark:font-bold">
+                        <label className="block text-sm font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
                           {key.charAt(0).toUpperCase() + key.slice(1)}
                         </label>
-                        <div className="flex items-center border border-black rounded-xl dark:border-gray-600 mb-2 lg:mb-0">
+                        <div className="flex items-center border border-black rounded-xl dark:border-gray-600">
                           <input
                             type="text"
                             name={key}
@@ -166,23 +166,29 @@ function MProfile() {
                   </div>
                 </div>
               </section>
-              {/* Availability Section */}
-              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h2 className="text-3xl font-semibold mb-8 dark:text-white">Availability</h2>
-                <h4 className="text-md font-semibold mb-8 dark:text-white">In general, when do you prefer to meet your mentor?</h4>
-                <div className="space-y-8">
-                  {["Early mornings (before 9am)", "During the day (9am - 5pm)", "In the evenings (after 5pm)"].map((timeSlot) => (
-                    <label key={timeSlot} className="flex items-start dark:text-white">
-                      <input
-                        type="radio"
-                        name="availability"
-                        value={timeSlot}
-                        className="form-radio h-6 w-6 text-blue-600 rounded-full border-gray-900 checked:bg-blue-600 checked:border-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <span className="ml-2 text-sm">{timeSlot}</span>
-                    </label>
-                  ))}
+              {/* Email Preferences */}
+              <section className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg shadow">
+                <h2 className="text-xl font-semibold mb-4">Email Preferences</h2>
+                <div className="space-y-3">
+                  <label className="flex items-start">
+                    <input type="checkbox" className="mt-1 rounded text-blue-600" checked />
+                    <span className="ml-2 text-sm">Important updates about your account, mentorship, messages and billing</span>
+                  </label>
+                  <label className="flex items-start">
+                    <input type="checkbox" className="mt-1 rounded text-blue-600" unchecked />
+                    <span className="ml-2 text-sm">Regular reminders of your ongoing mentorships</span>
+                  </label>
+                  <label className="flex items-start">
+                    <input type="checkbox" className="mt-1 rounded text-blue-600" unchecked />
+                    <span className="ml-2 text-sm">Notifications of mentees</span>
+                  </label>
                 </div>
+              </section>
+              {/* Close your account */}
+              <section className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg shadow">
+                <h2 className="text-xl font-semibold mb-4">Close your account</h2>
+                <p className="text-sm text-gray-600 mb-4 dark:text-white">Once you delete your account, there's no going back. Please be certain!</p>
+                <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 text-sm">Delete account</button>
               </section>
             </div>
           </div>
