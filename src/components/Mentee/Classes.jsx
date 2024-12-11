@@ -1,3 +1,4 @@
+// to show mentees classes and upcoming activities with mentors
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import FullCalendar from "@fullcalendar/react";

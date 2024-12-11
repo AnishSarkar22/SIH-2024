@@ -100,6 +100,71 @@ def signup():
             except:
                 pass
         return jsonify({"success": False, "error": "An unexpected error occurred"}), 500
+    
+# @auth_routes.route('/api/submit-mentor', methods=['POST'])
+# def submit_mentor():
+#     # Check if user is authenticated
+#     if 'user_id' not in session:
+#         return jsonify({'success': False, 'error': 'Unauthorized'}), 401
+
+#     try:
+#         data = request.json
+        
+#         # Validate required fields
+#         required_fields = ['firstName', 'lastName', 'email', 'category', 'skills', 'bio']
+#         missing_fields = [field for field in required_fields if not data.get(field)]
+        
+#         if missing_fields:
+#             return jsonify({
+#                 'success': False, 
+#                 'error': f'Missing required fields: {", ".join(missing_fields)}'
+#             }), 400
+
+#         # Create mentor document
+#         mentor_ref = db.collection('mentors').document()
+#         mentor_data = {
+#             'profile': {
+#                 'firstName': data.get('firstName'),
+#                 'lastName': data.get('lastName'),
+#                 'email': data.get('email'),
+#                 'jobTitle': data.get('jobTitle'),
+#                 'company': data.get('company')
+#             },
+#             'info': {
+#                 'category': data.get('category'),
+#                 'skills': data.get('skills', []),
+#                 'bio': data.get('bio'),
+#                 'linkedinUrl': data.get('linkedinUrl'),
+#                 'twitterHandle': data.get('twitterHandle'),
+#                 'website': data.get('website')
+#             },
+#             'summary': {
+#                 'introVideo': data.get('introVideo'),
+#                 'featuredArticle': data.get('featuredArticle'),
+#                 'whyMentor': data.get('whyMentor'),
+#                 'greatestAchievement': data.get('greatestAchievement')
+#             },
+#             'metadata': {
+#                 'userId': session['user_id'],
+#                 'createdAt': datetime.utcnow(),
+#                 'updatedAt': datetime.utcnow(),
+#                 'status': 'pending'
+#             }
+#         }
+        
+#         mentor_ref.set(mentor_data)
+#         return jsonify({
+#             'success': True, 
+#             'message': 'Mentor application submitted successfully',
+#             'mentorId': mentor_ref.id
+#         })
+
+#     except ValueError as e:
+#         return jsonify({'success': False, 'error': f'Invalid data format: {str(e)}'}), 400
+#     except Exception as e:
+#         logging.error(f'Error in submit_mentor: {str(e)}')
+#         return jsonify({'success': False, 'error': 'Internal server error'}), 500
+
 
 @auth_routes.route('/login', methods=['POST'])
 def signin():
@@ -363,3 +428,4 @@ def logout():
     except Exception as e:
         logging.error(f"Error during logout: {e}")
         return jsonify({"error": str(e)}), 500
+    

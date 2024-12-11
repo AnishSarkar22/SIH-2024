@@ -22,7 +22,6 @@ import Signin from './components/Login and Signup/Signin';
 import SignUp from './components/Login and Signup/Signup';
 import AboutUs from './components/AboutUs/AboutUs';
 // import HNavbar from './components/HNavbar';
-import BasicDetails from './components/BasicDetails';
 import ApplyMentor from './components/Apply Mentor/ApplyMentor';
 import Blog from './components/Blog/blog';
 import Personal_AI from './components/Mentee/Message And Chat/Personal_AI';
@@ -31,8 +30,10 @@ import Quiz from './components/Mentee/Leaderboard/Quiz';
 import Resource from './components/Mentee/Resource';
 import MSchedule from './components/Mentor/MSchedule';
 import VideoCall from './components/VideoCall';
-import BasicDetails2 from './components/Basic Details/BasicDetails2';
-import ProfileCompletionForm2 from './components/Basic Details/ProfileCompletionForm2';
+import MentorBooking from './components/MentorBooking';
+import BasicDetails2 from './components/BasicDetails/BasicDetails2';
+import Mentorprofile from './components/Mentee/Mentor Details/Mentorprofile';
+
 // import PrivateRoute from './components/PrivateRoute'; 
 
 
@@ -61,7 +62,7 @@ function App() {
         <Route path="/mentor-profile/notifications" element={<PrivateRoute><MNotification /></PrivateRoute>} />
         <Route path="/profile/settings" element={<PrivateRoute><Setting /></PrivateRoute>} />
         <Route path="/mentor-profile/settings" element={<PrivateRoute><MSetting /></PrivateRoute>} />
-        <Route path="/mentors" element={<PrivateRoute><Mentor /></PrivateRoute>} />
+        <Route path="/explore" element={<PrivateRoute><Mentor /></PrivateRoute>} />
         <Route path="/leaderboard" element={<PrivateRoute><Leaderboard /></PrivateRoute>} /> */}
 
         <Route path="/dashboard" element={<Dashboard />} />
@@ -79,9 +80,8 @@ function App() {
         <Route path="/mentor-profile/notifications" element={<MNotification />} />
         <Route path="/profile/settings" element={<Setting />} />
         <Route path="/mentor-profile/settings" element={<MSetting />} />
-        <Route path="/mentors" element={<Mentor />} />
+        <Route path="/explore" element={<Mentor />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/basic-details" element={<BasicDetails />} />
         <Route path="/apply-mentor" element={<ApplyMentor />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/personal-ai" element={<Personal_AI />} /> {/* Added route for Personal_AI */}
@@ -90,8 +90,9 @@ function App() {
         <Route path="/resources" element={<Resource />} />
         <Route path="/mentor-schedule" element={<MSchedule />} />
         <Route path="/video-call" element={<VideoCall />} />
-        <Route path="/basic-details2" element={<BasicDetails2 />} />
-        <Route path="/profile-completion-form2" element={<ProfileCompletionForm2 />} />
+        <Route path="/mentor-booking/:mentorId" element={<MentorBooking />} />
+        <Route path="/basic-details" element={<BasicDetails2 />} />
+        <Route path="/mentor-profile-details" element={<Mentorprofile />} />
         {/* Redirect to home if route does not exist */}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>

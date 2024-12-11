@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FilterComponent from "./FilterComponent";
+import { Link } from "react-router-dom";
 
 function Mentar_card({ darkMode }) {
   const [filters, setFilters] = useState({ language: "", domain: "" });
@@ -142,10 +143,12 @@ function Mentar_card({ darkMode }) {
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end lg:justify-between items-center">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">
-                View Profile
-              </button>
+            <div className="mt-6 flex justify-between items-center">
+              <Link to="/mentor-profile-details">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">
+                  View Profile
+                </button>
+              </Link>
             </div>
           </div>
         ))}

@@ -41,6 +41,7 @@ app.register_blueprint(test_routes, url_prefix='/api/test')
 # Register chat routes blueprint
 app.register_blueprint(chat_routes, url_prefix='/api')
 
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):

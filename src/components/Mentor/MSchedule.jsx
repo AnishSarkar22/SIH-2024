@@ -1,16 +1,18 @@
+// to show the schedule of the mentor
 import React, { useState, useEffect, useRef } from "react";
-import MHeader from "./MHeader"; // Import Mentor Header component
-import MSidebar from "./MSidebar"; // Import Mentor Sidebar component
+import MHeader from "./MHeader";
+import MSidebar from "./MSidebar";
 import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { INITIAL_EVENTS, createEventId } from "../services/event-utils.js";
-import Carousel from "react-multi-carousel"; // Import Carousel component
-import "react-multi-carousel/lib/styles.css"; // Import Carousel styles
-import "../../index.css"; // Import the stylesheet
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import "../../index.css";
 import { ChevronLeft, ChevronRight } from "react-feather";
+// import { Cal } from "@cal.com/embed-react";
 
 const PrevArrow = ({ onClick }) => (
   <button

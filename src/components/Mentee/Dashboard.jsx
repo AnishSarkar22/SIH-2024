@@ -69,6 +69,19 @@ const Dashboard = () => {
 
   const toggleSidebar = () => setSidebarShrink(!sidebarShrink);
 
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData && userData.name) {
+        const firstName = userData.name.split(" ")[0];
+        setUserName(firstName);
+      }
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      setUserName("Guest");
+    }
+  }, []);
+
   const mentors = [
     {
       name: "Karan Singh",
@@ -227,7 +240,7 @@ const Dashboard = () => {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto mt-7 bg-white dark:bg-gray-900">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto py-10 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6 py-8">
             <h1 className="text-3xl font-bold mb-12 text-center text-gray-700 dark:text-gray-200">
               Welcome back, {userName || "Guest"} 👋
@@ -241,17 +254,15 @@ const Dashboard = () => {
                 </h2>
                 <div className="bg-gray-100 lg:p-4 rounded-lg mb-4 dark:bg-gray-800">
                   <div className="flex items-center mb-6 lg:mb-3">
-                  <FontAwesomeIcon
+                    <FontAwesomeIcon
                       icon={faCircleUser}
                       className="text-6xl rounded-full mr-2 p-2"
                     />
                     <div>
                       <p className="font-semibold text-xl lg:text-2xl">
-                        Your Assistant
+                       Describe Your Problem
                       </p>
-                      <p className="text-gray-500 text-sm lg:text-md">
-                        Sep 17 2024
-                      </p>
+                      
                     </div>
                   </div>
                   <p className="text-gray-700 text-sm lg:text-md dark:text-gray-300">

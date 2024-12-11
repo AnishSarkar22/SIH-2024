@@ -187,14 +187,14 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               </div>
             </Link>
             <Link
-              to="/mentors"
+              to="/explore"
               className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
                 isSidebarShrink
                   ? "hover:bg-gray-600 hover:text-white  dark:hover:bg-gray-600 justify-center"
                   : "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
               }`}
-              onClick={() => setActiveLink("/mentors")}
-              style={getLinkStyle("/mentors")}
+              onClick={() => setActiveLink("/explore")}
+              style={getLinkStyle("/explore")}
             >
               <div className="flex items-center">
               <FontAwesomeIcon
