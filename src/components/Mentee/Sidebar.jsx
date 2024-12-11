@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import {
-  faHouse,
-  faInbox,
-  faCompass,
-  faUserGroup,
-  faMedal,
-  faCircleUser,
-  faBook,
-  faRightFromBracket,
-  faBars,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+  FaHome,
+  FaUserFriends,
+  FaUserTie,
+  FaInbox,
+  FaMedal,
+  FaBook,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
+import { MoreVertical, UserCircle, BarChart2, Bell, Settings, LogOut } from "lucide-react";
 
 const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const [isSidebarShrink, setIsSidebarShrink] = useState(sidebarShrink);
@@ -23,6 +23,53 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const menuItems = [
+    {
+      label: "Profile",
+      icon: UserCircle,
+      onClick: () => navigate("/profile"),
+    },
+    {
+      label: "Statistics",
+      icon: BarChart2,
+      onClick: () => navigate("/profile/statistics"),
+    },
+    {
+      label: "Notifications",
+      icon: Bell,
+      onClick: () => navigate("/profile/notifications"),
+    },
+    {
+      label: "Settings",
+      icon: Settings,
+      onClick: () => navigate("/profile/settings"),
+    },
+    {
+      label: "Log Out",
+      icon: LogOut,
+      onClick: () => console.log("Log out clicked"),
+    },
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -59,30 +106,6 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
 
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
-  };
-
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:5000/api/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Include cookies in the request
-      });
-
-      if (response.ok) {
-        // Clear localStorage
-        localStorage.clear();
-        // Redirect to signin page
-        navigate("/login");
-      } else {
-        const errorData = await response.json();
-        console.error("Error during logout:", errorData.error);
-      }
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
   };
 
   const getLinkStyle = (path) => {
@@ -157,10 +180,7 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/dashboard")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faHouse}
-                className="text-xl w-8 text-center"
-              />
+                <FaHome className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Home</span>
                 )}
@@ -177,32 +197,26 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/classes")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faUserGroup}
-                className="text-xl w-8 text-center"
-              />
+                <FaUserFriends className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Classes</span>
                 )}
               </div>
             </Link>
             <Link
-              to="/explore"
+              to="/mentors"
               className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
                 isSidebarShrink
                   ? "hover:bg-gray-600 hover:text-white  dark:hover:bg-gray-600 justify-center"
                   : "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
               }`}
-              onClick={() => setActiveLink("/explore")}
-              style={getLinkStyle("/explore")}
+              onClick={() => setActiveLink("/mentors")}
+              style={getLinkStyle("/mentors")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faCompass}
-                className="text-xl w-8 text-center"
-              />
+                <FaUserTie className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
-                  <span className="ml-3 text-lg sidebar-text">Explore</span>
+                  <span className="ml-3 text-lg sidebar-text">Mentors</span>
                 )}
               </div>
             </Link>
@@ -217,10 +231,7 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/message")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faInbox}
-                className="text-xl w-8 text-center"
-              />
+                <FaInbox className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Messages</span>
                 )}
@@ -237,10 +248,7 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/leaderboard")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faMedal}
-                className="text-xl w-8 text-center"
-              />
+                <FaMedal className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Leaderboard</span>
                 )}
@@ -257,57 +265,60 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/resources")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faBook}
-                className="text-xl w-8 text-center"
-              />
+                <FaBook className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Resources</span>
                 )}
               </div>
             </Link>
-            <Link
-              to="/profile"
-              className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
-                isSidebarShrink
-                  ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
-                  : "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
-              }`}
-              onClick={() => setActiveLink("/profile")}
-              style={getLinkStyle("/profile")}
-            >
-              <div className="flex items-center ">
-              <FontAwesomeIcon
-                icon={faCircleUser}
-                className="text-xl w-8 text-center"
-              />
-                {!isSidebarShrink && (
-                  <span className="ml-3 text-lg sidebar-text">Profile</span>
-                )}
-              </div>
-            </Link>
           </nav>
-          <div className="mt-auto lg:absolute bottom-0">
-            <Link
-              to="/signin"
-              className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
-                isSidebarShrink
-                  ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
-                  : "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
-              }`}
-              onClick={handleLogout}
-              style={getLinkStyle("/login")}
-            >
-              <div className="flex items-center">
-                <FontAwesomeIcon
-                  icon={faRightFromBracket}
-                  className="text-xl w-8 text-center"
+          <div className="flex items-center justify-between max-w-sm lg:absolute bottom-0 mt-auto">
+            <div className="flex items-center space-x-4 p-6">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-800">
+                <img
+                  src="./images/kankana.png"
+                  alt="Profile"
+                  className="w-full h-full object-cover"
                 />
-                {!isSidebarShrink && (
-                  <span className="ml-3 text-lg sidebar-text">Sign Out</span>
-                )}
               </div>
-            </Link>
+              <div>
+                <h3 className="font-medium dark:text-white">Riley Carter</h3>
+              </div>
+            </div>
+
+            <div className="relative">
+              <button
+                ref={buttonRef}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200 mb-4"
+                aria-label="Open menu"
+              >
+                <MoreVertical className="w-5 h-5 text-gray-400" />
+              </button>
+
+              {isMenuOpen && (
+                <div
+                  ref={menuRef}
+                  className="absolute right-0 lg:bottom-full lg:mb-2 lg:top-auto lg:mt-0 bottom-auto mb-0 mt-2 w-56 rounded-md shadow-lg bg-gray-100 dark:bg-gray-700 ring-1 ring-black ring-opacity-5 z-50"
+                >
+                  <div className="py-1">
+                    {menuItems.map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          item.onClick();
+                          setIsMenuOpen(false);
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-150"
+                      >
+                        <item.icon className="w-4 h-4 mr-3 text-gray-700 dark:text-white" />
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </aside>

@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHouse,
-  faInbox,
-  faCircleUser,
-  faRightFromBracket,
-  faCalendarCheck,
-  faUsers,
-  faCalendarDays,
-} from "@fortawesome/free-solid-svg-icons";
+  MoreVertical,
+  UserCircle,
+  BarChart2,
+  Bell,
+  Settings,
+  LogOut,
+} from "lucide-react";
 import {
+  FaHome,
+  FaInbox,
   FaCalendarAlt,
   FaUsers,
-  FaUser,
-  FaMedal,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
 const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const [isSidebarShrink, setIsSidebarShrink] = useState(sidebarShrink);
@@ -28,6 +28,74 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Include cookies in the request
+      });
+      if (response.ok) {
+        // Redirect to signin page
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        console.error("Error during logout:", errorData.error);
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
+  const menuItems = [
+    {
+      label: "Profile",
+      icon: UserCircle,
+      link: "/mentor-profile",
+    },
+    {
+      label: "Statistics",
+      icon: BarChart2,
+      link: "/mentor-profile/statistics",
+    },
+    {
+      label: "Notifications",
+      icon: Bell,
+      link: "/mentor-profile/notifications",
+    },
+    {
+      label: "Settings",
+      icon: Settings,
+      link: "/mentor-profile/settings",
+    },
+    {
+      label: "Log Out",
+      icon: LogOut,
+      onClick: handleLogout,
+    },
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -66,29 +134,6 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
     setDarkMode(!darkMode);
   };
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:5000/api/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Include cookies in the request
-      });
-      if (response.ok) {
-        // Clear localStorage
-        localStorage.clear();
-        // Redirect to signin page
-        navigate("/login");
-      } else {
-        const errorData = await response.json();
-        console.error("Error during logout:", errorData.error);
-      }
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
-  };
-
   const getLinkStyle = (path) => {
     if (activeLink === path) {
       return isDarkMode
@@ -103,7 +148,7 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
       {/* Mobile toggle button */}
       {!isSidebarOpen && (
         <button
-          className="lg:hidden  p-4 mr-16 text-gray-600 dark:text-gray-300 fixed top-4 left-1 z-50"
+          className="lg:hidden p-4 mr-16 text-gray-600 dark:text-gray-300 fixed top-4 left-1 z-50"
           onClick={toggleMobileMenu}
         >
           <FaBars className="text-2xl dark:text-gray-300" />
@@ -161,10 +206,7 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentor-dashboard")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faHouse}
-                className="text-xl w-8 text-center"
-              />
+                <FaHome className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Home</span>
                 )}
@@ -181,44 +223,41 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentor-message")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faInbox}
-                className="text-xl w-8 text-center"
-              />
+                <FaInbox className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Messages</span>
                 )}
               </div>
             </Link>
             <Link
-              to="/mentor-booking"
+              to="/one-to-one-booking"
               className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
                 isSidebarShrink
                   ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
                   : "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
               }`}
-              onClick={() => setActiveLink("/mentor-booking")}
-              style={getLinkStyle("/mentor-booking")}
+              onClick={() => setActiveLink("/one-to-one-booking")}
+              style={getLinkStyle("/one-to-one-booking")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon icon={faCalendarCheck} className="text-xl w-8 text-center" />
+                <FontAwesomeIcon icon={faUserGroup} className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
-                  <span className="ml-3 text-lg sidebar-text">Bookings</span>
+                  <span className="ml-3 text-lg sidebar-text">1-to-1 Sessions</span>
                 )}
               </div>
             </Link>
             <Link
-              to="/mentor-gsession"
+              to="/group-sessions"
               className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
                 isSidebarShrink
                   ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
                   : "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
               }`}
-              onClick={() => setActiveLink("/mentor-gsession")}
-              style={getLinkStyle("/mentor-gsession")}
+              onClick={() => setActiveLink("/group-sessions")}
+              style={getLinkStyle("/group-sessions")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon icon={faUsers} className="text-xl w-8 text-center" />
+                <FaUsers className="text-xl w-8 text-center" />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">
                     Group Sessions
@@ -243,48 +282,67 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
                 )}
               </div>
             </Link>
-            <Link
-              to="/mentor-profile"
-              className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
-                isSidebarShrink
-                  ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
-                  : "hover:bg-gray-600 hover:text-white last:dark:hover:bg-gray-600"
-              }`}
-              onClick={() => setActiveLink("/mentor-profile")}
-              style={getLinkStyle("/mentor-profile")}
-            >
-              <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faCircleUser}
-                className="text-xl w-8 text-center"
-              />
-                {!isSidebarShrink && (
-                  <span className="ml-3 text-lg sidebar-text">Profile</span>
-                )}
-              </div>
-            </Link>
           </nav>
-          <div className="mt-auto lg:absolute bottom-0">
-            <Link
-              to="/login"
-              className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
-                isSidebarShrink
-                  ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
-                  : "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
-              }`}
-              onClick={handleLogout}
-              style={getLinkStyle("/login")}
-            >
-              <div className="flex items-center">
-                <FontAwesomeIcon
-                  icon={faRightFromBracket}
-                  className="text-xl w-8 text-center"
+          <div className="flex items-center justify-between max-w-sm lg:absolute bottom-0 mt-auto">
+            <div className="flex items-center space-x-4 p-6">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-800">
+                <img
+                  src="./images/kankana.png"
+                  alt="Profile"
+                  className="w-full h-full object-cover"
                 />
-                {!isSidebarShrink && (
-                  <span className="ml-3 text-lg sidebar-text">Sign Out</span>
-                )}
               </div>
-            </Link>
+              <div className="flex items-center space-x-2">
+                <div>
+                  <h3 className="font-medium dark:text-white">Riley Carter</h3>
+                  <p className="text-sm text-black dark:text-white">riley@email.com</p>
+                </div>
+                <button
+                  ref={buttonRef}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
+                  aria-label="Open menu"
+                >
+                  <MoreVertical className="w-5 h-5 text-gray-400" />
+                </button>
+              </div>
+            </div>
+
+            {isMenuOpen && (
+             <div className="relative">
+             <button
+               ref={buttonRef}
+               onClick={() => setIsMenuOpen(!isMenuOpen)}
+               className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200 mb-4"
+               aria-label="Open menu"
+             >
+               <MoreVertical className="w-5 h-5 text-gray-400" />
+             </button>
+
+             {isMenuOpen && (
+               <div
+                 ref={menuRef}
+                 className="absolute right-0 lg:bottom-full lg:mb-2 lg:top-auto lg:mt-0 bottom-auto mb-0 mt-2 w-56 rounded-md shadow-lg bg-gray-100 dark:bg-gray-700 ring-1 ring-black ring-opacity-5 z-50"
+               >
+                 <div className="py-1">
+                   {menuItems.map((item, index) => (
+                     <button
+                       key={index}
+                       onClick={() => {
+                         item.onClick();
+                         setIsMenuOpen(false);
+                       }}
+                       className="flex items-center w-full px-4 py-2 text-sm text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-150"
+                     >
+                       <item.icon className="w-4 h-4 mr-3 text-gray-700 dark:text-white" />
+                       {item.label}
+                     </button>
+                   ))}
+                 </div>
+               </div>
+             )}
+           </div>
+            )}
           </div>
         </div>
       </aside>

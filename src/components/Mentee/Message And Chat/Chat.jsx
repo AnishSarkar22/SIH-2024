@@ -56,6 +56,7 @@ const Chat = () => {
     localStorage.setItem("darkMode", !darkMode ? "enabled" : "disabled");
   };
 
+
   const fileInputRef = useRef(null);
 
   const handleAttachmentClick = () => {
@@ -375,27 +376,22 @@ const Chat = () => {
 
       {/* Cal.com function and calendar modal */}
       {isCalModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 p-6 rounded-lg shadow-lg w-full max-w-4xl h-[80vh]">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                Schedule a Meeting
-              </h2>
-              <button
-                className="text-gray-500 dark:text-gray-400"
-                onClick={() => setIsCalModalOpen(false)}
-              >
-                <FontAwesomeIcon icon={faXmark} className="w-6 h-6" />
-              </button>
-            </div>
-            <div className="w-full h-full overflow-hidden">
-              <Cal
-                calLink="rick/get-rick-rolled"
-                className="w-full h-full border-none"
-              />
-            </div>
-          </div>
-        </div>
+       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+       <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 p-2 lg:p-6 rounded-lg shadow-lg w-full max-w-4xl h-[100vh] lg:h-[80vh] overflow-y-auto">
+         <div className="flex justify-between items-center mb-4">
+           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Schedule a Meeting</h2>
+           <button
+             className="text-gray-500 dark:text-gray-400"
+             onClick={() => setIsCalModalOpen(false)}
+           >  
+             <RxCross2 className="w-6 h-6" />
+           </button>
+         </div>
+         <div className="w-full h-full overflow-y-auto" ref={calModalContentRef}>
+           <Cal calLink="rick/get-rick-rolled" className="w-full h-full border-none"  />
+         </div>
+       </div>
+     </div>
       )}
     </div>
   );

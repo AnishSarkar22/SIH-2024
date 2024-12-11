@@ -61,7 +61,7 @@ function Resource() {
                         </Section>
                         {/* Research Paper Links */}
                         
-                        <Section title="Research Paper Links" viewAllLink="#" >
+                        <Section title="Research Paper Links" viewAllLink="#">
                             <ul className="space-y-6">
                                 <li>
                                     <a href="https://www.researchgate.net/topic/journalism?" className="text-blue-600 hover:underline text-sm break-all">
@@ -99,8 +99,8 @@ function Section({ title, children, viewAllLink }) {
     return (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="font-semibold text-gray-900 dark:text-white text-lg lg:text-2xl">{title}</h2>
-                <a href={viewAllLink} className="text-blue-600 hover:underline flex items-center text-sm lg:text-lg">
+                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">{title}</h2>
+                <a href={viewAllLink} className="text-blue-600 hover:underline flex items-center text-lg">
                     view all <ChevronRight size={16} />
                 </a>
             </div>

@@ -87,14 +87,14 @@ function Mentar_card({ darkMode }) {
             key={index}
             className={`rounded-lg p-6 max-w-3xl mx-auto ${cardStyles} mb-6`}
           >
-            <div className="lg:flex items-start mb-4">
+            <div className="flex items-start mb-4">
               <img
-                className="w-24 h-24 mb-3 lg:mb-0 rounded-full object-cover border-2 border-blue-500"
+                className="w-24 h-24 rounded-full object-cover border-2 border-blue-500"
                 src={mentor.image}
                 alt={mentor.name}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
-              <div className="lg:ml-6 flex-1">
+              <div className="ml-6 flex-1">
                 <h2
                   className={`text-2xl font-bold ${
                     darkMode ? "text-white" : "text-gray-900"

@@ -76,7 +76,7 @@ function MProfile() {
         isDarkMode={darkMode}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-gray-900">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <MHeader
           toggleSidebar={toggleSidebar}
           sidebarShrink={sidebarShrink}
@@ -86,18 +86,18 @@ function MProfile() {
         <MNavbar />
         <div className="flex-1 p-6 overflow-auto">
           <div id="profile-content" className="content-section">
-            <div className="mb-6 text-5xl font-bold dark:text-white text-center lg:text-left">
+            <div className="mb-6 text-5xl font-bold dark:text-white">
               <h1>Your Profile</h1>
             </div>
             <div className="flex-1 space-y-7">
               {/* Personal Information */}
-              <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h2 className="text-2xl lg:text-3xl font-semibold mb-6 dark:text-white text-center lg:text-left">
+              <section className="bg- dark:bg-gray-800 p-6 rounded-lg shadow">
+                <h2 className="text-3xl font-semibold mb-6 dark:text-white">
                   Personal Information
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-700 border-black border-2 dark:border-0">
+                    <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-800 border-black border-2 dark:border-0">
                       {profileImage ? (
                         <img
                           src={profileImage}
@@ -148,7 +148,7 @@ function MProfile() {
                       ref={fileInputRef} // Assign the ref to the input
                     />
                   </div>
-                  <div className="lg:grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-2 gap-6">
                     {/* Fields for personal information */}
                     {Object.keys(profileData).map((key) => (
                       <div key={key} className="relative">

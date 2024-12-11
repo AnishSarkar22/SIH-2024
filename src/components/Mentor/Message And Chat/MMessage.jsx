@@ -192,6 +192,7 @@ const ChatItem = ({ chat }) => (
           toggleDarkMode={toggleDarkMode}
         />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
           <div className="container mx-auto px-6">
             <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 h-[calc(100vh-200px)] overflow-y-auto bg-white dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-700">
               {error && (
@@ -214,6 +215,7 @@ const ChatItem = ({ chat }) => (
               </div>
             </div>
           </div>
+        </main>
         </main>
       </div>
     </div>

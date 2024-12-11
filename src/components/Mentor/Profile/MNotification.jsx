@@ -82,11 +82,11 @@ const MentorNotification = () => {
           toggleDarkMode={toggleDarkMode}
         />
         <MentorNavbar />
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1">
           <div className="max-w-7xl mx-auto">
             <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center">
-                <h2 className="text-2xl lg:text-4xl font-semibold text-gray-800 dark:text-white flex-grow">Notifications</h2>
+                <h2 className="text-4xl font-semibold text-gray-800 dark:text-white flex-grow">Notifications</h2>
                 <div className="flex text-lg font-medium">
                   <span className="w-20 text-center font-bold text-black dark:text-white">Date</span>
                   <span className="w-20 text-center ml-2 mr-1 font-bold text-black dark:text-white">Time</span>

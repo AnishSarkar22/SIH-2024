@@ -330,7 +330,7 @@ const StepForm = () => {
           )}
         </div>
         {hasError && (
-          <p className="text-red-500 text-sm mt-1"></p> // add later "This field is required"
+          <p className="text-red-500 text-sm mt-1">This field is required</p>
         )}
       </div>
     );
@@ -515,7 +515,7 @@ const StepForm = () => {
         <div id="page2" className="form-page">
           <form>
             {/* Category Section */}
-            {/* <p className="text-gray-700 font-bold mb-4">Category</p>
+            <p className="text-gray-700 font-bold mb-4">Category</p>
             <div className="mb-6 p-4 rounded-md bg-white">
               <div className="flex items-center">
                 <input
@@ -531,7 +531,7 @@ const StepForm = () => {
                   <i className="fa-solid fa-search"></i>
                 </button>
               </div>
-            </div> */}
+            </div>
 
             {/* Skills Section */}
             <p className="text-gray-700 font-bold mb-4">Skills</p>
@@ -576,7 +576,7 @@ const StepForm = () => {
             </div>
 
             {/* Bio Section */}
-            <p className="text-gray-700 font-bold mb-2 mt-2">Bio</p>
+            <p className="text-gray-700 font-bold mb-2">Bio</p>
             <div className="mb-1 p-4 rounded-md bg-white">
               <textarea
                 id="bio"

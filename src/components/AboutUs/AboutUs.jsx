@@ -1,5 +1,5 @@
 import React from 'react';
-import HNavbar from '../Home/HNavbar'; // Corrected import statement
+import HNavbar from '../Home/HNavbar';
 import HeroSection from './HeroSection'; // Import HeroSection
 import FeaturesSection from './FeaturesSection'; // Import FeaturesSection
 import TeamCarousel from './teammember'; // Import TeamCarousel
