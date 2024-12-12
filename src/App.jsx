@@ -41,6 +41,11 @@ import Blog6 from './components/Blogs/Blog6';
 import GroupSessions from './components/Mentor/GroupSessionsPage';
 import Bookings from './components/Mentor/Bookings';
 import Mentorprofile from './components/Mentee/Mentor Details/Mentorprofile';
+import WorkingHours from './components/WorkingHours';
+import MentorReferrals from './components/MentorReferrals';
+import JobPostingDashboard from './components/JobPostingDashboard';
+import MenteeJobPosting from './components/MenteeJobPosting';
+import MenteeReferralsPage from './components/MenteeReferralsPage'; 
 
 
 function App() {
@@ -106,7 +111,12 @@ function App() {
         <Route path="/basic-details" element={<BasicDetails2 />} />
         <Route path="/video-call" element={<VideoCall />} />
         <Route path="/mentor-profile-details" element={<Mentorprofile />} />
+        <Route path="/working-hours" element={<WorkingHours />} />
         <Route path="*" element={<Navigate to="/home" />} />
+        <Route path="/mentor-referrals" element={<MentorReferrals />} />
+        <Route path="/job-posting-dashboard" element={<JobPostingDashboard />} />
+        <Route path="/mentee-job-posting" element={<MenteeJobPosting />} />
+        <Route path="/mentee-referrals" element={<MenteeReferralsPage />} />
       </Routes>
     </Router>
   );

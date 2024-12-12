@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark, faEnvelope  } from "@fortawesome/free-solid-svg-icons";
 import {
   FaHome,
   FaUserFriends,
@@ -15,6 +15,7 @@ import {
 import { MoreVertical, UserCircle, BarChart2, Bell, Settings, LogOut } from "lucide-react";
 
 const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
+  const [userName, setUserName] = useState("");
   const [isSidebarShrink, setIsSidebarShrink] = useState(sidebarShrink);
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";
@@ -52,7 +53,16 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
     {
       label: "Log Out",
       icon: LogOut,
-      onClick: () => console.log("Log out clicked"),
+      onClick: () => (
+        <Link
+          to="/signin"
+          className="relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
+          onClick={handleLogout}
+        >
+          <LogOut className="w-5 h-5" />
+          {!isSidebarShrink && <span className="ml-3">Log Out</span>}
+        </Link>
+      ),
     },
   ];
 
@@ -107,6 +117,44 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Include cookies in the request
+      });
+
+      if (response.ok) {
+        // Clear localStorage
+        localStorage.clear();
+        // Redirect to signin page
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        console.error("Error during logout:", errorData.error);
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
+  // display full name of the user
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData && userData.name) {
+        setUserName(userData.name);
+      }
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      setUserName("Guest");
+    }
+  }, []);
+  
 
   const getLinkStyle = (path) => {
     if (activeLink === path) {
@@ -271,18 +319,52 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
                 )}
               </div>
             </Link>
+            <Link
+              to="/mentee-job-posting"
+              className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
+                isSidebarShrink
+                  ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
+                  : "hover:bg-gray-600 hover:text-white last:dark:hover:bg-gray-600"
+              }`}
+              onClick={() => setActiveLink("/mentee-job-posting")}
+              style={getLinkStyle("/mentee-job-posting")}
+            >
+              <div className="flex items-center">
+                <FaBook className="text-xl w-8 text-center" />
+                {!isSidebarShrink && (
+                  <span className="ml-3 text-lg sidebar-text">Job Posting</span>
+                )}
+              </div>
+            </Link>
+            <Link
+              to="/mentee-referrals"
+              className={`relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 ${
+                isSidebarShrink
+                  ? "hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600 justify-center"
+                  : "hover:bg-gray-600 hover:text-white last:dark:hover:bg-gray-600"
+              }`}
+              onClick={() => setActiveLink("/mentee-referrals")}
+              style={getLinkStyle("/mentee-referrals")}
+            >
+              <div className="flex items-center">
+              <FontAwesomeIcon icon={faEnvelope} className="text-xl w-8 text-center" />
+                {!isSidebarShrink && (
+                  <span className="ml-3 text-lg sidebar-text">Referrals</span>
+                )}
+              </div>
+            </Link>
           </nav>
-          <div className="flex items-center justify-between max-w-sm lg:absolute bottom-0 mt-auto">
+          <div className="flex items-center justify-between max-w-sm lg:absolute bottom-0 mt-10 ml-7">
             <div className="flex items-center space-x-4 p-6">
               <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-800">
                 <img
-                  src="./images/kankana.png"
+                  src="../../../public/images/anish.png"
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h3 className="font-medium dark:text-white">Riley Carter</h3>
+                <h3 className="font-medium dark:text-white">{userName || "Guest"}</h3>
               </div>
             </div>
 
@@ -290,7 +372,7 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               <button
                 ref={buttonRef}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200 mb-4"
+                className="    hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200 mb-4 items-end"
                 aria-label="Open menu"
               >
                 <MoreVertical className="w-5 h-5 text-gray-400" />
@@ -309,7 +391,7 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
                           item.onClick();
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full px-4 py-2 text-sm text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-150"
+                        className="flex items-center w-full px-8 py-2 text-sm text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-150"
                       >
                         <item.icon className="w-4 h-4 mr-3 text-gray-700 dark:text-white" />
                         {item.label}

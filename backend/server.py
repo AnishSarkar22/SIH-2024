@@ -4,9 +4,12 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from firebase_init import initialize_firebase, get_auth, get_firestore
+from calendar_auth import calendar_routes
+from ai_integration import ai_routes
 from auth import auth_routes
 from test.test_routes import test_routes
 from chat import chat_routes
+from ats import ats_routes
 
 app = Flask(__name__, static_folder='../dist')
 
@@ -40,6 +43,12 @@ app.register_blueprint(auth_routes, url_prefix='/api')
 app.register_blueprint(test_routes, url_prefix='/api/test')
 # Register chat routes blueprint
 app.register_blueprint(chat_routes, url_prefix='/api')
+# Register calendar routes blueprint
+app.register_blueprint(calendar_routes, url_prefix='/api')
+# Register AI routes blueprint
+app.register_blueprint(ai_routes, url_prefix='/api')
+# Register ATS routes blueprint
+app.register_blueprint(ats_routes, url_prefix='/api')
 
 
 @app.route('/', defaults={'path': ''})

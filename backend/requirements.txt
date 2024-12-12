@@ -12,3 +12,6 @@ firebase-admin
 # PyMongo==4.6.1
 pytest
 pytest-mock
+google-auth-oauthlib
+scikit-learn
+pandas

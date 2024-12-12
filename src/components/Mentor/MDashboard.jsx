@@ -11,8 +11,10 @@ import {
   faUser,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
 function MDashboard() {
+  const [isCalendarSyncing, setIsCalendarSyncing] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [darkMode, setDarkMode] = useState(() => {
@@ -61,6 +63,44 @@ function MDashboard() {
     }
   }, []);
 
+  const handleCalendarSync = async () => {
+    setIsCalendarSyncing(true);
+    try {
+      // Remove /api prefix since it's handled by blueprint
+      const response = await fetch("http://127.0.0.1:5000/calendar/auth", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType?.includes("application/json")) {
+        throw new TypeError("Server returned non-JSON response");
+      }
+
+      const data = await response.json();
+
+      if (data.authUrl) {
+        window.location.href = data.authUrl;
+      } else {
+        throw new Error("No auth URL in response");
+      }
+    } catch (error) {
+      console.error("Calendar sync failed:", error);
+      // TODO: Add toast notification here
+    } finally {
+      setIsCalendarSyncing(false);
+    }
+  };
+
+  const navigate = useNavigate();
+
   return (
     <div className={`flex h-screen ${darkMode ? "dark" : ""}`}>
       <MSidebar
@@ -75,15 +115,15 @@ function MDashboard() {
           toggleDarkMode={toggleDarkMode}
           darkMode={darkMode}
         />
-        <main className="flex-1 p-8 mt-7 dark:bg-gray-900">
+        <main className="flex-1 p-8 py-10 bg-white dark:bg-gray-900">
           <div className="flex justify-between items-center mb-14  text-gray-800 dark:text-white">
             <div>
               <h1 className="text-2xl font-bold dark:text-white">
                 Hello, {userName || "Guest"} 👋
               </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              {/* <p className="text-sm text-gray-600 dark:text-gray-400">
                 {userEmail || "mentor@example.com"}
-              </p>
+              </p> */}
             </div>
             <div className="flex items-center space-x-2">
               <span className="text-blue-600 font-semibold dark:text-blue-400">
@@ -114,7 +154,7 @@ function MDashboard() {
                     />
                     <div className="flex flex-col justify-center">
                       <h3 className="font-bold text-2xl leading-tight text-gray-800 dark:text-white">
-                        Upcoming 3 meetings
+                        Upcoming 0 meetings
                       </h3>
                     </div>
                   </div>
@@ -141,7 +181,7 @@ function MDashboard() {
                     />
                     <div className="flex flex-col justify-center">
                       <p className="font-semibold text-xl text-black dark:text-white">
-                        11:00 AM - 10:00 PM
+                        8:00 PM - 10:00 PM
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         Indian Standard Time (IST)
@@ -149,10 +189,16 @@ function MDashboard() {
                     </div>
                   </div>
                   <div className="flex flex-col space-y-2">
-                    <button className="px-3 py-1 border border-gray-700 dark:border-gray-600 text-black dark:text-white rounded  hover:bg-slate-300  dark:hover:bg-slate-900">
-                      Sync Calendar
+                    <button
+                      onClick={handleCalendarSync}
+                      disabled={isCalendarSyncing}
+                      className="px-10 py-1 border border-gray-700 dark:border-gray-600 text-gray-800 dark:text-white rounded hover:bg-slate-300 dark:hover:bg-slate-900 disabled:opacity-50"
+                    >
+                      {isCalendarSyncing ? "Syncing..." : "Sync Calendar"}
                     </button>
-                    <button className="px-3 py-1 text-black dark:text-white rounded relative border border-gray-700 dark:border-gray-600  hover:bg-slate-300  dark:hover:bg-slate-900">
+                    <button 
+                    onClick={() => navigate('/working-hours')}
+                    className="px-3 py-1 text-black dark:text-white rounded relative border border-gray-700 dark:border-gray-600  hover:bg-slate-300  dark:hover:bg-slate-900">
                       Edit
                     </button>
                   </div>
@@ -174,13 +220,13 @@ function MDashboard() {
                     />
                     <div>
                       <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                        80
+                        NA
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
                         1:1 Bookings
                       </p>
                       <p className="text-xs text-gray-400 dark:text-gray-500">
-                        This month: 32
+                        This month: NA
                       </p>
                     </div>
                   </div>
@@ -192,13 +238,13 @@ function MDashboard() {
                     />
                     <div>
                       <p className="text-3xl font-bold text-orange-500 dark:text-orange-400">
-                        23,461
+                        NA
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
                         Minutes mentored
                       </p>
                       <p className="text-xs text-gray-400 dark:text-gray-500">
-                        This month: 1,531
+                        This month: NA
                       </p>
                     </div>
                   </div>
@@ -210,13 +256,13 @@ function MDashboard() {
                     />
                     <div>
                       <p className="text-3xl font-bold text-red-500 dark:text-red-400">
-                        890
+                        NA
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
                         Session RSVPs
                       </p>
                       <p className="text-xs text-gray-400 dark:text-gray-500">
-                        This month: 120
+                        This month: NA
                       </p>
                     </div>
                   </div>
@@ -229,13 +275,13 @@ function MDashboard() {
                       />
                       <div>
                         <p className="text-3xl font-bold text-blue-400 dark:text-blue-300">
-                          34
+                          NA
                         </p>
                         <p className="text-sm text-gray-600 dark:text-gray-300">
                           Reviews
                         </p>
                         <p className="text-xs text-gray-400 dark:text-gray-500">
-                          This month: 03
+                          This month: NA
                         </p>
                       </div>
                     </div>
@@ -248,7 +294,8 @@ function MDashboard() {
                   Upcoming Meetings
                 </h2>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
+                  <h2 className="text-xl text-bold text-center py-8 dark:text-white">You have no Bookings</h2>
+                  {/* <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <FontAwesomeIcon
                         icon={faUserGroup}
@@ -334,7 +381,7 @@ function MDashboard() {
                         19:30
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

@@ -164,9 +164,9 @@ function MSchedule() {
                       editable={true}
                       selectable={true}
                       selectMirror={true}
-                      dayMaxEvents={true}
-                      weekends={weekendsVisible}
-                      initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+                      dayMaxEvents={false}
+                      // weekends={weekendsVisible}
+                      // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
                       select={handleDateSelect}
                       eventContent={renderEventContent} // custom render function
                       eventClick={handleEventClick}
@@ -240,7 +240,7 @@ function MSchedule() {
                 </div>
               </div>
               {/* Upcoming Activities Section */}
-              <div className="max-w-[3000px] p-7">
+              {/* <div className="max-w-[3000px] p-7">
               <h2 className="text-3xl text-gray-700 dark:text-white font-semibold mb-4">
                     Upcoming Activities
                   </h2>
@@ -340,7 +340,7 @@ function MSchedule() {
                     </div>
                   </Carousel>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </main>

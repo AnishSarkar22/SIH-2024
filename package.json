@@ -33,9 +33,9 @@
     "@react-oauth/google": "^0.12.1",
     "@react-spring/web": "^9.7.4",
     "@rewind-ui/core": "^0.20.0",
+    "@shadcn/ui": "^0.0.4",
     "@stream-io/audio-filters-web": "^0.2.2",
     "@stream-io/video-react-sdk": "^1.7.27",
-    "@shadcn/ui": "^0.0.4",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -45,10 +45,12 @@
     "flowbite": "^2.5.1",
     "fortawesome": "^0.0.1-security",
     "framer-motion": "^11.13.5",
+    "html2pdf.js": "^0.10.2",
     "intl-tel-input": "^24.5.0",
     "ldrs": "^1.0.2",
     "lucide-react": "^0.441.0",
     "moment-timezone": "^0.5.45",
+    "pdfjs-dist": "^3.11.174",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-feather": "^2.0.10",
@@ -74,7 +76,8 @@
     "timezone": "^1.0.23",
     "tw-elements-react": "^1.0.0-alpha-end",
     "web-vitals": "^4.2.3",
-    "webrtc-adapter": "^9.0.1"
+    "webrtc-adapter": "^9.0.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

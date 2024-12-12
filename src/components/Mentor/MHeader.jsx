@@ -8,7 +8,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
-import Avatar from '@mui/material/Avatar';
+import Avatar from "@mui/material/Avatar";
+import Checkbox from "@mui/material/Checkbox";
+
+const PurpleCheckbox = styled(Checkbox)({
+  color: "purple",
+  "&.Mui-checked": {
+    color: "purple",
+  },
+  width: "40px",
+  height: "50px",
+});
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -74,18 +85,19 @@ const MHeader = ({
 }) => {
   const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  useEffect(() => {
-    try {
-      const userData = JSON.parse(localStorage.getItem("userData"));
-      if (userData && userData.name) {
-        setUserName(userData.name);
-      }
-    } catch (error) {
-      console.error("Error parsing user data:", error);
-      setUserName("Guest");
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     const userData = JSON.parse(localStorage.getItem("userData"));
+  //     if (userData && userData.name) {
+  //       setUserName(userData.name);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error parsing user data:", error);
+  //     setUserName("Guest");
+  //   }
+  // }, []);
 
   const initials = userName
     .split(" ")
@@ -98,6 +110,10 @@ const MHeader = ({
 
   const handleDarkModeToggle = (event) => {
     toggleDarkMode(event.target.checked);
+  };
+
+  const toggleDialog = () => {
+    setIsDialogOpen(!isDialogOpen);
   };
 
   useEffect(() => {
@@ -260,16 +276,191 @@ const MHeader = ({
             )}
           </div>
           <div className="lg:flex hidden items-center space-x-2">
-          <Avatar sx={{ bgcolor: "#3f51b5" }}>{initials}</Avatar>
+            {/* <Avatar sx={{ bgcolor: "#3f51b5" }}>{initials}</Avatar> */}
 
-            <span className="text-gray-700 dark:text-gray-200">
+            {/* <span className="text-gray-700 dark:text-gray-200">
               {userName || "Guest"}
-            </span>
+            </span> */}
           </div>
-          <button className="flex items-center px-8 py-2 mt-2 lg:mt-0 lg:px-4 lg:py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <i className="fa-solid fa-plus mr-2"></i> {/* Plus Icon */}
-            <span>Create Session</span> {/* Button Text */}
+          <button
+            onClick={toggleDialog} // Update this line
+            className="flex items-center px-8 py-2 mt-2 lg:mt-0 lg:px-4 lg:py-2 bg-white text-black rounded-md border border-black dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-slate-300  dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <i className="fa-solid fa-plus mr-2"></i>
+            <span>Create Session</span>
           </button>
+          {isDialogOpen && (
+            <div className="fixed z-50 inset-0 overflow-y-auto ">
+              <div className="flex items-center justify-center min-h-screen">
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6 mx-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-medium dark:text-gray-200">
+                      Create a Session
+                    </h2>
+                    <button
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 focus:outline-none"
+                      aria-label="Close"
+                      onClick={toggleDialog}
+                    >
+                      <svg
+                        className="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <label
+                        htmlFor="title"
+                        className="block font-medium text-gray-700 dark:text-gray-300"
+                      >
+                        Title
+                      </label>
+                      <input
+                        type="text"
+                        id="title"
+                        className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Add Title"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="date"
+                        className="block font-medium text-gray-700 dark:text-gray-300"
+                      >
+                        Date
+                      </label>
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 mr-2">
+                          <svg
+                            className="w-full h-full"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <input
+                          type="text"
+                          id="date"
+                          className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          value="Saturday, 7th December"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="time"
+                        className="block font-medium text-gray-700 dark:text-gray-300"
+                      >
+                        Time
+                      </label>
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 mr-2">
+                          <svg
+                            className="w-full h-full"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <input
+                          type="text"
+                          id="time"
+                          className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          value="3:30pm - 4:30pm"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="description"
+                        className="block font-medium text-gray-700 dark:text-gray-300"
+                      >
+                        Description
+                      </label>
+                      <textarea
+                        id="description"
+                        rows="3"
+                        className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Add Description"
+                      ></textarea>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center">
+                        <PurpleCheckbox {...label} />
+                        <label
+                          htmlFor="notify"
+                          className="ml-2 block font-medium text-gray-700 dark:text-gray-300"
+                        >
+                          Notify Me
+                        </label>
+                      </div>
+                    </div>
+                    {/* <div className="flex items-center space-x-2">
+                      <div className="flex items-center">
+                        <svg
+                          width="30"
+                          height="40"
+                          viewBox="0 0 50 50"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clipPath="url(#clip0_3318_2318)">
+                            <path
+                              d="M14.2857 0C15.7701 0 16.9643 1.04492 16.9643 2.34375V6.25H33.0357V2.34375C33.0357 1.04492 34.2299 0 35.7143 0C37.1987 0 38.3929 1.04492 38.3929 2.34375V6.25H42.8571C46.7969 6.25 50 9.05273 50 12.5V14.0625V18.75V43.75C50 47.1973 46.7969 50 42.8571 50H7.14286C3.20312 50 0 47.1973 0 43.75V18.75V14.0625V12.5C0 9.05273 3.20312 6.25 7.14286 6.25H11.6071V2.34375C11.6071 1.04492 12.8013 0 14.2857 0ZM44.6429 18.75H5.35714V43.75C5.35714 44.6094 6.16071 45.3125 7.14286 45.3125H42.8571C43.8393 45.3125 44.6429 44.6094 44.6429 43.75V18.75ZM36.7188 29.0039L24.2188 39.9414C23.1696 40.8594 21.4732 40.8594 20.4353 39.9414L13.2924 33.6914C12.2433 32.7734 12.2433 31.2891 13.2924 30.3809C14.3415 29.4727 16.0379 29.4629 17.0759 30.3809L22.3214 34.9707L32.9241 25.6934C33.9732 24.7754 35.6696 24.7754 36.7076 25.6934C37.7455 26.6113 37.7567 28.0957 36.7076 29.0039H36.7188Z"
+                              fill="black"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_3318_2318">
+                              <rect width="50" height="50" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <label
+                          htmlFor="programming-knowledge"
+                          className="ml-2 block font-medium text-gray-700 dark:text-gray-300"
+                        >
+                          Programming Knowledge
+                        </label>
+                      </div>
+                    </div> */}
+                    <div className="flex justify-end">
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>

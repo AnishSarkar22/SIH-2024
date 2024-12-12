@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -44,6 +45,8 @@ const Dashboard = () => {
     const savedSidebarState = localStorage.getItem("sidebarState");
     return savedSidebarState === "shrink";
   });
+  const navigate = useNavigate();
+  const [initialMessage, setInitialMessage] = useState("");
 
   const [darkMode, setDarkMode] = useState(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
@@ -141,13 +144,13 @@ const Dashboard = () => {
       ],
     },
   ];
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   // Simulate loading
+  //   const timer = setTimeout(() => setLoading(false), 2000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const faqItems = useMemo(
     () => [
@@ -218,13 +221,13 @@ const Dashboard = () => {
     nextArrow: <NextArrow onClick={() => sliderRef.current.slickNext()} />,
   };
   // for loading spinner
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <l-tail-chase size="40" speed="1.75" color="black"></l-tail-chase>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <l-tail-chase size="40" speed="1.75" color="black"></l-tail-chase>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
@@ -260,9 +263,8 @@ const Dashboard = () => {
                     />
                     <div>
                       <p className="font-semibold text-xl lg:text-2xl">
-                       Describe Your Problem
+                        Describe Your Problem
                       </p>
-                      
                     </div>
                   </div>
                   <p className="text-gray-700 text-sm lg:text-md dark:text-gray-300">
@@ -272,22 +274,30 @@ const Dashboard = () => {
                 <input
                   type="text"
                   placeholder="Type here..."
+                  value={initialMessage}
+                  onChange={(e) => setInitialMessage(e.target.value)}
+                  
                   className="w-full p-3 rounded-lg border shadow-lg border-gray-100 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-gray-300 dark:border-gray-800"
                 />
-                <a
-                  href="#"
-                  className="text-blue-500 hover:underline flex justify-center text-center mt-3"
+                <button
+                  onClick={() =>
+                    navigate("/personal-ai", { state: { initialMessage } })
+                  }
+                  className="text-blue-500 hover:underline flex justify-center text-center mt-3 w-full"
                 >
                   Continue your Conversation →
-                </a>
+                </button>
               </div>
               {/* Your Plan */}
               <div className="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
                 <h2 className="text-2xl lg:text-xl font-semibold text-center mb-4  text-gray-800 dark:text-white">
                   Your Plan
                 </h2>
-                <div className="space-y-4 shadow-md rounded-lg">
-                  <div className="flex justify-between items-center px-1 lg:px-4 pt-4">
+                <div className="space-y-4  rounded-lg">
+                  <h2 className="text-xl text-bold text-center py-8 dark:text-white">
+                    You haven't Booked Any Sessions
+                  </h2>
+                  {/* <div className="flex justify-between items-center px-1 lg:px-4 pt-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
                       <span className="text-md lg:text-lg">Mayowa Ade</span>
@@ -370,7 +380,7 @@ const Dashboard = () => {
                         11:30
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

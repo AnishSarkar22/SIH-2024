@@ -3,8 +3,9 @@ import { Star, MapPin, Heart, LinkedinIcon, XIcon } from "lucide-react";
 import { LuMessageSquare } from "react-icons/lu";
 import { MdOutlineGroups } from "react-icons/md";
 import { MdOutlineVideocam } from "react-icons/md";
+import MentorBookingModal from "../../MentorBookingModal";
+import  mentorImage  from "../../../../public/images/1pic (1).png";
 
-// Keeping all existing component definitions (MenteeReview, SkillTag, SimilarMentor) the same
 
 const MenteeReview = ({ name, rating, review, date }) => (
   <div className="border-b border-black">
@@ -50,7 +51,7 @@ const SimilarMentor = ({
 }) => (
   <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 p-4 border-b border-black bg-white dark:bg-gray-900">
     <img
-      src=""
+      src={mentorImage} alt="Mentor Profile"
       className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-300"
     />
     <div className="flex-1">
@@ -88,6 +89,7 @@ const SimilarMentor = ({
 );
 
 const MentorDetails = ({ darkMode, toggleDarkMode }) => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
   const handleSaveClick = () => {
@@ -105,6 +107,10 @@ const MentorDetails = ({ darkMode, toggleDarkMode }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleBooking = () => {
+    setIsBookingModalOpen(true);
+  };
 
   return (
     <div
@@ -125,7 +131,7 @@ const MentorDetails = ({ darkMode, toggleDarkMode }) => {
               <div className="flex flex-col md:flex-row items-center mb-6 md:mb-16">
                 <div className="flex items-center space-x-4">
                   <img
-                    src=""
+                    src={mentorImage}
                     alt="Mentor Profile"
                     className="w-32 h-32 md:w-44 md:h-44 rounded-full object-cover bg-gray-400"
                   />
@@ -166,7 +172,7 @@ const MentorDetails = ({ darkMode, toggleDarkMode }) => {
                   <div className="bg-white dark:bg-gray-900 p-6 md:p-8 rounded-lg shadow-xl min-h-[350px] md:min-h-[400px] flex flex-col justify-between">
                     <div>
                       <h3 className="text-2xl md:text-3xl font-bold mb-4 text-left dark:text-white">
-                        ₹5500/month
+                        
                       </h3>
                       <p className="text-sm md:text-base text-gray-600 dark:text-white mb-6 text-left">
                         The most popular way to get mentored, let's work towards
@@ -187,8 +193,11 @@ const MentorDetails = ({ darkMode, toggleDarkMode }) => {
                         </li>
                       </ul>
                     </div>
-                    <button className="w-full bg-gray-700 text-white py-3 md:py-4 px-6 rounded-full font-medium hover:bg-gray-800 transition duration-300 flex items-center justify-center text-sm md:text-base">
-                      BOOK NOW
+                    <button
+                      className="w-full bg-gray-700 text-white py-3 md:py-4 px-6 rounded-full font-medium hover:bg-gray-800 transition duration-300 flex items-center justify-center text-sm md:text-base"
+                      onClick={handleBooking}
+                    >
+                      Book Your Session
                       <svg
                         className="w-5 h-5 md:w-6 md:h-6 ml-2"
                         fill="none"
@@ -203,6 +212,13 @@ const MentorDetails = ({ darkMode, toggleDarkMode }) => {
                         ></path>
                       </svg>
                     </button>
+                    <MentorBookingModal
+                      isOpen={isBookingModalOpen}
+                      closeModal={() => setIsBookingModalOpen(false)}
+                      // mentorUsername={mentor.calendarUsername} 
+                      mentorUsername="rebooters"
+                      calendarUrl="https://cal.com/rebooters/30min"
+                    />
                   </div>
                   {/* Skills section - Desktop view */}
                   <div className="hidden md:flex flex-col px-2 pb-4 w-full">
@@ -236,7 +252,7 @@ const MentorDetails = ({ darkMode, toggleDarkMode }) => {
                 <div className="w-full md:w-2/3 md:pr-6">
                   {/* Mentor Info */}
                   <h2 className="text-2xl md:text-3xl font-bold mb-3 dark:text-white">
-                    Radhika Sharma
+                    Krunal Parmar
                   </h2>
                   <p className="text-gray-700 dark:text-white font-medium text-sm md:text">
                     Research and Development @ NJNM

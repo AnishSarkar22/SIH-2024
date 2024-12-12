@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
-import Sidebar from '../Sidebar';
-import Header from '../Header';
-import Navbar from './Navbar';
+import React, { useState, useRef } from "react";
+import Sidebar from "../Sidebar";
+import Header from "../Header";
+import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -21,7 +22,7 @@ function Profile() {
     linkedIn: "https://linkedin.com/username",
     twitter: "https://x.com/username",
     github: "https://github.com/username",
-    password: "******"
+    password: "******",
   });
 
   const [profileImage, setProfileImage] = useState(null);
@@ -44,7 +45,7 @@ function Profile() {
     const { name, value } = e.target;
     setProfileData({
       ...profileData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -67,7 +68,11 @@ function Profile() {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${darkMode ? "dark" : ""}`}>
+    <div
+      className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${
+        darkMode ? "dark" : ""
+      }`}
+    >
       <Sidebar
         sidebarShrink={sidebarShrink}
         isDarkMode={darkMode}
@@ -96,7 +101,11 @@ function Profile() {
                   <div className="flex items-center mb-4">
                     <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-3xl mr-4 dark:bg-gray-700 border-black border-2 dark:border-0">
                       {profileImage ? (
-                        <img src={profileImage} alt="Profile" className="w-20 h-20 rounded-full" />
+                        <img
+                          src={profileImage}
+                          alt="Profile"
+                          className="w-20 h-20 rounded-full"
+                        />
                       ) : (
                         <svg
                           className="w-12 h-12 dark:text-white"
@@ -114,15 +123,25 @@ function Profile() {
                         </svg>
                       )}
                     </div>
-                    <button
-                      onClick={handleProfilePictureClick} // Open file dialog
+                    <Link
+                      to="/working-hours"
                       className="flex items-center text-blue-600 dark:text-blue-400 font-medium border-2 border-gray-400 px-2 py-1 rounded-xl"
                     >
-                      <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                      <svg
+                        className="w-5 h-5 mr-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
                       </svg>
-                      Edit 
-                    </button>
+                      Working Hours
+                    </Link>
                     <input
                       type="file"
                       onChange={handleFileChange}
@@ -135,11 +154,11 @@ function Profile() {
                     {Object.keys(profileData).map((key) => (
                       <div key={key} className="relative">
                         <label className="block text font-medium text-gray-700 mb-3 dark:text-white dark:font-bold">
-                        {key
-                          .replace(/([A-Z])/g, ' $1')
-                          .split(/(?=[A-Z])/)
-                          .join(' ')
-                          .replace(/^./, str => str.toUpperCase())}
+                          {key
+                            .replace(/([A-Z])/g, " $1")
+                            .split(/(?=[A-Z])/)
+                            .join(" ")
+                            .replace(/^./, (str) => str.toUpperCase())}
                         </label>
                         <div className="flex items-center border border-gray-300 rounded-lg dark:border-gray-700">
                           <input
@@ -150,7 +169,10 @@ function Profile() {
                             className="flex-grow px-3 py-2 rounded-lg border-none focus:outline-none dark:bg-gray-700 text-gray-500 dark:text-white"
                             readOnly={!editMode}
                           />
-                          <button onClick={handleEditClick} className="absolute right-2 top-1/2 transform -translate-y-1/2 mt-4 text-gray-700 dark:text-white">
+                          <button
+                            onClick={handleEditClick}
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 mt-4 text-gray-700 dark:text-white"
+                          >
                             <svg
                               className="w-5 h-5"
                               fill="none"
@@ -174,11 +196,22 @@ function Profile() {
               </section>
               {/* Availability Section */}
               <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h2 className="text-3xl font-semibold mb-8 dark:text-white">Availability</h2>
-                <h4 className="text-md font-semibold mb-8 dark:text-white">In general, when do you prefer to meet your mentor?</h4>
+                <h2 className="text-3xl font-semibold mb-8 dark:text-white">
+                  Availability
+                </h2>
+                <h4 className="text-md font-semibold mb-8 dark:text-white">
+                  In general, when do you prefer to meet your mentor?
+                </h4>
                 <div className="space-y-8">
-                  {["Early mornings (before 9am)", "During the day (9am - 5pm)", "In the evenings (after 5pm)"].map((timeSlot) => (
-                    <label key={timeSlot} className="flex items-start dark:text-white">
+                  {[
+                    "Early mornings (before 9am)",
+                    "During the day (9am - 5pm)",
+                    "In the evenings (after 5pm)",
+                  ].map((timeSlot) => (
+                    <label
+                      key={timeSlot}
+                      className="flex items-start dark:text-white"
+                    >
                       <input
                         type="radio"
                         name="availability"
