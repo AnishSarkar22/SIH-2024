@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Upload } from "lucide-react";
 import SkillsDropdown from "./SkillsDropdown";
-import * as pdfjs from 'pdfjs-dist';
+import * as pdfjs from "pdfjs-dist";
 // Set PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -95,12 +95,13 @@ const StepForm = () => {
       formData.append("jdtxt", jobDescription);
       formData.append("cvtxt", resumeText);
 
-      const response = await fetch("http://127.0.0.1:5000/api/ats/match", {  // Remove /api/
+      const response = await fetch("http://127.0.0.1:5000/api/ats/match", {
+        // Remove /api/
         method: "POST",
         body: formData,
         credentials: "include",
         headers: {
-          Accept: "application/json", 
+          Accept: "application/json",
         },
       });
 
@@ -301,10 +302,10 @@ const StepForm = () => {
 
   const handleDocumentUpload = async (e, type) => {
     const files = e.target.files;
-  
+
     if (type === "resume") {
       const file = files[0];
-      
+
       try {
         if (file.type === "application/pdf") {
           const reader = new FileReader();
@@ -315,11 +316,12 @@ const StepForm = () => {
               const page = await pdf.getPage(1);
               const textContent = await page.getTextContent();
               const text = textContent.items.map((item) => item.str).join(" ");
-  
+
               setResumeText(text);
               console.log("Extracted text:", text); // Debug log
-              
-              const sampleJobDesc = "Software engineer with React and JavaScript experience";
+
+              const sampleJobDesc =
+                "Software engineer with React and JavaScript experience";
               await checkResumeMatch(text, sampleJobDesc);
             } catch (error) {
               console.error("PDF processing error:", error);
@@ -336,7 +338,7 @@ const StepForm = () => {
         setMatchPercentage("0");
       }
     }
-  
+
     // Existing upload logic for other document types
     if (type === "education" || type === "employment") {
       setUploadedFiles((prev) => ({
@@ -441,18 +443,18 @@ const StepForm = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto py-16 px-4 sm:px-9 lg:px-8">
       {/* Stepper */}
       <div className="flex justify-between items-center mb-8">
         {[1, 2, 3].map((step, index) => (
           <React.Fragment key={step}>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center relative">
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
                   currentPage >= index ? "bg-indigo-600" : "bg-gray-300"
                 }`}
               >
-                {step}
+                {step }
               </div>
               <div className="mt-2 text-sm font-medium text-gray-500">
                 {index === 0 ? "Profile" : index === 1 ? "Info" : "Summary"}
@@ -463,7 +465,12 @@ const StepForm = () => {
                 className={`h-1 ${
                   currentPage > index ? "bg-indigo-600" : "bg-gray-300"
                 }`}
-                style={{ width: "600px" }}
+                style={{
+                  width: "1000px",
+                  position: "relative",
+                  top: "-15px", 
+                  left: "6px "// Move line up
+                }}
               />
             )}
           </React.Fragment>
@@ -527,7 +534,7 @@ const StepForm = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <RequiredLabel text="Email" />
+                <RequiredLabel text="Work Email" />
                 <input
                   name="email"
                   type="email"
@@ -613,7 +620,7 @@ const StepForm = () => {
         <div id="page2" className="form-page">
           <form>
             {/* Category Section */}
-            <p className="text-gray-700 font-bold mb-4">Category</p>
+            {/* <p className="text-gray-700 font-bold mb-4">Category</p>
             <div className="mb-6 p-4 rounded-md bg-white">
               <div className="flex items-center">
                 <input
@@ -629,7 +636,7 @@ const StepForm = () => {
                   <i className="fa-solid fa-search"></i>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Skills Section */}
             <p className="text-gray-700 font-bold mb-4">Skills</p>

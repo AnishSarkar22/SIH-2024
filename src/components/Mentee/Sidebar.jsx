@@ -13,6 +13,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { MoreVertical, UserCircle, BarChart2, Bell, Settings, LogOut } from "lucide-react";
+import anishImage from '../../../public/images/anish.png';  
 
 const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const [userName, setUserName] = useState("");
@@ -354,11 +355,11 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               </div>
             </Link>
           </nav>
-          <div className="flex items-center justify-between max-w-sm lg:absolute bottom-0 mt-10 ml-7">
+          <div className="flex items-center justify-between max-w-sm lg:absolute bottom-0 mt-10 ml-10">
             <div className="flex items-center space-x-4 p-6">
               <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-800">
                 <img
-                  src="../../../public/images/anish.png"
+                  src={anishImage}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Award,
   BadgeCheck,
@@ -26,6 +26,52 @@ const MenteeReferralsPage = () => {
 
   const [sidebarShrink, setSidebarShrink] = useState(false);
 
+  const [mentorSettings, setMentorSettings] = useState({
+    minimumSessions: 10, // This will be synced with mentor's settings
+  });
+
+  useEffect(() => {
+    // In a real app, this would be done through an API or context
+    // Here we're simulating the sync
+    const handleMentorSettingsChange = (newSettings) => {
+      setMentorSettings(newSettings);
+    };
+
+    // Subscribe to mentor settings changes
+    // This is placeholder code - in real app would use proper state management
+    window.addEventListener("mentorSettingsChange", handleMentorSettingsChange);
+
+    return () => {
+      window.removeEventListener(
+        "mentorSettingsChange",
+        handleMentorSettingsChange
+      );
+    };
+  }, []);
+
+  const checkEligibility = (sessions) => {
+    return sessions >= mentorSettings.minimumSessions;
+  };
+
+  const SessionRating = ({ rating, date, feedback }) => (
+    <div className="flex items-center justify-between p-4 border rounded-lg">
+      <div>
+        <div className="flex items-center space-x-2">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={`h-5 w-5 ${
+                i < rating ? "text-yellow-400 fill-current" : "text-gray-300"
+              }`}
+            />
+          ))}
+        </div>
+        <p className="text-sm text-gray-500 mt-1">{date}</p>
+        {feedback && <p className="text-gray-600 mt-2">{feedback}</p>}
+      </div>
+    </div>
+  );
+
   const toggleSidebar = () => {
     setSidebarShrink(!sidebarShrink);
   };
@@ -43,7 +89,7 @@ const MenteeReferralsPage = () => {
       mentor: "Dr. Sarah Chen",
       date: "2024-03-10",
       badge: "Frontend Master",
-      sessions: 15,
+      sessions: 3,
       verificationCode: "FE789XYZ",
     },
     {
@@ -171,45 +217,97 @@ const MenteeReferralsPage = () => {
     html2pdf().set(opt).from(element).save();
   };
 
-  const SessionProgress = ({ isOpen, sessions }) => {
-    if (!isOpen) return null;
+  const SessionProgress = ({ sessions }) => (
+    <div className="space-y-4">
+      {sessions.map((session, index) => (
+        <div key={index} className="bg-white p-6 rounded-lg shadow">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="font-semibold">Session {session.sessionId}</h3>
+            <span
+              className={`px-3 py-1 rounded-full text-sm ${
+                session.completed
+                  ? "bg-green-100 text-green-800"
+                  : "bg-yellow-100 text-yellow-800"
+              }`}
+            >
+              {session.completed ? "Completed" : "Scheduled"}
+            </span>
+          </div>
 
-    return (
-      <div className="mt-4 bg-gray-50 p-4 rounded-lg">
-        <h4 className="font-medium mb-4">Session Progress</h4>
-        <div className="space-y-4">
-          {sessions.map((session, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium">Session {index + 1}</span>
-                <span
-                  className={`text-sm px-2 py-1 rounded-full ${
-                    session.completed
-                      ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {session.completed ? "Completed" : "Scheduled"}
-                </span>
+          {session.completed && (
+            <>
+              <div className="flex items-center mb-4">
+                <span className="text-gray-600 mr-2">Mentor Rating:</span>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-5 w-5 ${
+                        i < session.rating
+                          ? "text-yellow-400 fill-current"
+                          : "text-gray-300"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="text-sm text-gray-600">
-                <div>Date: {session.date}</div>
-                <div>Focus: {session.focus}</div>
-                {session.completed && (
-                  <div className="mt-2">
-                    <div>
-                      Skills Covered: {session.skillsCovered.join(", ")}
-                    </div>
-                    <div>Mentor Feedback: {session.feedback}</div>
-                  </div>
-                )}
+              <div className="text-gray-600">
+                <p>
+                  <span className="font-medium">Focus:</span> {session.focus}
+                </p>
+                <p>
+                  <span className="font-medium">Skills Covered:</span>{" "}
+                  {session.skillsCovered.join(", ")}
+                </p>
+                <p className="mt-2">
+                  <span className="font-medium">Mentor Feedback:</span>{" "}
+                  {session.feedback}
+                </p>
               </div>
+            </>
+          )}
+
+          <div className="mt-4 text-sm text-gray-500">
+            {new Date(session.date).toLocaleDateString()}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const ReferralEligibilityStatus = ({
+    totalSessions,
+    requiredSessions,
+    averageRating,
+  }) => (
+    <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
+      <h3 className="text-lg font-semibold mb-4">
+        Referral Eligibility Status
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <p className="text-gray-600">Sessions Completed</p>
+          <div className="flex items-center mt-1">
+            <div className="text-xl text-black text-bold">
+              {5}/{5}
             </div>
-          ))}
+            {totalSessions >= requiredSessions && (
+              <CheckCircle className="h-5 w-5 text-green-500 ml-2" />
+            )}
+          </div>
+        </div>
+
+        <div>
+          <p className="text-gray-600">Average Rating</p>
+          <div className="flex items-center mt-1">
+            <p className="text-2xl font-bold">{averageRating.toFixed(1)}</p>
+            <Star className="h-5 w-5 text-yellow-400 ml-2" />
+          </div>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
 
   return (
     <div
@@ -271,7 +369,7 @@ const MenteeReferralsPage = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-gray-600">Total Sessions</p>
-                      <p className="text-2xl font-bold">27</p>
+                      <p className="text-2xl font-bold">5</p>
                     </div>
                     <Clock className="h-8 w-8 text-purple-500" />
                   </div>
@@ -290,84 +388,97 @@ const MenteeReferralsPage = () => {
                 </div>
               </div>
 
-              {/* Endorsed Skills Section */}
-              {/* Endorsed Skills Section */}
+              {/* Eligibility Status */}
+              <ReferralEligibilityStatus
+  totalSessions={3}
+  requiredSessions={5}
+  averageRating={4.2}
+/>
+
+              {/* Session History with Ratings */}
               <div className="bg-white rounded-lg shadow mb-8">
-                <div className="p-6 border-b">
-                  <h2 className="text-xl font-semibold">Endorsed Skills</h2>
+                <div className="p-6 border-b flex justify-between items-center">
+                  <h2 className="text-xl font-semibold">Session History</h2>
+                  <span className="text-sm text-gray-500">
+                    5
+                    Total Sessions
+                  </span>
                 </div>
                 <div className="p-6">
-                  <div className="space-y-6">
-                    {endorsedSkills.map((skill) => (
-                      <div key={skill.id} className="border rounded-lg p-4">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="text-lg font-semibold">
-                              {skill.skill}
-                            </h3>
-                            <p className="text-gray-600">
-                              Endorsed by {skill.mentor} • Level: {skill.level}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              Date: {skill.date}
-                            </p>
-                          </div>
-                          <button
-                            onClick={() => {
-                              const element = document.getElementById(
-                                `sessions-${skill.id}`
-                              );
-                              element.style.display =
-                                element.style.display === "none"
-                                  ? "block"
-                                  : "none";
-                            }}
-                            className="px-3 py-1 border rounded-lg hover:bg-gray-50"
-                          >
-                            View Sessions
-                          </button>
-                        </div>
-                        <div
-                          id={`sessions-${skill.id}`}
-                          style={{ display: "none" }}
-                        >
-                          <SessionProgress
-                            isOpen={true}
-                            sessions={[
-                              {
-                                date: "2024-02-01",
-                                focus: "Fundamentals",
-                                completed: true,
-                                skillsCovered: [
-                                  "Basic Concepts",
-                                  "Best Practices",
-                                ],
-                                feedback: "Excellent grasp of core concepts",
-                              },
-                              {
-                                date: "2024-02-15",
-                                focus: "Advanced Topics",
-                                completed: true,
-                                skillsCovered: [
-                                  "Advanced Patterns",
-                                  "Real-world Applications",
-                                ],
-                                feedback:
-                                  "Shows strong problem-solving abilities",
-                              },
-                              {
-                                date: "2024-03-01",
-                                focus: "Expert Level Concepts",
-                                completed: false,
-                                skillsCovered: [],
-                                feedback: "",
-                              },
-                            ]}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <SessionProgress
+                    sessions={[
+                      {
+                        sessionId: 1,
+                        date: "2024-02-01",
+                        focus: "Fundamentals",
+                        completed: true,
+                        rating: 4,
+                        skillsCovered: ["Basic Concepts", "Best Practices"],
+                        feedback: "Excellent grasp of core concepts",
+                      },
+                      {
+                        sessionId: 2,
+                        date: "2024-02-15",
+                        focus: "Advanced Topics",
+                        completed: true,
+                        rating: 5,
+                        skillsCovered: [
+                          "System Architecture",
+                          "Performance Optimization",
+                        ],
+                        feedback: "Outstanding work on complex problems",
+                      },
+                      {
+                        sessionId: 3,
+                        date: "2024-03-01",
+                        focus: "Project Implementation",
+                        completed: true,
+                        rating: 4,
+                        skillsCovered: ["Project Planning", "Code Quality"],
+                        feedback:
+                          "Good project execution and attention to detail",
+                      },
+                      {
+                        sessionId: 4,
+                        date: "2024-03-04",
+                        focus: "Project Implementation",
+                        completed: true,
+                        rating: 4,
+                        skillsCovered: ["Program Management", "Management Skills"],
+                        feedback:
+                          "Good project execution and attention to detail",
+                      },
+                      {
+                        sessionId: 5,
+                        date: "2024-03-08",
+                        focus: "Project Implementation",
+                        completed: true,
+                        rating: 4,
+                        skillsCovered: ["Planning", "Communication"],
+                        feedback:
+                          "Outstanding execution and attention to detail",
+                      },
+                      {
+                        sessionId: 6,
+                        date: "2024-03-15",
+                        focus: "Testing & Deployment",
+                        completed: false,
+                        rating: null,
+                        skillsCovered: ["Unit Testing", "CI/CD Pipeline"],
+                        feedback: "Scheduled"
+                      },
+                      {
+                        sessionId: 7,
+                        date: "2024-03-30",
+                        focus: "Final Review",
+                        completed: false,
+                        rating: null,
+                        skillsCovered: ["Code Review", "Documentation"],
+                        feedback: "Scheduled"
+                      }
+                      // Add more sessions as needed
+                    ]}
+                  />
                 </div>
               </div>
 
@@ -477,7 +588,10 @@ const MenteeReferralsPage = () => {
                       <ul className="space-y-2">
                         <li className="flex items-start">
                           <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
-                          <span>Minimum 10 mentoring sessions completed</span>
+                          <span>
+                            Minimum 5 mentoring
+                            sessions completed
+                          </span>
                         </li>
                         <li className="flex items-start">
                           <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5" />

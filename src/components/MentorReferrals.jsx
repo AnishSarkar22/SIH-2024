@@ -76,6 +76,7 @@ const MentorReferrals = () => {
       sessions: 12,
       skills: ["React", "Node.js", "UI/UX"],
       endorsements: 3,
+      referrals: 2, // Add this
       ratings: [
         { sessionId: 1, rating: 4, date: "2024-01-15" },
         { sessionId: 2, rating: 5, date: "2024-02-01" },
@@ -89,6 +90,7 @@ const MentorReferrals = () => {
       sessions: 8,
       skills: ["Python", "Data Analysis"],
       endorsements: 2,
+      referrals: 1, // Add this
       ratings: [
         { sessionId: 1, rating: 3, date: "2024-01-20" },
         { sessionId: 2, rating: 4, date: "2024-02-05" },
@@ -499,16 +501,9 @@ const MentorReferrals = () => {
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">
                   Referrals
                 </h1>
-                <p className="text-gray-600">
-                  Manage your mentee referrals and endorsements
-                </p>
+                <p className="text-gray-600">Manage your mentee referrals</p>
               </div>
-              <button
-                onClick={() => setSettingsModalOpen(true)}
-                className="p-2 text-gray-600 hover:text-blue-600 rounded-full hover:bg-gray-100"
-              >
-                <Settings className="h-6 w-6" />
-              </button>
+              
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -523,13 +518,13 @@ const MentorReferrals = () => {
 
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="text-lg font-semibold mb-4">
-                  Total Endorsements
+                  Total Referrals
                 </div>
                 <div className="flex items-center space-x-2">
                   <Award className="h-5 w-5 text-green-500" />
                   <span className="text-2xl font-bold">
                     {mentees.reduce(
-                      (total, mentee) => total + mentee.endorsements,
+                      (total, mentee) => total + (mentee.referrals || 0),
                       0
                     )}
                   </span>
@@ -621,7 +616,7 @@ const MentorReferrals = () => {
                       <li className="flex items-start">
                         <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
                         <span>
-                          Minimum {guidelinesText.minimumSessions} mentoring
+                          Minimum 10 mentoring
                           sessions completed
                         </span>
                       </li>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   MoreVertical,
@@ -16,7 +16,7 @@ import {
   FaUsers,
   FaBars,
   FaTimes,
-  FaBook
+  FaBook,
 } from "react-icons/fa";
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
@@ -38,28 +38,28 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
     {
       label: "Profile",
       icon: UserCircle,
-      onClick: () => navigate('/mentor-profile')
+      onClick: () => navigate("/mentor-profile"),
     },
     {
       label: "Statistics",
       icon: BarChart2,
-      onClick: () => navigate('/mentor-profile/statistics')
+      onClick: () => navigate("/mentor-profile/statistics"),
     },
     {
       label: "Notifications",
       icon: Bell,
-      onClick: () => navigate('/mentor-profile/notifications')
+      onClick: () => navigate("/mentor-profile/notifications"),
     },
     {
       label: "Settings",
       icon: Settings,
-      onClick: () => navigate('/mentor-profile/settings')
+      onClick: () => navigate("/mentor-profile/settings"),
     },
     {
       label: "Log Out",
       icon: LogOut,
-      // onClick: handleLogout  
-    }
+      onClick: handleLogout,
+    },
   ];
 
   useEffect(() => {
@@ -116,28 +116,37 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
 
   const handleLogout = async () => {
     try {
+      setIsLoggingOut(true);
       const response = await fetch("http://127.0.0.1:5000/api/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // Include cookies in the request
+        credentials: "include",
       });
-
+  
       if (response.ok) {
-        // Clear localStorage
+        // Clear all auth related data
         localStorage.clear();
-        // Redirect to signin page
+        sessionStorage.clear();
+        
+        // Specific cleanups if needed
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        
+        // Navigate after cleanup
         navigate("/login");
       } else {
-        const errorData = await response.json();
-        console.error("Error during logout:", errorData.error);
+        throw new Error("Logout failed");
       }
     } catch (error) {
-      console.error("Error during logout:", error);
+      console.error("Logout error:", error);
+      alert("Failed to logout. Please try again.");
+    } finally {
+      setIsLoggingOut(false);
     }
   };
-
+  
   const getLinkStyle = (path) => {
     if (activeLink === path) {
       return isDarkMode
@@ -244,9 +253,14 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/one-to-one-booking")}
             >
               <div className="flex items-center">
-                <FontAwesomeIcon icon={faUserGroup} className="text-xl w-8 text-center" />
+                <FontAwesomeIcon
+                  icon={faUserGroup}
+                  className="text-xl w-8 text-center"
+                />
                 {!isSidebarShrink && (
-                  <span className="ml-3 text-lg sidebar-text">1-to-1 Sessions</span>
+                  <span className="ml-3 text-lg sidebar-text">
+                    1-to-1 Sessions
+                  </span>
                 )}
               </div>
             </Link>
@@ -332,8 +346,12 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               </div>
               <div className="flex items-start space-x-0 ">
                 <div>
-                  <h3 className="font-medium dark:text-white">{userName || "Guest"}</h3>
-                  <p className="text-sm text-black dark:text-white">{userEmail || "mentor@example.com"}</p>
+                  <h3 className="font-medium dark:text-white">
+                    {userName || "Guest"}
+                  </h3>
+                  <p className="text-sm text-black dark:text-white">
+                    {userEmail || "mentor@example.com"}
+                  </p>
                 </div>
                 <button
                   ref={buttonRef}
@@ -347,39 +365,39 @@ const MSidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
             </div>
 
             {isMenuOpen && (
-             <div className="relative">
-             <button
-               ref={buttonRef}
-               onClick={() => setIsMenuOpen(!isMenuOpen)}
-               className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200 mb-4"
-               aria-label="Open menu"
-             >
-               <MoreVertical className="w-5 h-5 text-gray-400" />
-             </button>
+              <div className="relative">
+                <button
+                  ref={buttonRef}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200 mb-4"
+                  aria-label="Open menu"
+                >
+                  <MoreVertical className="w-5 h-5 text-gray-400" />
+                </button>
 
-             {isMenuOpen && (
-               <div
-                 ref={menuRef}
-                 className="absolute right-0 lg:bottom-full lg:mb-2 lg:top-auto lg:mt-0 bottom-auto mb-0 mt-2 w-56 rounded-md shadow-lg bg-gray-100 dark:bg-gray-700 ring-1 ring-black ring-opacity-5 z-50"
-               >
-                 <div className="py-1">
-                   {menuItems.map((item, index) => (
-                     <button
-                       key={index}
-                       onClick={() => {
-                         item.onClick();
-                         setIsMenuOpen(false);
-                       }}
-                       className="flex items-center w-full px-4 py-2 text-sm text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-150"
-                     >
-                       <item.icon className="w-4 h-4 mr-3 text-gray-700 dark:text-white" />
-                       {item.label}
-                     </button>
-                   ))}
-                 </div>
-               </div>
-             )}
-           </div>
+                {isMenuOpen && (
+                  <div
+                    ref={menuRef}
+                    className="absolute right-0 lg:bottom-full lg:mb-2 lg:top-auto lg:mt-0 bottom-auto mb-0 mt-2 w-56 rounded-md shadow-lg bg-gray-100 dark:bg-gray-700 ring-1 ring-black ring-opacity-5 z-50"
+                  >
+                    <div className="py-1">
+                      {menuItems.map((item, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            item.onClick();
+                            setIsMenuOpen(false);
+                          }}
+                          className="flex items-center w-full px-4 py-2 text-sm text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-150"
+                        >
+                          <item.icon className="w-4 h-4 mr-3 text-gray-700 dark:text-white" />
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>

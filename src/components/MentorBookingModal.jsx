@@ -34,10 +34,10 @@ export default function MentorBookingModal({
               {/* Close Button */}
               <button
                 onClick={closeModal}
-                className="absolute right-4 top-4 z-10 rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="absolute right top-4 z-10 rounded-full  text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200"
               >
                 <span className="sr-only">Close</span>
-                <svg
+                {/* <svg
                   className="h-6 w-6"
                   fill="none"
                   stroke="currentColor"
@@ -49,7 +49,7 @@ export default function MentorBookingModal({
                     strokeWidth="2"
                     d="M6 18L18 6M6 6l12 12"
                   />
-                </svg>
+                </svg> */}
               </button>
 
               {/* Calendar Content */}
@@ -62,7 +62,7 @@ export default function MentorBookingModal({
                     minHeight: "92vh",
                   }}
                   config={{
-                    layout: "month_view",
+                    layout: "month_view"
                   }}
                 />
               </div>

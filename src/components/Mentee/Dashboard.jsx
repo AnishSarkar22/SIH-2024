@@ -12,6 +12,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { FaRegMehBlank } from "react-icons/fa";
 
 const PrevArrow = ({ onClick }) => (
   <button
@@ -276,7 +277,14 @@ const Dashboard = () => {
                   placeholder="Type here..."
                   value={initialMessage}
                   onChange={(e) => setInitialMessage(e.target.value)}
-                  
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      navigate("/personal-ai", {
+                        state: { initialMessage },
+                      });
+                    }
+                  }}
                   className="w-full p-3 rounded-lg border shadow-lg border-gray-100 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-gray-300 dark:border-gray-800"
                 />
                 <button
@@ -297,6 +305,9 @@ const Dashboard = () => {
                   <h2 className="text-xl text-bold text-center py-8 dark:text-white">
                     You haven't Booked Any Sessions
                   </h2>
+                  <div className="flex justify-center">
+                    <FaRegMehBlank className="text-gray-400 dark:text-gray-500 text-7xl" />
+                  </div>
                   {/* <div className="flex justify-between items-center px-1 lg:px-4 pt-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
