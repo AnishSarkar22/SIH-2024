@@ -106,6 +106,7 @@ We welcome contributions to the Mentor Connect project. If you'd like to contrib
   ```
 
 - 6.Create a new Pull Request.
+Happy Coding
 
 Please ensure your code adheres to our coding standards and include tests for new features.
 
