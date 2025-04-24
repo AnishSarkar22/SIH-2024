@@ -15,7 +15,7 @@ Mentor Connect is a comprehensive mentorship platform developed as part of the S
 - Resource library
 - Gamification and rewards system
 - Reverse mentoring opportunities
-- Recorded sessions for future reference
+- Recorded sessions for future uses
 
 ### Setup Instructions
 
