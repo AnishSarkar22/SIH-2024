@@ -112,4 +112,4 @@ Please ensure your code adheres to our coding standards and include tests for ne
 
 ### License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the MIT License - see [LICENSE.md](https://github.com/AnishSarkar22/SIH-2024/blob/main/LICENSE.md).
