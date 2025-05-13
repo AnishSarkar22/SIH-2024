@@ -1,16 +1,18 @@
+// to show the schedule of the mentor
 import React, { useState, useEffect, useRef } from "react";
-import MHeader from "./MHeader"; // Import Mentor Header component
-import MSidebar from "./MSidebar"; // Import Mentor Sidebar component
+import MHeader from "./MHeader";
+import MSidebar from "./MSidebar";
 import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { INITIAL_EVENTS, createEventId } from "../event-utils"; // Correct import
-import Carousel from "react-multi-carousel"; // Import Carousel component
-import "react-multi-carousel/lib/styles.css"; // Import Carousel styles
-import "../../index.css"; // Import the stylesheet
+import { INITIAL_EVENTS, createEventId } from "../services/event-utils.js";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import "../../index.css";
 import { ChevronLeft, ChevronRight } from "react-feather";
+// import { Cal } from "@cal.com/embed-react";
 
 const PrevArrow = ({ onClick }) => (
   <button
@@ -162,9 +164,9 @@ function MSchedule() {
                       editable={true}
                       selectable={true}
                       selectMirror={true}
-                      dayMaxEvents={true}
-                      weekends={weekendsVisible}
-                      initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+                      dayMaxEvents={false}
+                      // weekends={weekendsVisible}
+                      // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
                       select={handleDateSelect}
                       eventContent={renderEventContent} // custom render function
                       eventClick={handleEventClick}
@@ -238,7 +240,7 @@ function MSchedule() {
                 </div>
               </div>
               {/* Upcoming Activities Section */}
-              <div className="max-w-[3000px] p-7">
+              {/* <div className="max-w-[3000px] p-7">
               <h2 className="text-3xl text-gray-700 dark:text-white font-semibold mb-4">
                     Upcoming Activities
                   </h2>
@@ -338,7 +340,7 @@ function MSchedule() {
                     </div>
                   </Carousel>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </main>

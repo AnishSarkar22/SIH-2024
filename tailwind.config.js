@@ -3,7 +3,7 @@ module.exports = {
     './src/**/*.{html,js,jsx,ts,tsx}',
     './public/*.html',
   ],
-  darkMode: 'class', // This is correct
+  darkMode: 'class',
   theme: {
     extend: {
       scrollbar: {

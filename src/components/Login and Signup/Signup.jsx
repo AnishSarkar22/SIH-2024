@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { FaXTwitter, FaGoogle } from "react-icons/fa6";
 import TemplateFrame from "./TemplateFrame";
 import { useNavigate, Link } from "react-router-dom";
-// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import {
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  getAuth,
+} from "firebase/auth";
+import { auth } from "../services/firebase.js";
 
 export default function SignUp() {
   const [emailError, setEmailError] = useState(false);
@@ -105,36 +113,166 @@ export default function SignUp() {
     }
   };
 
-  // const handleGoogleLoginSuccess = async (credentialResponse) => {
-  //   console.log("Google Sign-In Successful:", credentialResponse);
-  //   const { credential } = credentialResponse;
-    
+  const handleGoogleSignup = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider).catch((error) => {
+        // Handle specific Google Auth errors
+        if (error.code === "auth/popup-closed-by-user") {
+          throw new Error("Sign-up cancelled by user");
+        }
+        if (error.code === "auth/popup-blocked") {
+          throw new Error("Popup was blocked by the browser");
+        }
+        throw error;
+      });
+
+      const { user } = result;
+
+      // Send the Google ID token to the Flask API
+      const response = await fetch("http://127.0.0.1:5000/api/google_signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id_token: await user.getIdToken() }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.status === "success") {
+        setMessage(`Google signup successful! User ID: ${data.user_id}`);
+        navigate("/basic-details");
+      } else {
+        throw new Error(data.message || "Signup failed");
+      }
+    } catch (error) {
+      // Log error for debugging
+      console.error("Google signup error:", error);
+
+      // Set user-friendly error message
+      setServerErrorMessage(
+        `Sign-up failed: ${
+          error.message === "[object Object]"
+            ? "Unknown error occurred"
+            : error.message
+        }`
+      );
+    }
+  };
+
+  // const handleTwitterSignup = async () => {
   //   try {
-  //     const response = await fetch("http://127.0.0.1:5000/api/google-signin", {
+  //     const provider = new TwitterAuthProvider();
+  //     const result = await signInWithPopup(auth, provider)
+  //       .catch((error) => {
+  //          Handle specific Twitter Auth errors
+  //         if (error.code === 'auth/popup-closed-by-user') {
+  //           throw new Error('Sign-up cancelled by user');
+  //         }
+  //         if (error.code === 'auth/popup-blocked') {
+  //           throw new Error('Popup was blocked by the browser');
+  //         }
+  //         throw error;
+  //       });
+
+  //     const { user } = result;
+
+  //      Send the Twitter ID token to the Flask API
+  //     const response = await fetch("http://127.0.0.1:5000/api/twitter_signup", {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",
   //       },
-  //       body: JSON.stringify({ id_token: credential }),
+  //       body: JSON.stringify({ id_token: await user.getIdToken() }),
   //       credentials: "include",
   //     });
 
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+
   //     const data = await response.json();
-  //     if (response.ok) {
-  //       setMessage(`Google sign-in successful! User ID: ${data.user_id}`);
+  //     if (data.status === "success") {
+  //       setMessage(`Twitter signup successful! User ID: ${data.user_id}`);
   //       navigate("/basic-details");
   //     } else {
-  //       setServerErrorMessage(`Google sign-in failed: ${data.error}`);
+  //       throw new Error(data.message || 'Signup failed');
   //     }
+
   //   } catch (error) {
-  //     setServerErrorMessage(`Google sign-in failed: ${error.message}`);
+
+  //     console.error('Twitter signup error:', error);
+
+  //     // Set user-friendly error message
+  //     setServerErrorMessage(
+  //       `Sign-up failed: ${
+  //         error.message === '[object Object]'
+  //           ? 'Unknown error occurred'
+  //           : error.message
+  //       }`
+  //     );
   //   }
   // };
 
-  // const handleGoogleLoginFailure = (error) => {
-  //   console.error("Google Sign-In Failed:", error);
-  //   setServerErrorMessage(`Google sign-in failed: ${error.error || error.message}`);
-  // };
+  const handleFacebookSignup = async () => {
+    try {
+      const provider = new FacebookAuthProvider();
+      const result = await signInWithPopup(auth, provider).catch((error) => {
+        // Handle specific Facebook Auth errors
+        if (error.code === "auth/popup-closed-by-user") {
+          throw new Error("Sign-up cancelled by user");
+        }
+        if (error.code === "auth/popup-blocked") {
+          throw new Error("Popup was blocked by the browser");
+        }
+        throw error;
+      });
+
+      const { user } = result;
+
+      // Send the Facebook ID token to the Flask API
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/facebook_signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id_token: await user.getIdToken() }),
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.status === "success") {
+        setMessage(`Facebook signup successful! User ID: ${data.user_id}`);
+        navigate("/basic-details");
+      } else {
+        throw new Error(data.message || "Signup failed");
+      }
+    } catch (error) {
+      // Log error for debugging
+      console.error("Facebook signup error:", error);
+
+      // Set user-friendly error message
+      setServerErrorMessage(
+        `Sign-up failed: ${
+          error.message === "[object Object]"
+            ? "Unknown error occurred"
+            : error.message
+        }`
+      );
+    }
+  };
 
   return (
     <TemplateFrame>
@@ -219,7 +357,7 @@ export default function SignUp() {
             </button>
             <p className="text-center text-gray-600">
               Already have an account?{" "}
-              <a href="./signin" className="text-indigo-600 hover:underline">
+              <a href="/login" className="text-indigo-600 hover:underline">
                 Sign in
               </a>
             </p>
@@ -241,24 +379,25 @@ export default function SignUp() {
           <div className="flex flex-col gap-2 mt-4">
             <button
               type="button"
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
-              onClick={() => alert("Sign up with Google")}
+              className="w-full p-2 text-black dark:text-white border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
+              onClick={handleGoogleSignup}
             >
-              <FaGoogle className="mr-1"/>
+              <FontAwesomeIcon
+                icon={faGoogle}
+                className="mr-1 text-black dark:text-white"
+              />
               Sign up with Google
             </button>
-            {/* <GoogleOAuthProvider clientId="441408230497-hbn9flrej32j5abugtcnsk2isrq0rh84.apps.googleusercontent.com">
-              <GoogleLogin
-                onSuccess={handleGoogleLoginSuccess}
-                onError={handleGoogleLoginFailure}
-              />
-            </GoogleOAuthProvider> */}
             <button
-              onClick={() => alert("Sign in with Twitter")}
-              className="w-full p-2 text-black border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
+              type="button"
+              className="w-full p-2 text-black dark:text-white border rounded-md flex items-center justify-center gap-2 hover:bg-slate-100"
+              onClick={handleFacebookSignup}
             >
-              <FaXTwitter className="mr-1" />
-              Sign up with X
+              <FontAwesomeIcon
+                icon={faFacebook}
+                className="mr-1 text-black dark:text-white"
+              />
+              Sign up with Facebook
             </button>
           </div>
         </div>

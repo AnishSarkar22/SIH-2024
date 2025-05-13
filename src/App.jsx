@@ -29,7 +29,7 @@ import MPersonal_AI from './components/Mentor/Message And Chat/MPersonal_AI';
 import Quiz from './components/Mentee/Leaderboard/Quiz';
 import Resource from './components/Mentee/Resource';
 import MSchedule from './components/Mentor/MSchedule';
-import BasicDetails2 from './components/Basic Details/BasicDetails2';
+import BasicDetails2 from './components/BasicDetails/BasicDetails2';
 import VideoCall from './components/Mentor/VideoCall/VideoCall';
 // import PrivateRoute from './components/PrivateRoute'; 
 import Blog1 from './components/Blogs/Blog1';
@@ -41,6 +41,11 @@ import Blog6 from './components/Blogs/Blog6';
 import GroupSessions from './components/Mentor/GroupSessionsPage';
 import Bookings from './components/Mentor/Bookings';
 import Mentorprofile from './components/Mentee/Mentor Details/Mentorprofile';
+import WorkingHours from './components/WorkingHours';
+import MentorReferrals from './components/MentorReferrals';
+import JobPostingDashboard from './components/JobPostingDashboard';
+import MenteeJobPosting from './components/MenteeJobPosting';
+import MenteeReferralsPage from './components/MenteeReferralsPage'; 
 
 
 function App() {
@@ -68,7 +73,7 @@ function App() {
         <Route path="/mentor-profile/notifications" element={<PrivateRoute><MNotification /></PrivateRoute>} />
         <Route path="/profile/settings" element={<PrivateRoute><Setting /></PrivateRoute>} />
         <Route path="/mentor-profile/settings" element={<PrivateRoute><MSetting /></PrivateRoute>} />
-        <Route path="/mentors" element={<PrivateRoute><Mentor /></PrivateRoute>} />
+        <Route path="/explore" element={<PrivateRoute><Mentor /></PrivateRoute>} />
         <Route path="/leaderboard" element={<PrivateRoute><Leaderboard /></PrivateRoute>} /> */}
 
         <Route path="/dashboard" element={<Dashboard />} />
@@ -106,7 +111,12 @@ function App() {
         <Route path="/basic-details" element={<BasicDetails2 />} />
         <Route path="/video-call" element={<VideoCall />} />
         <Route path="/mentor-profile-details" element={<Mentorprofile />} />
+        <Route path="/working-hours" element={<WorkingHours />} />
         <Route path="*" element={<Navigate to="/home" />} />
+        <Route path="/mentor-referrals" element={<MentorReferrals />} />
+        <Route path="/job-posting-dashboard" element={<JobPostingDashboard />} />
+        <Route path="/mentee-job-posting" element={<MenteeJobPosting />} />
+        <Route path="/mentee-referrals" element={<MenteeReferralsPage />} />
       </Routes>
     </Router>
   );

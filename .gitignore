@@ -29,3 +29,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?s
+
+backend/__pycache__/*.pyc
+backend/.gradio/certificate.pem
+backend/test/__pycache__/*.pyc
+
+backend/.env
+.env
+package-lock.json

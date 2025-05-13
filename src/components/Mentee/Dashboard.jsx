@@ -1,37 +1,53 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "react-feather";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import "ldrs/tailChase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleUser,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FaRegMehBlank } from "react-icons/fa";
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute left-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-300 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-800 w-12 h-12 flex items-center justify-center"
     onClick={onClick}
     style={{ marginLeft: "-20px" }}
   >
-    <ChevronLeft className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronLeft}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-400 p-3 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-600"
+    className="absolute right-0 z-50 -translate-y-1/2 top-1/2 transform bg-gray-200 border border-gray-300 rounded-full shadow-lg dark:bg-gray-700 dark:border-gray-800 w-12 h-12 flex items-center justify-center"
     onClick={onClick}
     style={{ marginRight: "-20px" }}
   >
-    <ChevronRight className="text-gray-800 dark:text-gray-300" />
+    <FontAwesomeIcon
+      icon={faChevronRight}
+      className="text-gray-800 dark:text-gray-300"
+    />
   </button>
 );
 
 const Dashboard = () => {
+  const [userName, setUserName] = useState("");
   const [sidebarShrink, setSidebarShrink] = useState(() => {
     const savedSidebarState = localStorage.getItem("sidebarState");
     return savedSidebarState === "shrink";
   });
+  const navigate = useNavigate();
+  const [initialMessage, setInitialMessage] = useState("");
 
   const [darkMode, setDarkMode] = useState(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
@@ -56,6 +72,19 @@ const Dashboard = () => {
   };
 
   const toggleSidebar = () => setSidebarShrink(!sidebarShrink);
+
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData && userData.name) {
+        const firstName = userData.name.split(" ")[0];
+        setUserName(firstName);
+      }
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      setUserName("Guest");
+    }
+  }, []);
 
   const mentors = [
     {
@@ -116,13 +145,13 @@ const Dashboard = () => {
       ],
     },
   ];
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   // Simulate loading
+  //   const timer = setTimeout(() => setLoading(false), 2000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const faqItems = useMemo(
     () => [
@@ -193,13 +222,13 @@ const Dashboard = () => {
     nextArrow: <NextArrow onClick={() => sliderRef.current.slickNext()} />,
   };
   // for loading spinner
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <l-tail-chase size="40" speed="1.75" color="black"></l-tail-chase>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <l-tail-chase size="40" speed="1.75" color="black"></l-tail-chase>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={`flex h-screen bg-white ${darkMode ? "dark" : ""}`}>
@@ -215,120 +244,154 @@ const Dashboard = () => {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto py-10 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6 py-8">
-            <h1 className="text-3xl font-bold mb-8 text-center text-gray-700 dark:text-gray-200">
-              Welcome back, John 👋
+            <h1 className="text-3xl font-bold mb-12 text-center text-gray-700 dark:text-gray-200">
+              Welcome back, {userName || "Guest"} 👋
             </h1>
             {/* Personal Assistant and Your Plan */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-gray-800 dark:text-white">
               {/* Personal Assistant */}
               <div className="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
-                <h2 className="text-xl font-semibold mb-4 text-center">
+                <h2 className="text-2xl lg:text-xl font-semibold mb-3 lg:mb-4 text-center">
                   Personal Assistant
                 </h2>
-                <div className="bg-gray-100 p-4 rounded-lg mb-4 dark:bg-gray-800">
-                  <div className="flex items-center mb-2">
-                    <i className="fas fa-user-circle text-6xl rounded-full text-green-600 mr-2 p-2"></i>
+                <div className="bg-gray-100 lg:p-4 rounded-lg mb-4 dark:bg-gray-800">
+                  <div className="flex items-center mb-6 lg:mb-3">
+                    <FontAwesomeIcon
+                      icon={faCircleUser}
+                      className="text-6xl rounded-full mr-2 p-2"
+                    />
                     <div>
-                      <p className="font-semibold text-2xl">Kankana</p>
-                      <p className="text-gray-500 text-md">Sep 17 2024</p>
+                      <p className="font-semibold text-xl lg:text-2xl">
+                        Describe Your Problem
+                      </p>
                     </div>
                   </div>
-                  <p className="text-gray-700 dark:text-gray-300">
+                  <p className="text-gray-700 text-sm lg:text-md dark:text-gray-300">
                     What do you need help with?
                   </p>
                 </div>
                 <input
                   type="text"
-                  placeholder="Type here......"
+                  placeholder="Type here..."
+                  value={initialMessage}
+                  onChange={(e) => setInitialMessage(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      navigate("/personal-ai", {
+                        state: { initialMessage },
+                      });
+                    }
+                  }}
                   className="w-full p-3 rounded-lg border shadow-lg border-gray-100 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-gray-300 dark:border-gray-800"
                 />
-                <a
-                  href="#"
-                  className="text-blue-500 hover:underline flex justify-center text-center mt-3"
+                <button
+                  onClick={() =>
+                    navigate("/personal-ai", { state: { initialMessage } })
+                  }
+                  className="text-blue-500 hover:underline flex justify-center text-center mt-3 w-full"
                 >
                   Continue your Conversation →
-                </a>
+                </button>
               </div>
               {/* Your Plan */}
               <div className="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
-                <h2 className="text-xl font-semibold text-center mb-4  text-gray-800 dark:text-white">
+                <h2 className="text-2xl lg:text-xl font-semibold text-center mb-4  text-gray-800 dark:text-white">
                   Your Plan
                 </h2>
-                <div className="space-y-4 shadow-md rounded-lg">
-                  <div className="flex justify-between items-center px-4 pt-4">
+                <div className="space-y-4  rounded-lg">
+                  <h2 className="text-xl text-bold text-center py-8 dark:text-white">
+                    You haven't Booked Any Sessions
+                  </h2>
+                  <div className="flex justify-center">
+                    <FaRegMehBlank className="text-gray-400 dark:text-gray-500 text-7xl" />
+                  </div>
+                  {/* <div className="flex justify-between items-center px-1 lg:px-4 pt-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
-                      <span>Mayowa Ade</span>
+                      <span className="text-md lg:text-lg">Mayowa Ade</span>
                     </div>
-                    <div>
-                      <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
+                    <div className="flex items-center">
+                      <span className="bg-blue-100 text-blue-800 text-xs px-1 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-800 dark:text-white">09:34</span>
+                      <span className="text-gray-800 dark:text-white">
+                        09:34
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-4">
+                  <div className="flex justify-between items-center px-1 lg:px-4">
                     <div className="flex items-center">
                       <i className="fas fa-user text-green-500 mr-2"></i>
-                      <span>Gautam Nigam</span>
+                      <span className="text-md lg:text-lg">Gautam Nigam</span>
                     </div>
-                    <div>
+                    <div className="flex items-center">
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-800 dark:text-white">11:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        11:30
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-4">
+                  <div className="flex justify-between items-center px-1 lg:px-4">
                     <div className="flex items-center">
                       <i className="fas fa-user text-green-500 mr-2"></i>
-                      <span>Mayowa Ade</span>
+                      <span className="text-md lg:text-lg">Mayowa Ade</span>
                     </div>
-                    <div>
+                    <div className="flex items-center">
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-800 dark:text-white">13:40</span>
+                      <span className="text-gray-800 dark:text-white">
+                        13:40
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-4">
+                  <div className="flex justify-between items-center px-1 lg:px-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
-                      <span>Joshua Ashiru</span>
+                      <span className="text-md lg:text-lg">Joshua Ashiru</span>
                     </div>
-                    <div>
+                    <div className="flex items-center">
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-800 dark:text-white">15:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        15:30
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-4">
+                  <div className="flex justify-between items-center px-1 lg:px-4">
                     <div className="flex items-center">
                       <i className="fa-solid fa-user-group text-blue-500 mr-2"></i>
-                      <span>Olawuyi Tobi</span>
+                      <span className="text-md lg:text-lg">Olawuyi Tobi</span>
                     </div>
-                    <div>
+                    <div className="flex items-center">
                       <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-blue-500">
                         Group
                       </span>
-                      <span className="text-gray-800 dark:text-white">19:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        19:30
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-4 pb-4">
+                  <div className="flex justify-between items-center px-1 lg:px-4 pb-4">
                     <div className="flex items-center">
                       <i className="fas fa-user text-green-500 mr-2"></i>
-                      <span>Gautam Nigam</span>
+                      <span className="text-md lg:text-lg">Gautam Nigam</span>
                     </div>
-                    <div>
+                    <div className="flex items-center">
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2 dark:bg-gray-700 dark:font-extrabold dark:text-green-500">
                         One-to-One
                       </span>
-                      <span className="text-gray-800 dark:text-white">11:30</span>
+                      <span className="text-gray-800 dark:text-white">
+                        11:30
+                      </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -388,7 +451,10 @@ const Dashboard = () => {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {faqItems.map((item, index) => (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    className={`${index >= 5 ? "hidden lg:block" : ""}`}
+                  >
                     <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                       {item.question}
                     </h3>
@@ -397,6 +463,14 @@ const Dashboard = () => {
                     </p>
                   </div>
                 ))}
+              </div>
+              <div className="flex justify-center mt-6 lg:hidden">
+                <button
+                  onClick={() => setShowAllFaqs(true)}
+                  className="text-blue-500 hover:underline"
+                >
+                  View All
+                </button>
               </div>
             </div>
           </div>

@@ -5,6 +5,11 @@ import {
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Upload } from "lucide-react";
+import SkillsDropdown from "./SkillsDropdown";
+import * as pdfjs from "pdfjs-dist";
+// Set PDF.js worker
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+
 const StepForm = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [photoPreview, setPhotoPreview] = useState(null);
@@ -31,6 +36,8 @@ const StepForm = () => {
     greatestAchievement: "",
   });
 
+  const [resumeText, setResumeText] = useState("");
+  const [matchPercentage, setMatchPercentage] = useState(null);
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState({
@@ -39,6 +46,29 @@ const StepForm = () => {
     education: [],
     employment: [],
   });
+
+  const handleSkillsChange = (selectedSkills) => {
+    setFormData((prev) => ({
+      ...prev,
+      skills: selectedSkills,
+    }));
+  };
+
+  const handleSkillSelect = (skill) => {
+    const newSelectedSkills = selectedSkills.includes(skill)
+      ? selectedSkills.filter((s) => s !== skill)
+      : [...selectedSkills, skill];
+    setSelectedSkills(newSelectedSkills);
+    props.onChange?.(newSelectedSkills); // Add this line
+  };
+
+  const removeSkill = (skillToRemove) => {
+    const newSelectedSkills = selectedSkills.filter(
+      (skill) => skill !== skillToRemove
+    );
+    setSelectedSkills(newSelectedSkills);
+    props.onChange?.(newSelectedSkills); // Add this line
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -57,6 +87,34 @@ const StepForm = () => {
 
     // Validate immediately for better user feedback
     validateField(name, value);
+  };
+
+  const checkResumeMatch = async (resumeText, jobDescription) => {
+    try {
+      const formData = new FormData();
+      formData.append("jdtxt", jobDescription);
+      formData.append("cvtxt", resumeText);
+
+      const response = await fetch("http://127.0.0.1:5000/api/ats/match", {
+        // Remove /api/
+        method: "POST",
+        body: formData,
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await response.text();
+      setMatchPercentage(`${result}%`);
+    } catch (error) {
+      console.error("Error checking resume:", error);
+      setMatchPercentage("0%");
+    }
   };
 
   const validateField = (fieldName, value) => {
@@ -78,9 +136,6 @@ const StepForm = () => {
       case "email":
         if (!value) {
           newErrors.email = "Email is required";
-        } else if (!/@/.test(value)) {
-          // Ensure email contains "@"
-          newErrors.email = "Email must contain '@'";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
           // More comprehensive email validation
           newErrors.email = "Please enter a valid email address";
@@ -94,6 +149,9 @@ const StepForm = () => {
           newErrors.password = "Password is required";
         } else if (value.length < 6) {
           newErrors.password = "Password must be at least 6 characters";
+        } else if (!/^(?=.*[A-Za-z])/.test(value)) {
+          // Requires at least one letter
+          newErrors.password = "Password must contain at least one letter";
         } else {
           delete newErrors.password;
         }
@@ -115,6 +173,7 @@ const StepForm = () => {
 
     setErrors(newErrors);
   };
+
   // Check if all required fields are filled and valid
   useEffect(() => {
     const requiredFields = [
@@ -152,7 +211,7 @@ const StepForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/submit-mentor", {
+      const response = await fetch("http://127.0.0.1:5000/api/submit-mentor", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -241,8 +300,46 @@ const StepForm = () => {
     setCurrentPage(index);
   };
 
-  const handleDocumentUpload = (e, type) => {
+  const handleDocumentUpload = async (e, type) => {
     const files = e.target.files;
+
+    if (type === "resume") {
+      const file = files[0];
+
+      try {
+        if (file.type === "application/pdf") {
+          const reader = new FileReader();
+          reader.onload = async (event) => {
+            try {
+              const typedArray = new Uint8Array(event.target.result);
+              const pdf = await pdfjs.getDocument(typedArray).promise;
+              const page = await pdf.getPage(1);
+              const textContent = await page.getTextContent();
+              const text = textContent.items.map((item) => item.str).join(" ");
+
+              setResumeText(text);
+              console.log("Extracted text:", text); // Debug log
+
+              const sampleJobDesc =
+                "Software engineer with React and JavaScript experience";
+              await checkResumeMatch(text, sampleJobDesc);
+            } catch (error) {
+              console.error("PDF processing error:", error);
+              setMatchPercentage("0");
+            }
+          };
+          reader.readAsArrayBuffer(file);
+        } else {
+          console.error("File must be a PDF");
+          alert("Please upload a PDF file");
+        }
+      } catch (error) {
+        console.error("File upload error:", error);
+        setMatchPercentage("0");
+      }
+    }
+
+    // Existing upload logic for other document types
     if (type === "education" || type === "employment") {
       setUploadedFiles((prev) => ({
         ...prev,
@@ -292,15 +389,13 @@ const StepForm = () => {
   };
 
   const DocumentUploadField = ({ label, type, multiple = false }) => {
-    const isRequired = true;
-    const hasError =
-      isRequired && !uploadedFiles[type]?.length && !uploadedFiles[type];
-
     return (
       <div className="mb-6">
         <label className="block text-gray-700 font-bold mb-4">
           {label} <span className="text-red-500">*</span>
         </label>
+
+        {/* File upload section */}
         <div className="relative flex items-center">
           <input
             type="file"
@@ -312,15 +407,15 @@ const StepForm = () => {
           />
           <label
             htmlFor={`${type}Upload`}
-            className={`flex items-center space-x-2 px-4 py-2 bg-white border ${
-              hasError ? "border-red-500" : "border-gray-300"
-            } rounded-lg cursor-pointer hover:bg-gray-50`}
+            className={`flex items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50`}
           >
             <Upload className="h-5 w-5 text-gray-500" />
             <span className="text-sm text-gray-600">
               {multiple ? "Upload Files" : "Upload File"}
             </span>
           </label>
+
+          {/* File status */}
           {uploadedFiles[type] && (
             <span className="ml-3 text-sm text-gray-600">
               {multiple
@@ -329,26 +424,37 @@ const StepForm = () => {
             </span>
           )}
         </div>
-        {hasError && (
-          <p className="text-red-500 text-sm mt-1">This field is required</p>
+
+        {/* ATS Match Percentage */}
+        {type === "resume" && (
+          <div className="mt-2">
+            {/* <p>Debug - matchPercentage: {matchPercentage}</p> */}
+            {matchPercentage && (
+              <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                <p className="text-blue-800 font-medium">
+                  ATS Match Score: {matchPercentage}
+                </p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     );
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto py-16 px-4 sm:px-9 lg:px-8">
       {/* Stepper */}
       <div className="flex justify-between items-center mb-8">
         {[1, 2, 3].map((step, index) => (
           <React.Fragment key={step}>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center relative">
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
                   currentPage >= index ? "bg-indigo-600" : "bg-gray-300"
                 }`}
               >
-                {step}
+                {step }
               </div>
               <div className="mt-2 text-sm font-medium text-gray-500">
                 {index === 0 ? "Profile" : index === 1 ? "Info" : "Summary"}
@@ -359,7 +465,12 @@ const StepForm = () => {
                 className={`h-1 ${
                   currentPage > index ? "bg-indigo-600" : "bg-gray-300"
                 }`}
-                style={{ width: "600px" }}
+                style={{
+                  width: "1000px",
+                  position: "relative",
+                  top: "-15px", 
+                  left: "6px "// Move line up
+                }}
               />
             )}
           </React.Fragment>
@@ -423,20 +534,17 @@ const StepForm = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <RequiredLabel text="Email" />
+                <RequiredLabel text="Work Email" />
                 <input
                   name="email"
                   type="email"
-                  className={`w-full shadow rounded-lg p-2 border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
                   placeholder="johndoe@example.com"
                   value={formData.email}
                   onChange={handleInputChange}
-                  pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                  pattern=""
                   title="Please enter a valid email address"
                 />
-                <FieldError error={errors.email} />
               </div>
 
               <div>
@@ -444,16 +552,13 @@ const StepForm = () => {
                 <input
                   name="password"
                   type="password"
-                  className={`w-full shadow rounded-lg p-2 border ${
-                    errors.password ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className="w-full shadow rounded-lg p-2 border border-gray-300"
                   placeholder="Must have at least 6 characters"
                   value={formData.password}
                   onChange={handleInputChange}
                   minLength={6}
                   title="Password must be at least 6 characters"
                 />
-                <FieldError error={errors.password} />
               </div>
             </div>
 
@@ -515,7 +620,7 @@ const StepForm = () => {
         <div id="page2" className="form-page">
           <form>
             {/* Category Section */}
-            <p className="text-gray-700 font-bold mb-4">Category</p>
+            {/* <p className="text-gray-700 font-bold mb-4">Category</p>
             <div className="mb-6 p-4 rounded-md bg-white">
               <div className="flex items-center">
                 <input
@@ -531,24 +636,18 @@ const StepForm = () => {
                   <i className="fa-solid fa-search"></i>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Skills Section */}
             <p className="text-gray-700 font-bold mb-4">Skills</p>
             <div className="mb-1 p-4 rounded-md bg-white">
-              <textarea
-                id="skills"
-                className="w-full shadow rounded-lg p-2 border border-gray-300"
-                rows="2"
-                placeholder="Add a new skill..."
-              ></textarea>
+              <SkillsDropdown onChange={handleSkillsChange} />
             </div>
             <p className="text-gray-500 mb-4 ml-4 text-sm">
               Describe your expertise to connect with mentees who have similar
               interests.
               <br />
-              Comma-separated list of your skills (keep it below 10). Mentees
-              will use this to find you.
+              Select up to 10 skills. Mentees will use this to find you.
             </p>
 
             {/* Bio Section */}
