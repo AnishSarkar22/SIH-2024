@@ -30,6 +30,10 @@ dist-ssr
 *.sln
 *.sw?s
 
-__pycache__/
-*.py[cod]
-*$py.class
+backend/__pycache__/*.pyc
+backend/.gradio/certificate.pem
+backend/test/__pycache__/*.pyc
+
+backend/.env
+.env
+package-lock.json

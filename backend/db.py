@@ -1,10 +1,14 @@
+# connection to firebase database and routes for adding and retrieving users
 from firebase_init import initialize_firebase, get_firestore
-
+from pathlib import Path
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timezone
 
-load_dotenv()
+# Get the project root directory (parent of current file's directory)
+ROOT_DIR = Path(__file__).parent.parent
+
+load_dotenv(ROOT_DIR / '.env')
 
 initialize_firebase()
 db = get_firestore()
@@ -62,6 +66,84 @@ def add_user_to_db(user_data):
         return {
             "status": "success",
             "id": user_data["id"]
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+def add_mentor_to_db(user_data):
+    """
+    Add a new mentor to the database
+    
+    Args:
+        user_data (dict): User information including name, email, and optional id
+        
+    Returns:
+        dict: Status of the operation and document reference
+    """
+    try:
+        # Let Firebase generate a new document ID if not provided
+        if 'id' not in user_data:
+            user_ref = db.collection('users').document()
+            user_data['id'] = user_ref.id
+        else:
+            user_ref = db.collection('users').document(user_data["id"])
+            
+        # Check if user already exists
+        user_doc = user_ref.get()
+        if user_doc.exists:
+            return {
+                "status": "error",
+                "message": "User with this ID already exists"
+            }
+        
+        # Add timestamp and userType
+        user_data["created_at"] = datetime.now(timezone.utc)
+        user_data["userType"] = "mentor"
+        
+        # Create the user document
+        user_ref.set(user_data)
+        
+        return {
+            "status": "success",
+            "id": user_data["id"]
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+def update_cal_user_id(user_id, cal_user_id):
+    """
+    Update user document with Cal.com user ID
+    
+    Args:
+        user_id (str): Firebase user ID
+        cal_user_id (str): Cal.com user ID
+        
+    Returns:
+        dict: Status of the operation
+    """
+    try:
+        user_ref = db.collection('users').document(user_id)
+        user_doc = user_ref.get()
+        
+        if not user_doc.exists:
+            return {
+                "status": "error",
+                "message": "User not found"
+            }
+            
+        user_ref.update({
+            'cal_user_id': cal_user_id
+        })
+        
+        return {
+            "status": "success",
+            "message": "Cal.com ID updated successfully"
         }
     except Exception as e:
         return {

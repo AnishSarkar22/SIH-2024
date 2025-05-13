@@ -1,36 +1,51 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import Classes from './components/Classes';
-import Message from './components/Message';
-import Chat from './components/Chat';
-import MChat from './components/MChat';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import MProfile from './components/MProfile';
-import Statistics from './components/Statistics';
-import MStatistics from './components/MStatistics';
-import Notification from './components/Notification';
-import MNotification from './components/MNotification';
-import Setting from './components/Setting';
-import MSetting from './components/MSetting';
-import MDashboard from './components/MDashboard';
-import MMessage from './components/MMessage';
-import Mentor from './components/Mentor';
-import Leaderboard from './components/Leaderboard';
-import Signin from './components/Signin';
-import SignUp from './components/Signup';
-import AboutUs from './components/AboutUs';
+import Dashboard from './components/Mentee/Dashboard';
+import Classes from './components/Mentee/Classes';
+import Message from './components/Mentee/Message And Chat/Message';
+import Chat from './components/Mentee/Message And Chat/Chat';
+import MChat from './components/Mentor/Message And Chat/MChat';
+import Home from './components/Home/Home';
+import Profile from './components/Mentee/Profile/Profile';
+import MProfile from './components/Mentor/Profile/MProfile';
+import Statistics from './components/Mentee/Profile/Statistics';
+import MStatistics from './components/Mentor/Profile/MStatistics';
+import Notification from './components/Mentee/Profile/Notification';
+import MNotification from './components/Mentor/Profile/MNotification';
+import Setting from './components/Mentee/Profile/Setting';
+import MSetting from './components/Mentor/Profile/MSetting';
+import MDashboard from './components/Mentor/MDashboard';
+import MMessage from './components/Mentor/Message And Chat/MMessage';
+import Mentor from './components/Mentee/Mentor Option/Mentor';
+import Leaderboard from './components/Mentee/Leaderboard/Leaderboard';
+import Signin from './components/Login and Signup/Signin';
+import SignUp from './components/Login and Signup/Signup';
+import AboutUs from './components/AboutUs/AboutUs';
 // import HNavbar from './components/HNavbar';
-import BasicDetails from './components/BasicDetails';
-import ApplyMentor from './components/ApplyMentor';
-import Blog from './components/blog';
-import Personal_AI from './components/Personal_AI';
-import MPersonal_AI from './components/MPersonal_AI';
-import Quiz from './components/Quiz';
-import Resource from './components/Resource';
-import MSchedule from './components/MSchedule';
+import ApplyMentor from './components/Apply Mentor/ApplyMentor';
+import Blog from './components/Blogs/blog';
+import Personal_AI from './components/Mentee/Message And Chat/Personal_AI';
+import MPersonal_AI from './components/Mentor/Message And Chat/MPersonal_AI';
+import Quiz from './components/Mentee/Leaderboard/Quiz';
+import Resource from './components/Mentee/Resource';
+import MSchedule from './components/Mentor/MSchedule';
+import BasicDetails2 from './components/BasicDetails/BasicDetails2';
+import VideoCall from './components/Mentor/VideoCall/VideoCall';
 // import PrivateRoute from './components/PrivateRoute'; 
+import Blog1 from './components/Blogs/Blog1';
+import Blog2 from './components/Blogs/Blog2';
+import Blog3 from './components/Blogs/Blog3';
+import Blog4 from './components/Blogs/Blog4';
+import Blog5 from './components/Blogs/Blog5';
+import Blog6 from './components/Blogs/Blog6';
+import GroupSessions from './components/Mentor/GroupSessionsPage';
+import Bookings from './components/Mentor/Bookings';
+import Mentorprofile from './components/Mentee/Mentor Details/Mentorprofile';
+import WorkingHours from './components/WorkingHours';
+import MentorReferrals from './components/MentorReferrals';
+import JobPostingDashboard from './components/JobPostingDashboard';
+import MenteeJobPosting from './components/MenteeJobPosting';
+import MenteeReferralsPage from './components/MenteeReferralsPage'; 
 
 
 function App() {
@@ -58,7 +73,7 @@ function App() {
         <Route path="/mentor-profile/notifications" element={<PrivateRoute><MNotification /></PrivateRoute>} />
         <Route path="/profile/settings" element={<PrivateRoute><Setting /></PrivateRoute>} />
         <Route path="/mentor-profile/settings" element={<PrivateRoute><MSetting /></PrivateRoute>} />
-        <Route path="/mentors" element={<PrivateRoute><Mentor /></PrivateRoute>} />
+        <Route path="/explore" element={<PrivateRoute><Mentor /></PrivateRoute>} />
         <Route path="/leaderboard" element={<PrivateRoute><Leaderboard /></PrivateRoute>} /> */}
 
         <Route path="/dashboard" element={<Dashboard />} />
@@ -78,17 +93,30 @@ function App() {
         <Route path="/mentor-profile/settings" element={<MSetting />} />
         <Route path="/mentors" element={<Mentor />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/basic-details" element={<BasicDetails />} />
         <Route path="/apply-mentor" element={<ApplyMentor />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/codementor-review-is-it-the-coding-mentor-youve-been-dreaming-of" element={<Blog1 />} />
+        <Route path="/blog/intj-meaning-what-it-really-means-for-your-tech-career" element={<Blog2 />} />
+        <Route path="/blog/tips-for-effective-remote-work" element={<Blog3 />} />
+        <Route path="/blog/understanding-javascript-closures" element={<Blog4 />} />
+        <Route path="/blog/beginners-guide-to-react" element={<Blog5 />} />
+        <Route path="/blog/top-web-development-trends-2024" element={<Blog6 />} />
+        <Route path="/one-to-one-booking" element={<Bookings />} />
         <Route path="/personal-ai" element={<Personal_AI />} /> {/* Added route for Personal_AI */}
         <Route path="/mpersonal-ai" element={<MPersonal_AI />} /> {/* Added route for MPersonal_AI */}
         <Route path="/quiz/:id" element={<Quiz />} />
         <Route path="/resources" element={<Resource />} />
+        <Route path="/group-sessions" element={<GroupSessions />} />
         <Route path="/mentor-schedule" element={<MSchedule />} />
-
-          {/* Redirect to home if route does not exist */}
+        <Route path="/basic-details" element={<BasicDetails2 />} />
+        <Route path="/video-call" element={<VideoCall />} />
+        <Route path="/mentor-profile-details" element={<Mentorprofile />} />
+        <Route path="/working-hours" element={<WorkingHours />} />
         <Route path="*" element={<Navigate to="/home" />} />
+        <Route path="/mentor-referrals" element={<MentorReferrals />} />
+        <Route path="/job-posting-dashboard" element={<JobPostingDashboard />} />
+        <Route path="/mentee-job-posting" element={<MenteeJobPosting />} />
+        <Route path="/mentee-referrals" element={<MenteeReferralsPage />} />
       </Routes>
     </Router>
   );

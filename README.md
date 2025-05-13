@@ -19,6 +19,8 @@ Mentor Connect is a comprehensive mentorship platform developed as part of the S
 
 ### Setup Instructions
 
+#### Frontend
+
 To set up this project locally, follow these steps:
 
 1. Clone the repository:
@@ -39,25 +41,88 @@ To set up this project locally, follow these steps:
    npm install
    ```
 
-4. Set up environment variables (if applicable).
-5. Start the development server:
+4. Set up environment variables (if applicable) in the root directory.
+
+5. Build the project:
 
    ```bash
-   npm run dev
+   npm run build
+   ```
+
+#### Backend
+
+1. Go to backend folder:
+
+   ```bash
+   cd backend
+   ```
+
+2. Set up environment variables (if applicable).
+
+3. Set up the Python virtual enviornment:
+
+   1. Make sure Python is installed:
+
+      ```bash
+      # macOS/Linux
+      python3 --version
+      
+      # Windows
+      python --version
+      ```
+
+   2. Create a virtual environment:
+
+      ```bash
+      # macOS/Linux
+      python3 -m venv venv
+      
+      # Windows
+      python -m venv venv
+      ```
+
+   3. Activate the virtual enviornment:
+
+      ```bash
+      # macOS/Linux
+      source venv/bin/activate
+      
+      # Windows
+      .\venv\Scripts\activate
+      ```
+
+   4. Install Python dependencies:
+
+      ```bash
+      # Same for all platforms
+      pip install -r requirements.txt
+      ```
+
+   5. To deactivate the virtual environment when done:
+
+      ```bash
+      # Same for all platforms
+      deactivate
+      ```
+
+4. Start the Backend server:
+
+   ```bash
+   python3 server.py
    ```
 
 ### Technologies Used
 
-#### Frontend
+#### For Frontend
 
 - React
 - Vite
 - Tailwind CSS
 
-#### Backend
+#### For Backend
 
 - Flask
-- PostgreSQL
+- Firestore Realtime Listeners
 
 #### APIs and Services
 

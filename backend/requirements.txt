@@ -1,7 +1,10 @@
 flask
 flask_cors
 DateTime
-# openai
+
+openai
+gradio
+
 gunicorn
 python-dotenv
 firebase-admin
@@ -9,5 +12,6 @@ firebase-admin
 # PyMongo==4.6.1
 pytest
 pytest-mock
-# redis
-# Flask-Session
+google-auth-oauthlib
+scikit-learn
+pandas
