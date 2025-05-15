@@ -162,7 +162,7 @@ export default function Hero() {
       className="font-custom mb-4 bg-[url('static/bg-pattern.svg')] bg-[length:40rem] bg-no-repeat bg-[90%_-1%] scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-gray-200"
       style={styles}  // Use styles instead of font
     >
-      <div className="font-custom container flex flex-col-reverse items-center px-16 mx-auto mt-12 space-y-0 md:flex-row md:space-y-10">
+      <div className="font-custom container flex flex-col-reverse items-center px-16 mx-auto mt-28 space-y-0 md:flex-row md:space-y-10">
         <div className="flex flex-col mb-2 space-y-12 md:mb-28 md:w-1/2">
           <div className="flex flex-col space-y-8">
             <h1 className="max-w-md text-4xl font-bold text-center md:text-left text-darkBlue">

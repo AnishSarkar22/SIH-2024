@@ -1,7 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark, faEnvelope  } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faXmark,
+  faEnvelope,
+  faUserGroup,
+  faBriefcase,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   FaHome,
   FaUserFriends,
@@ -12,8 +19,15 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
-import { MoreVertical, UserCircle, BarChart2, Bell, Settings, LogOut } from "lucide-react";
-import anishImage from '../../../public/images/anish.png';  
+import {
+  MoreVertical,
+  UserCircle,
+  BarChart2,
+  Bell,
+  Settings,
+  LogOut,
+} from "lucide-react";
+import anishImage from "../../../public/images/anish.png";
 
 const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
   const [userName, setUserName] = useState("");
@@ -54,17 +68,27 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
     {
       label: "Log Out",
       icon: LogOut,
-      onClick: () => (
-        <Link
-          to="/signin"
-          className="relative flex items-center p-2 ml-3 mr-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-600 hover:text-white dark:hover:bg-gray-600"
-          onClick={handleLogout}
-        >
-          <LogOut className="w-5 h-5" />
-          {!isSidebarShrink && <span className="ml-3">Log Out</span>}
-        </Link>
-      ),
-    },
+      onClick: async () => {
+        try {
+          const response = await fetch("http://127.0.0.1:5000/api/logout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          });
+          
+          if (response.ok) {
+            // Clear localStorage
+            localStorage.clear();
+            // Navigate to login
+            navigate("/login");
+          }
+        } catch (error) {
+          console.error("Logout failed:", error);
+        }
+      }
+    }
   ];
 
   useEffect(() => {
@@ -155,7 +179,6 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
       setUserName("Guest");
     }
   }, []);
-  
 
   const getLinkStyle = (path) => {
     if (activeLink === path) {
@@ -174,7 +197,10 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
           className="lg:hidden p-4 mr-16 text-gray-600 dark:text-gray-300 fixed top-4 left-1 z-50"
           onClick={toggleMobileMenu}
         >
-          <FontAwesomeIcon icon={faBars} className="text-2xl dark:text-gray-300" />
+          <FontAwesomeIcon
+            icon={faBars}
+            className="text-2xl dark:text-gray-300"
+          />
         </button>
       )}
       {/* Sidebar */}
@@ -348,7 +374,10 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
               style={getLinkStyle("/mentee-referrals")}
             >
               <div className="flex items-center">
-              <FontAwesomeIcon icon={faEnvelope} className="text-xl w-8 text-center" />
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="text-xl w-8 text-center"
+                />
                 {!isSidebarShrink && (
                   <span className="ml-3 text-lg sidebar-text">Referrals</span>
                 )}
@@ -358,14 +387,24 @@ const Sidebar = ({ isDarkMode, sidebarShrink, toggleSidebar }) => {
           <div className="flex items-center justify-between max-w-sm lg:absolute bottom-0 mt-10 ml-10">
             <div className="flex items-center space-x-4 p-6">
               <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-800">
-                <img
-                  src={anishImage}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
+                {userName !== "Guest" ? (
+                  <div className="w-full h-full bg-indigo-600 flex items-center justify-center text-white font-medium">
+                    {userName.charAt(0).toUpperCase()}
+                  </div>
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      size="lg"
+                      className="text-gray-600"
+                    />
+                  </div>
+                )}
               </div>
               <div>
-                <h3 className="font-medium dark:text-white">{userName || "Guest"}</h3>
+                <h3 className="font-medium dark:text-white">
+                  {userName || "Guest"}
+                </h3>
               </div>
             </div>
 
