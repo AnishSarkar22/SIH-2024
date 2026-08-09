@@ -1,3 +1,5 @@
+
+
 # Mentor-Connect
 
 ## Project Overview
@@ -32,7 +34,7 @@ To set up this project locally, follow these steps:
 2. Navigate to the project directory:
 
    ```bash
-   cd mentor-connect
+   cd SIH-2024
    ```
 
 3. Install dependencies:
